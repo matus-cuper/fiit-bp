@@ -1,62 +1,116 @@
 % Bakalársky projekt 2016/2017
 % Matúš Cuper
 
+%-------------------------------------------------------------------------------
+%   PACKAGES AND DOCUMENT CONFIGURATION
+%-------------------------------------------------------------------------------
 
-\documentclass[10pt,twoside,slovak,a4paper]{article}
+\documentclass[12pt,oneside,slovak,a4paper]{book}
 
-
-\usepackage{float}
+% \usepackage{float}
 \usepackage[slovak]{babel}
-\usepackage[T1]{fontenc}
+% \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}
-\usepackage{url}
-\usepackage{hyperref}
-\usepackage{cite}
-\usepackage{times}
-\usepackage[dvips,dvipdfm,a4paper,centering,textwidth=14cm,top=4.6cm,headsep=.6cm,footnotesep=1cm,footskip=0.6cm,bottom=3.8cm]{geometry}
+% \usepackage{graphicx}
+% \usepackage{url}
+\usepackage{titlesec}																														% remove "Chapter N" header from chapter
+\usepackage{times}                                                              % Times New Roman
+% \usepackage{hyperref}
+% \usepackage{cite}
+% \usepackage{times}
+% \usepackage[dvips,dvipdfm,a4paper,centering,textwidth=14cm,top=4.6cm,headsep=.6cm,footnotesep=1cm,footskip=0.6cm,bottom=3.8cm]{geometry}
+\usepackage{geometry} 																													% set page margins
+	\geometry{a4paper, left=20mm, top=20mm, right=20mm, bottom=20mm}
 
-\pagestyle{headings}
+
+% \pagestyle{headings}
+\titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\Large} 					% remove "Chapter N" header from chapter
+
+%-------------------------------------------------------------------------------
+%   TITLE PAGES
+%-------------------------------------------------------------------------------
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	{\large \textbf{SLOVENSKÁ TECHNICKÁ UNIVERZITA V BRATISLAVE} \par}
+	\vspace{0.5cm}
+	{\large \textbf{Fakulta informatiky a informačných technológií} \par}
+	\vspace{6cm}
+	{\huge\bfseries Optimalizácia konfiguračných parametrov predikčných metód \par}
+	\vspace{2cm}
+	{\scshape\large \textbf{Bakalárska práca} \par}
+	\vspace{12.5cm}
+	\noindent{\bfseries\large 2016 \hfill Matúš Cuper }
+	\vfill
+\end{titlepage}
+
+\begin{titlepage}
+	\centering
+	{\large \textbf{SLOVENSKÁ TECHNICKÁ UNIVERZITA V BRATISLAVE} \par}
+	\vspace{0.5cm}
+	{\large \textbf{Fakulta informatiky a informačných technológií} \par}
+	\vspace{6cm}
+	{\huge\bfseries Optimalizácia konfiguračných parametrov predikčných metód \par}
+	\vspace{2cm}
+	{\scshape\large \textbf{Bakalárska práca} \par}
+	\vspace{5.5cm}
+	\raggedright
+	{\normalsize Študijný program: \par}
+	{\normalsize Číslo študijného odboru: \par}
+	{\normalsize Názov študijného odboru: \par}
+	{\normalsize Školiace pracovisko: \par}
+	{\normalsize Vedúci záverečnej práce: \par}
+	\vspace{4.5cm}
+	\noindent{\bfseries\large Bratislava 2016 \hfill Matúš Cuper }
+\end{titlepage}
+
+% \podakovanie
+% \abstrakt
+% \abstract
+% \prehlasenie
+
+\tableofcontents
 
 
-\title{Optimalizácia konfiguračných parametrov predikčných metód
-\thanks{Bakalársky projekt, ak. rok 2016/2017,
-vedenie: Ing. Marek Lóderer}}
 
-\author{Matúš Cuper\\[2pt]
-	{\small Slovenská technická univerzita v Bratislave}\\
-	{\small Fakulta informatiky a informačných technológií}\\
-	{\small \texttt{xcuper@fiit.stuba.sk}}
-	}
 
-\date{\small 5. október 2016}
+\chapter{Úvod}
+Tu bude úvod
+
+\chapter{Záver} \label{zaver}
+Tu bude záver
+
+\end{document}
 
 
 \begin{document}
-
 \maketitle
+\tableofcontents
+
+% \begin{abstract}
+% Tu bude abstract
+% \end{abstract}
 
 
-\begin{abstract}
-
-Tu bude abstract
-
-\end{abstract}
-
-
-\section{Úvod}
+\chapter{Úvod}
 
 Tu bude úvod
 
-\paragraph{paragraf}
-Tu bude paragraf
 
-
-
-
-\section{Záver} \label{zaver}
+\chapter{Záver} \label{zaver}
 
 Tu bude záver
 
 
 \end{document}
+
+
+
+% Kapitola \chapter{Nazov}
+% Pokapitola (Section) \section{Nazov}
+% Subsection \subsection{Nazov}
+% Paragraph \paragraph{Nazov}
+% Ak niečo nechceme číslovať, použijeme *, avšak, ak to chceme v obsahu, musíme to do neho pridať
+
+% \Huge, \huge, \LARGE, \Large, \large, \normalsize, \small, \footnotesize, \tiny

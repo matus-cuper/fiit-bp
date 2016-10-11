@@ -15,3 +15,10 @@ hodnôt konfiguračných parametrov pre zadanú predikčnú metódu, pomocou vyb
 optimalizačných algoritmov. Jadro systému implementujte v jazyku R. Grafické
 používateľské rozhranie vytvorte pomocou knižnice Shiny. Porovnajte
 a prezentujte výsledky vybraných optimalizačných algoritmov.
+
+## Create LaTeX PDF 
+```
+latex bp.tex 
+bibtex bp.aux 
+pdflatex bp.tex 
+```

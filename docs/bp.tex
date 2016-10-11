@@ -14,17 +14,17 @@
 % \usepackage{graphicx}
 % \usepackage{url}
 \usepackage{titlesec}																														% remove "Chapter N" header from chapter
-\usepackage{times}                                                              % Times New Roman
+\usepackage{times}																															% Times New Roman
 % \usepackage{hyperref}
 % \usepackage{cite}
 % \usepackage{times}
 % \usepackage[dvips,dvipdfm,a4paper,centering,textwidth=14cm,top=4.6cm,headsep=.6cm,footnotesep=1cm,footskip=0.6cm,bottom=3.8cm]{geometry}
-\usepackage{geometry} 																													% set page margins
-	\geometry{a4paper, left=20mm, top=20mm, right=20mm, bottom=20mm}
+\usepackage[a4paper, centering,
+											left=30mm, top=20mm, right=20mm, bottom=20mm]{geometry}		% set page margins
 
 
 % \pagestyle{headings}
-\titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\Large} 					% remove "Chapter N" header from chapter
+\titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\Large}						% remove "Chapter N" header from chapter
 
 %-------------------------------------------------------------------------------
 %   TITLE PAGES
@@ -72,36 +72,84 @@
 
 \tableofcontents
 
-
-
+%-------------------------------------------------------------------------------
+%   Chapter 1 - Introduction
+%-------------------------------------------------------------------------------
 
 \chapter{Úvod}
 Tu bude úvod
 
+%-------------------------------------------------------------------------------
+%   Chapter 2 - Analysis of predictive algorithms
+%-------------------------------------------------------------------------------
+
+\chapter{Analýza predičkných algoritmov}
+
+\paragraph{Regression model}
+je funkcia (f), ktorou sa snažíme odhadnúť závislú premmenú (Y), pomocou
+nezávislej premennej (X) a neznámych parametrov (Beta), (Beta) odhadujeme na
+základe dát, (f) je známa na základe vzťahov medzi (Y) a (X)\cite{Grmanova2016}.
+najpoužívanejšia štatistická metóda, modeluje vzťah závislej premennej
+(spotreba elektriky) a nezávislej premmennej, čiže ostatných faktorov
+(počasie, deň v týždni, odoberateľ), spotreba tak môže byť rozdelená na
+štandardný smer (trend) a trend lineárne závislý od niektorých faktorov
+vplývajúcich na spotrebu\cite{KumarSingh2013}.
+
+\paragraph{Multiple regression model}
+najpopulárnejšia metóda, často používa na predpoveď spotreby ovplyvnenej
+množstvom faktorov (meteologické, cena elektriky, ekonomický
+nárast)\cite{KumarSingh2013}.
+
+\paragraph{Autoregressive model}
+môže modelovať profil záťaže za predpokladu, že zátaž je lineárnou kombináciou
+predchádzajúcich záťaží\cite{KumarSingh2013}.
+
+\paragraph{Autoregressive Moving-Average model}
+model reprezentuje súčastnú hodnotu časového rádu linárne na základe jeho hodnôt
+a hodnôt bieleho šumu v predchádzajúcich periódach\cite{KumarSingh2013}.
+
+\paragraph{Ensemble model}
+používa sa na jednodňovú predikciu, h je počet meraní, ktoré sú denne dostupné,
+v deň t sa vykoná h predikcií podľa váženého priemeru m modelmi, nasledujúci
+deň sa vypočíta chyba predpovede, na základe ktorej sa znova prepočítajú váhy
+a každý model sa aktualizuje\cite{Grmanova2016}.
+
+\paragraph{Seasonal naïve method}
+poslednú zmeranú hodnotu použijem ako predpoveď alebo pre high seasonal data
+použijem už nameranú hodnotu z rovnakého obdobia (napr. rok
+dozadu)\cite{Grmanova2016}.
+
+\paragraph{Naïve average long-term method}
+je založené na predpoklade non-seasonal patterns, predpokladá, že časové rády sú
+lokálne stabilné s pomaly meniacim sa priemerom, predpovedaná hodnota je
+priemorom viacerých hodnôt\cite{Grmanova2016}.
+
+\paragraph{Naïve In median long-term method}
+je alternatíva k predchádzajúcej metóde, priemer nie je schopný reagovať na
+rapídne výkyvy a abnormality, lepšia možnosť je preto spraviť median
+z posledných n časových radov\cite{Grmanova2016}.
+
+\paragraph{Stochastic Time Series}
+metódy časových radov sú založené na predpoklade, že dáta majú vnútornú
+štruktúru, ako napr. autokoreláciu, trend či sezónnu variáciu, najprv sa
+precízne zostaví vzor zodpovedajúci dostupným dátam a potom sa predpovie
+hodnota\cite{KumarSingh2013}.
+
+\paragraph{Support Vector Machine based Techniques}
+je metóda analyzujúca dáta a rozpoznávajúca vzory, používaná na roztriedenie
+a regresnú analýzu, kombinuje zovšeobecnené riadenie
+s technikou ??????\cite{KumarSingh2013}.
+
+
 \chapter{Záver} \label{zaver}
 Tu bude záver
 
-\end{document}
+%-------------------------------------------------------------------------------
+%   Bibliography
+%-------------------------------------------------------------------------------
 
-
-\begin{document}
-\maketitle
-\tableofcontents
-
-% \begin{abstract}
-% Tu bude abstract
-% \end{abstract}
-
-
-\chapter{Úvod}
-
-Tu bude úvod
-
-
-\chapter{Záver} \label{zaver}
-
-Tu bude záver
-
+\bibliography{bibliography}
+\bibliographystyle{ieeetr}
 
 \end{document}
 

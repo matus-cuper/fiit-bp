@@ -15,7 +15,16 @@
 % \usepackage{url}
 \usepackage{titlesec}																														% remove "Chapter N" header from chapter
 \usepackage{times}																															% Times New Roman
-% \usepackage{hyperref}
+\usepackage[unicode]{hyperref}																									% enable hyper references in table of content
+\hypersetup{																																		% with default colours for links
+    colorlinks,
+		pageanchor=false,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
 % \usepackage{cite}
 % \usepackage{times}
 % \usepackage[dvips,dvipdfm,a4paper,centering,textwidth=14cm,top=4.6cm,headsep=.6cm,footnotesep=1cm,footskip=0.6cm,bottom=3.8cm]{geometry}
@@ -24,7 +33,7 @@
 
 
 % \pagestyle{headings}
-\titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\Large}						% remove "Chapter N" header from chapter
+%\titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\Large}						% remove "Chapter N" header from chapter
 
 %-------------------------------------------------------------------------------
 %   TITLE PAGES
@@ -98,7 +107,7 @@ Tu bude úvod
 \subsection{MA}
 \subsection{ARMA}
 \subsection{ARIMA}
-\subsection{Box-Jekins metodika}
+%\subsection{Box-Jekins metodika}
 
 \section{Prírastkové učenie}
 \subsection{Prírastkové SVM}
@@ -171,6 +180,44 @@ hodnota\cite{KumarSingh2013}.
 je metóda analyzujúca dáta a rozpoznávajúca vzory, používaná na roztriedenie
 a regresnú analýzu, kombinuje zovšeobecnené riadenie
 s technikou ??????\cite{KumarSingh2013}.
+
+\paragraph{Concept drift}
+je správanie premennej, ktorú sa snažím predikovať sa môže časom meniť,
+čím sa postupne stáva model menej a menej presný\cite{Grmanova2016}.
+
+\paragraph{Online algorithm}
+spracováva vstup sériovo kúsok po kúsku, vstupné dáta nie sú dostupné na začiatku výpočtu % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
+musí spracovať vstup v jednej iterácií bez žiadnej podrobnej znalosti budúcich vstupov % https://xlinux.nist.gov/dads/HTML/online.html
+viac dát, časové obmedzenia, môže sa časom meniť % http://stats.stackexchange.com/questions/897/online-vs-offline-learning
+
+\paragraph{Offline algorithm}
+rieši problém od začiatku so všetkými vstupnými dátami % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
+vopred je daná celá séria vstupov % https://xlinux.nist.gov/dads/HTML/offline.html
+
+\paragraph{Support Vector Machine}
+je ML algoritmus používaný ako na klasifikáciu tak na regresiu
+support vector sú koordináty jednotlivých meraní napr. muž a žena a ich merané veličny reprezentované na osy, ktoré sú hraničnými elementami rôznych skupín
+maximalizuje rozmädzie medzi support vektormi jednej kategórie a support vektormi druhej kategórie, rozhodovacia funkcia je definovaná podmnožinou testovacej vzorky (jednotlivé supprot vektory)
+v 2D sú kategórie oddelené čiarou vo viacrozmerných dimenziách rovinou
+
+\paragraph{Incremental SVM}
+základom je pridávanie % http://www.jmlr.org/papers/volume7/laskov06a/laskov06a.pdf
+nový bod má najskôr pridelenú váhu 0, ak toto pridelenie nie je optimálnym riešením, teda bod sa môže stať support vectorom,
+váhy ostatných vektorov a rozhodovací prah musia byť aktualizované kvôli získaniu optimálneho riešenia nad novou množinou support vektorov
+
+\paragraph{Linear SVM}
+linárna kombinácia elementov (features, črty) značí, že sa jedná aj o lineárny klasifikátor  % http://stackoverflow.com/questions/6160495/support-vector-machines-a-simple-explanation
+napr ak (w1 * x1 + w2 * x2) > C potom element patrí do skupiny A, hodnotami x1 a x2 je element definovaný, tak ako je bod definovaný x a y súradnicou
+w je váha a C rozhodovacií prah, čiže ak nejaký ohodnotený element neprekročí hranicu spadá do jednej skupiny, ak prekročí spadá do druhej
+
+\paragraph{Kernel trick}
+problém nie je lineárne separovateľný, originálny nelineárny priestor % http://stats.stackexchange.com/questions/3947/help-me-understand-support-vector-machines
+je premietnutý do viacrozmerného priesotru pomocou nejakej nelineárnej transofrmácia s očakávaním, že to problém už bude riešiteľný
+
+\paragraph{Extreme learning machine}
+je novovznikajúca technika učenia poskytujúca efektívne % http://cherup.yonsei.ac.kr/files/Paper/2013_IEEE%20Intelligent%20Systems%20-%20Off%20line%20version_A%20System%20for%20Signature%20Verification%20Based%20on%20Horizontal%20and%20Vertical%20Components%20in%20Hand%20Gestures.pdf
+a zjednotené riešenie na všeobecné dopredné siete ako
+neurónové siete, RBF siete alebo kernelové učenie
 
 
 \chapter{Záver} \label{zaver}

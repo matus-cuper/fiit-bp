@@ -79,20 +79,69 @@
 % \abstract
 % \prehlasenie
 
+%-------------------------------------------------------------------------------
+%   Table of contents
+%-------------------------------------------------------------------------------
+
 \tableofcontents
 
 %-------------------------------------------------------------------------------
 %   Chapter 1 - Introduction
 %-------------------------------------------------------------------------------
 
-\chapter{Úvod}
-Tu bude úvod
+\chapter*{Úvod}
+% definícia časových radov
+% definícia problému ako sú závislosti na ročnom období alebo concept drift
+% definicia optimalizacnz algoritmov
+% preco optimalizacne algoritmy a nie hocco ine 
+
+Pri meraní odberu elektriky vznikajú dva typy tvz. Concept drift.
+\textbf{Concept drift} je zmena správania veličiny, ktorú sa snažíme
+predpovedať. Model sa tak stáva postupne nepresný a je potrebné aby sa tejto
+zmene prispôsobil. Prvým typom je trvalá alebo dočasná zmena spôsobená
+ekonomickými alebo ekologickými faktormi. Druhým typom je sezónna zmena,
+spôosbená zmenami ročných období a množstvom denného svetla. Sezónnu zmenu
+môžeme pozorovať na úrovni dní, týždňov alebo rokov. Kvôli tomu je nutné
+v každom modely rozdeľovat tieto dva typy concept drift\cite{Grmanova2016}.
 
 %-------------------------------------------------------------------------------
 %   Chapter 2 - Analysis of predictive algorithms
 %-------------------------------------------------------------------------------
 
-\chapter{Delenie predičkných algoritmov}
+\chapter{Analýza predičkných algoritmov}
+Na základe množstva predikčných
+\subsection{Lineárna regresia}
+
+\subsubsection{Multiple regression model}
+Viacnásobná regresia sa pokúša modelovať vzťah medzi dvoma alebo viacerými
+nezávislými premennými a závislou premennou vhodnou lineárnou rovnicou pre
+pozorované dáta. Výsledný model je vyjadrený ako funkcia viacerých nezávislých
+premenných a predpoveďou nie je priamka ako je to pri lineárnej
+regresii\cite{Grmanova2016}.
+Nezávislé premenné môžu predstavovať meteorologické vplyvy, ekonomický rast,
+ceny elektriky či kruzy mien\cite{KumarSingh2013}.
+
+\subsection{Support vector regression}
+
+\subsection{Random forrest}
+
+\subsection{Rozhodovacie stromy}
+\subsubsection{Regresný rozhodovací strom}
+
+%-------------------------------------------------------------------------------
+%   Chapter 3 - Analysis of optimizing algorithms
+%-------------------------------------------------------------------------------
+
+\chapter{Analýza optimalizačných algoritmov}
+
+%-------------------------------------------------------------------------------
+%   Chapter 4 - Specification
+%-------------------------------------------------------------------------------
+
+\chapter{Špecifikácia}
+\subsection{Meranie chyby predikcie}
+
+
 
 \section{Naivné prístupy}
 \subsection{}
@@ -219,6 +268,9 @@ je novovznikajúca technika učenia poskytujúca efektívne % http://cherup.yons
 a zjednotené riešenie na všeobecné dopredné siete ako
 neurónové siete, RBF siete alebo kernelové učenie
 
+%-------------------------------------------------------------------------------
+%   Chapter X - Conclusion
+%-------------------------------------------------------------------------------
 
 \chapter{Záver} \label{zaver}
 Tu bude záver

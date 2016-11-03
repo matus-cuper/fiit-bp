@@ -13,7 +13,8 @@
 \usepackage[utf8]{inputenc}
 % \usepackage{graphicx}
 % \usepackage{url}
-\usepackage{titlesec}																														% remove "Chapter N" header from chapter
+\usepackage{indentfirst}                                                        % indent first line after section
+% \usepackage{titlesec}																													% remove "Chapter N" header from chapter
 \usepackage{times}																															% Times New Roman
 \usepackage[unicode]{hyperref}																									% enable hyper references in table of content
 \hypersetup{																																		% with default colours for links
@@ -93,7 +94,7 @@
 % definícia časových radov
 % definícia problému ako sú závislosti na ročnom období alebo concept drift
 % definicia optimalizacnz algoritmov
-% preco optimalizacne algoritmy a nie hocco ine 
+% preco optimalizacne algoritmy a nie hocco ine
 
 Pri meraní odberu elektriky vznikajú dva typy tvz. Concept drift.
 \textbf{Concept drift} je zmena správania veličiny, ktorú sa snažíme
@@ -110,9 +111,10 @@ v každom modely rozdeľovat tieto dva typy concept drift\cite{Grmanova2016}.
 
 \chapter{Analýza predičkných algoritmov}
 Na základe množstva predikčných
-\subsection{Lineárna regresia}
+\section{Lineárna regresia}
+bars co
 
-\subsubsection{Multiple regression model}
+\subsection{Multiple regression model}
 Viacnásobná regresia sa pokúša modelovať vzťah medzi dvoma alebo viacerými
 nezávislými premennými a závislou premennou vhodnou lineárnou rovnicou pre
 pozorované dáta. Výsledný model je vyjadrený ako funkcia viacerých nezávislých
@@ -121,159 +123,171 @@ regresii\cite{Grmanova2016}.
 Nezávislé premenné môžu predstavovať meteorologické vplyvy, ekonomický rast,
 ceny elektriky či kruzy mien\cite{KumarSingh2013}.
 
-\subsection{Support vector regression}
+\section{Support vector regression}
+Support Vector Machine a Support Vector Regression sú založené na štatistickej
+teórií učenia, nazývanej aj VC teória, podľa svojich autorov, Vapnik
+a Chervonenkisa.
 
-\subsection{Random forrest}
+Support Vector Machine je použité na množstvo úloh strojového učenia ako je
+rozoznávanie vzorov, klasifikácia objektov a v prípade predikcií časových
+rádov to je regresná analýza. Support Vector Regression je postup, ktorého
+funkcia je predpovedaná pomocou nameraných dát, ktorými je Support Vector
+Machine postupne natrénované. Toto je odklon od tradičných predpovedí časových
+rádov, v zmysle, že Support Vector Machine nepoužíva žiadny model, ale
+predikciu riadia samotné dáta\cite{Sapankevych2009}.
 
-\subsection{Rozhodovacie stromy}
-\subsubsection{Regresný rozhodovací strom}
+% \section{Random forrest}
+%
+% \section{Rozhodovacie stromy}
+% \subsection{Regresný rozhodovací strom}
 
 %-------------------------------------------------------------------------------
 %   Chapter 3 - Analysis of optimizing algorithms
 %-------------------------------------------------------------------------------
 
-\chapter{Analýza optimalizačných algoritmov}
+% \chapter{Analýza optimalizačných algoritmov}
 
 %-------------------------------------------------------------------------------
 %   Chapter 4 - Specification
 %-------------------------------------------------------------------------------
 
-\chapter{Špecifikácia}
-\subsection{Meranie chyby predikcie}
+% \chapter{Špecifikácia}
+% \subsection{Meranie chyby predikcie}
 
 
 
-\section{Naivné prístupy}
-\subsection{}
+% \section{Naivné prístupy}
+% \subsection{}
+%
+%
+% \section{Klasické prístupy}
+%
+% \subsection{Stupňovitý regresný model}
+% \subsection{Neurónové siete}
+% \subsection{Rozhodovací strom}
+% \subsection{AR}
+% \subsection{MA}
+% \subsection{ARMA}
+% \subsection{ARIMA}
+% %\subsection{Box-Jekins metodika}
+%
+% \section{Prírastkové učenie}
+% \subsection{Prírastkové SVM}
+% \subsection{Extrémne strojové učenie}
+% \subsection{Prírastková ARIMA}
+%
+% \section{Učenie súborov klasifikátorov}
+% Dva prístupy: homogénne a heterogénne učenie ale aj ich kombinácia
+% \textbf{Homogénne učenie súborov klasifikátorov} pozostáva z modelov rovnakého
+% typu, ktoré sa učia na rôznych podmnožinách datasetu.
+% \textbf{Heterogénne učenie súborov klasifikátorov} aplikuje rôzne typy modelov
+% nad rovnakými dátovými množinami\cite{Grmanova2016}.
+% \subsection{Bagging}
+% \subsection{Boosting}
+% \subsection{Adaboost}
+% \subsection{Stacked generalization}
+% \subsection{Mixture of experts}
+%
+% \paragraph{Regression model}
+% je funkcia (f), ktorou sa snažíme odhadnúť závislú premmenú (Y), pomocou
+% nezávislej premennej (X) a neznámych parametrov (Beta), (Beta) odhadujeme na
+% základe dát, (f) je známa na základe vzťahov medzi (Y) a (X)\cite{Grmanova2016}.
+% najpoužívanejšia štatistická metóda, modeluje vzťah závislej premennej
+% (spotreba elektriky) a nezávislej premmennej, čiže ostatných faktorov
+% (počasie, deň v týždni, odoberateľ), spotreba tak môže byť rozdelená na
+% štandardný smer (trend) a trend lineárne závislý od niektorých faktorov
+% vplývajúcich na spotrebu\cite{KumarSingh2013}.
+%
+% \paragraph{Multiple regression model}
+% najpopulárnejšia metóda, často používa na predpoveď spotreby ovplyvnenej
+% množstvom faktorov (meteologické, cena elektriky, ekonomický
+% nárast)\cite{KumarSingh2013}.
+%
+% \paragraph{Autoregressive model}
+% môže modelovať profil záťaže za predpokladu, že zátaž je lineárnou kombináciou
+% predchádzajúcich záťaží\cite{KumarSingh2013}.
+%
+% \paragraph{Autoregressive Moving-Average model}
+% model reprezentuje súčastnú hodnotu časového rádu linárne na základe jeho hodnôt
+% a hodnôt bieleho šumu v predchádzajúcich periódach\cite{KumarSingh2013}.
+%
+% \paragraph{Ensemble model}
+% používa sa na jednodňovú predikciu, h je počet meraní, ktoré sú denne dostupné,
+% v deň t sa vykoná h predikcií podľa váženého priemeru m modelmi, nasledujúci
+% deň sa vypočíta chyba predpovede, na základe ktorej sa znova prepočítajú váhy
+% a každý model sa aktualizuje\cite{Grmanova2016}.
+%
+% \paragraph{Seasonal naïve method}
+% poslednú zmeranú hodnotu použijem ako predpoveď alebo pre high seasonal data
+% použijem už nameranú hodnotu z rovnakého obdobia (napr. rok
+% dozadu)\cite{Grmanova2016}.
+%
+% \paragraph{Naïve average long-term method}
+% je založené na predpoklade non-seasonal patterns, predpokladá, že časové rády sú
+% lokálne stabilné s pomaly meniacim sa priemerom, predpovedaná hodnota je
+% priemorom viacerých hodnôt\cite{Grmanova2016}.
+%
+% \paragraph{Naïve In median long-term method}
+% je alternatíva k predchádzajúcej metóde, priemer nie je schopný reagovať na
+% rapídne výkyvy a abnormality, lepšia možnosť je preto spraviť median
+% z posledných n časových radov\cite{Grmanova2016}.
+%
+% \paragraph{Stochastic Time Series}
+% metódy časových radov sú založené na predpoklade, že dáta majú vnútornú
+% štruktúru, ako napr. autokoreláciu, trend či sezónnu variáciu, najprv sa
+% precízne zostaví vzor zodpovedajúci dostupným dátam a potom sa predpovie
+% hodnota\cite{KumarSingh2013}.
+%
+% \paragraph{Support Vector Machine based Techniques}
+% je metóda analyzujúca dáta a rozpoznávajúca vzory, používaná na roztriedenie
+% a regresnú analýzu, kombinuje zovšeobecnené riadenie
+% s technikou ??????\cite{KumarSingh2013}.
+%
+% \paragraph{Concept drift}
+% je správanie premennej, ktorú sa snažím predikovať sa môže časom meniť,
+% čím sa postupne stáva model menej a menej presný\cite{Grmanova2016}.
+%
+% \paragraph{Online algorithm}
+% spracováva vstup sériovo kúsok po kúsku, vstupné dáta nie sú dostupné na začiatku výpočtu % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
+% musí spracovať vstup v jednej iterácií bez žiadnej podrobnej znalosti budúcich vstupov % https://xlinux.nist.gov/dads/HTML/online.html
+% viac dát, časové obmedzenia, môže sa časom meniť % http://stats.stackexchange.com/questions/897/online-vs-offline-learning
+%
+% \paragraph{Offline algorithm}
+% rieši problém od začiatku so všetkými vstupnými dátami % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
+% vopred je daná celá séria vstupov % https://xlinux.nist.gov/dads/HTML/offline.html
+%
+% \paragraph{Support Vector Machine}
+% je ML algoritmus používaný ako na klasifikáciu tak na regresiu
+% support vector sú koordináty jednotlivých meraní napr. muž a žena a ich merané veličny reprezentované na osy, ktoré sú hraničnými elementami rôznych skupín
+% maximalizuje rozmädzie medzi support vektormi jednej kategórie a support vektormi druhej kategórie, rozhodovacia funkcia je definovaná podmnožinou testovacej vzorky (jednotlivé supprot vektory)
+% v 2D sú kategórie oddelené čiarou vo viacrozmerných dimenziách rovinou
+%
+% \paragraph{Incremental SVM}
+% základom je pridávanie % http://www.jmlr.org/papers/volume7/laskov06a/laskov06a.pdf
+% nový bod má najskôr pridelenú váhu 0, ak toto pridelenie nie je optimálnym riešením, teda bod sa môže stať support vectorom,
+% váhy ostatných vektorov a rozhodovací prah musia byť aktualizované kvôli získaniu optimálneho riešenia nad novou množinou support vektorov
+%
+% \paragraph{Linear SVM}
+% linárna kombinácia elementov (features, črty) značí, že sa jedná aj o lineárny klasifikátor  % http://stackoverflow.com/questions/6160495/support-vector-machines-a-simple-explanation
+% napr ak (w1 * x1 + w2 * x2) > C potom element patrí do skupiny A, hodnotami x1 a x2 je element definovaný, tak ako je bod definovaný x a y súradnicou
+% w je váha a C rozhodovacií prah, čiže ak nejaký ohodnotený element neprekročí hranicu spadá do jednej skupiny, ak prekročí spadá do druhej
+%
+% \paragraph{Kernel trick}
+% problém nie je lineárne separovateľný, originálny nelineárny priestor % http://stats.stackexchange.com/questions/3947/help-me-understand-support-vector-machines
+% je premietnutý do viacrozmerného priesotru pomocou nejakej nelineárnej transofrmácia s očakávaním, že to problém už bude riešiteľný
+%
+% \paragraph{Extreme learning machine}
+% je novovznikajúca technika učenia poskytujúca efektívne % http://cherup.yonsei.ac.kr/files/Paper/2013_IEEE%20Intelligent%20Systems%20-%20Off%20line%20version_A%20System%20for%20Signature%20Verification%20Based%20on%20Horizontal%20and%20Vertical%20Components%20in%20Hand%20Gestures.pdf
+% a zjednotené riešenie na všeobecné dopredné siete ako
+% neurónové siete, RBF siete alebo kernelové učenie
 
-
-\section{Klasické prístupy}
-
-\subsection{Stupňovitý regresný model}
-\subsection{Neurónové siete}
-\subsection{Rozhodovací strom}
-\subsection{AR}
-\subsection{MA}
-\subsection{ARMA}
-\subsection{ARIMA}
-%\subsection{Box-Jekins metodika}
-
-\section{Prírastkové učenie}
-\subsection{Prírastkové SVM}
-\subsection{Extrémne strojové učenie}
-\subsection{Prírastková ARIMA}
-
-\section{Učenie súborov klasifikátorov}
-Dva prístupy: homogénne a heterogénne učenie ale aj ich kombinácia
-\textbf{Homogénne učenie súborov klasifikátorov} pozostáva z modelov rovnakého
-typu, ktoré sa učia na rôznych podmnožinách datasetu.
-\textbf{Heterogénne učenie súborov klasifikátorov} aplikuje rôzne typy modelov
-nad rovnakými dátovými množinami\cite{Grmanova2016}.
-\subsection{Bagging}
-\subsection{Boosting}
-\subsection{Adaboost}
-\subsection{Stacked generalization}
-\subsection{Mixture of experts}
-
-\paragraph{Regression model}
-je funkcia (f), ktorou sa snažíme odhadnúť závislú premmenú (Y), pomocou
-nezávislej premennej (X) a neznámych parametrov (Beta), (Beta) odhadujeme na
-základe dát, (f) je známa na základe vzťahov medzi (Y) a (X)\cite{Grmanova2016}.
-najpoužívanejšia štatistická metóda, modeluje vzťah závislej premennej
-(spotreba elektriky) a nezávislej premmennej, čiže ostatných faktorov
-(počasie, deň v týždni, odoberateľ), spotreba tak môže byť rozdelená na
-štandardný smer (trend) a trend lineárne závislý od niektorých faktorov
-vplývajúcich na spotrebu\cite{KumarSingh2013}.
-
-\paragraph{Multiple regression model}
-najpopulárnejšia metóda, často používa na predpoveď spotreby ovplyvnenej
-množstvom faktorov (meteologické, cena elektriky, ekonomický
-nárast)\cite{KumarSingh2013}.
-
-\paragraph{Autoregressive model}
-môže modelovať profil záťaže za predpokladu, že zátaž je lineárnou kombináciou
-predchádzajúcich záťaží\cite{KumarSingh2013}.
-
-\paragraph{Autoregressive Moving-Average model}
-model reprezentuje súčastnú hodnotu časového rádu linárne na základe jeho hodnôt
-a hodnôt bieleho šumu v predchádzajúcich periódach\cite{KumarSingh2013}.
-
-\paragraph{Ensemble model}
-používa sa na jednodňovú predikciu, h je počet meraní, ktoré sú denne dostupné,
-v deň t sa vykoná h predikcií podľa váženého priemeru m modelmi, nasledujúci
-deň sa vypočíta chyba predpovede, na základe ktorej sa znova prepočítajú váhy
-a každý model sa aktualizuje\cite{Grmanova2016}.
-
-\paragraph{Seasonal naïve method}
-poslednú zmeranú hodnotu použijem ako predpoveď alebo pre high seasonal data
-použijem už nameranú hodnotu z rovnakého obdobia (napr. rok
-dozadu)\cite{Grmanova2016}.
-
-\paragraph{Naïve average long-term method}
-je založené na predpoklade non-seasonal patterns, predpokladá, že časové rády sú
-lokálne stabilné s pomaly meniacim sa priemerom, predpovedaná hodnota je
-priemorom viacerých hodnôt\cite{Grmanova2016}.
-
-\paragraph{Naïve In median long-term method}
-je alternatíva k predchádzajúcej metóde, priemer nie je schopný reagovať na
-rapídne výkyvy a abnormality, lepšia možnosť je preto spraviť median
-z posledných n časových radov\cite{Grmanova2016}.
-
-\paragraph{Stochastic Time Series}
-metódy časových radov sú založené na predpoklade, že dáta majú vnútornú
-štruktúru, ako napr. autokoreláciu, trend či sezónnu variáciu, najprv sa
-precízne zostaví vzor zodpovedajúci dostupným dátam a potom sa predpovie
-hodnota\cite{KumarSingh2013}.
-
-\paragraph{Support Vector Machine based Techniques}
-je metóda analyzujúca dáta a rozpoznávajúca vzory, používaná na roztriedenie
-a regresnú analýzu, kombinuje zovšeobecnené riadenie
-s technikou ??????\cite{KumarSingh2013}.
-
-\paragraph{Concept drift}
-je správanie premennej, ktorú sa snažím predikovať sa môže časom meniť,
-čím sa postupne stáva model menej a menej presný\cite{Grmanova2016}.
-
-\paragraph{Online algorithm}
-spracováva vstup sériovo kúsok po kúsku, vstupné dáta nie sú dostupné na začiatku výpočtu % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
-musí spracovať vstup v jednej iterácií bez žiadnej podrobnej znalosti budúcich vstupov % https://xlinux.nist.gov/dads/HTML/online.html
-viac dát, časové obmedzenia, môže sa časom meniť % http://stats.stackexchange.com/questions/897/online-vs-offline-learning
-
-\paragraph{Offline algorithm}
-rieši problém od začiatku so všetkými vstupnými dátami % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
-vopred je daná celá séria vstupov % https://xlinux.nist.gov/dads/HTML/offline.html
-
-\paragraph{Support Vector Machine}
-je ML algoritmus používaný ako na klasifikáciu tak na regresiu
-support vector sú koordináty jednotlivých meraní napr. muž a žena a ich merané veličny reprezentované na osy, ktoré sú hraničnými elementami rôznych skupín
-maximalizuje rozmädzie medzi support vektormi jednej kategórie a support vektormi druhej kategórie, rozhodovacia funkcia je definovaná podmnožinou testovacej vzorky (jednotlivé supprot vektory)
-v 2D sú kategórie oddelené čiarou vo viacrozmerných dimenziách rovinou
-
-\paragraph{Incremental SVM}
-základom je pridávanie % http://www.jmlr.org/papers/volume7/laskov06a/laskov06a.pdf
-nový bod má najskôr pridelenú váhu 0, ak toto pridelenie nie je optimálnym riešením, teda bod sa môže stať support vectorom,
-váhy ostatných vektorov a rozhodovací prah musia byť aktualizované kvôli získaniu optimálneho riešenia nad novou množinou support vektorov
-
-\paragraph{Linear SVM}
-linárna kombinácia elementov (features, črty) značí, že sa jedná aj o lineárny klasifikátor  % http://stackoverflow.com/questions/6160495/support-vector-machines-a-simple-explanation
-napr ak (w1 * x1 + w2 * x2) > C potom element patrí do skupiny A, hodnotami x1 a x2 je element definovaný, tak ako je bod definovaný x a y súradnicou
-w je váha a C rozhodovacií prah, čiže ak nejaký ohodnotený element neprekročí hranicu spadá do jednej skupiny, ak prekročí spadá do druhej
-
-\paragraph{Kernel trick}
-problém nie je lineárne separovateľný, originálny nelineárny priestor % http://stats.stackexchange.com/questions/3947/help-me-understand-support-vector-machines
-je premietnutý do viacrozmerného priesotru pomocou nejakej nelineárnej transofrmácia s očakávaním, že to problém už bude riešiteľný
-
-\paragraph{Extreme learning machine}
-je novovznikajúca technika učenia poskytujúca efektívne % http://cherup.yonsei.ac.kr/files/Paper/2013_IEEE%20Intelligent%20Systems%20-%20Off%20line%20version_A%20System%20for%20Signature%20Verification%20Based%20on%20Horizontal%20and%20Vertical%20Components%20in%20Hand%20Gestures.pdf
-a zjednotené riešenie na všeobecné dopredné siete ako
-neurónové siete, RBF siete alebo kernelové učenie
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion
 %-------------------------------------------------------------------------------
 
-\chapter{Záver} \label{zaver}
-Tu bude záver
+% \chapter{Záver}
+% Tu bude záver
 
 %-------------------------------------------------------------------------------
 %   Bibliography
@@ -296,3 +310,5 @@ Tu bude záver
 % \Huge, \huge, \LARGE, \Large, \large, \normalsize, \small, \footnotesize, \tiny
 % italic \textit{accident}.
 % bold \textbf{greatest}
+% -1 part     1 section     3 subsubsection  5 subparagraph
+%  0 chapter  2 subsection  4 paragraph

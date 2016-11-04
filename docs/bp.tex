@@ -91,19 +91,36 @@
 %-------------------------------------------------------------------------------
 
 \chapter*{Úvod}
-% definícia časových radov
-% definícia problému ako sú závislosti na ročnom období alebo concept drift
-% definicia optimalizacnz algoritmov
-% preco optimalizacne algoritmy a nie hocco ine
+Časový rad je množina dátových bodov nameraná v čase postupne za sebou.
+Matematicky je definovaný ako množina vektorov x(t), kde t reprezentuje
+uplynulý čas. Premenná x(t) je považovaná za náhodnú premennú.
+Merania v časových radoch sú usporiadané v chronologicky poradí.
 
-Pri meraní odberu elektriky vznikajú dva typy tvz. Concept drift.
+Časové rady delíme na spojité a diskrétne. Pozorovania pri spojitých časových
+radoch sú merané v každej jednotke času, zatiaľ čo diskrétne obsahujú iba
+pozorovania v diskrétnych časových bodoch. Hodnoty toku rieky, teploty
+či koncentrácie látok pri chemickom procese môžu byť zaznamenané ako spojitý
+časový rad. Naopak, populácia mesta, produkcia spoločnosti alebo kurzy mien
+reprezentujú diskrétny časový rad. Vtedy sú pozorovania oddelené rovnakými
+časovými intervalmi, napr. rokom, mesiacom či dňom. V našom prípade sú namerané
+dáta dostupné každú celú štvrťhodinu\cite{Agrawal2013}.
+
+Cieľom predikcií časových radov je predpovedať hodnotu premennej v budúcnosti
+na základe doteraz nameraných dátových vzoriek. Preto je potrebné nájsť funkciu,
+ktorá predpovedá hodnotu časového radu v budúcnosti konzistentne
+a objektvíne\cite{Sapankevych2009}.
+
+Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú 2 typy tvz. Concept drift.
 \textbf{Concept drift} je zmena správania veličiny, ktorú sa snažíme
 predpovedať. Model sa tak stáva postupne nepresný a je potrebné aby sa tejto
 zmene prispôsobil. Prvým typom je trvalá alebo dočasná zmena spôsobená
 ekonomickými alebo ekologickými faktormi. Druhým typom je sezónna zmena,
-spôosbená zmenami ročných období a množstvom denného svetla. Sezónnu zmenu
+spôsobená zmenami ročných období a množstvom denného svetla. Sezónnu zmenu
 môžeme pozorovať na úrovni dní, týždňov alebo rokov. Kvôli tomu je nutné
-v každom modely rozdeľovat tieto dva typy concept drift\cite{Grmanova2016}.
+v každom modely rozdeľovať tieto 2 typy concept drift\cite{Grmanova2016}.
+
+% definicia optimalizacnz algoritmov
+% preco optimalizacne algoritmy a nie hocco ine
 
 %-------------------------------------------------------------------------------
 %   Chapter 2 - Analysis of predictive algorithms
@@ -130,10 +147,10 @@ a Chervonenkisa.
 
 Support Vector Machine je použité na množstvo úloh strojového učenia ako je
 rozoznávanie vzorov, klasifikácia objektov a v prípade predikcií časových
-rádov to je regresná analýza. Support Vector Regression je postup, ktorého
+radov to je regresná analýza. Support Vector Regression je postup, ktorého
 funkcia je predpovedaná pomocou nameraných dát, ktorými je Support Vector
 Machine postupne natrénované. Toto je odklon od tradičných predpovedí časových
-rádov, v zmysle, že Support Vector Machine nepoužíva žiadny model, ale
+radov, v zmysle, že Support Vector Machine nepoužíva žiadny model, ale
 predikciu riadia samotné dáta\cite{Sapankevych2009}.
 
 % \section{Random forrest}
@@ -281,6 +298,17 @@ predikciu riadia samotné dáta\cite{Sapankevych2009}.
 % a zjednotené riešenie na všeobecné dopredné siete ako
 % neurónové siete, RBF siete alebo kernelové učenie
 
+% Časový rád je súbor meraní presne definovaných veličín získavaných opakovanými
+% meraniami. Dáta zbierané zriedkavo alebo jednorázovo nepovažujeme za časový rád.
+% Pozorované časové rády možno rozložiť na 3 zložky a to trendovú, sezónnu
+% a nepravidelnú\cite{AustralianBureau}.
+
+% Trendová zložka predstavuje smer veličiny v dlhodobom horizonte a máva klesajúci
+% alebo stúpajúci charakter. Na druhej strane, sezónna zložka má cyklický
+% charakter a dĺžka cyklu sa viaže napr. ku dňu, týždnu či roku. Nepravidelná
+% zložka reprezentuje náhodné zmeny v prostredí, ktoré nie sú relevantné pre
+% predpoveď časových rádov. Pri trénovaní modelu sa ich snažíme odfiltrovať
+% optimálnou mierou natrénovania modelu.
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion

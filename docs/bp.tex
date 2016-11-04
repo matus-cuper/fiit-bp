@@ -90,11 +90,12 @@
 %   Chapter 1 - Introduction
 %-------------------------------------------------------------------------------
 
-\chapter*{Úvod}
+\chapter{Časové rady}
 Časový rad je množina dátových bodov nameraná v čase postupne za sebou.
 Matematicky je definovaný ako množina vektorov x(t), kde t reprezentuje
 uplynulý čas. Premenná x(t) je považovaná za náhodnú premennú.
-Merania v časových radoch sú usporiadané v chronologicky poradí.
+Merania v časových radoch sú usporiadané v chronologicky
+poradí\cite{Agrawal2013}.
 
 Časové rady delíme na spojité a diskrétne. Pozorovania pri spojitých časových
 radoch sú merané v každej jednotke času, zatiaľ čo diskrétne obsahujú iba
@@ -110,14 +111,44 @@ na základe doteraz nameraných dátových vzoriek. Preto je potrebné nájsť f
 ktorá predpovedá hodnotu časového radu v budúcnosti konzistentne
 a objektvíne\cite{Sapankevych2009}.
 
-Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú 2 typy tvz. Concept drift.
-\textbf{Concept drift} je zmena správania veličiny, ktorú sa snažíme
-predpovedať. Model sa tak stáva postupne nepresný a je potrebné aby sa tejto
-zmene prispôsobil. Prvým typom je trvalá alebo dočasná zmena spôsobená
+Časové rady sú najčastejšie vizualizované ako graf, kde pozorovania sú na
+osy y a plynúci čas na osy x.
+
+\section{Komponenty časových radov}
+Vo všeobecnosti sú časové rady ovplyvnené 4 hlavnými komponentmi, ktoré môžu
+byť oddelené od pozorovaných dát. Jedná sa o trendovú, cyklickú, sezónnu
+a náhodnú zložku\cite{Agrawal2013}.
+
+\paragraph{Trendová zložka}
+V dlhodobom časovom horizonte majú časové rady tendenciu klesať, rásť alebo
+stagnovať. Príkladom môže byť nárast populácie či klesajúca
+úmrtnosť\cite{Agrawal2013}.
+
+\paragraph{Cyklická zložka}
+V strednodobom časovom horizonte sa vyskytujú okolnosti, ktoré spôsobujú
+cyklické zmeny v časových radoch. Dĺžka periódy je 2 a viac rokov. Táto zložka
+je zastúpená najmä pri ekonomických časových radoch napr. podnikateľský cyklus
+pozostávajúci zo 4 fáz, ktoré sa stále opakujú\cite{Agrawal2013}.
+
+\paragraph{Sezónna zložka}
+Ide o kolísanie počas ročných období. Dôležitými faktormi pri tom sú napr.
+klimatické podmienky, tradiície alebo počasie. Napríklad predaj zmrzliny sa
+v lete zvyšuje, ale počet predaných lyžiarskych súprav klesá\cite{Agrawal2013}.
+
+\paragraph{Náhodná zložka}
+Jedná sa o veličinu, ktorá nemá žiadny opakovateľný vzor a ani dlhodobý trend.
+V časových radoch má nepredvídateľný vplyv na pozorovanú veličinu. V štatistike
+zatiaľ nie je definovaná metóda na jej meranie. Je spôspobená nepredvídateľnými
+a nepravideľnými udalosťami\cite{Agrawal2013}.
+
+Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú
+2 typy trendov. Prvým typom je trvalá alebo dočasná zmena spôsobená
 ekonomickými alebo ekologickými faktormi. Druhým typom je sezónna zmena,
-spôsobená zmenami ročných období a množstvom denného svetla. Sezónnu zmenu
-môžeme pozorovať na úrovni dní, týždňov alebo rokov. Kvôli tomu je nutné
-v každom modely rozdeľovať tieto 2 typy concept drift\cite{Grmanova2016}.
+spôsobená zmenami ročných období a množstvom denného svetla. Môžeme ju pozorovať
+na úrovni dňov, týždňov alebo rokov. Veličina, ktorú sa snažíme predpovedať
+postupne mení svoje správanie a model sa tak stáva nepresným. Kvôli tomu je
+nutné v každom modely rozdeľovať tieto typy tendencií, aby sme vedeli model
+zmenám prispôsobiť\cite{Grmanova2016}.
 
 % definicia optimalizacnz algoritmov
 % preco optimalizacne algoritmy a nie hocco ine
@@ -309,6 +340,16 @@ predikciu riadia samotné dáta\cite{Sapankevych2009}.
 % zložka reprezentuje náhodné zmeny v prostredí, ktoré nie sú relevantné pre
 % predpoveď časových rádov. Pri trénovaní modelu sa ich snažíme odfiltrovať
 % optimálnou mierou natrénovania modelu.
+
+% Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú 2 typy tvz. Concept drift.
+% \textbf{Concept drift} je zmena správania veličiny, ktorú sa snažíme
+% predpovedať. Model sa tak stáva postupne nepresný a je potrebné aby sa tejto
+% zmene prispôsobil. Prvým typom je trvalá alebo dočasná zmena spôsobená
+% ekonomickými alebo ekologickými faktormi. Druhým typom je sezónna zmena,
+% spôsobená zmenami ročných období a množstvom denného svetla. Sezónnu zmenu
+% môžeme pozorovať na úrovni dní, týždňov alebo rokov. Kvôli tomu je nutné
+% v každom modely rozdeľovať tieto 2 typy concept drift\cite{Grmanova2016}.
+
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion

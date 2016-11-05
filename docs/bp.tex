@@ -13,6 +13,7 @@
 \usepackage[utf8]{inputenc}
 % \usepackage{graphicx}
 % \usepackage{url}
+\usepackage{amsmath}                                                            % for fractions
 \usepackage{indentfirst}                                                        % indent first line after section
 % \usepackage{titlesec}																													% remove "Chapter N" header from chapter
 \usepackage{times}																															% Times New Roman
@@ -181,13 +182,22 @@ rozoznávanie vzorov, klasifikácia objektov a v prípade predikcií časových
 radov to je regresná analýza. Support Vector Regression je postup, ktorého
 funkcia je predpovedaná pomocou nameraných dát, ktorými je Support Vector
 Machine postupne natrénované. Toto je odklon od tradičných predpovedí časových
-radov, v zmysle, že Support Vector Machine nepoužíva žiadny model, ale
+radov, v zmysle že Support Vector Machine nepoužíva žiadny model, ale
 predikciu riadia samotné dáta \cite{Sapankevych2009}.
 
+\section{Rozhodovacie stromy}
+Rozhodovacie stromy sú jednou z najrozšírenejších učiacich metód. Používajú sa
+najmä na klasifikáciu. Rozhodovací strom je reprezentovaný ako množina uzlov
+a im prislúchajúcich hrán. Uzly reprezentujú atribúty a výstupné hrany sú vždy
+označené konkrétnou hodnotou pre atribút, z ktorého vychádzajú. Rozhodovanie
+začína v koreni stromu a končí po dosiahnutí listového uzla. Pre riešenie
+jedného problému je možné vytvoriť stromy s rôznym počtom a usporiadaním uzlov.
+Najlepším riešením je strom s najmenším počtom rozhodovacích
+uzlov \cite{Merz1998}.
+
+\subsection{Regresný rozhodovací strom}
 % \section{Random forrest}
 %
-% \section{Rozhodovacie stromy}
-% \subsection{Regresný rozhodovací strom}
 
 %-------------------------------------------------------------------------------
 %   Chapter 3 - Analysis of optimizing algorithms
@@ -350,6 +360,20 @@ predikciu riadia samotné dáta \cite{Sapankevych2009}.
 % môžeme pozorovať na úrovni dní, týždňov alebo rokov. Kvôli tomu je nutné
 % v každom modely rozdeľovať tieto 2 typy concept drift\cite{Grmanova2016}.
 
+% \subsection{Reziduálna zložka}
+% Ostáva v časovom rade po odstránení trendovej, cyklickej a sezónnej zložky.
+% Je tvorená náhodnými pohybmi v priebehu časového radu. Tiež pokrýva chyby
+% v meraní. Obvykle sa predpokladá, že reziduálna zložka je biely šum, teda
+% nekorelované náhodné veličny s nulovou strednou hodnotou\cite{http://www.math.sk/mpm/otazka_30.pdf}.
+
+% ε-insensitive loss function defined
+% \[
+%     L_{\varepsilon}(y, f(x, w)) =
+%     \begin{cases}
+%       0 \text{ ak } |y - f(x, w)| \leq \varepsilon \\
+%       |y - f(x, w)| - \varepsilon \text{ inak } \\
+%     \end{cases}
+% \]
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion

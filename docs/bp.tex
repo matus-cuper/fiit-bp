@@ -160,8 +160,16 @@ zmenám prispôsobiť \cite{Grmanova2016}.
 
 \chapter{Analýza predičkných algoritmov}
 Na základe množstva predikčných
-\section{Lineárna regresia}
-bars co
+
+\section{Lineárna regresná analýza}
+Regresná analýza je štatistická metóda používaná na modelovanie vzťahov, ktoré
+môžu existovať medzi veličinami. Nachádza súvislosti medzi závislou veličinou
+a potenciálnymi nezávislými veličinami. Používame pri tom nezávislé veličiny,
+ktoré môžu byť namerané súčasne so závislými veličinami alebo aj veličiny
+z úplne iných zdrojov. Regresná analýza môže byť tiež použitá na zlúčenie
+trendu a sezónných indikátorov do modelu. Keď je raz model vytvorený,
+môže byť použitý na zásah do spomínaných vzťahov alebo, v prípade  dostupnosti
+nezávislých veličín, na vytvorenie predikcie \cite{Liu1992}.
 
 \subsection{Multiple regression model}
 Viacnásobná regresia sa pokúša modelovať vzťah medzi dvoma alebo viacerými
@@ -171,6 +179,13 @@ premenných a predpoveďou nie je priamka ako je to pri lineárnej
 regresii \cite{Grmanova2016}.
 Nezávislé premenné môžu predstavovať meteorologické vplyvy, ekonomický rast,
 ceny elektriky či kruzy mien \cite{KumarSingh2013}.
+
+\subsection{Logistic regression model}
+Nelineárna diskriminantná štatistická metóda. V \textbf{binary response} modely
+os y zvyčajne reprezentuje individuálnu alebo experimentálnu jednotku. Y môže
+nadobúdať hodnoty 0 alebo 1 pre situácie kedy udalosť nastane alebo nenastane.
+Os x reprezentuje nezávislú veličinu ako vektor, ktorý môže znázorňovať
+pravdepodobnosť udalosti (Y = 1) \cite{Li2010}.
 
 \section{Support vector regression}
 Support Vector Machine a Support Vector Regression sú založené na štatistickej
@@ -366,6 +381,7 @@ uzlov \cite{Merz1998}.
 % v meraní. Obvykle sa predpokladá, že reziduálna zložka je biely šum, teda
 % nekorelované náhodné veličny s nulovou strednou hodnotou\cite{http://www.math.sk/mpm/otazka_30.pdf}.
 
+% pozri video na vzorce
 % ε-insensitive loss function defined
 % \[
 %     L_{\varepsilon}(y, f(x, w)) =

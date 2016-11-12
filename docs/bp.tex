@@ -13,6 +13,7 @@
 \usepackage[utf8]{inputenc}
 % \usepackage{graphicx}
 % \usepackage{url}
+\usepackage{amssymb}                                                            % for real numbers sign
 \usepackage{amsmath}                                                            % for fractions
 \usepackage{indentfirst}                                                        % indent first line after section
 % \usepackage{titlesec}																													% remove "Chapter N" header from chapter
@@ -153,6 +154,10 @@ Tu bude prehlásenie \\
 \newpage
 \section{Analýza problému}
 
+%-------------------------------------------------------------------------------
+%   Time series
+%-------------------------------------------------------------------------------
+
 \subsection{Časové rady}
 Časový rad je množina dátových bodov nameraná v čase postupne za sebou.
 Matematicky je definovaný ako množina vektorov x(t), kde t reprezentuje
@@ -166,8 +171,8 @@ pozorovania v diskrétnych časových bodoch. Hodnoty toku rieky, teploty
 či koncentrácie látok pri chemickom procese môžu byť zaznamenané ako spojitý
 časový rad. Naopak, populácia mesta, produkcia spoločnosti alebo kurzy mien
 reprezentujú diskrétny časový rad. Vtedy sú pozorovania oddelené rovnakými
-časovými intervalmi, napr. rokom, mesiacom či dňom. V našom prípade sú namerané
-dáta dostupné každú celú štvrťhodinu \cite{Agrawal2013}.
+časovými intervalmi, napr. rokom, mesiacom či dňom \cite{Agrawal2013}. V našom
+prípade sú namerané dáta dostupné každú celú štvrťhodinu.
 
 Cieľom predikcií časových radov je predpovedať hodnotu premennej v budúcnosti
 na základe doteraz nameraných dátových vzoriek. Preto je potrebné nájsť funkciu,
@@ -177,33 +182,7 @@ a objektvíne \cite{Sapankevych2009}.
 Časové rady sú najčastejšie vizualizované ako graf, kde pozorovania sú na
 osy y a plynúci čas na osy x.
 
-\subsection{Komponenty časových radov}
-Vo všeobecnosti sú časové rady ovplyvnené 4 hlavnými komponentmi, ktoré môžu
-byť oddelené od pozorovaných dát. Jedná sa o trendovú, cyklickú, sezónnu
-a náhodnú zložku \cite{Agrawal2013}.
-
-\subsubsection{Trendová zložka}
-V dlhodobom časovom horizonte majú časové rady tendenciu klesať, rásť alebo
-stagnovať. Príkladom môže byť nárast populácie či klesajúca
-úmrtnosť \cite{Agrawal2013}.
-
-\subsubsection{Cyklická zložka}
-V strednodobom časovom horizonte sa vyskytujú okolnosti, ktoré spôsobujú
-cyklické zmeny v časových radoch. Dĺžka periódy je 2 a viac rokov. Táto zložka
-je zastúpená najmä pri ekonomických časových radoch napr. podnikateľský cyklus
-pozostávajúci zo 4 fáz, ktoré sa stále opakujú \cite{Agrawal2013}.
-
-\subsubsection{Sezónna zložka}
-Ide o kolísanie počas ročných období. Dôležitými faktormi pri tom sú napr.
-klimatické podmienky, tradiície alebo počasie. Napríklad predaj zmrzliny sa
-v lete zvyšuje, ale počet predaných lyžiarskych súprav klesá \cite{Agrawal2013}.
-
-\subsubsection{Náhodná zložka}
-Jedná sa o veličinu, ktorá nemá žiadny opakovateľný vzor a ani dlhodobý trend.
-V časových radoch má nepredvídateľný vplyv na pozorovanú veličinu. V štatistike
-zatiaľ nie je definovaná metóda na jej meranie. Je spôspobená nepredvídateľnými
-a nepravideľnými udalosťami \cite{Agrawal2013}.
-
+\subsubsection{Zložky časových radov}
 Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú
 2 typy trendov. Prvým typom je trvalá alebo dočasná zmena spôsobená
 ekonomickými alebo ekologickými faktormi. Druhým typom je sezónna zmena,
@@ -213,46 +192,110 @@ postupne mení svoje správanie a model sa tak stáva nepresným. Kvôli tomu je
 nutné v každom modely rozdeľovať tieto typy tendencií, aby sme vedeli model
 zmenám prispôsobiť \cite{Grmanova2016}.
 
+Vo všeobecnosti sú časové rady zložené zo 4 hlavných zložiek, ktoré môžeme
+odlíšiť od pozorovaných dát. Jedná sa o trendovú, cyklickú, sezónnu
+a reziduálnu zložku \cite{Agrawal2013}.
+
+\paragraph{Trendová zložka}
+V dlhodobom časovom horizonte majú časové rady tendenciu klesať, rásť alebo
+stagnovať. Príkladom môže byť nárast populácie či klesajúca
+úmrtnosť \cite{Agrawal2013}.
+
+\paragraph{Cyklická zložka}
+V strednodobom časovom horizonte sa vyskytujú okolnosti, ktoré spôsobujú
+cyklické zmeny v časových radoch. Dĺžka periódy je 2 a viac rokov. Táto zložka
+je zastúpená najmä pri ekonomických časových radoch napríklad podnikateľský
+cyklus pozostávajúci zo 4 fáz, ktoré sa stále opakujú \cite{Agrawal2013}.
+
+\paragraph{Sezónna zložka}
+Ide o kolísanie počas ročných období. Dôležitými faktormi pri tom sú napr.
+klimatické podmienky, tradiície alebo počasie. Napríklad predaj zmrzliny sa
+v lete zvyšuje, ale počet predaných lyžiarskych súprav klesá \cite{Agrawal2013}.
+
+\paragraph{Reziduálna zložka}
+Jedná sa o veličinu, ktorá nemá žiadny opakovateľný vzor a ani dlhodobý trend.
+V časových radoch má nepredvídateľný vplyv na pozorovanú veličinu. V štatistike
+zatiaľ nie je definovaná metóda na jej meranie. Označuje sa aj ako náhodná
+zložka alebo biely šum. Je spôspobená nepredvídateľnými a nepravideľnými
+udalosťami \cite{Agrawal2013}.
+
+%-------------------------------------------------------------------------------
+%   Analysis of prediction algorithms
+%-------------------------------------------------------------------------------
+
 \subsection{Analýza predičkných algoritmov}
 Na základe množstva predikčných
 
-\subsection{Regresia}
+%-------------------------------------------------------------------------------
+%   Linear regression
+%-------------------------------------------------------------------------------
+
+\subsubsection{Lineárna regresia}
+Najpoužívanejšia štatistická metóda, ktorá modeluje vzťah závislej premennej
+a vysvetľujúcej premmennej. Závislú premmenu predstavuje veličina, ktorú sa
+snažíme predpoved, čo je v našom prípade spotreba elektriky. Vysvetľujúca
+premenná v sebe zahŕňa rôzne faktory, ktoré ovplyvňujú závislú premennú.
+Môžeme si pod tým predstaviť deň v týždni, počasie, tradície alebo rôzne
+udalosti, ktoré majú vplyv na predpoveď. \cite{KumarSingh2013}.
+
 Predpokladajme typický regresný problém. Dáta pozostávajúce z množiny \textit{n}
-meraní vo formáte \textbf{vloz vzorec}. Úlohou je odvodiť funkciu \textbf{f}
-z dát, kde \textbf{vloz vzorec}
-kde \textit{f} reprezentuje reálnu neznámu funkciu. Algoritmus použitý na
-odvodenie funkcie \textbf{f} sa nazýva indukčný algoritmus alebo žiak. Funkcia
-\textbf{f} sa nazýva model alebo prediktor. Obvykle je úlohou regresie
-minimalizovať odchýlku funkcie pre \textbf{štvorcovú chybu}, konkrétne
-priemernú štvorcovú chybu \textbf{mse} \cite{Mendes-Moreira2012}.
+meraní majú formát $\left\{(x_1, \textit{f}(x_1)), ..., (x_n, \textit{f}(x_n))\right\}$.
+Úlohou regresie je odvodiť funkciu \textit{\^{f}} z dát, kde
+\begin{equation}
+  \hat{f} : X \to \mathbb{R} \text{, kde, } \hat{f}(x) = f(x), \forall x \in \textit{X},
+  \label{eq-regresia}
+\end{equation}
+Funkcia \textit{f} vo vzorci \ref{eq-regresia} reprezentuje reálnu neznámu
+funkciu. Algoritmus použitý na odvodenie funkcie \textit{\^{f}} sa nazýva
+indukčný algoritmus alebo žiak. Funkcia \textit{\^{f}} sa nazýva model alebo
+prediktor. Obvykle je úlohou regresie minimalizovať odchýlku funkcie pre
+štvorcovú chybu, konkrétne strednú štvorcovú chybu MSE \cite{Mendes-Moreira2012}.
 
-\subsubsection{Lineárna regresná analýza}
+\paragraph{Lineárna regresná analýza}
 Regresná analýza je štatistická metóda používaná na modelovanie vzťahov, ktoré
-môžu existovať medzi veličinami. Nachádza súvislosti medzi závislou veličinou
-a potenciálnymi nezávislými veličinami. Používame pri tom nezávislé veličiny,
-ktoré môžu byť namerané súčasne so závislými veličinami alebo aj veličiny
-z úplne iných zdrojov. Regresná analýza môže byť tiež použitá na zlúčenie
-trendu a sezónných indikátorov do modelu. Keď je raz model vytvorený,
+môžu existovať medzi veličinami. Nachádza súvislosti medzi závislou premennou
+a potenciálnymi vysvetľujúcimi premennými. Používame pri tom vysvetľujúce
+premenné, ktoré môžu byť namerané súčasne so závislými premennými alebo aj
+premenné z úplne iných zdrojov. Regresná analýza môže byť tiež použitá
+na zlúčenie trendu a sezónných zložiek do modelu. Keď je raz model vytvorený,
 môže byť použitý na zásah do spomínaných vzťahov alebo, v prípade  dostupnosti
-nezávislých veličín, na vytvorenie predikcie \cite{Liu1992}.
+vysvetľujúcich premenných, na vytvorenie predikcie \cite{Liu1992}.
 
-\subsubsection{Viacnásobná model}
+\paragraph{Viacnásobná lineárna regresia}
 Viacnásobná regresia sa pokúša modelovať vzťah medzi dvoma alebo viacerými
-nezávislými premennými a závislou premennou vhodnou lineárnou rovnicou pre
-pozorované dáta. Výsledný model je vyjadrený ako funkcia viacerých nezávislých
-premenných a predpoveďou nie je priamka ako je to pri lineárnej
-regresii \cite{Grmanova2016}.
-Nezávislé premenné môžu predstavovať meteorologické vplyvy, ekonomický rast,
-ceny elektriky či kruzy mien \cite{KumarSingh2013}.
+vysvetľujúcimi premennými a závislou premennou vhodnou lineárnou rovnicou pre
+pozorované dáta. Výsledný model je vyjadrený ako funkcia viacerých
+vysvetľujúcich premenných. Predpoveďou nie je priamka ako je to pri lineárnej
+regresii ale krivku \cite{Grmanova2016}.
+Vysvetľujúce premenné môžu predstavovať meteorologické vplyvy, ekonomický
+nárast, ceny elektriky či kruzy mien \cite{KumarSingh2013}.
 
-\subsubsection{Logistic regression model}
+\paragraph{Logistický regresný model}
 Nelineárna diskriminantná štatistická metóda. V \textbf{binary response} modely
 os y zvyčajne reprezentuje individuálnu alebo experimentálnu jednotku. Y môže
 nadobúdať hodnoty 0 alebo 1 pre situácie kedy udalosť nastane alebo nenastane.
-Os x reprezentuje nezávislú veličinu ako vektor, ktorý môže znázorňovať
+Os x reprezentuje vysvetľujúcu veličinu ako vektor, ktorý môže znázorňovať
 pravdepodobnosť udalosti (Y = 1) \cite{Li2010}.
 
-\subsection{Support vector regression}
+%-------------------------------------------------------------------------------
+%   Stochastic models
+%-------------------------------------------------------------------------------
+
+\subsubsection{Stochastické modely}
+Tieto metódy časových radov sú založené na predpoklade, že dáta majú vnútornú
+štruktúru, ako napr. autokoreláciu, trend či sezónnu variáciu. Najprv sa
+precízne zostaví vzor zodpovedajúci dostupným dátam a potom sa na jeho základe
+predpovie budúca hodnota veličiny \cite{KumarSingh2013}.
+
+\paragraph{Autoregressive Moving-Average model}
+Model reprezentuje súčasnú hodnotu časového rádu linárne na základe jeho hodnôt
+a hodnôt bieleho šumu v predchádzajúcich periódach \cite{KumarSingh2013}.
+
+%-------------------------------------------------------------------------------
+%   Support vector regression
+%-------------------------------------------------------------------------------
+
+\subsubsection{Support vector regression}
 Support Vector Machine a Support Vector Regression sú založené na štatistickej
 teórií učenia, nazývanej aj VC teória, podľa svojich autorov, Vapnik
 a Chervonenkisa.
@@ -265,7 +308,11 @@ Machine postupne natrénované. Toto je odklon od tradičných predpovedí časo
 radov, v zmysle že Support Vector Machine nepoužíva žiadny model, ale
 predikciu riadia samotné dáta \cite{Sapankevych2009}.
 
-\subsection{Rozhodovacie stromy}
+%-------------------------------------------------------------------------------
+%   Decision trees
+%-------------------------------------------------------------------------------
+
+\subsubsection{Rozhodovacie stromy}
 Rozhodovacie stromy sú jednou z najrozšírenejších učiacich metód. Používajú sa
 najmä na klasifikáciu. Rozhodovací strom je reprezentovaný ako množina uzlov
 a im prislúchajúcich hrán. Uzly reprezentujú atribúty a výstupné hrany sú vždy
@@ -275,11 +322,83 @@ jedného problému je možné vytvoriť stromy s rôznym počtom a usporiadaním
 Najlepším riešením je strom s najmenším počtom rozhodovacích
 uzlov \cite{Merz1998}.
 
-\subsubsection{Regresný rozhodovací strom}
-\subsection{Random forrest}
+\paragraph{Regresný rozhodovací strom}
+
+%-------------------------------------------------------------------------------
+%   Random forest
+%-------------------------------------------------------------------------------
+
+\subsubsection{Random forrest}
+
+%-------------------------------------------------------------------------------
+%   Neural networks
+%-------------------------------------------------------------------------------
+
+\subsubsection{Neurónové siete}
+
+%-------------------------------------------------------------------------------
+%   Ensemble learning
+%-------------------------------------------------------------------------------
+
+\subsubsection{Učenie súborov klasifikátorov}
+Používa sa na jednodňovú predikciu. Ak \textit{h} je počet meraní, ktoré sú
+denne dostupné, v deň \textit{t} sa vykoná \textit{h} predikcií podľa váženého
+priemeru \textit{m} modelmi. Nasledujúci deň sa vypočíta chyba predpovede,
+na základe ktorej sa znova prepočítajú váhy a každý model sa
+aktualizuje\cite{Grmanova2016}.
+
+Učenie súborov klasifikátorov môžeme rozdeliť na homogénne a heterogénne učenie.
+
+\paragraph{Homogénne učenie súborov klasifikátorov}
+Pozostáva z modelov rovnakého typu, ktoré sa učia na rôznych podmnožinách
+datasetu.
+\paragraph{Heterogénne učenie súborov klasifikátorov}
+Aplikuje rôzne typy modelov nad rovnakými dátovými množinami\cite{Grmanova2016}.
+
+%-------------------------------------------------------------------------------
+%   Exponential smoothing
+%-------------------------------------------------------------------------------
+
+\subsubsection{Exponencionálne hladenie}
+
+%-------------------------------------------------------------------------------
+%   Naive methods
+%-------------------------------------------------------------------------------
+
+\subsubsection{Naivné metódy}
+Predpovede sú vytvárané pomocou posledných hodnôt alebo ich priemerov.
+
+\paragraph{Seasonal naïve method}
+Poslednú nameranú hodnotu použijeme ako predpoveď pre nasledujúce obdobie. Ak
+sú naše dáta vysoko závisle od ročného obdobia, je lepšie použiť na predpoveď
+hodnotu z rovnakého obdobia, napr. z minulého roka \cite{Grmanova2016}.
+
+\paragraph{Naïve average long-term method} \label{naive-average}
+Predpokladá, že dáta obsahujú vzory, ktoré nie sú závislé od ročných období.
+Kvôli tomu sú časové rady lokálne stabilné s pomaly meniacim sa priemerom.
+Hodnotu, ktorú použijeme ako predpoveď je iba priemorom viacerých posledných
+hodnôt \cite{Grmanova2016}.
+
+\paragraph{Naïve In median long-term method}
+Táto metóda je alternativou k \ref{naive-average}. Keďže priemerom nedokáže
+model dostatočne rýchlo reagovať na rapídne výkyvy a abnormality, lepšie
+výsledky dosiahneme nahradením priemeru za median posledných \textit{n}
+meraní \cite{Grmanova2016}.
+
+%-------------------------------------------------------------------------------
+%   Analysis of optimizing algorithms
+%-------------------------------------------------------------------------------
+
+\subsection{Analýza optimalizačných algoritmov}
 
 % definicia optimalizacnz algoritmov
 % preco optimalizacne algoritmy a nie hocco ine
+
+%-------------------------------------------------------------------------------
+%   Measurement of prediction accuracy
+%-------------------------------------------------------------------------------
+
+\subsection{Meranie presnosti predpovedi}
 
 %-------------------------------------------------------------------------------
 %   Chapter 2 - Description of solution
@@ -317,106 +436,14 @@ uzlov \cite{Merz1998}.
 
 \end{document}
 
-
-% \section{Naivné prístupy}
-% \subsection{}
-%
-%
-% \section{Klasické prístupy}
-%
-% \subsection{Stupňovitý regresný model}
-% \subsection{Neurónové siete}
-% \subsection{Rozhodovací strom}
-% \subsection{AR}
-% \subsection{MA}
-% \subsection{ARMA}
-% \subsection{ARIMA}
-% %\subsection{Box-Jekins metodika}
-%
-% \section{Prírastkové učenie}
-% \subsection{Prírastkové SVM}
-% \subsection{Extrémne strojové učenie}
-% \subsection{Prírastková ARIMA}
-%
-% \section{Učenie súborov klasifikátorov}
-% Dva prístupy: homogénne a heterogénne učenie ale aj ich kombinácia
-% \textbf{Homogénne učenie súborov klasifikátorov} pozostáva z modelov rovnakého
-% typu, ktoré sa učia na rôznych podmnožinách datasetu.
-% \textbf{Heterogénne učenie súborov klasifikátorov} aplikuje rôzne typy modelov
-% nad rovnakými dátovými množinami\cite{Grmanova2016}.
-% \subsection{Bagging}
-% \subsection{Boosting}
-% \subsection{Adaboost}
-% \subsection{Stacked generalization}
-% \subsection{Mixture of experts}
-%
-% \paragraph{Regression model}
-% je funkcia (f), ktorou sa snažíme odhadnúť závislú premmenú (Y), pomocou
-% nezávislej premennej (X) a neznámych parametrov (Beta), (Beta) odhadujeme na
-% základe dát, (f) je známa na základe vzťahov medzi (Y) a (X)\cite{Grmanova2016}.
-% najpoužívanejšia štatistická metóda, modeluje vzťah závislej premennej
-% (spotreba elektriky) a nezávislej premmennej, čiže ostatných faktorov
-% (počasie, deň v týždni, odoberateľ), spotreba tak môže byť rozdelená na
-% štandardný smer (trend) a trend lineárne závislý od niektorých faktorov
-% vplývajúcich na spotrebu\cite{KumarSingh2013}.
-%
-% \paragraph{Multiple regression model}
-% najpopulárnejšia metóda, často používa na predpoveď spotreby ovplyvnenej
-% množstvom faktorov (meteologické, cena elektriky, ekonomický
-% nárast)\cite{KumarSingh2013}.
-%
 % \paragraph{Autoregressive model}
 % môže modelovať profil záťaže za predpokladu, že zátaž je lineárnou kombináciou
 % predchádzajúcich záťaží\cite{KumarSingh2013}.
-%
-% \paragraph{Autoregressive Moving-Average model}
-% model reprezentuje súčastnú hodnotu časového rádu linárne na základe jeho hodnôt
-% a hodnôt bieleho šumu v predchádzajúcich periódach\cite{KumarSingh2013}.
-%
-% \paragraph{Ensemble model}
-% používa sa na jednodňovú predikciu, h je počet meraní, ktoré sú denne dostupné,
-% v deň t sa vykoná h predikcií podľa váženého priemeru m modelmi, nasledujúci
-% deň sa vypočíta chyba predpovede, na základe ktorej sa znova prepočítajú váhy
-% a každý model sa aktualizuje\cite{Grmanova2016}.
-%
-% \paragraph{Seasonal naïve method}
-% poslednú zmeranú hodnotu použijem ako predpoveď alebo pre high seasonal data
-% použijem už nameranú hodnotu z rovnakého obdobia (napr. rok
-% dozadu)\cite{Grmanova2016}.
-%
-% \paragraph{Naïve average long-term method}
-% je založené na predpoklade non-seasonal patterns, predpokladá, že časové rády sú
-% lokálne stabilné s pomaly meniacim sa priemerom, predpovedaná hodnota je
-% priemorom viacerých hodnôt\cite{Grmanova2016}.
-%
-% \paragraph{Naïve In median long-term method}
-% je alternatíva k predchádzajúcej metóde, priemer nie je schopný reagovať na
-% rapídne výkyvy a abnormality, lepšia možnosť je preto spraviť median
-% z posledných n časových radov\cite{Grmanova2016}.
-%
-% \paragraph{Stochastic Time Series}
-% metódy časových radov sú založené na predpoklade, že dáta majú vnútornú
-% štruktúru, ako napr. autokoreláciu, trend či sezónnu variáciu, najprv sa
-% precízne zostaví vzor zodpovedajúci dostupným dátam a potom sa predpovie
-% hodnota\cite{KumarSingh2013}.
-%
+
 % \paragraph{Support Vector Machine based Techniques}
 % je metóda analyzujúca dáta a rozpoznávajúca vzory, používaná na roztriedenie
 % a regresnú analýzu, kombinuje zovšeobecnené riadenie
 % s technikou ??????\cite{KumarSingh2013}.
-%
-% \paragraph{Concept drift}
-% je správanie premennej, ktorú sa snažím predikovať sa môže časom meniť,
-% čím sa postupne stáva model menej a menej presný\cite{Grmanova2016}.
-%
-% \paragraph{Online algorithm}
-% spracováva vstup sériovo kúsok po kúsku, vstupné dáta nie sú dostupné na začiatku výpočtu % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
-% musí spracovať vstup v jednej iterácií bez žiadnej podrobnej znalosti budúcich vstupov % https://xlinux.nist.gov/dads/HTML/online.html
-% viac dát, časové obmedzenia, môže sa časom meniť % http://stats.stackexchange.com/questions/897/online-vs-offline-learning
-%
-% \paragraph{Offline algorithm}
-% rieši problém od začiatku so všetkými vstupnými dátami % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
-% vopred je daná celá séria vstupov % https://xlinux.nist.gov/dads/HTML/offline.html
 %
 % \paragraph{Support Vector Machine}
 % je ML algoritmus používaný ako na klasifikáciu tak na regresiu
@@ -434,6 +461,19 @@ uzlov \cite{Merz1998}.
 % napr ak (w1 * x1 + w2 * x2) > C potom element patrí do skupiny A, hodnotami x1 a x2 je element definovaný, tak ako je bod definovaný x a y súradnicou
 % w je váha a C rozhodovacií prah, čiže ak nejaký ohodnotený element neprekročí hranicu spadá do jednej skupiny, ak prekročí spadá do druhej
 %
+% \paragraph{Concept drift}
+% je správanie premennej, ktorú sa snažím predikovať sa môže časom meniť,
+% čím sa postupne stáva model menej a menej presný\cite{Grmanova2016}.
+%
+% \paragraph{Online algorithm}
+% spracováva vstup sériovo kúsok po kúsku, vstupné dáta nie sú dostupné na začiatku výpočtu % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
+% musí spracovať vstup v jednej iterácií bez žiadnej podrobnej znalosti budúcich vstupov % https://xlinux.nist.gov/dads/HTML/online.html
+% viac dát, časové obmedzenia, môže sa časom meniť % http://stats.stackexchange.com/questions/897/online-vs-offline-learning
+%
+% \paragraph{Offline algorithm}
+% rieši problém od začiatku so všetkými vstupnými dátami % http://stackoverflow.com/questions/11496013/what-is-the-difference-between-an-on-line-and-off-line-algorithm
+% vopred je daná celá séria vstupov % https://xlinux.nist.gov/dads/HTML/offline.html
+
 % \paragraph{Kernel trick}
 % problém nie je lineárne separovateľný, originálny nelineárny priestor % http://stats.stackexchange.com/questions/3947/help-me-understand-support-vector-machines
 % je premietnutý do viacrozmerného priesotru pomocou nejakej nelineárnej transofrmácia s očakávaním, že to problém už bude riešiteľný
@@ -470,7 +510,6 @@ uzlov \cite{Merz1998}.
 % v meraní. Obvykle sa predpokladá, že reziduálna zložka je biely šum, teda
 % nekorelované náhodné veličny s nulovou strednou hodnotou\cite{http://www.math.sk/mpm/otazka_30.pdf}.
 
-% pozri video na vzorce
 % ε-insensitive loss function defined
 % \[
 %     L_{\varepsilon}(y, f(x, w)) =

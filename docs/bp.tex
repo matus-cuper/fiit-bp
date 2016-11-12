@@ -5,7 +5,7 @@
 %   PACKAGES AND DOCUMENT CONFIGURATION
 %-------------------------------------------------------------------------------
 
-\documentclass[12pt,oneside,slovak,a4paper]{book}
+\documentclass[a4paper,slovak,12pt,appendix]{article}
 
 % \usepackage{float}
 \usepackage[slovak]{babel}
@@ -67,31 +67,93 @@
 	{\scshape\large \textbf{Bakalárska práca} \par}
 	\vspace{5.5cm}
 	\raggedright
-	{\normalsize Študijný program: \par}
-	{\normalsize Číslo študijného odboru: \par}
-	{\normalsize Názov študijného odboru: \par}
-	{\normalsize Školiace pracovisko: \par}
-	{\normalsize Vedúci záverečnej práce: \par}
+	{\normalsize Študijný program: Informatika \par}
+	{\normalsize Číslo študijného odboru: 9.2.1 \par}
+	{\normalsize Názov študijného odboru: Informatika \par}
+	{\normalsize Školiace pracovisko: Ústav informatiky a softvérového inžinierstva, FIIT STU Bratislava \par}
+	{\normalsize Vedúci záverečnej práce: Ing. Marek Lóderer \par}
 	\vspace{4.5cm}
 	\noindent{\bfseries\large Bratislava 2016 \hfill Matúš Cuper }
 \end{titlepage}
 
-% \podakovanie
-% \abstrakt
-% \abstract
-% \prehlasenie
+%-------------------------------------------------------------------------------
+%   ANOTATION
+%-------------------------------------------------------------------------------
+
+\newpage
+\thispagestyle{plain}
+\vspace*{1.5cm}
+\begin{center}
+  \begin{Large}
+    \textbf{Anotácia} \par
+  \end{Large}
+\end{center}
+{Slovenská technická univerzita v Bratislave \par}
+{FAKULTA INFORMATIKY A INFORMAČNÝCH TECHNOLÓGIÍ \par}
+{Študijný program: Informatika \par}
+{Autor: Matúš Cuper \par}
+{Bakalárska práca: Optimalizácia konfiguračných parametrov predikčných metód \par}
+{Vedúci práce: Ing. Marek Lóderer \par}
+{máj 2016 \\} \\
+Tu bude text slovenskej anotácie
+
+\newpage
+\thispagestyle{plain}
+\vspace*{1.5cm}
+\begin{center}
+  \begin{Large}
+    \textbf{Annotation} \par
+  \end{Large}
+\end{center}
+{Slovak University of Technology Bratislava \par}
+{FACULTY OF INFORMATICS AND INFORMATION TECHNOLOGIES \par}
+{Degree Course: Computer Science \par}
+{Author: Matúš Cuper \par}
+{Bachelor thesis: Optimizing configuration parameters of prediction methods \par}
+{Supervisor: Ing. Marek Lóderer \par}
+{May 2016 \\} \\
+Tu bude text anglickej anotácie
+
+%-------------------------------------------------------------------------------
+%   Declaration
+%-------------------------------------------------------------------------------
+
+\newpage
+\thispagestyle{plain}
+\vspace*{15cm}
+\begin{large}
+  \noindent \textbf{POĎAKOVANIE} \\
+\end{large}
+\noindent
+Tu bude poďakovanie
+
+\newpage
+\thispagestyle{plain}
+\vspace*{15cm}
+\begin{large}
+  \noindent \textbf{ČESTNÉ PREHLÁSENIE} \\
+\end{large}
+\noindent
+Tu bude prehlásenie \\
+\vspace*{0.5cm}\\
+\hspace*{10cm}............................\\
+\hspace*{10.7cm} Matúš Cuper
 
 %-------------------------------------------------------------------------------
 %   Table of contents
 %-------------------------------------------------------------------------------
 
+\newpage
 \tableofcontents
 
 %-------------------------------------------------------------------------------
-%   Chapter 1 - Introduction
+%   Chapter 1 - Problem analysis
 %-------------------------------------------------------------------------------
 
-\chapter{Časové rady}
+\newpage
+\section{Analýza problému}
+
+\subsection{Časové rady}
 Časový rad je množina dátových bodov nameraná v čase postupne za sebou.
 Matematicky je definovaný ako množina vektorov x(t), kde t reprezentuje
 uplynulý čas. Premenná x(t) je považovaná za náhodnú premennú.
@@ -115,28 +177,28 @@ a objektvíne \cite{Sapankevych2009}.
 Časové rady sú najčastejšie vizualizované ako graf, kde pozorovania sú na
 osy y a plynúci čas na osy x.
 
-\section{Komponenty časových radov}
+\subsection{Komponenty časových radov}
 Vo všeobecnosti sú časové rady ovplyvnené 4 hlavnými komponentmi, ktoré môžu
 byť oddelené od pozorovaných dát. Jedná sa o trendovú, cyklickú, sezónnu
 a náhodnú zložku \cite{Agrawal2013}.
 
-\subsection{Trendová zložka}
+\subsubsection{Trendová zložka}
 V dlhodobom časovom horizonte majú časové rady tendenciu klesať, rásť alebo
 stagnovať. Príkladom môže byť nárast populácie či klesajúca
 úmrtnosť \cite{Agrawal2013}.
 
-\subsection{Cyklická zložka}
+\subsubsection{Cyklická zložka}
 V strednodobom časovom horizonte sa vyskytujú okolnosti, ktoré spôsobujú
 cyklické zmeny v časových radoch. Dĺžka periódy je 2 a viac rokov. Táto zložka
 je zastúpená najmä pri ekonomických časových radoch napr. podnikateľský cyklus
 pozostávajúci zo 4 fáz, ktoré sa stále opakujú \cite{Agrawal2013}.
 
-\subsection{Sezónna zložka}
+\subsubsection{Sezónna zložka}
 Ide o kolísanie počas ročných období. Dôležitými faktormi pri tom sú napr.
 klimatické podmienky, tradiície alebo počasie. Napríklad predaj zmrzliny sa
 v lete zvyšuje, ale počet predaných lyžiarskych súprav klesá \cite{Agrawal2013}.
 
-\subsection{Náhodná zložka}
+\subsubsection{Náhodná zložka}
 Jedná sa o veličinu, ktorá nemá žiadny opakovateľný vzor a ani dlhodobý trend.
 V časových radoch má nepredvídateľný vplyv na pozorovanú veličinu. V štatistike
 zatiaľ nie je definovaná metóda na jej meranie. Je spôspobená nepredvídateľnými
@@ -151,17 +213,10 @@ postupne mení svoje správanie a model sa tak stáva nepresným. Kvôli tomu je
 nutné v každom modely rozdeľovať tieto typy tendencií, aby sme vedeli model
 zmenám prispôsobiť \cite{Grmanova2016}.
 
-% definicia optimalizacnz algoritmov
-% preco optimalizacne algoritmy a nie hocco ine
-
-%-------------------------------------------------------------------------------
-%   Chapter 2 - Analysis of predictive algorithms
-%-------------------------------------------------------------------------------
-
-\chapter{Analýza predičkných algoritmov}
+\subsection{Analýza predičkných algoritmov}
 Na základe množstva predikčných
 
-\section{Regresia}
+\subsection{Regresia}
 Predpokladajme typický regresný problém. Dáta pozostávajúce z množiny \textit{n}
 meraní vo formáte \textbf{vloz vzorec}. Úlohou je odvodiť funkciu \textbf{f}
 z dát, kde \textbf{vloz vzorec}
@@ -171,7 +226,7 @@ odvodenie funkcie \textbf{f} sa nazýva indukčný algoritmus alebo žiak. Funkc
 minimalizovať odchýlku funkcie pre \textbf{štvorcovú chybu}, konkrétne
 priemernú štvorcovú chybu \textbf{mse} \cite{Mendes-Moreira2012}.
 
-\subsection{Lineárna regresná analýza}
+\subsubsection{Lineárna regresná analýza}
 Regresná analýza je štatistická metóda používaná na modelovanie vzťahov, ktoré
 môžu existovať medzi veličinami. Nachádza súvislosti medzi závislou veličinou
 a potenciálnymi nezávislými veličinami. Používame pri tom nezávislé veličiny,
@@ -181,7 +236,7 @@ trendu a sezónných indikátorov do modelu. Keď je raz model vytvorený,
 môže byť použitý na zásah do spomínaných vzťahov alebo, v prípade  dostupnosti
 nezávislých veličín, na vytvorenie predikcie \cite{Liu1992}.
 
-\subsection{Multiple regression model}
+\subsubsection{Viacnásobná model}
 Viacnásobná regresia sa pokúša modelovať vzťah medzi dvoma alebo viacerými
 nezávislými premennými a závislou premennou vhodnou lineárnou rovnicou pre
 pozorované dáta. Výsledný model je vyjadrený ako funkcia viacerých nezávislých
@@ -190,14 +245,14 @@ regresii \cite{Grmanova2016}.
 Nezávislé premenné môžu predstavovať meteorologické vplyvy, ekonomický rast,
 ceny elektriky či kruzy mien \cite{KumarSingh2013}.
 
-\subsection{Logistic regression model}
+\subsubsection{Logistic regression model}
 Nelineárna diskriminantná štatistická metóda. V \textbf{binary response} modely
 os y zvyčajne reprezentuje individuálnu alebo experimentálnu jednotku. Y môže
 nadobúdať hodnoty 0 alebo 1 pre situácie kedy udalosť nastane alebo nenastane.
 Os x reprezentuje nezávislú veličinu ako vektor, ktorý môže znázorňovať
 pravdepodobnosť udalosti (Y = 1) \cite{Li2010}.
 
-\section{Support vector regression}
+\subsection{Support vector regression}
 Support Vector Machine a Support Vector Regression sú založené na štatistickej
 teórií učenia, nazývanej aj VC teória, podľa svojich autorov, Vapnik
 a Chervonenkisa.
@@ -210,7 +265,7 @@ Machine postupne natrénované. Toto je odklon od tradičných predpovedí časo
 radov, v zmysle že Support Vector Machine nepoužíva žiadny model, ale
 predikciu riadia samotné dáta \cite{Sapankevych2009}.
 
-\section{Rozhodovacie stromy}
+\subsection{Rozhodovacie stromy}
 Rozhodovacie stromy sú jednou z najrozšírenejších učiacich metód. Používajú sa
 najmä na klasifikáciu. Rozhodovací strom je reprezentovaný ako množina uzlov
 a im prislúchajúcich hrán. Uzly reprezentujú atribúty a výstupné hrany sú vždy
@@ -220,23 +275,47 @@ jedného problému je možné vytvoriť stromy s rôznym počtom a usporiadaním
 Najlepším riešením je strom s najmenším počtom rozhodovacích
 uzlov \cite{Merz1998}.
 
-\subsection{Regresný rozhodovací strom}
-% \section{Random forrest}
-%
+\subsubsection{Regresný rozhodovací strom}
+\subsection{Random forrest}
+
+% definicia optimalizacnz algoritmov
+% preco optimalizacne algoritmy a nie hocco ine
 
 %-------------------------------------------------------------------------------
-%   Chapter 3 - Analysis of optimizing algorithms
+%   Chapter 2 - Description of solution
 %-------------------------------------------------------------------------------
 
-% \chapter{Analýza optimalizačných algoritmov}
+\newpage
+\section{Opis riešenia}
 
 %-------------------------------------------------------------------------------
-%   Chapter 4 - Specification
+%   Chapter 3 - Evaluation
 %-------------------------------------------------------------------------------
+
+\newpage
+\section{Zhodnotenie}
+
+%-------------------------------------------------------------------------------
+%   Chapter 4 - Technical documentation
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Technická dokumentácia}
 
 % \chapter{Špecifikácia}
 % \subsection{Meranie chyby predikcie}
 
+
+
+%-------------------------------------------------------------------------------
+%   Bibliography
+%-------------------------------------------------------------------------------
+
+\newpage
+\bibliography{bibliography}
+\bibliographystyle{ieeetr}
+
+\end{document}
 
 
 % \section{Naivné prístupy}
@@ -407,17 +486,6 @@ uzlov \cite{Merz1998}.
 
 % \chapter{Záver}
 % Tu bude záver
-
-%-------------------------------------------------------------------------------
-%   Bibliography
-%-------------------------------------------------------------------------------
-
-\bibliography{bibliography}
-\bibliographystyle{ieeetr}
-
-\end{document}
-
-
 
 % Kapitola \chapter{Nazov}
 % Necislovana kapitola \chapter*{Nazov}% underline \underline{science}

@@ -240,16 +240,29 @@ udalosti, ktoré majú vplyv na predpoveď. \cite{KumarSingh2013}.
 
 Predpokladajme typický regresný problém. Dáta pozostávajúce z množiny \textit{n}
 meraní majú formát $\left\{(x_1, \textit{f}(x_1)), ..., (x_n, \textit{f}(x_n))\right\}$.
-Úlohou regresie je odvodiť funkciu \textit{\^{f}} z dát, kde
+Úlohou regresie je odvodiť funkciu $\hat{f}$ z dát, kde
 \begin{equation}
   \hat{f} : X \to \mathbb{R} \text{, kde, } \hat{f}(x) = f(x), \forall x \in \textit{X},
   \label{eq-regresia}
 \end{equation}
-Funkcia \textit{f} vo vzorci \ref{eq-regresia} reprezentuje reálnu neznámu
-funkciu. Algoritmus použitý na odvodenie funkcie \textit{\^{f}} sa nazýva
-indukčný algoritmus alebo žiak. Funkcia \textit{\^{f}} sa nazýva model alebo
+Funkcia $f$ vo vzorci \ref{eq-regresia} reprezentuje reálnu neznámu
+funkciu. Algoritmus použitý na odvodenie funkcie $\hat{f}$ sa nazýva
+indukčný algoritmus alebo žiak. Funkcia $\hat{f}$ sa nazýva model alebo
 prediktor. Obvykle je úlohou regresie minimalizovať odchýlku funkcie pre
 štvorcovú chybu, konkrétne strednú štvorcovú chybu MSE \cite{Mendes-Moreira2012}.
+
+Keďže časový rad pozostáva z viacerých zložiek, môžeme ho zapísať ako funkciu
+$L(t)$ definovanú ako
+\begin{equation}
+  L(t) = Ln(t) + \sum a_i x_i(t) + e(t)
+  \label{eq-odber}
+\end{equation}
+Vo vzorci \ref{eq-odber} funkcia $Ln(t)$ predstavuje odber elektriky v čase
+$t$. Hodnota $a_i$ je odhadovaný pomaly meniaci sa koeficient. Faktory
+$x_i(t)$ nezávisle vplývajú na spotrebu elektriky. Môže sa jednať napríklad
+o počasie alebo zvyky ľudí. Komponent $e(t)$ je biely šum, ktorý má nulovú
+strednú hodnotu a pevnú varianciu. Číslo $n$ je počet meraní, obvykle 24
+alebo 168, v našom prípade 96 meraní počas jedného dňa \cite{KumarSingh2013}.
 
 \paragraph{Lineárna regresná analýza}
 Regresná analýza je štatistická metóda používaná na modelovanie vzťahov, ktoré
@@ -265,17 +278,26 @@ vysvetľujúcich premenných, na vytvorenie predikcie \cite{Liu1992}.
 Viacnásobná regresia sa pokúša modelovať vzťah medzi dvoma alebo viacerými
 vysvetľujúcimi premennými a závislou premennou vhodnou lineárnou rovnicou pre
 pozorované dáta. Výsledný model je vyjadrený ako funkcia viacerých
-vysvetľujúcich premenných. Predpoveďou nie je priamka ako je to pri lineárnej
-regresii ale krivku \cite{Grmanova2016}.
-Vysvetľujúce premenné môžu predstavovať meteorologické vplyvy, ekonomický
-nárast, ceny elektriky či kruzy mien \cite{KumarSingh2013}.
+vysvetľujúcich premenných \cite{Grmanova2016}.
+
+Túto funkciu môžeme zapísať ako
+\begin{equation}
+  Y(t) = V_t a_t + e_t
+  \label{eq-multi-regresia}
+\end{equation}
+Vo vzorci \ref{eq-multi-regresia} $t$ označuje čas, kedy bolo meranie
+uskutočnené. $Y(t)$ predstavuje celkový nameraný odber elektriky. Vektor $V_t$
+reprezentuje hodnoty vysvetľujúcich premenných v čase merania. Vysvetľujúce
+premenné môžu predstavovať meteorologické vplyvy, ekonomický nárast, ceny
+elektriky či kruzy mien. Chybu modelu v čase $t$ zapíšeme
+ako $e_t$ \cite{KumarSingh2013}.
 
 \paragraph{Logistický regresný model}
 Nelineárna diskriminantná štatistická metóda. V \textbf{binary response} modely
-os y zvyčajne reprezentuje individuálnu alebo experimentálnu jednotku. Y môže
+os $y$ zvyčajne reprezentuje individuálnu alebo experimentálnu jednotku. $Y$ môže
 nadobúdať hodnoty 0 alebo 1 pre situácie kedy udalosť nastane alebo nenastane.
-Os x reprezentuje vysvetľujúcu veličinu ako vektor, ktorý môže znázorňovať
-pravdepodobnosť udalosti (Y = 1) \cite{Li2010}.
+Os $x$ reprezentuje vysvetľujúcu veličinu ako vektor, ktorý môže znázorňovať
+pravdepodobnosť udalosti $(Y = 1)$ \cite{Li2010}.
 
 %-------------------------------------------------------------------------------
 %   Stochastic models
@@ -335,6 +357,11 @@ uzlov \cite{Merz1998}.
 %-------------------------------------------------------------------------------
 
 \subsubsection{Neurónové siete}
+Je veľa typov neurónových sietí napríklad viacvrstvové perceptónové siete,
+samoriadiace siete, siete s viacerými skrytými vrstvami atď. V každej skrytej
+vrstve je množstvo neurónov. Hlavnou výhodou je, že väčšina sietí nepotrebuje
+model. Na druhej strane, trénovanie obvykle zaberá veľa času. Výstupom siete
+je lineárna rovnica váh prepojených so vstupom \cite{KumarSingh2013}.
 
 %-------------------------------------------------------------------------------
 %   Ensemble learning

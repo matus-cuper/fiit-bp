@@ -160,10 +160,10 @@ Tu bude prehlásenie \\
 
 \subsection{Časové rady}
 Časový rad je množina dátových bodov nameraná v čase postupne za sebou.
-Matematicky je definovaný ako množina vektorov x(t), kde t reprezentuje
-uplynulý čas. Premenná x(t) je považovaná za náhodnú premennú.
+Matematicky je definovaný ako množina vektorov $x(t)$, kde $t$ reprezentuje
+uplynulý čas. Premenná $x(t)$ je považovaná za náhodnú premennú.
 Merania v časových radoch sú usporiadané v chronologicky
-poradí \cite{Agrawal2013}.
+poradí~\cite{Agrawal2013}.
 
 Časové rady delíme na spojité a diskrétne. Pozorovania pri spojitých časových
 radoch sú merané v každej jednotke času, zatiaľ čo diskrétne obsahujú iba
@@ -171,16 +171,32 @@ pozorovania v diskrétnych časových bodoch. Hodnoty toku rieky, teploty
 či koncentrácie látok pri chemickom procese môžu byť zaznamenané ako spojitý
 časový rad. Naopak, populácia mesta, produkcia spoločnosti alebo kurzy mien
 reprezentujú diskrétny časový rad. Vtedy sú pozorovania oddelené rovnakými
-časovými intervalmi, napr. rokom, mesiacom či dňom \cite{Agrawal2013}. V našom
+časovými intervalmi, napr. rokom, mesiacom či dňom~\cite{Agrawal2013}. V našom
 prípade sú namerané dáta dostupné každú celú štvrťhodinu.
 
+\subsubsection{Analýza časových radov}
+V praxi je vhodný model napasovaný do daného časového radu a zodpovedajúce
+parametre sú predpovedané na základe známych dát. Pri predopovedaní časových
+radov sú dáta z uplynulých meraní zhromažďované a analyzované za účelom
+navrhnutia vhodného matematického modelu, ktorý zachytáva proces generovania
+dát pre časové rady. Pomocou tohto modelu sú predpovedané hodnoty budúcich
+meraní. Takýto prístup je užitočný, keď nemáme veľa poznatkov o vzore
+v meraniach idúcich za sebou alebo máme model, ktorý poskytuje nedostatočne
+uspokojivé výsledky~\cite{Agrawal2013}.
+
 Cieľom predikcií časových radov je predpovedať hodnotu premennej v budúcnosti
-na základe doteraz nameraných dátových vzoriek. Preto je potrebné nájsť funkciu,
-ktorá predpovedá hodnotu časového radu v budúcnosti konzistentne
-a objektvíne \cite{Sapankevych2009}.
+na základe doteraz nameraných dátových vzoriek. Matematicky zapísané ako
+\begin{equation}
+  \hat{x}(t+\Delta_t) = f(x(t-a), x(t-b), x(t-c), ...)
+  \label{eq-series}
+\end{equation}
+Hodnota $\hat{x}$ je predpovedaná ako hodnota diskrétneho časového radu $x$.
+Preto je potrebné nájsť funkciu $f(x)$, podobnú funkciu $\hat{x}$, ktorá
+predpovedá hodnotu časového radu v budúcnosti konzistentne
+a objektvíne~\cite{Sapankevych2009}.
 
 Časové rady sú najčastejšie vizualizované ako graf, kde pozorovania sú na
-osy y a plynúci čas na osy x.
+osy $y$ a plynúci čas na osy $x$.
 
 \subsubsection{Zložky časových radov}
 Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú
@@ -190,34 +206,50 @@ spôsobená zmenami ročných období a množstvom denného svetla. Môžeme ju 
 na úrovni dňov, týždňov alebo rokov. Veličina, ktorú sa snažíme predpovedať
 postupne mení svoje správanie a model sa tak stáva nepresným. Kvôli tomu je
 nutné v každom modely rozdeľovať tieto typy tendencií, aby sme vedeli model
-zmenám prispôsobiť \cite{Grmanova2016}.
+zmenám prispôsobiť~\cite{Grmanova2016}.
 
 Vo všeobecnosti sú časové rady zložené zo 4 hlavných zložiek, ktoré môžeme
 odlíšiť od pozorovaných dát. Jedná sa o trendovú, cyklickú, sezónnu
-a reziduálnu zložku \cite{Agrawal2013}.
+a reziduálnu zložku~\cite{Agrawal2013}.
 
 \paragraph{Trendová zložka}
 V dlhodobom časovom horizonte majú časové rady tendenciu klesať, rásť alebo
 stagnovať. Príkladom môže byť nárast populácie či klesajúca
-úmrtnosť \cite{Agrawal2013}.
+úmrtnosť~\cite{Agrawal2013}.
 
 \paragraph{Cyklická zložka}
 V strednodobom časovom horizonte sa vyskytujú okolnosti, ktoré spôsobujú
 cyklické zmeny v časových radoch. Dĺžka periódy je 2 a viac rokov. Táto zložka
 je zastúpená najmä pri ekonomických časových radoch napríklad podnikateľský
-cyklus pozostávajúci zo 4 fáz, ktoré sa stále opakujú \cite{Agrawal2013}.
+cyklus pozostávajúci zo 4 fáz, ktoré sa stále opakujú~\cite{Agrawal2013}.
 
 \paragraph{Sezónna zložka}
 Ide o kolísanie počas ročných období. Dôležitými faktormi pri tom sú napr.
 klimatické podmienky, tradiície alebo počasie. Napríklad predaj zmrzliny sa
-v lete zvyšuje, ale počet predaných lyžiarskych súprav klesá \cite{Agrawal2013}.
+v lete zvyšuje, ale počet predaných lyžiarskych súprav klesá~\cite{Agrawal2013}.
 
 \paragraph{Reziduálna zložka}
 Jedná sa o veličinu, ktorá nemá žiadny opakovateľný vzor a ani dlhodobý trend.
 V časových radoch má nepredvídateľný vplyv na pozorovanú veličinu. V štatistike
 zatiaľ nie je definovaná metóda na jej meranie. Označuje sa aj ako náhodná
 zložka alebo biely šum. Je spôspobená nepredvídateľnými a nepravideľnými
-udalosťami \cite{Agrawal2013}.
+udalosťami~\cite{Agrawal2013}.
+
+Vo všeobecnosti sa pre tieto 4 zložky používajú 2 rôzne modely. Je to
+multiplikatívny model a aditívny model.
+\begin{equation}
+  \begin{split}
+    Y(t) = T(t) \times S(t) \times C(t) \times I(t)
+    \\
+    Y(t) = T(t) + S(t) + C(t) + I(t)
+  \end{split}
+  \label{eq-ts-models}
+\end{equation}
+Vo vzorci~\ref{eq-ts-models} predstavuje $Y(t)$ meranie v čase $t$. Premenné
+$T(t)$, $S(t)$, $C(t)$ a $I(t)$ sú zložkami trendu, sezónnosti,
+cyklu a náhodnosti. Multiplikatívny model je založený na predpoklade, že časové
+rady môžu byť na sebe závislé a môžu byť ovplyvňované medzi sebou, zatiaľ čo
+aditívny model predpokladá nezávislosť zložiek~\cite{Agrawal2013}.
 
 %-------------------------------------------------------------------------------
 %   Analysis of prediction algorithms
@@ -236,20 +268,20 @@ a vysvetľujúcej premmennej. Závislú premmenu predstavuje veličina, ktorú s
 snažíme predpoved, čo je v našom prípade spotreba elektriky. Vysvetľujúca
 premenná v sebe zahŕňa rôzne faktory, ktoré ovplyvňujú závislú premennú.
 Môžeme si pod tým predstaviť deň v týždni, počasie, tradície alebo rôzne
-udalosti, ktoré majú vplyv na predpoveď. \cite{KumarSingh2013}.
+udalosti, ktoré majú vplyv na predpoveď.~\cite{KumarSingh2013}.
 
 Predpokladajme typický regresný problém. Dáta pozostávajúce z množiny \textit{n}
-meraní majú formát $\left\{(x_1, \textit{f}(x_1)), ..., (x_n, \textit{f}(x_n))\right\}$.
+meraní majú formát $\left\{(x_1, f(x_1)), ..., (x_n, f(x_n))\right\}$.
 Úlohou regresie je odvodiť funkciu $\hat{f}$ z dát, kde
 \begin{equation}
-  \hat{f} : X \to \mathbb{R} \text{, kde, } \hat{f}(x) = f(x), \forall x \in \textit{X},
+  \hat{f} : X \to \mathbb{R} \text{, kde, } \hat{f}(x) = f(x), \forall x \in X,
   \label{eq-regresia}
 \end{equation}
-Funkcia $f$ vo vzorci \ref{eq-regresia} reprezentuje reálnu neznámu
+Funkcia $f$ vo vzorci~\ref{eq-regresia} reprezentuje reálnu neznámu
 funkciu. Algoritmus použitý na odvodenie funkcie $\hat{f}$ sa nazýva
 indukčný algoritmus alebo žiak. Funkcia $\hat{f}$ sa nazýva model alebo
 prediktor. Obvykle je úlohou regresie minimalizovať odchýlku funkcie pre
-štvorcovú chybu, konkrétne strednú štvorcovú chybu MSE \cite{Mendes-Moreira2012}.
+štvorcovú chybu, konkrétne strednú štvorcovú chybu MSE~\cite{Mendes-Moreira2012}.
 
 Keďže časový rad pozostáva z viacerých zložiek, môžeme ho zapísať ako funkciu
 $L(t)$ definovanú ako
@@ -257,12 +289,12 @@ $L(t)$ definovanú ako
   L(t) = Ln(t) + \sum a_i x_i(t) + e(t)
   \label{eq-odber}
 \end{equation}
-Vo vzorci \ref{eq-odber} funkcia $Ln(t)$ predstavuje odber elektriky v čase
+Vo vzorci~\ref{eq-odber} funkcia $Ln(t)$ predstavuje odber elektriky v čase
 $t$. Hodnota $a_i$ je odhadovaný pomaly meniaci sa koeficient. Faktory
 $x_i(t)$ nezávisle vplývajú na spotrebu elektriky. Môže sa jednať napríklad
 o počasie alebo zvyky ľudí. Komponent $e(t)$ je biely šum, ktorý má nulovú
 strednú hodnotu a pevnú varianciu. Číslo $n$ je počet meraní, obvykle 24
-alebo 168, v našom prípade 96 meraní počas jedného dňa \cite{KumarSingh2013}.
+alebo 168, v našom prípade 96 meraní počas jedného dňa~\cite{KumarSingh2013}.
 
 \paragraph{Lineárna regresná analýza}
 Regresná analýza je štatistická metóda používaná na modelovanie vzťahov, ktoré
@@ -272,32 +304,32 @@ premenné, ktoré môžu byť namerané súčasne so závislými premennými ale
 premenné z úplne iných zdrojov. Regresná analýza môže byť tiež použitá
 na zlúčenie trendu a sezónných zložiek do modelu. Keď je raz model vytvorený,
 môže byť použitý na zásah do spomínaných vzťahov alebo, v prípade  dostupnosti
-vysvetľujúcich premenných, na vytvorenie predikcie \cite{Liu1992}.
+vysvetľujúcich premenných, na vytvorenie predikcie~\cite{Liu1992}.
 
 \paragraph{Viacnásobná lineárna regresia}
 Viacnásobná regresia sa pokúša modelovať vzťah medzi dvoma alebo viacerými
 vysvetľujúcimi premennými a závislou premennou vhodnou lineárnou rovnicou pre
 pozorované dáta. Výsledný model je vyjadrený ako funkcia viacerých
-vysvetľujúcich premenných \cite{Grmanova2016}.
+vysvetľujúcich premenných~\cite{Grmanova2016}.
 
 Túto funkciu môžeme zapísať ako
 \begin{equation}
   Y(t) = V_t a_t + e_t
   \label{eq-multi-regresia}
 \end{equation}
-Vo vzorci \ref{eq-multi-regresia} $t$ označuje čas, kedy bolo meranie
+Vo vzorci~\ref{eq-multi-regresia} $t$ označuje čas, kedy bolo meranie
 uskutočnené. $Y(t)$ predstavuje celkový nameraný odber elektriky. Vektor $V_t$
 reprezentuje hodnoty vysvetľujúcich premenných v čase merania. Vysvetľujúce
 premenné môžu predstavovať meteorologické vplyvy, ekonomický nárast, ceny
 elektriky či kruzy mien. Chybu modelu v čase $t$ zapíšeme
-ako $e_t$ \cite{KumarSingh2013}.
+ako $e_t$~\cite{KumarSingh2013}.
 
 \paragraph{Logistický regresný model}
 Nelineárna diskriminantná štatistická metóda. V \textbf{binary response} modely
 os $y$ zvyčajne reprezentuje individuálnu alebo experimentálnu jednotku. $Y$ môže
 nadobúdať hodnoty 0 alebo 1 pre situácie kedy udalosť nastane alebo nenastane.
 Os $x$ reprezentuje vysvetľujúcu veličinu ako vektor, ktorý môže znázorňovať
-pravdepodobnosť udalosti $(Y = 1)$ \cite{Li2010}.
+pravdepodobnosť udalosti $(Y = 1)$~\cite{Li2010}.
 
 %-------------------------------------------------------------------------------
 %   Stochastic models
@@ -307,11 +339,70 @@ pravdepodobnosť udalosti $(Y = 1)$ \cite{Li2010}.
 Tieto metódy časových radov sú založené na predpoklade, že dáta majú vnútornú
 štruktúru, ako napr. autokoreláciu, trend či sezónnu variáciu. Najprv sa
 precízne zostaví vzor zodpovedajúci dostupným dátam a potom sa na jeho základe
-predpovie budúca hodnota veličiny \cite{KumarSingh2013}.
+predpovie budúca hodnota veličiny~\cite{KumarSingh2013}.
+
+\paragraph{Autoregresný model}
+V autoregresívnom modely je budúca hodnota premennej predpokladaná ako súčet
+lineárnej kombinácie $p$ predchdzajúcich meraní, náhodnej chyby a konštanty.
+Matematicky môžeme autoregresný model zapisať ako
+\begin{equation}
+  y_t = c + \sum_{i=1}^{p} \varphi_i y_{t-i} + \varepsilon_t
+  \label{eq-ar}
+\end{equation}
+Vo vzorci~\ref{eq-ar} hodnota $y_t$ predstavuje predpovedanú hodnotu
+v čase $t$. Náhodnú chybu v čase $t$ zapíšeme ako $\varepsilon_t$. Hodnoty
+$\varphi_i$ sú parametre modelu a $c$ je konštanta. Konštantou $p$ označujeme
+rad modelu~\cite{Agrawal2013}.
+
+\paragraph{Model kĺzavého priemeru}
+Model kĺzavého priemeru na rozdiel od autoregresného modelu používa ako
+vysvetľujúce premenné chyby predchádzajúcich meraní a nie priamo hodnoty.
+Matematicky môžeme tento vzťah zapísať ako
+\begin{equation}
+  y_t = \mu + \sum_{j=1}^{q} \Theta_j \varepsilon_{t-j} + \varepsilon_t
+  \label{eq-ma}
+\end{equation}
+Vo vzorci~\ref{eq-ma} hodnota $y_t$ predstavuje strednú hodnotu
+postupnosti meraní v čase $t$. Hodnoty $\Theta_j$ sú parametre modelu
+a konštantou $q$ označujeme rad modelu. Vychádzame z predpokladu, že náhodná
+zložka $\varepsilon_t$ je biely šum, čo je rovnomerne distribuovaná náhodná
+premenná, ktorá má nulovú strednú hodnotu a konštantnú varianciu
+$\sigma^2$~\cite{Agrawal2013}.
 
 \paragraph{Autoregressive Moving-Average model}
 Model reprezentuje súčasnú hodnotu časového rádu linárne na základe jeho hodnôt
-a hodnôt bieleho šumu v predchádzajúcich periódach \cite{KumarSingh2013}.
+a hodnôt bieleho šumu v predchádzajúcich periódach~\cite{KumarSingh2013}.
+
+Ide o kombináciu autoregresie (AR) a kĺzavého priemeru (MA), vhodnú pre
+modelovanie jednorozmerných časových radov. Matematicky môžeme reprezentovať
+tento model ako súčet predchádzajúcich modelov
+\begin{equation}
+  y_t = c + \varepsilon_t + \sum_{i=1}^{p} \varphi_i y_{t-i}  \sum_{j=1}^{q} \Theta_j \varepsilon_{t-j}
+  \label{eq-arma}
+\end{equation}
+Rad modelu určuje $p$ a $q$~\cite{Agrawal2013}.
+
+\paragraph{Autoregressive Integrated Moving-Average model}
+Modely typu ARMA môžu byť použité iba na statické časové rady. Mnoho časových
+rádov v praxi vykazuje nestatické správanie a tiež tie, ktoré obsahujú
+komponenty trendu a sezónnosti. Kvôli tomu bol navrhnutý model ARIMA, ktorý je
+generalizáciou modelu ARMA a zahŕňa tak v sebe aj prípady nestatických časových
+rádov. Z nestatických časových radov sa vytvárajú statické pomocou konečného
+počtu derivovaní dátových bodov. Vzniká tak matematický model, ktorý môžeme
+zapísať ako
+\begin{equation}
+  \Big( 1 - \sum_{i=1}^{p} \varphi_i L^i \Big) (1-L)^d y_t = \Big( 1 + \sum_{j=1}^{q} \Theta_j L^j \Big) + \varepsilon_t
+  \label{eq-arima}
+\end{equation}
+Vzorec~\ref{eq-arima} môžeme zapísať aj jednoduchšie a to
+\begin{equation}
+  \varphi(L) (1-L)^d y_t = \Theta(L) \varepsilon_t
+  \label{eq-arima-short}
+\end{equation}
+Vo vzorci~\ref{eq-arima} predstavujú premenné $p$, $d$ a $q$ rad autoregresného
+modelu, modelu kĺzavého priemeru a integrovaného modelu. Hodnota $d$ zodpovedá
+stupňu derivovania, zvyčajne je rovná 1. V prípade, že $d=0$ dostaneme klasický
+ARMA model. Rovnakým spôsobom vieme dostať modely AR a MA~\cite{Agrawal2013}.
 
 %-------------------------------------------------------------------------------
 %   Support vector regression
@@ -328,7 +419,11 @@ radov to je regresná analýza. Support Vector Regression je postup, ktorého
 funkcia je predpovedaná pomocou nameraných dát, ktorými je Support Vector
 Machine postupne natrénované. Toto je odklon od tradičných predpovedí časových
 radov, v zmysle že Support Vector Machine nepoužíva žiadny model, ale
-predikciu riadia samotné dáta \cite{Sapankevych2009}.
+predikciu riadia samotné dáta~\cite{Sapankevych2009}.
+
+Táto predikčná metóda nie ja závislá na modely ani na žiadnych lineárnych
+procesoch. Tiež poskytuje malý počet voľných parametrov. Garantuje konvergenciu
+k ideálnemu riešeniu a môže byť výpočtovo efektívna~\cite{Sapankevych2009}.
 
 %-------------------------------------------------------------------------------
 %   Decision trees
@@ -342,7 +437,7 @@ označené konkrétnou hodnotou pre atribút, z ktorého vychádzajú. Rozhodova
 začína v koreni stromu a končí po dosiahnutí listového uzla. Pre riešenie
 jedného problému je možné vytvoriť stromy s rôznym počtom a usporiadaním uzlov.
 Najlepším riešením je strom s najmenším počtom rozhodovacích
-uzlov \cite{Merz1998}.
+uzlov~\cite{Merz1998}.
 
 \paragraph{Regresný rozhodovací strom}
 
@@ -361,7 +456,7 @@ Je veľa typov neurónových sietí napríklad viacvrstvové perceptónové siet
 samoriadiace siete, siete s viacerými skrytými vrstvami atď. V každej skrytej
 vrstve je množstvo neurónov. Hlavnou výhodou je, že väčšina sietí nepotrebuje
 model. Na druhej strane, trénovanie obvykle zaberá veľa času. Výstupom siete
-je lineárna rovnica váh prepojených so vstupom \cite{KumarSingh2013}.
+je lineárna rovnica váh prepojených so vstupom~\cite{KumarSingh2013}.
 
 %-------------------------------------------------------------------------------
 %   Ensemble learning
@@ -398,19 +493,19 @@ Predpovede sú vytvárané pomocou posledných hodnôt alebo ich priemerov.
 \paragraph{Seasonal naïve method}
 Poslednú nameranú hodnotu použijeme ako predpoveď pre nasledujúce obdobie. Ak
 sú naše dáta vysoko závisle od ročného obdobia, je lepšie použiť na predpoveď
-hodnotu z rovnakého obdobia, napr. z minulého roka \cite{Grmanova2016}.
+hodnotu z rovnakého obdobia, napr. z minulého roka~\cite{Grmanova2016}.
 
-\paragraph{Naïve average long-term method} \label{naive-average}
+\paragraph{Naïve average long-term method}
 Predpokladá, že dáta obsahujú vzory, ktoré nie sú závislé od ročných období.
 Kvôli tomu sú časové rady lokálne stabilné s pomaly meniacim sa priemerom.
 Hodnotu, ktorú použijeme ako predpoveď je iba priemorom viacerých posledných
-hodnôt \cite{Grmanova2016}.
+hodnôt~\cite{Grmanova2016}.
 
 \paragraph{Naïve In median long-term method}
-Táto metóda je alternativou k \ref{naive-average}. Keďže priemerom nedokáže
+Táto metóda je alternativou k predchádzajúcej metóde. Keďže priemerom nedokáže
 model dostatočne rýchlo reagovať na rapídne výkyvy a abnormality, lepšie
 výsledky dosiahneme nahradením priemeru za median posledných \textit{n}
-meraní \cite{Grmanova2016}.
+meraní~\cite{Grmanova2016}.
 
 %-------------------------------------------------------------------------------
 %   Analysis of optimizing algorithms
@@ -426,6 +521,58 @@ meraní \cite{Grmanova2016}.
 %-------------------------------------------------------------------------------
 
 \subsection{Meranie presnosti predpovedi}
+Pre vyhodnotenie efektívnosti a presnosti modelov je potrebné merať ich
+vlastnosti tak, aby sme ich vedeli medzi sebou porovnáva. V nasledujúcich
+spôsoboch merania sú použité pojmy ako aktuálna hodnota $y_t$, predpovedaná
+hodnota $f_t$ alebo chyba predpovede $e_t$ definovaná ako $e_t = y_t - f_t$.
+Veľkosť testovacej množiny budeme označovať ako $n$~\cite{Agrawal2013}.
+
+\subsubsection{Stredná chyba predpovede}
+V anglickej literatúre označovaná ako MFE. Matematickú funkciu zapísať ako
+\begin{equation}
+  MFE = \frac{1}{n} \sum_{t=1}^{n} e_t
+  \label{eq-mfe}
+\end{equation}
+Týmto spôsobom meriame priemernú odchýlku predpovedanej hodnoty od aktuálnej.
+Zistíme tak smer chyby nazývaný tiež \textbf{Forecast bias}. Nevýhodou je, že
+kladné a záporné chyby sa vynulujú a potom nie je možné zistiť presnú hodnotu
+chyby. Pri namerani extrémnych chýb, nie sú nijak špeciálne penalizované.
+Taktiež hodnota chyby závisí od škály meraní a môže byť ovplyvnená aj
+transformáciami dát. Dobré predpovede majú hodnotu blízku 0~\cite{Agrawal2013}.
+
+\subsubsection{Stredná absolútna chyba}
+V anglickej literatúre označovaná ako MAE. Patrí k jedným z najpoužívanejších.
+Funkciu môžeme zapísať ako
+\begin{equation}
+  MAE = \frac{1}{n} \sum_{t=1}^{n} |e_t|
+  \label{eq-mae}
+\end{equation}
+Týmto spôsobom meriame priemernú absolútnu odchýlku predpovedanej hodnoty od
+aktuálne. Zistíme tak celkový rozsah chyby, ktorá nastala počas predpovede.
+Narozdiel od merania chyby pomocou vzorca~\ref{eq-mfe} sa kladné a záporné
+chyby nevynulujú, čo má však za následok, že nevieme určiť celkový smer chyby.
+Na druhej strane tiež nenastáva žiadna penalizácia pri extrémnych chybách,
+hodnota chyby závisí od škály meraní, môže byť ovplynená transformáciami dát
+a dobré predpovede majú hodnotu čo najbližšiu 0~\cite{Agrawal2013, Gutierrez2015}.
+
+\subsubsection{Stredná aboslútna percentuálna chyba}
+V anglickej literatúre označovaná ako MAPE. Matematicky môžeme túto funkciu
+zapísať ako
+\begin{equation}
+  MAPE = \frac{1}{n} \sum_{t=1}^{n} \Big|\frac{e_t}{y_t}\Big| \times 100
+  \label{eq-mape}
+\end{equation}
+Pomocou tohto merania chyby získavame percentuálny prehľad o priemernej
+absolútnej chybe, ktorá sa vyskytla počas predpovedi. Veľkosť chyby nezávisí od
+škály merania, ale je závislá od transformácií dát. Tiež nie je možné zistiť
+smer chyby a ani nenastáva žiadna penalizácia pri extrémnych
+chybách~\cite{Agrawal2013}.
+
+\subsubsection{Stredná percentuálna chyba}
+V anglickej literatúre označovaná ako MPE
+
+\subsubsection{Stredná štvorcová chyba}
+V anglickej literatúre označovaná ako MSE
 
 %-------------------------------------------------------------------------------
 %   Chapter 2 - Description of solution

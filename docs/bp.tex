@@ -16,7 +16,6 @@
 \usepackage{amssymb}                                                            % for real numbers sign
 \usepackage{amsmath}                                                            % for fractions
 \usepackage{indentfirst}                                                        % indent first line after section
-% \usepackage{titlesec}																													% remove "Chapter N" header from chapter
 \usepackage{times}																															% Times New Roman
 \usepackage[unicode]{hyperref}																									% enable hyper references in table of content
 \hypersetup{																																		% with default colours for links
@@ -33,10 +32,6 @@
 % \usepackage[dvips,dvipdfm,a4paper,centering,textwidth=14cm,top=4.6cm,headsep=.6cm,footnotesep=1cm,footskip=0.6cm,bottom=3.8cm]{geometry}
 \usepackage[a4paper, centering,
 											left=30mm, top=20mm, right=20mm, bottom=20mm]{geometry}		% set page margins
-
-
-% \pagestyle{headings}
-%\titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\Large}						% remove "Chapter N" header from chapter
 
 %-------------------------------------------------------------------------------
 %   TITLE PAGES
@@ -465,6 +460,29 @@ vstupujúcich do siete. Táto vrstva je následne prepojená hranami so skrytou
 vrstvou pozostávajúcou z $h$ uzlov. Tá je potom prepojená s výstupnou vrstvou
 s $c$ uzlami. Kvôli tomu sa tieto siete zvyknú označovať aj ako dopredné
 siete~\cite{Merz1998}.
+
+Elementy skrytých a výstupných vrstiev sú umelé neuróny pozostávajúce z uzlov,
+viacerých vstupujúcich a jednou výstpnou hranou. Funkciou neurónu je
+transformovať lineárnu kombináciu vstupov pomocou nelineárnej aktivačnej
+funkcie, čiže každú vstupnú hranu prenásobiť jej váhou a výsledok týchto súčinou
+sčítať. Tak dostaneme pre neurón $j$ vzorec~\ref{eq-linear-combination}
+opisujúci lineárnu kombináciu vstupov $a_j$
+\begin{equation}
+  a_j = \sum_{i=1}^{d} w_{ji} x_i
+  \label{eq-linear-combination}
+\end{equation}
+Príčom váha $w_{ji}$ označuje váhu medzi neurónom $i$ na vstupnej vrstve
+a neurónom $j$ na skrytej vrstve~\cite{Merz1998}.
+
+Aktivovanie neurónu $j$ závisí od jeho aktivačnej funkcie $g(a_j)$. Jednu
+z najpoužívanejších aktivačných funkcií, logistickú sigmoidnú funkciu, môžeme
+matematicky zapísať ako
+\begin{equation}
+  g(a) \equiv \frac{1}{1 + exp(-a)}
+  \label{eq-sigmoid-function}
+\end{equation}
+Je zrejmé, že funkcia zo vzoraca~\ref{eq-sigmoid-function} vracia hodnoty
+v rozmedzí $(0,1)$~\cite{Merz1998}.
 
 %-------------------------------------------------------------------------------
 %   Ensemble learning

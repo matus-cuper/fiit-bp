@@ -13,11 +13,12 @@
 \usepackage[utf8]{inputenc}
 % \usepackage{graphicx}
 % \usepackage{url}
-\usepackage{amssymb}                                                            % for real numbers sign
-\usepackage{amsmath}                                                            % for fractions
-\usepackage{indentfirst}                                                        % indent first line after section
 \usepackage{times}																															% Times New Roman
 \usepackage[unicode]{hyperref}																									% enable hyper references in table of content
+\usepackage{indentfirst}                                                        % indent first line after section
+\usepackage{amsmath}                                                            % for fractions
+\usepackage{amssymb}                                                            % for real numbers sign
+\usepackage{algorithm,algpseudocode}                                            % for pseudocode writting
 \hypersetup{																																		% with default colours for links
     colorlinks,
 		pageanchor=false,
@@ -538,6 +539,56 @@ meraní~\cite{Grmanova2016}.
 %-------------------------------------------------------------------------------
 
 \subsection{Analýza optimalizačných algoritmov}
+Genetické algoritmy sú bilogicky inšpirované algoritmy patriace do triedy
+evolučných algoritmov. Genetické algoritmy sú stochastické optimalizačné
+algortimy s \textbf{global search potential}. Od tradičných algoritmov sa líšia
+hlavne v počte riešení, ktoré sú kandidátmi na najlepšie riešenie. Tradičné
+vyhľadávacie algoritmy prehľadávajú dôkladne iba jedno riešenie, zatiaľ čo
+genetické algoritmy hlbšie spracujú viacero kandidátou naraz. Každý kandidát na
+optimálne riešenie problému je reprezentovaný dátovou štruktúrou, ktorú
+označujeme pojmom jedinec. Súbor jedincov tvorí populáciu. Začiatok procesu
+začína náhodnými riešeniami populácie, ktorý sa postupne
+vylepšuje~\cite{Chavan2015}.
+
+Princíp fungovania genetických algoritmov možno znázorniť v nasledujúcom
+pseudokóde
+\begin{algorithm}
+  \caption{}
+  \begin{algorithmic}[1]
+    \State Inicializácia
+    \State Dekódovanie chromozónu
+    \State Nájdenie fitness funkcie \label{ga-fitness}
+    \State Vykonanie genetickej operácie \label{ga-operation}
+    \State Skontrolovanie či nebolo nájdené žiadané optimálne riešenie
+    \State Ukončenie ak sa našlo takéto riešenie, inak opakovanie krokov \ref{ga-fitness} a \ref{ga-operation}
+    \State Koniec
+  \end{algorithmic}
+\end{algorithm}
+
+
+\subsubsection{Artifical bee colony}
+Algoritmus funguje na princípe, že včely nájdu najviac výnosný zdroj a využijú
+ho. \textbf{Foragers} (zrejme robotnice hľadajúce zdroj jedla) uvažujú
+presúvanie sa medzi zdrojmi nektárov na základe kvality alebo zisku zdroju.
+Algoritmus poskytuje samo-manažovateľné a samo-organizované riešenie, vo svojej
+podstate decentralizované, pre daný problém~\cite{Buhussain2016}.
+
+\subsubsection{Kolónia mravcov}
+Pri tomto algoritme, mravce tiež opúšťajú mravenisko, kvôli hľadaniu zdrojov
+potravy náhodne. Potom vyhodnotia kvalitu zdroja potravy a donesú ho naspäť do
+mraveniska. Zanechávajú pri tom na zemi chemické stopy. Sila týchto stôp závisí
+od kvality nájdeného zdroja potravy. Mnoho výskumov využíva tento algoritmus na
+riešenie NP problémov, ako napríklad problém obchodných cestujúcich,
+vyfarbovanie grafov, smerovnaie áut alebo plánovacie problémy. Používa sa aj pri
+\textbf{cloud computing} na nájdenie optimálneho riešenia pri plánovaní úloh
+pre virtuálne servery~\cite{Buhussain2016}.
+
+Keď mravce hľadajú potravu prvý krát, hľadajú náhodne až kým nenájdu zdroj
+potravy. Zanechávajú pri tom za sebou chemickú stopu nazývanú feromón, ktorá
+tak vedie k zdroju. Tá následne priťahuje ostatné mravce k tomuto zdroju
+potravy. Tento proces pokračuje pokiaľ mravce nenájdu najkratšiu cestu vedúcu
+ku konkrétnemu zdroju potravy. Najkratšia cesta je určená naakumulovaným
+množstvom feromónov na ceste k zdroju potravy~\cite{Buhussain2016}.
 
 % definicia optimalizacnz algoritmov
 % preco optimalizacne algoritmy a nie hocco ine

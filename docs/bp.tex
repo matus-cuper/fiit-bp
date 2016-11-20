@@ -550,25 +550,62 @@ označujeme pojmom jedinec. Súbor jedincov tvorí populáciu. Začiatok procesu
 začína náhodnými riešeniami populácie, ktorý sa postupne
 vylepšuje~\cite{Chavan2015}.
 
+Pri genetických algoritmoch sa zavádzajú pojmy ako chromozón, fitness funkcia,
+kríženie, operátor reprodukcie či mutácie~\cite{Chavan2015}.
+
+\paragraph{Chromozón}
+\paragraph{Fitness funkcia}
+je funkcia určujúca efektívnosť chromozónu, pre ktoré je vypočítaná fitness
+funkcia. Rovnica \ref{eq-fitness} predstavuej porovnanie fitness funkcie
+aktuálneho chromozónu a fitness funkcie cieľového chromozónu
+\begin{equation}
+  fitness = \delta + P
+  \label{eq-fitness}
+\end{equation}
+Faktor $\delta$ predstavuje 
+~\cite{Chavan2015}.
+
+\paragraph{Operátor reprodukcie}
+je obvykle prvý operátor, ktorý sa uplatní na populáciu. Operátor náhodne
+vyberie reťazce z dvoch chromozónov na párenie~\cite{Chavan2015}.
+
+\paragraph{Kríženie}
+je operátor \textbf{recombination}. Kríženie vykonáva výmenu blokov chromozónov.
+Z druhého chromozónu je vybraný reťazec náhodnej veľkosti, ktorý sa vymení
+s rovnako dlhým reťazcom z prvého chromozónu~\cite{Chavan2015}.
+
+\paragraph{Operátor mutácie}
+sa vykoná po vykonaní operátora reprodukcie. Mutácia chromozónu invertuje jeden
+bit s nízkou pravdepodobnosťou~\cite{Chavan2015}.
+
 Princíp fungovania genetických algoritmov možno znázorniť v nasledujúcom
-pseudokóde
+pseudokóde~\cite{Chavan2015}
 \begin{algorithm}
-  \caption{}
+  \caption{Pseudokód genetického algoritmu}
   \begin{algorithmic}[1]
-    \State Inicializácia
-    \State Dekódovanie chromozónu
-    \State Nájdenie fitness funkcie \label{ga-fitness}
-    \State Vykonanie genetickej operácie \label{ga-operation}
-    \State Skontrolovanie či nebolo nájdené žiadané optimálne riešenie
-    \State Ukončenie ak sa našlo takéto riešenie, inak opakovanie krokov \ref{ga-fitness} a \ref{ga-operation}
+    \State Náhodne inicializovanie jedincov Inicializácia
+    \State Vyhodnotenie fitness funkcie pre každého jedinca \label{ga-fitness}
+    \State Výber jedincov pre ďalšiu populáciu na základe fitnesss funkcie \label{ga-selection}
+    \State Kríženie jedincov \label{ga-crossing}
+    \State Mutovanie jedincov \label{ga-mutation}
+    \State Kontrola či nebolo nájdené žiadané optimálne riešenie \label{ga-condition}
+    \State Ukončenie ak sa našlo takéto riešenie, inak opakovanie krokov \ref{ga-fitness} až \ref{ga-condition}
     \State Koniec
   \end{algorithmic}
 \end{algorithm}
 
-
 \subsubsection{Artifical bee colony}
-Algoritmus funguje na princípe, že včely nájdu najviac výnosný zdroj a využijú
-ho. \textbf{Foragers} (zrejme robotnice hľadajúce zdroj jedla) uvažujú
+ABC algoritmus je pomerne nový medzi rojovými algoritmami. Princíp je založený
+na biologickom procese, správaní medonosných včiel pri hľadaní potravy. Hlavný
+mechanizmus ktorým včely optimalizujú množstvo procesov je \textbf{waggle dance},
+ktorým včely lokalizujú zdroje potravy a nachádzajú ďalšie~\cite{Chavan2015}.
+
+Každá včela na pracujúca v roji sa spolupodiela na tvorbe celého systému na
+globálnej úrovni. Správanie systému je určené lokálnym správaním, kde spolupráca
+a zladenie jedincov vedie k štruktúrovanému kolaboračnému systému~\cite{Chavan2015}.
+
+Algoritmus funguje na princípe, že včely nájdu najviac výnosný zdroj
+s použitím, čo najmenšej energie. \textbf{Foragers} (zrejme robotnice hľadajúce zdroj jedla) uvažujú
 presúvanie sa medzi zdrojmi nektárov na základe kvality alebo zisku zdroju.
 Algoritmus poskytuje samo-manažovateľné a samo-organizované riešenie, vo svojej
 podstate decentralizované, pre daný problém~\cite{Buhussain2016}.

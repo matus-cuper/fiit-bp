@@ -553,17 +553,20 @@ vylepšuje~\cite{Chavan2015}.
 Pri genetických algoritmoch sa zavádzajú pojmy ako chromozón, fitness funkcia,
 kríženie, operátor reprodukcie či mutácie~\cite{Chavan2015}.
 
+Vytvorenie novej generácie prebieha pomocou genetického operátora,
+a to selekciou, krížením a mutáciou. Proces selekcie vyberie kvalitnejšie
+chromozóny, ktoré prežijú a vyskytnú sa tak aj v ďalšej generácii. Tiež sa
+vyberajú nekvalitné chromozóny, ktoré zahynú a nebudú ďalej brané do
+úvahy~\cite{Simonova2007}.
+
 \paragraph{Chromozón}
+predstavuje reťazec, ktorý je zakódovaním aktuálneho riešenia cite{???}. 
+
 \paragraph{Fitness funkcia}
 je funkcia určujúca efektívnosť chromozónu, pre ktoré je vypočítaná fitness
-funkcia. Rovnica \ref{eq-fitness} predstavuej porovnanie fitness funkcie
-aktuálneho chromozónu a fitness funkcie cieľového chromozónu
-\begin{equation}
-  fitness = \delta + P
-  \label{eq-fitness}
-\end{equation}
-Faktor $\delta$ predstavuje
-~\cite{Chavan2015}.
+funkcia. Pri hľadaní optimálneho riešenia sa porovnáva hodnota fitness funkcie
+aktuálneho riešenie s hodnotou funkcie cieľového
+riešenia~\cite{Chavan2015, Simonova2007}.
 
 \paragraph{Operátor reprodukcie}
 je obvykle prvý operátor, ktorý sa uplatní na populáciu. Operátor náhodne
@@ -573,6 +576,19 @@ vyberie reťazce z dvoch chromozónov na párenie~\cite{Chavan2015}.
 je operátor \textbf{recombination}. Kríženie vykonáva výmenu blokov chromozónov.
 Z druhého chromozónu je vybraný reťazec náhodnej veľkosti, ktorý sa vymení
 s rovnako dlhým reťazcom z prvého chromozónu~\cite{Chavan2015}.
+
+Vzniká problém ako, čo najvhodnejšie, určiť bod kríženia a vybrať tak
+najkvalitnejšie bloky chromozónu. Kvôli tomu je potrebné definovať nový element
+nazývaný väzba, označovaný ako $d_i$
+\begin{equation}
+  d_i = \frac{a_i + a_{i+1}}{2}
+  \label{eq-crossing}
+\end{equation}
+Za predpokladu, že chromozón reprezentujeme ako maticu veľkosti $1 \times N$,
+potom väzbu definovanú vzorcom \ref{eq-crossing} môžeme rezprezntovať ako
+maticu $1 \times (N-1)$. Vypočítaním priemeru susedných hodnôt aj pre cieľovú
+maticu a nájdením priemeru matice, určíme body kríženia. Chromozón rozdelíme na
+miestach, kde je väzba, čo najmenšia~\cite{Simonova2007}.
 
 \paragraph{Operátor mutácie}
 sa vykoná po vykonaní operátora reprodukcie. Mutácia chromozónu invertuje jeden
@@ -806,6 +822,13 @@ V anglickej literatúre označovaná ako MSE
 %       |y - f(x, w)| - \varepsilon \text{ inak } \\
 %     \end{cases}
 % \]
+
+% \begin{equation}
+%   fitness = \delta + P
+%   \label{eq-fitness}
+% \end{equation}
+% Faktor $\delta$ predstavuje rozdieľnosť výrazu aktuálneho chromozónu od
+% cieľového chromozónu \cite{Simonova2007}
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion

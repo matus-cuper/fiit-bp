@@ -551,7 +551,7 @@ začína náhodnými riešeniami populácie, ktorý sa postupne
 vylepšuje~\cite{Chavan2015}.
 
 Pri genetických algoritmoch sa zavádzajú pojmy ako chromozón, fitness funkcia,
-kríženie, operátor reprodukcie či mutácie~\cite{Chavan2015}.
+kríženie, elitárstvo, operátor reprodukcie či mutácie~\cite{Chavan2015}.
 
 Vytvorenie novej generácie prebieha pomocou genetického operátora,
 a to selekciou, krížením a mutáciou. Proces selekcie vyberie kvalitnejšie
@@ -560,7 +560,7 @@ vyberajú nekvalitné chromozóny, ktoré zahynú a nebudú ďalej brané do
 úvahy~\cite{Simonova2007}.
 
 \paragraph{Chromozón}
-predstavuje reťazec, ktorý je zakódovaním aktuálneho riešenia cite{???}. 
+jedinec sa zvykne nazývať aj kandidát alebo chromozón~\cite{Arun2016}.
 
 \paragraph{Fitness funkcia}
 je funkcia určujúca efektívnosť chromozónu, pre ktoré je vypočítaná fitness
@@ -590,6 +590,12 @@ maticu $1 \times (N-1)$. Vypočítaním priemeru susedných hodnôt aj pre cieľ
 maticu a nájdením priemeru matice, určíme body kríženia. Chromozón rozdelíme na
 miestach, kde je väzba, čo najmenšia~\cite{Simonova2007}.
 
+\paragraph{Elitárstvo}
+je to roces pridávania chromozónov s najlepšou hodnotou funkcie fitness priamo
+do ďalšej populácie. Zaisťuje to, že najlepšie riešenie budúcej generácie bude
+vždy lepšie alebo pri najhoršom rovnaké ako najlepšie riešenie predchádzajúcej
+generácie~\cite{Deolekar2016}.
+
 \paragraph{Operátor mutácie}
 sa vykoná po vykonaní operátora reprodukcie. Mutácia chromozónu invertuje jeden
 bit s nízkou pravdepodobnosťou~\cite{Chavan2015}.
@@ -609,6 +615,18 @@ pseudokóde~\cite{Chavan2015}
     \State Koniec
   \end{algorithmic}
 \end{algorithm}
+
+Veľkou výhodou genetických algoritmov je, že mutácia predchádza skĺznutiu do
+lokálnych miním a rekombinácia chromozónov vedie k rýchlemu približovaniu
+sa k optimálnemu riešeniu. Napriek týmto výhodám, majú genetické algoritmy aj
+niekoľko nevýhod~\cite{Deolekar2016}.
+\begin{itemize}
+  \item Reprezentovanie kandidátov je príliš obmedzujúce
+  \item Mutácia a kríženie sú v súčasnosti aplikovateľné iba na chromozóny
+        reprezentované bitovým reťazcvom alebo číslami
+  \item Definovanie fitness funkcie je často netriviálnou záležitosťou
+        a jej generalizácia je náročná
+\end{itemize}
 
 \subsubsection{Artifical bee colony}
 ABC algoritmus je pomerne nový medzi rojovými algoritmami. Princíp je založený

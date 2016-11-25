@@ -15,7 +15,7 @@
 % \usepackage{url}
 \usepackage{times}																															% Times New Roman
 \usepackage[unicode]{hyperref}																									% enable hyper references in table of content
-\usepackage{indentfirst}                                                        % indent first line after section
+%\usepackage{indentfirst}                                                        % indent first line after section, but carefully, indent everything and everywhere
 \usepackage{amsmath}                                                            % for fractions
 \usepackage{amssymb}                                                            % for real numbers sign
 \usepackage{algorithm,algpseudocode}                                            % for pseudocode writting
@@ -173,7 +173,7 @@ prípade sú namerané dáta dostupné každú celú štvrťhodinu.
 \subsubsection{Analýza časových radov}
 V praxi je vhodný model napasovaný do daného časového radu a zodpovedajúce
 parametre sú predpovedané na základe známych dát. Pri predopovedaní časových
-radov sú dáta z uplynulých meraní zhromažďované a analyzované za účelom
+radov sú dáta z predchádzajúcich meraní zhromažďované a analyzované za účelom
 navrhnutia vhodného matematického modelu, ktorý zachytáva proces generovania
 dát pre časové rady. Pomocou tohto modelu sú predpovedané hodnoty budúcich
 meraní. Takýto prístup je užitočný, keď nemáme veľa poznatkov o vzore
@@ -275,7 +275,7 @@ meraní majú formát $\left\{(x_1, f(x_1)), ..., (x_n, f(x_n))\right\}$.
 \end{equation}
 Funkcia $f$ vo vzorci~\ref{eq-regresia} reprezentuje reálnu neznámu
 funkciu. Algoritmus použitý na odvodenie funkcie $\hat{f}$ sa nazýva
-indukčný algoritmus alebo žiak. Funkcia $\hat{f}$ sa nazýva model alebo
+indukčný algoritmus. Funkcia $\hat{f}$ sa nazýva model alebo
 prediktor. Obvykle je úlohou regresie minimalizovať odchýlku funkcie pre
 štvorcovú chybu, konkrétne strednú štvorcovú chybu MSE~\cite{Mendes-Moreira2012}.
 
@@ -319,13 +319,6 @@ reprezentuje hodnoty vysvetľujúcich premenných v čase merania. Vysvetľujúc
 premenné môžu predstavovať meteorologické vplyvy, ekonomický nárast, ceny
 elektriky či kruzy mien. Chybu modelu v čase $t$ zapíšeme
 ako $e_t$~\cite{KumarSingh2013}.
-
-\paragraph{Logistický regresný model}
-Nelineárna diskriminantná štatistická metóda. V \textbf{binary response} modely
-os $y$ zvyčajne reprezentuje individuálnu alebo experimentálnu jednotku. $Y$ môže
-nadobúdať hodnoty 0 alebo 1 pre situácie kedy udalosť nastane alebo nenastane.
-Os $x$ reprezentuje vysvetľujúcu veličinu ako vektor, ktorý môže znázorňovať
-pravdepodobnosť udalosti $(Y = 1)$~\cite{Li2010}.
 
 %-------------------------------------------------------------------------------
 %   Stochastic models
@@ -407,7 +400,7 @@ ARMA model. Rovnakým spôsobom vieme dostať modely AR a MA~\cite{Agrawal2013}.
 \subsubsection{Support vector regression}
 Support Vector Machine a Support Vector Regression sú založené na štatistickej
 teórií učenia, nazývanej aj VC teória, podľa svojich autorov, Vapnik
-a Chervonenkisa.
+a Chervonenkisa~\cite{Sapankevych2009}.
 
 Support Vector Machine je použité na množstvo úloh strojového učenia ako je
 rozoznávanie vzorov, klasifikácia objektov a v prípade predikcií časových
@@ -417,9 +410,9 @@ Machine postupne natrénované. Toto je odklon od tradičných predpovedí časo
 radov, v zmysle že Support Vector Machine nepoužíva žiadny model, ale
 predikciu riadia samotné dáta~\cite{Sapankevych2009}.
 
-Táto predikčná metóda nie ja závislá na modely ani na žiadnych lineárnych
-procesoch. Tiež poskytuje malý počet voľných parametrov. Garantuje konvergenciu
-k ideálnemu riešeniu a môže byť výpočtovo efektívna~\cite{Sapankevych2009}.
+Táto predikčná metóda poskytuje malý počet voľných parametrov. Garantuje
+konvergenciu k ideálnemu riešeniu a môže byť výpočtovo
+efektívna~\cite{Sapankevych2009}.
 
 %-------------------------------------------------------------------------------
 %   Decision trees
@@ -427,13 +420,13 @@ k ideálnemu riešeniu a môže byť výpočtovo efektívna~\cite{Sapankevych200
 
 \subsubsection{Rozhodovacie stromy}
 Rozhodovacie stromy sú jednou z najrozšírenejších učiacich metód. Používajú sa
-najmä na klasifikáciu. Rozhodovací strom je reprezentovaný ako množina uzlov
-a im prislúchajúcich hrán. Uzly reprezentujú atribúty a výstupné hrany sú vždy
-označené konkrétnou hodnotou pre atribút, z ktorého vychádzajú. Rozhodovanie
-začína v koreni stromu a končí po dosiahnutí listového uzla. Pre riešenie
-jedného problému je možné vytvoriť stromy s rôznym počtom a usporiadaním uzlov.
-Najlepším riešením je strom s najmenším počtom rozhodovacích
-uzlov~\cite{Merz1998}.
+najmä na klasifikáciu, ale v súčasnosti sa využívajú aj na regresiu.
+Rozhodovací strom je reprezentovaný ako množina uzlov a im prislúchajúcich
+hrán. Uzly reprezentujú atribúty a výstupné hrany sú vždy označené konkrétnou
+hodnotou pre atribút, z ktorého vychádzajú. Rozhodovanie začína v koreni stromu
+a končí po dosiahnutí listového uzla. Pre riešenie jedného problému je možné
+vytvoriť stromy s rôznym počtom a usporiadaním uzlov. Najlepším riešením je
+strom s najmenším počtom rozhodovacích uzlov~\cite{Merz1998}.
 
 \paragraph{Regresný rozhodovací strom}
 
@@ -448,6 +441,13 @@ uzlov~\cite{Merz1998}.
 %-------------------------------------------------------------------------------
 
 \subsubsection{Neurónové siete}
+Neurónové siete sú inšpirované činnosťou mozgu a nervovej sústavy.
+
+Neurónová sieť predstavuje orientovaný graf uzlov. Každý uzol počíta svoj
+výstup na základe vstupov od susedných uzlov. Výpočet prebieha aplikovaním
+funkcie, ktorá sa nazýva sigmoid, na vážený súčet vstupov. Uzol neurónovej
+siete sa označuje ako neurón~\cite{Gruau1994}.
+
 Je veľa typov neurónových sietí napríklad viacvrstvové perceptónové siete,
 samoriadiace siete, siete s viacerými skrytými vrstvami atď. V každej skrytej
 vrstve je množstvo neurónov. Hlavnou výhodou je, že väčšina sietí nepotrebuje
@@ -676,7 +676,7 @@ hodnota $f_t$ alebo chyba predpovede $e_t$ definovaná ako $e_t = y_t - f_t$.
 Veľkosť testovacej množiny budeme označovať ako $n$~\cite{Agrawal2013}.
 
 \subsubsection{Stredná chyba predpovede}
-V anglickej literatúre označovaná ako MFE. Matematickú funkciu zapísať ako
+V literatúre označovaná ako MFE (mean forecast error). Matematickú funkciu zapísať ako
 \begin{equation}
   MFE = \frac{1}{n} \sum_{t=1}^{n} e_t
   \label{eq-mfe}
@@ -689,8 +689,8 @@ Taktiež hodnota chyby závisí od škály meraní a môže byť ovplyvnená aj
 transformáciami dát. Dobré predpovede majú hodnotu blízku 0~\cite{Agrawal2013}.
 
 \subsubsection{Stredná absolútna chyba}
-V anglickej literatúre označovaná ako MAE. Patrí k jedným z najpoužívanejších.
-Funkciu môžeme zapísať ako
+V literatúre označovaná ako MAE (mean absolute error). Patrí k jedným
+z najpoužívanejších. Funkciu môžeme zapísať ako
 \begin{equation}
   MAE = \frac{1}{n} \sum_{t=1}^{n} |e_t|
   \label{eq-mae}
@@ -698,14 +698,14 @@ Funkciu môžeme zapísať ako
 Týmto spôsobom meriame priemernú absolútnu odchýlku predpovedanej hodnoty od
 aktuálne. Zistíme tak celkový rozsah chyby, ktorá nastala počas predpovede.
 Narozdiel od merania chyby pomocou vzorca~\ref{eq-mfe} sa kladné a záporné
-chyby nevynulujú, čo má však za následok, že nevieme určiť celkový smer chyby.
+chyby nevynulujú, no ani napriek tomu nevieme určiť celkový smer chyby.
 Na druhej strane tiež nenastáva žiadna penalizácia pri extrémnych chybách,
 hodnota chyby závisí od škály meraní, môže byť ovplynená transformáciami dát
 a dobré predpovede majú hodnotu čo najbližšiu 0~\cite{Agrawal2013, Gutierrez2015}.
 
 \subsubsection{Stredná aboslútna percentuálna chyba}
-V anglickej literatúre označovaná ako MAPE. Matematicky môžeme túto funkciu
-zapísať ako
+V literatúre označovaná ako MAPE (mean absolute percentage error). Matematicky
+môžeme túto funkciu zapísať ako
 \begin{equation}
   MAPE = \frac{1}{n} \sum_{t=1}^{n} \Big|\frac{e_t}{y_t}\Big| \times 100
   \label{eq-mape}
@@ -717,10 +717,14 @@ smer chyby a ani nenastáva žiadna penalizácia pri extrémnych
 chybách~\cite{Agrawal2013}.
 
 \subsubsection{Stredná percentuálna chyba}
-V anglickej literatúre označovaná ako MPE
+V označovaná ako MPE (mean percentage error).
 
 \subsubsection{Stredná štvorcová chyba}
-V anglickej literatúre označovaná ako MSE
+V literatúre označovaná ako MSE (mean squarred error).
+
+\subsubsection{SMAPE}
+V literatúre označovaná ako SMAPE
+
 
 %-------------------------------------------------------------------------------
 %   Chapter 2 - Description of solution
@@ -847,6 +851,13 @@ V anglickej literatúre označovaná ako MSE
 % \end{equation}
 % Faktor $\delta$ predstavuje rozdieľnosť výrazu aktuálneho chromozónu od
 % cieľového chromozónu \cite{Simonova2007}
+
+% \paragraph{Logistický regresný model}
+% Nelineárna diskriminantná štatistická metóda. V \textbf{binary response} modely
+% os $y$ zvyčajne reprezentuje individuálnu alebo experimentálnu jednotku. $Y$ môže
+% nadobúdať hodnoty 0 alebo 1 pre situácie kedy udalosť nastane alebo nenastane.
+% Os $x$ reprezentuje vysvetľujúcu veličinu ako vektor, ktorý môže znázorňovať
+% pravdepodobnosť udalosti $(Y = 1)$~\cite{Li2010}.
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion

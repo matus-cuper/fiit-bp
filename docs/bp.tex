@@ -441,7 +441,32 @@ strom s najmenším počtom rozhodovacích uzlov~\cite{Merz1998}.
 %   Random forest
 %-------------------------------------------------------------------------------
 
-\subsubsection{Random forrest}
+\subsubsection{Náhodné lesy}
+Náhodné lesy sú kombináciou predpovedí stromov. Každý strom závisí od hodnoty
+náhodného vektora s rovnakým rozdelením. Chyba lesu závisí od sily jednotlivých
+strom a koreláciou medzi nimi. Náhodný les môžeme definovať ako klasifikátor
+pozostávajúci z množiny stromov $\{h(x, \Theta_k), k=1, 2, ... \}$, kde
+$\{\Theta_k\}$ sú nezávislé rovnomerne distribuované náhodné vektory a každý
+strom sa podiela na hlasom na voľbe triedy vstupu $x$. S nárastom počtu stromov
+hodnota $\{\Theta_k\}$ konverguje k určitému bodu. Tým je zabezpečené, že
+náhodné lesy sa s pridávajúcim počtom stromov nepretrénujú ale veľkosť chyby sa
+postupne ústáli. Pri výbere náhodného vektora sa snažíme pri zachovaní jeho
+sily minimalizovať koreláciu, čím zvyšujeme presnosť celého
+výpočtu~\cite{Breiman2001}.
+
+Väčšinou sú náhodné lesy používané na klasifikačné problémy, avšak je možné ich
+aplikovať aj na regresiu. Regresné náhodné lesy sú tvorené rastom stromov
+závyslých na náhodnom vektore $\{\Theta\}$. Prediktor stromu $h(x, \Theta)$
+nadobúda číselné hodnoty narozdiel od štíkov tried ako je to pri klasifikačných
+problémoch. Predpokladáme trénovaciu množinu, ktorá je nezávislou distribúciou
+náhodneho vektora $Y, X$. Potom môžeme strednú štvorcovú generalizačnú chybu
+pre číselný prediktor $h$ matematicky zapísať ako
+\begin{equation}
+  E_{X, Y} (Y - h(X))^2
+  \label{eq-random-error}
+\end{equation}
+Prediktor náhodného lesu je tvorený priemerom $k$ stromov, čo zapíšeme ako
+$h(x, \Theta_k)$~\cite{Breiman2001}.
 
 %-------------------------------------------------------------------------------
 %   Neural networks

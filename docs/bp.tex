@@ -176,11 +176,23 @@ v zozname použitej literatúry. \\
 \tableofcontents
 
 %-------------------------------------------------------------------------------
-%   Chapter 1 - Problem analysis
+%   Chapter 1 - Introduction
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Úvod}
+
+%-------------------------------------------------------------------------------
+%   Chapter 2 - Problem analysis
 %-------------------------------------------------------------------------------
 
 \newpage
 \section{Analýza problému}
+Predpovedanie spotreby elektriky je kľúčovou činnosťou pre plánovanie
+a prevádzkovanie rôznych elektronických zariadení. Potrebný vzor pre časové
+rady spotreby elektriny je často komplexný a je zložité ho nájsť aj kvôli
+zmenám cien elektriky na trhu. Preto je náročné nájsť a implementovať vhodný
+model počítajúci presnú predpoveď~\cite{Mahalakshmi2016}.
 
 %-------------------------------------------------------------------------------
 %   Time series
@@ -190,7 +202,7 @@ v zozname použitej literatúry. \\
 Časový rad je množina dátových bodov nameraná v čase postupne za sebou.
 Matematicky je definovaný ako množina vektorov $x(t)$, kde $t$ reprezentuje
 uplynulý čas. Premenná $x(t)$ je považovaná za náhodnú premennú.
-Merania v časových radoch sú usporiadané v chronologicky
+Merania v časových radoch sú usporiadané v chronologickom
 poradí~\cite{Agrawal2013}.
 
 Časové rady delíme na spojité a diskrétne. Pozorovania pri spojitých časových
@@ -292,10 +304,10 @@ Na základe množstva predikčných
 \subsubsection{Lineárna regresia}
 Najpoužívanejšia štatistická metóda, ktorá modeluje vzťah závislej premennej
 a vysvetľujúcej premmennej. Závislú premmenu predstavuje veličina, ktorú sa
-snažíme predpoved, čo je v našom prípade spotreba elektriky. Vysvetľujúca
+snažíme predpovedať, čo je v našom prípade spotreba elektriky. Vysvetľujúca
 premenná v sebe zahŕňa rôzne faktory, ktoré ovplyvňujú závislú premennú.
 Môžeme si pod tým predstaviť deň v týždni, počasie, tradície alebo rôzne
-udalosti, ktoré majú vplyv na predpoveď.~\cite{KumarSingh2013}.
+udalosti, ktoré majú vplyv na predpoveď.~\cite{KumarSingh2013, Mahalakshmi2016}.
 
 Predpokladajme typický regresný problém. Dáta pozostávajúce z množiny \textit{n}
 meraní majú formát $\left\{(x_1, f(x_1)), ..., (x_n, f(x_n))\right\}$.
@@ -347,7 +359,7 @@ uskutočnené. $Y(t)$ predstavuje celkový nameraný odber elektriky. Vektor $V_
 reprezentuje hodnoty vysvetľujúcich premenných v čase merania. Vysvetľujúce
 premenné môžu predstavovať meteorologické vplyvy, ekonomický nárast, ceny
 elektriky či kruzy mien. Chybu modelu v čase $t$ zapíšeme
-ako $e_t$~\cite{KumarSingh2013}.
+ako $e_t$~\cite{KumarSingh2013, Mahalakshmi2016}.
 
 %-------------------------------------------------------------------------------
 %   Stochastic models
@@ -564,7 +576,29 @@ Aplikuje rôzne typy modelov nad rovnakými dátovými množinami\cite{Grmanova2
 %   Exponential smoothing
 %-------------------------------------------------------------------------------
 
-\subsubsection{Exponencionálne hladenie}
+\subsubsection{Exponencionálne vyrovnávanie}
+
+Táto metóda, tak ako vyššie popísané metódy, najprv na základe dát
+z predchádzajúcich meraní vytvorí model. Ten sa v ďalej použíje na
+redpovedanie budúcich dát. Tento vzťah môžeme matematicky zapísať ako
+\begin{equation}
+  y(t) = \beta(t)^T f(t) + \varepsilon(t)
+  \label{eq-expo}
+\end{equation}
+Vo vzorci \ref{eq-expo} sa opäť nachádza biely šum $\varepsilon(t)$. Hodnota
+$\beta(t)$ predstavuje \textbf{coefficient vector} a $f(t)$
+\textbf{fitting function}~\cite{Mahalakshmi2016}.
+
+Jednou z predikčných metód časových radov, ktorá používa exponencionálne
+vyrovnávanie je aj Wintersova metóda. Pri sezónnych dátach sú použité 3
+vyrovnávacie parametre a to trend, sezónosť a stacionárnosť. Analýza
+a predpoveď priamym aplikovaním Wintersovej metódy môže byť náročné, keďže
+dátové množiny väčšinou obsahujú \textbf{riedke pozorovania (sparse values)}.
+Tento problém môžeme vyriešiť kombináciou ostatných metód, ako je napr.
+autoregresívny model či spektrálna analýza, s exponencionálnym
+vyrovnávaním~\cite{Mahalakshmi2016}.
+
+
 
 %-------------------------------------------------------------------------------
 %   Naive methods
@@ -779,38 +813,57 @@ V literatúre označovaná ako MSE (mean squarred error).
 \subsubsection{SMAPE}
 V literatúre označovaná ako SMAPE
 
-
 %-------------------------------------------------------------------------------
-%   Chapter 2 - Description of solution
+%   Chapter 3 - Analysis evaluation
 %-------------------------------------------------------------------------------
 
 \newpage
-\section{Opis riešenia}
+\section{Zhodnotenie analýzy}
 
 %-------------------------------------------------------------------------------
-%   Chapter 3 - Evaluation
+%   Chapter 4 - Specification
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Špecifikácia požiadaviek}
+
+%-------------------------------------------------------------------------------
+%   Chapter 5 -   Analysis evaluation
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Návrh riešenia}
+
+%-------------------------------------------------------------------------------
+%   Chapter 6 - Implementation
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Implementácia}
+
+%-------------------------------------------------------------------------------
+%   Chapter 7 - Evaluation
 %-------------------------------------------------------------------------------
 
 \newpage
 \section{Zhodnotenie}
 
 %-------------------------------------------------------------------------------
-%   Chapter 4 - Technical documentation
+%   Chapter 8 - Technical documentation
 %-------------------------------------------------------------------------------
 
 \newpage
+\section{Záver}
+
+\newpage
 \section{Technická dokumentácia}
-
-% \chapter{Špecifikácia}
-% \subsection{Meranie chyby predikcie}
-
-
 
 %-------------------------------------------------------------------------------
 %   Bibliography
 %-------------------------------------------------------------------------------
 
 \newpage
+\addcontentsline{toc}{section}{Literatúra}
 \bibliographystyle{iso-690/czechiso}
 \bibliography{bibliography}
 

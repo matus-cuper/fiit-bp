@@ -11,7 +11,6 @@
 \usepackage[slovak]{babel}                                                      % title in Slovak
 \usepackage[utf8]{inputenc}                                                     % supported special Slovak characters
 \usepackage[T1]{fontenc}                                                        % supported word wrapping on the end of line on speciacl Slovak characters
-% \usepackage{graphicx}
 % \usepackage{url}
 \usepackage{times}																															% Times New Roman
 \usepackage[unicode]{hyperref}																									% enable hyper references in table of content
@@ -19,6 +18,8 @@
 \usepackage{amsmath}                                                            % for fractions
 \usepackage{amssymb}                                                            % for real numbers sign
 \usepackage{algorithm,algpseudocode}                                            % for pseudocode writting
+\usepackage{graphicx}                                                           % enable figures
+\graphicspath{ {images/} }                                                      % set path for figures
 \hypersetup{																																		% with default colours for links
     colorlinks,
 		pageanchor=false,
@@ -236,7 +237,15 @@ predpovedá hodnotu časového radu v budúcnosti konzistentne
 a objektvíne~\cite{Sapankevych2009}.
 
 Časové rady sú najčastejšie vizualizované ako graf, kde pozorovania sú na
-osy $y$ a plynúci čas na osy $x$.
+osy $y$ a plynúci čas na osy $x$ ako je to znázornené
+v obrázku~\ref{fig-time-comp}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{time_series_components.png}
+  \caption{Príklad dekompozície additívne časového radu~\cite{Madison2016}.}
+  \label{fig-time-comp}
+\end{figure}
 
 \subsubsection{Zložky časových radov}
 Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú
@@ -781,10 +790,30 @@ sú nasledovaní kandidátmi omega~\cite{Seeley1991}.
   \end{split}
   \label{eq-prey-main}
 \end{equation}
-Aktuálnu iteráciu vo vzorci \ref{eq-prey-main} zapíšeme ako $t$, vektor
+Aktuálnu iteráciu vo vzorci~\ref{eq-prey-main} zapíšeme ako $t$, vektor
 $\vec{X_p}$ predstavuje vektor polohy koristi a $\vec{X}$ je vektor polohy
-vlka. Vektory $\vec{A}$ a $\vec{C}$ sú koeficienty, ktoré zapíšeme ako nič...
-~\cite{Seeley1991}.
+vlka. Vektory $\vec{A}$ a $\vec{C}$ sú koeficienty, ktoré zapíšeme ako
+\begin{equation}
+  \begin{split}
+    \vec{A} = 2\vec{a} \cdot \vec{r_1} - \vec{a}
+    \\
+    \vec{C} = 2 \cdot \vec{r_2}
+  \end{split}
+  \label{eq-prey-minor}
+\end{equation}
+Vo vzorci~\ref{eq-prey-minor} premenná $\vec{a}$ sa počas výpočtu lineárne
+znižuje od 2 po 0. Vektory $\vec{r_1}$ a $\vec{r_2}$ sú náhodnými vektormi
+v rozsahu [0, 1]. Vlk môže svoju pozíciu $(X, Y)$ aktualizovať v závislosti od
+pozície koristi $(X^*, Y^*)$. Obrázok \ref{fig-wolf-pos} ilustruje možné
+aktualizované pozície, ktoré môže najlepší agent dosiahnuť. Tieto pozície
+získame aplikovaním vzorcov~\ref{eq-prey-main}~\cite{Seeley1991}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{wolf_vector_positions.png}
+  \caption{Príklad možného umiestnenia vlka v dvojrozmernom priestore na základe polohy koristi.}
+  \label{fig-wolf-pos}
+\end{figure}
 
 %-------------------------------------------------------------------------------
 %   Artifical bee colony

@@ -630,6 +630,14 @@ meraní~\cite{Grmanova2016}.
 
 \subsection{Analýza optimalizačných algoritmov}
 
+% definicia optimalizacnz algoritmov
+% preco optimalizacne algoritmy a nie hocco ine
+
+
+%-------------------------------------------------------------------------------
+%   Genetic algorithms
+%-------------------------------------------------------------------------------
+
 \subsubsection{Genetické algoritmy}
 Jedná sa o bilogicky inšpirované algoritmy patriace do triedy
 evolučných algoritmov. Genetické algoritmy sú stochastické optimalizačné
@@ -718,9 +726,15 @@ riešenie predchádzajúcej generácie~\cite{Deolekar2016}.
 Mutácia chromozónu väčšinou predstavuje operáciu, ktorá s nízkou
 pravdepodobnosťou invertuje jeden bit v chromozóne~\cite{Chavan2015}.
 
-\subsubsection{Grey wolf optimization}
-Algoritmus je založený na správaní vlka sivého, ktorý je na vrchole
-potravinového reťazca a preferuje život vo svorke. Vlkom vo svorke možno
+%-------------------------------------------------------------------------------
+%   Grey wolf optimizer
+%-------------------------------------------------------------------------------
+
+\subsubsection{Grey wolf optimizer}
+Algoritmus je založený na správaní vlka dravého, ktorý je na vrchole
+potravinového reťazca a preferuje život vo svorke. Lov pozostáva zo stopovania,
+naháňania, približovania sa, obkľúčenia, obťažovaním koristi, pokiaľ neprestane
+utekať a útokom na korisť. Vlkov vo svorke možno
 rozdeliť do niekoľko skupín~\cite{Seeley1991}.
 
 \paragraph{Alfa vlky} sú vodcami svorky. Ich úlohou je robiť rozhodnutia
@@ -752,10 +766,35 @@ ich strata spôsobila vo svorke nedorozumenia. Tiež slúžia na zbavenie sa
 frustrácie ostatných vlkov, čím prispievajú k spokojnosti celej
 svorky~\cite{Seeley1991}.
 
+\paragraph{Spoločenská hierarchia} reprezentovaná matematickým modelom,
+označuje najvhodnejšie riešenie ako alfa, druhé a tretie najvhodnejšie ako beta
+resp. delta. Riešenia ostatných kandidátov označujeme ako omega. Algoritmus
+optimalizácie (v prírode lovu) je vedený alfa, beta a delta kandidátmi, ktorí
+sú nasledovaní kandidátmi omega~\cite{Seeley1991}.
+
+\paragraph{Obkľúčenie koristi} môžeme matematicky reprezentovať ako
+\begin{equation}
+  \begin{split}
+    \vec{D} = | \vec{C} \cdot \vec{X_p}(t) \vec{X}(t) |
+    \\
+    \vec{X}(t+1) = \vec{X_p}(t) - \vec{A} \cdot \vec{D}
+  \end{split}
+  \label{eq-prey-main}
+\end{equation}
+Aktuálnu iteráciu vo vzorci \ref{eq-prey-main} zapíšeme ako $t$, vektor
+$\vec{X_p}$ predstavuje vektor polohy koristi a $\vec{X}$ je vektor polohy
+vlka. Vektory $\vec{A}$ a $\vec{C}$ sú koeficienty, ktoré zapíšeme ako nič...
+~\cite{Seeley1991}.
+
+%-------------------------------------------------------------------------------
+%   Artifical bee colony
+%-------------------------------------------------------------------------------
+
 \subsubsection{Umelá kolónia včiel}
-ABC algoritmus je pomerne nový medzi rojovými algoritmami. Princíp je založený
-na biologickom procese, správaní medonosných včiel pri hľadaní potravy. Hlavný
-mechanizmus ktorým včely optimalizujú množstvo procesov je \textbf{waggle dance},
+V literatúre označovaný ako ABC algoritmus (Artifical bee colony) je pomerne
+nový medzi rojovými algoritmami. Princíp je založený na biologickom procese,
+správaní medonosných včiel pri hľadaní potravy. Hlavný mechanizmus ktorým včely
+optimalizujú množstvo procesov je tzv. včelí tanec (\textbf{waggle dance}),
 ktorým včely lokalizujú zdroje potravy a nachádzajú ďalšie~\cite{Chavan2015}.
 
 Každá včela na pracujúca v roji sa spolupodiela na tvorbe celého systému na
@@ -767,6 +806,10 @@ s použitím, čo najmenšej energie. \textbf{Foragers} (zrejme robotnice hľada
 presúvanie sa medzi zdrojmi nektárov na základe kvality alebo zisku zdroju.
 Algoritmus poskytuje samo-manažovateľné a samo-organizované riešenie, vo svojej
 podstate decentralizované, pre daný problém~\cite{Buhussain2016}.
+
+%-------------------------------------------------------------------------------
+%   Ant colony optimization
+%-------------------------------------------------------------------------------
 
 \subsubsection{Kolónia mravcov}
 Pri tomto algoritme, mravce tiež opúšťajú mravenisko, kvôli hľadaniu zdrojov
@@ -784,9 +827,6 @@ tak vedie k zdroju. Tá následne priťahuje ostatné mravce k tomuto zdroju
 potravy. Tento proces pokračuje pokiaľ mravce nenájdu najkratšiu cestu vedúcu
 ku konkrétnemu zdroju potravy. Najkratšia cesta je určená naakumulovaným
 množstvom feromónov na ceste k zdroju potravy~\cite{Buhussain2016}.
-
-% definicia optimalizacnz algoritmov
-% preco optimalizacne algoritmy a nie hocco ine
 
 %-------------------------------------------------------------------------------
 %   Measurement of prediction accuracy

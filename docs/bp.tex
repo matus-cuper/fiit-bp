@@ -764,17 +764,18 @@ hodnota $f_t$ alebo chyba predpovede $e_t$ definovaná ako $e_t = y_t - f_t$.
 Veľkosť testovacej množiny budeme označovať ako $n$~\cite{Agrawal2013}.
 
 \subsubsection{Stredná chyba predpovede}
-V literatúre označovaná ako MFE (mean forecast error). Matematickú funkciu zapísať ako
+V literatúre označovaná ako MFE (mean forecast error). Matematickú funkciu
+zapísať ako
 \begin{equation}
   MFE = \frac{1}{n} \sum_{t=1}^{n} e_t
   \label{eq-mfe}
 \end{equation}
 Týmto spôsobom meriame priemernú odchýlku predpovedanej hodnoty od aktuálnej.
-Zistíme tak smer chyby nazývaný tiež \textbf{Forecast bias}. Nevýhodou je, že
-kladné a záporné chyby sa vynulujú a potom nie je možné zistiť presnú hodnotu
-chyby. Pri namerani extrémnych chýb, nie sú nijak špeciálne penalizované.
-Taktiež hodnota chyby závisí od škály meraní a môže byť ovplyvnená aj
-transformáciami dát. Dobré predpovede majú hodnotu blízku 0~\cite{Agrawal2013}.
+Zistíme tak smer chyby. Nevýhodou je, že kladné a záporné chyby sa vynulujú
+a potom nie je možné zistiť presnú hodnotu chyby. Pri namerani extrémnych chýb,
+nie sú nijak špeciálne penalizované. Taktiež hodnota chyby závisí od škály
+meraní a môže byť ovplyvnená aj transformáciami dát. Dobré predpovede majú
+hodnotu blízku 0~\cite{Agrawal2013}.
 
 \subsubsection{Stredná absolútna chyba}
 V literatúre označovaná ako MAE (mean absolute error). Patrí k jedným
@@ -784,16 +785,31 @@ z najpoužívanejších. Funkciu môžeme zapísať ako
   \label{eq-mae}
 \end{equation}
 Týmto spôsobom meriame priemernú absolútnu odchýlku predpovedanej hodnoty od
-aktuálne. Zistíme tak celkový rozsah chyby, ktorá nastala počas predpovede.
+aktuálnej. Zistíme tak celkový rozsah chyby, ktorá nastala počas predpovede.
 Narozdiel od merania chyby pomocou vzorca~\ref{eq-mfe} sa kladné a záporné
 chyby nevynulujú, no ani napriek tomu nevieme určiť celkový smer chyby.
 Na druhej strane tiež nenastáva žiadna penalizácia pri extrémnych chybách,
 hodnota chyby závisí od škály meraní, môže byť ovplynená transformáciami dát
-a dobré predpovede majú hodnotu čo najbližšiu 0~\cite{Agrawal2013, Gutierrez2015}.
+a dobré predpovede majú hodnotu čo
+najbližšiu 0~\cite{Agrawal2013, Gutierrez2015}.
+
+\subsubsection{Stredná percentuálna chyba}
+V označovaná ako MPE (mean percentage error). Matematciky môžeme túto funkciu
+zapísať ako
+\begin{equation}
+  MPE = \frac{1}{n} \sum_{t=1}^{n} \frac{e_t}{y_t} \times 100
+  \label{eq-mpe}
+\end{equation}
+Vlastnosti sú veľmi podobné ako pri MAPE v časti \ref{mape}. Chyba nám
+poskytuje prehľad o priemernej chybe, ktorá sa vyskytla počas predpovede.
+Naviac, oproti MAPE, získame prehľad o smere chyby, čo má však za následok, že
+opačné znamienka sa vynulujú. O modely, ktorého chyba MPE sa blíži k 0
+nemôžeme s určitosťou tvrdiť, že funguje správne~\cite{Agrawal2013}.
 
 \subsubsection{Stredná aboslútna percentuálna chyba}
-V literatúre označovaná ako MAPE (mean absolute percentage error). Matematicky
-môžeme túto funkciu zapísať ako
+\label{mape}
+V literatúre označovaná ako MAPE (mean absolute percentage error). Vzorec,
+ktorým ju zapíšeme bude veľmi podobný vzorcu \ref{eq-mpe}
 \begin{equation}
   MAPE = \frac{1}{n} \sum_{t=1}^{n} \Big|\frac{e_t}{y_t}\Big| \times 100
   \label{eq-mape}
@@ -804,13 +820,20 @@ absolútnej chybe, ktorá sa vyskytla počas predpovedi. Veľkosť chyby nezávi
 smer chyby a ani nenastáva žiadna penalizácia pri extrémnych
 chybách~\cite{Agrawal2013}.
 
-\subsubsection{Stredná percentuálna chyba}
-V označovaná ako MPE (mean percentage error).
-
 \subsubsection{Stredná štvorcová chyba}
-V literatúre označovaná ako MSE (mean squarred error).
+V literatúre označovaná ako MSE (mean squarred error). Vzorcom ju zapíšeme ako
+\begin{equation}
+  MSE = \frac{1}{n} \sum_{t=1}^{n} e_t^2
+  \label{eq-mse}
+\end{equation}
+Chyba meria priemernú štvorcovú odchýlku predpovedanej hodnoty. Opačné
+znamienka sa neovplyvňujú. Neposkytuje nám pohľad na smer chyby. Zabezpečuje
+penalizáciu extrémnych chýb. Zdôrazňuje fakt, že celková chyba je viac
+ovplyvnená jednotlivými veľkými chybami ako viacerými malými. Nevýhodou je, že
+chyba je veľmi citlivá na zmenu škály alebo transformáciu
+dát~\cite{Agrawal2013}.
 
-\subsubsection{SMAPE}
+\subsubsection{Symetrická stredná absolútna percentuálna chyba}
 V literatúre označovaná ako SMAPE
 
 %-------------------------------------------------------------------------------

@@ -629,7 +629,9 @@ meraní~\cite{Grmanova2016}.
 %-------------------------------------------------------------------------------
 
 \subsection{Analýza optimalizačných algoritmov}
-Genetické algoritmy sú bilogicky inšpirované algoritmy patriace do triedy
+
+\subsubsection{Genetické algoritmy}
+Jedná sa o bilogicky inšpirované algoritmy patriace do triedy
 evolučných algoritmov. Genetické algoritmy sú stochastické optimalizačné
 algortimy s \textbf{global search potential}. Od tradičných algoritmov sa líšia
 hlavne v počte riešení, ktoré sú kandidátmi na najlepšie riešenie. Tradičné
@@ -715,6 +717,40 @@ riešenie predchádzajúcej generácie~\cite{Deolekar2016}.
 \paragraph{Operátor mutácie} sa vykoná po vykonaní operátora reprodukcie.
 Mutácia chromozónu väčšinou predstavuje operáciu, ktorá s nízkou
 pravdepodobnosťou invertuje jeden bit v chromozóne~\cite{Chavan2015}.
+
+\subsubsection{Grey wolf optimization}
+Algoritmus je založený na správaní vlka sivého, ktorý je na vrchole
+potravinového reťazca a preferuje život vo svorke. Vlkom vo svorke možno
+rozdeliť do niekoľko skupín~\cite{Seeley1991}.
+
+\paragraph{Alfa vlky} sú vodcami svorky. Ich úlohou je robiť rozhodnutia
+ohľadom lovu, miesta na spanie či času zobudenia. Tieto príkazy diktujú svorke,
+avšak bolo pozorované aj demokratické správanie, kedy alfa vlky nasledovali
+ostatné vlky zo svorky. Pri stretnutí svorky dávajú všetky vlky najavo uznanie
+alfa vlkov stiahnutým chvostom. Zaujímavosťou je, že vodcom svorky nemusí byť
+najsilnejší jedinec, ale môže to byť aj jedinec najlepší v organizovaní
+svorky~\cite{Seeley1991}.
+
+\paragraph{Beta vlky} sp druhým stupňom v hierarchii vlčej svorky, podriadené
+alfa vlkom, ktorým pomáhajú v rozhodovaní a organizácií svorky. Sú najlepšími
+kandidátmi na alfa vlkov v prípade úmrtia alebo zostarnutia alfa vlkov. Mali by
+rešpektovať alfa vlky a organizovať nižšie postavené vlky. Hrajú rolu radcu
+a ďalej distribujú príkazy a vracajú sa s odozvou na ne~\cite{Seeley1991}.
+
+\paragraph{Delta vlky} inak nazývané aj podriadené vlky zastupujú vo svorke
+úlohy prieskumníkov, strážcov, starejších, lovcov či opatrovateľov.
+Prieskumníci hliadkujú hranice teritória a varujú svorku v prípade akéhokoľvek
+nebezpečia. Strážcovia zabezpečujú bežpečie svorky. Starejší sú skúsenými
+vlkmi, ktorí boli alfa alebo beta vlkmi. Lovci pomáhajú alfa a beta vlkom pri
+love a poskytujú svorke jedlo. Opatrovatelia sa starajú o slabé, choré alebo
+zranené vlky~\cite{Seeley1991}.
+
+\paragraph{Omega vlky} majú najnižšiu hodnosť vo svorke. Hrajú rolu obetných
+baránkov, ktoré sa podrobia ostatným vlkom. Jedia úplne posledné. Aj keď sa
+možno javí ich postavenie vo svorke zbytočné, boli pozorované prípady, kedy
+ich strata spôsobila vo svorke nedorozumenia. Tiež slúžia na zbavenie sa
+frustrácie ostatných vlkov, čím prispievajú k spokojnosti celej
+svorky~\cite{Seeley1991}.
 
 \subsubsection{Umelá kolónia včiel}
 ABC algoritmus je pomerne nový medzi rojovými algoritmami. Princíp je založený

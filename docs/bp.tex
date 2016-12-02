@@ -266,10 +266,22 @@ Výsledky práce sú zhodnotené v kapitole~\ref{evaluation}.
 \section{Analýza problému}
 \label{problem-analysis}
 Predpovedanie spotreby elektriky je kľúčovou činnosťou pre plánovanie
-a prevádzkovanie rôznych elektronických zariadení. Potrebný vzor pre časové
+a prevádzkovanie rôznych elektronických zariadení. Hľadaný vzor pre časové
 rady spotreby elektriny je často komplexný a je zložité ho nájsť aj kvôli
-zmenám cien elektriky na trhu. Preto je náročné nájsť a implementovať vhodný
-model počítajúci presnú predpoveď~\cite{Mahalakshmi2016}.
+faktorom ako sú napr. zmeny cien elektriky na trhu. Preto sa stáva
+implementácia vhodného modelu zaručujúceho presnú predpoveď
+náročnou~\cite{Mahalakshmi2016}.
+
+Práve preto vznikajú rôzne metódy na predpovedanie časových radov, ktoré sú
+bližšie popísané v nasledujúcich podkapitolách. Väčšina z nich poskytuje
+niekoľko vstupných parametrov ako rozhranie pre vnútorné nastavenie algortimov.
+Vďaka tomu máme možnosť ovplyvňovať mieru natrénovania modelu, veľkosť chyby
+predikcie alebo dĺžku obdobia, na ktorom budeme model trénovať. Nastavenie
+týchto parametrov sa môže pri rôznych datasetoch líšiť, a preto neexistuje
+univerzálne riešenie. Hľadať riešenie pomocou biologicky inšpirovaných
+algoritmov je efektívne a nájdené riešenie je optimálne. Ďalej sú v tejto
+kapitole opísané spôsoby merania chýb, ktoré slúžia na vyhodnotenie efektivity
+a správnosti nájdeného riešenia.
 
 %-------------------------------------------------------------------------------
 %   Time series
@@ -626,29 +638,56 @@ $h(x, \Theta_k)$~\cite{Breiman2001}.
 %-------------------------------------------------------------------------------
 
 \subsubsection{Neurónové siete}
-Neurónové siete sú inšpirované činnosťou mozgu a nervovej sústavy.
+Návrh neurónových sietí je inšpirovanný neurofyziológiou ľudského mozgu. Model
+je analytická technika modelujúca procesy učenia v kognitívnych systémoch
+a neurologických funkciách mozgu. Má schopnosť predpovedať budúcu hodnotu
+merania konkrétnej premennej na základe hodnôť z predchádzajúcich meraní. Tento
+proces sa inak nazýva aj učenie z existujúcich dát. Tok v neurónovej sieti
+preteká cez jednotlivé neuróny. Na obrázku~\ref{fig-neuron} môžeme vidieť
+príklad takéhoto neurónu~\cite{Tso2007}.
 
-Neurónová sieť predstavuje orientovaný graf uzlov. Každý uzol počíta svoj
-výstup na základe vstupov od susedných uzlov. Výpočet prebieha aplikovaním
-funkcie, ktorá sa nazýva sigmoid, na vážený súčet vstupov. Uzol neurónovej
-siete sa označuje ako neurón~\cite{Gruau1994}.
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{neuron.png}
+  \caption{Príklad neurónu v neurónovej sieti.}
+  \label{fig-neuron}
+\end{figure}
+
+Neurónová sieť predstavuje orientovaný graf uzlov. Uzol neurónovej
+siete sa nazývame neurón. Každý uzol počíta svoj výstup na základe vstupov od
+susedných uzlov. Výpočet prebieha aplikovaním funkcie, ktorá sa nazýva sigmoid,
+na vážený súčet vstupov~\cite{Gruau1994}.
+
+Trénovanie sieti je proces nastavovania, čo najlepších váh na vstupy
+jednotlivých neurónov. Chyba neurónovej siete sa najčastejšie počíta pomocou
+spätnej propagácie (backpropagation) čím dostaneme rast chyby pre danú
+neurónovú sieť~\cite{Tso2007}.
 
 Je veľa typov neurónových sietí napríklad viacvrstvové perceptónové siete,
-samoriadiace siete, siete s viacerými skrytými vrstvami atď. V každej skrytej
-vrstve je množstvo neurónov. Hlavnou výhodou je, že väčšina sietí nepotrebuje
-model. Na druhej strane, trénovanie obvykle zaberá veľa času. Výstupom siete
-je lineárna rovnica váh prepojených so vstupom~\cite{KumarSingh2013}.
+samoriadiace siete, siete s viacerými skrytými vrstvami, alebo aj viacvrstvové
+spätne propagované neurónové siete, pričom príklad takejto siete môžeme vidieť
+aj na obrázku~\ref{fig-neural-network}. V každej skrytej vrstve je množstvo
+neurónov. Hlavnou výhodou je, že väčšina sietí nepotrebuje. Na druhej strane,
+trénovanie obvykle zaberá veľa času. Výstupom siete je lineárna rovnica váh
+prepojených so vstupom~\cite{KumarSingh2013}.
 
-Najpoužívanejšou neurónovou sietou je viacvrstvový perceptón, ktorý pozostáva
-z uzlov a im prislúchajúcim hranám. Uzly sú zoskupované do rôznych vrstiev.
-Prvá vrstva je vstupná vrstva, kde počet $d$ označuje počet vstupných parametrov
-vstupujúcich do siete. Táto vrstva je následne prepojená hranami so skrytou
-vrstvou pozostávajúcou z $h$ uzlov. Tá je potom prepojená s výstupnou vrstvou
-s $c$ uzlami. Kvôli tomu sa tieto siete zvyknú označovať aj ako dopredné
-siete~\cite{Merz1998}.
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{neural_network.png}
+  \caption{Príklad viacvrstvovej spätne propagovanej neurónovej siete~\cite{Kennedy2002}.}
+  \label{fig-neural-network}
+\end{figure}
+
+\textbf{Viacvrstvový perceptón} je jednou z najpoužívanejších neurónových
+sietí. Pozostáva z uzlov a im prislúchajúcim hranám. Uzly sú zoskupované do
+rôznych vrstiev. Prvá vrstva je vstupná vrstva, kde počet $d$ označuje počet
+vstupných parametrov vstupujúcich do siete. Táto vrstva je následne prepojená
+hranami so skrytou vrstvou pozostávajúcou z $h$ uzlov. Tá je potom prepojená
+s výstupnou vrstvou s $c$ uzlami. Kvôli tomu sa tieto siete zvyknú označovať aj
+ako dopredné siete~\cite{Merz1998}.
 
 Elementy skrytých a výstupných vrstiev sú umelé neuróny pozostávajúce z uzlov,
-viacerých vstupujúcich a jednou výstpnou hranou. Funkciou neurónu je
+viacerých vstupujúcich a jednou výstupnou hranou. Funkciou neurónu je
 transformovať lineárnu kombináciu vstupov pomocou nelineárnej aktivačnej
 funkcie, čiže každú vstupnú hranu prenásobiť jej váhou a výsledok týchto súčinou
 sčítať. Tak dostaneme pre neurón $j$ vzorec~\ref{eq-linear-combination}

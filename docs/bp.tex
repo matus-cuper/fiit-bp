@@ -112,17 +112,17 @@ sledovanej veličiny s prijateľne malou odchýlkou na krátke obdobie v blízke
 budúcnosti. Cieľom bakalárskej práce bolo vytvoriť systém, ktorý používateľovi
 poskytne jednoduché rozhranie pre porovnanie jednotlivých predikčných
 algoritmov nad množinou dát, ktorú si sám zvolí. Hľadanie ich optimálneho
-nastavenia prebieha pomocou optimalizačných algoritmov založených na správaní
-sa živočíchov v prírode.
+nastavenia sa vykonáva pomocou optimalizačných algoritmov založených na
+správaní sa živočíchov v prírode.
 
 V práci sme analyzovali a opísali množinu predikčných a optimalizačných
 algoritmov. Navrhli sme systém na hľadanie optimálnych parametrov predikčných
-metód, čím sme výrazne ovplyvnili presnosť predikčných metód. Systém bol
-implementovaný v jazyku R a na vytvorenie používateľského rozhrania bola
-použitá knižnica Shiny. Optimalizácie sme vykonávali nad dátovými množinami
-v doméne energetiky. Výsledný systém umožňuje používateľovi využívať silu
-predikčných algoritmov a nájsť ich optimálne parametre pre zabezpečenie čo
-najpresnejšej predikcie.
+metód, čím sme výrazne ovplyvnili ich presnosť. Systém bol implementovaný
+v programovacom jazyku R a na vytvorenie používateľského rozhrania bola použitá
+knižnica Shiny. Optimalizácie sme vykonávali nad dátovými množinami v doméne
+energetiky. Výsledný systém umožňuje používateľovi využívať silu predikčných
+algoritmov a nájsť ich optimálne parametre pre zabezpečenie čo najpresnejšej
+predikcie.
 \end{titlepage}
 
 \begin{titlepage}
@@ -143,7 +143,21 @@ najpresnejšej predikcie.
 {Bachelor thesis: Optimizing configuration parameters of prediction methods \par}
 {Supervisor: Ing. Marek Lóderer \par}
 {May 2017 \\} \\
-Tu bude text anglickej anotácie
+In the thesis we focused on problems, which appear in time series prediction.
+In present there are many methods, which predict observed value with acceptable
+small deviation for short time period in near future. The aim of bachelor
+thesis was create system, which provides simple user interaface to compare
+chosen prediction algorithms on dataset, which is chosen by user. Looking for
+their optimal setup is made by optimization algorithm based on nature-inspired
+behaviour.
+
+In the thesis we analyzed and described set of prediction and optimization
+algorithms. We designed system for searching optimal parameters of prediction
+methods, which influence their accuracy significantly. System was implemented
+in programming language R and for creating user interaface was used library
+Shiny. Optimization was provided on dataset in energetics domain. The final
+system provides to user to use force of prediction algorithms and find out
+ther optimal parameters for the most accurate prediction.
 \end{titlepage}
 
 %-------------------------------------------------------------------------------
@@ -322,6 +336,7 @@ a reziduálnu zložku~\cite{Agrawal2013}.
 časovom horizonte. Z tohto pohľadu má časový rad tendenciu klesať, rásť alebo
 stagnovať. Príkladom môže byť nárast populácie či klesajúca
 úmrtnosť~\cite{Agrawal2013}.
+
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.7\textwidth]{trend_component.pdf}
@@ -339,6 +354,7 @@ opakujú~\cite{Agrawal2013}.
 období. Dôležitými faktormi pri tom sú napr. klimatické podmienky, tradiície
 alebo počasie. Napríklad predaj zmrzliny sa v lete zvyšuje, ale počet
 predaných lyžiarskych súprav klesá~\cite{Agrawal2013}.
+
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.7\textwidth]{season_component.pdf}
@@ -351,6 +367,7 @@ opakovateľný vzor a ani dlhodobý trend. V časových radoch má nepredvídate
 vplyv na pozorovanú veličinu. V štatistike zatiaľ nie je definovaná metóda na
 jej meranie. Označuje sa aj ako náhodná zložka alebo biely šum. Je spôspobená
 nepredvídateľnými a nepravideľnými udalosťami~\cite{Agrawal2013}.
+
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.7\textwidth]{random_component.pdf}

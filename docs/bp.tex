@@ -33,7 +33,7 @@
 % \usepackage{times}
 % \usepackage[dvips,dvipdfm,a4paper,centering,textwidth=14cm,top=4.6cm,headsep=.6cm,footnotesep=1cm,footskip=0.6cm,bottom=3.8cm]{geometry}
 \usepackage[a4paper, centering,
-											left=30mm, top=20mm, right=20mm, bottom=20mm]{geometry}		% set page margins
+											left=35mm, top=25mm, right=20mm, bottom=25mm]{geometry}		% set page margins
 
 %-------------------------------------------------------------------------------
 %   TITLE PAGES
@@ -199,6 +199,50 @@ cenné rady a pripomienky pri spracovaní bakalárskej práce.
 \newpage
 \setcounter{page}{1}
 \section{Úvod}
+V súčasnosti sme obklopený množstvom zariadení, ktoré merajú a zhromažďujú
+informácie z iných zariadení. Príkladom môžu byť rôzne mobilné aplikácie,
+meteorologické stanice alebo chytré merače merajúce spotrebu elektriky, vody
+či plynu. Namerané dáta sa môžu meniť v závislosti od napr. hodiny, dňa alebo
+počasia. Samozrejme existujú aj merania, ktoré sú ovplyvnené ľudským správaním,
+ktoré sa môže líšiť v závislosti od vyššie uvedených faktorov, ale aj faktorov
+ako sú kultúrne tradície, zvyky či náboženstvo. Na základe nameraných dát vieme
+vytvoriť predpoveď, ktorá opäť môže ovplyvniť ostatné faktory a celé
+predpovedanie sa tak stáva opäť komplexnejším. Ak sú dáta merané v pravidelných
+intervaloch a konzistentne, nazývame ich časový rad.
+
+V práci sme sa zamerali na predpovedanie veličín na základe ich historických
+meraní. Ostatné faktory pri tom neboli brané do úvahy. Tým sa stáva
+predpovedanie jednoduchšie a menej presné, čím vzniká priestor pre hlavný zámer
+práce, optimalizovanie predikčných metód na základe ich vstupných parametrov.
+Získame tým presnejšiu predpoveď ako keby sme nastavenie predikčných algoritmov
+nechali na náhode alebo vlastnom úsudku.
+
+Optimalizačné algortimy, tak ako ich názov napovedá, slúžia na nájdenie
+optimálneho riešenia. Nájdenie najlepšieho riešenia požaduje preskúmanie
+všetkých možností. Stáva sa tak pomalým a výpočtovo náročným. Optimalizačné
+algoritmy rýchlo nájdu riešenie, ktoré je pre potreby našej práce postačujúce.
+Optimalizačné algoritmy môžeme rozdeliť do viacerých skupín, v práci sa však
+zameriavame prednostne na biologicky inšpirované algoritmy, ktoré sú jednou
+z najefektívnejších podskupín.
+
+Výsledný systém poskytuje používateľovi webové grafické rozhranie, pomocou
+ktorého môže predpovedať hodnoty vložených časových radov. Má možnosť zvoliť si
+medzi viacerými predikčnými a optimalizačnými algoritmami. Rozhranie poskytuje
+používateľovi základné informácie o algoritmoch, ako aj vysvetlenie efektov
+jednotlivých vstupných parametrov metód. Je na zvážení používateľa, aké
+parametre zvolí pre optimalizačné algoritmy. Vstupné parametre predikčných
+metód budú zvolené optimálne na základe výstupných hodnôt optimalizačných
+algoritmov. Používateľ má k dispozícií vyhodnotenie predpovede, ktoré porovnáva
+predpovedanú a skutočnú hodnotu rôznymi metodikami.
+
+Celá práca je rozdelená do niekoľkých kapitol. V
+kapitole~\ref{problem-analysis} sme sa zamerali na analýzu problému. Definovali
+sme kľúčové pojmy, použité metódy, opísali sme časové rady, ich vlastnosti,
+rozdelili sme predikčné a optimalizačné algoritmy do skupín.
+Kapitola~\ref{specification} popisuje funkcionalitu, ktorú systém poskytuje
+používateľom. V kapitole~\ref{solution-design} sa zameriavame na návrh systému
+a v kapitole~\ref{implementation} už samotnou implemntáciou systému v jazyku R.
+Výsledky práce sú zhodnotené v kapitole~\ref{evaluation}.
 
 %-------------------------------------------------------------------------------
 %   Chapter 2 - Problem analysis
@@ -206,6 +250,7 @@ cenné rady a pripomienky pri spracovaní bakalárskej práce.
 
 \newpage
 \section{Analýza problému}
+\label{problem-analysis}
 Predpovedanie spotreby elektriky je kľúčovou činnosťou pre plánovanie
 a prevádzkovanie rôznych elektronických zariadení. Potrebný vzor pre časové
 rady spotreby elektriny je často komplexný a je zložité ho nájsť aj kvôli
@@ -969,13 +1014,15 @@ V literatúre označovaná ako SMAPE
 
 \newpage
 \section{Špecifikácia požiadaviek}
+\label{specification}
 
 %-------------------------------------------------------------------------------
-%   Chapter 5 -   Analysis evaluation
+%   Chapter 5 -  Solution design
 %-------------------------------------------------------------------------------
 
 \newpage
 \section{Návrh riešenia}
+\label{solution-design}
 
 %-------------------------------------------------------------------------------
 %   Chapter 6 - Implementation
@@ -983,6 +1030,7 @@ V literatúre označovaná ako SMAPE
 
 \newpage
 \section{Implementácia}
+\label{implementation}
 
 %-------------------------------------------------------------------------------
 %   Chapter 7 - Evaluation
@@ -990,6 +1038,7 @@ V literatúre označovaná ako SMAPE
 
 \newpage
 \section{Zhodnotenie}
+\label{evaluation}
 
 %-------------------------------------------------------------------------------
 %   Chapter 8 - Technical documentation
@@ -1135,6 +1184,23 @@ V literatúre označovaná ako SMAPE
 % model dostatočne rýchlo reagovať na rapídne výkyvy a abnormality, lepšie
 % výsledky dosiahneme nahradením priemeru za median posledných \textit{n}
 % meraní~\cite{Grmanova2016}.
+
+% Predpovedanie veličín, ktoré My sme sa zamerali na predpovedanie veličín , ktorých predpoveď môže závisieť od
+% iných veličín, ale
+%
+% V práci sme sa zamerali na p Predpovedanie sa tak stáva  čo či tý Väčšiu spotrebu elektrickej energie máme počas práce či
+%
+% zábave, naopak len minimum spotrebujeme počas spánku. Už len z tohto príkladu
+% je zrejmé, spotreba elektriny ľudí sa líši od ich správania, zvyklostí či
+% možností, ale aj faktorov, ktoré pôsobia na nás všetkých ako je počasie, deň
+% v týždni, pracovné voľná či kultúrne tradície. Faktom je, že spotreba elektriky
+% bude naďalej rásť, keďže celý svet postupne minimalizuje závislosť na
+% neobnoviteľných zdrojoch energie a náhradou má byť práve elektrická energia.
+%
+% Pre efektívnu výrobu a distribúciu elektriky je potrebné vedieť predpovedať
+% jej spotrebu, čím zamedzíme ekonomickým stratám ako na strane výrobcu tak aj na
+% strane spotrebiteľa. Predpoveď by sa, v ideálnom prípade, mala líšiť od
+% skutočnej hodnoty minimálne a
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion

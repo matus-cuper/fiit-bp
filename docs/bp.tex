@@ -45,7 +45,7 @@
 	{\Large Slovenská technická univerzita v Bratislave \par}
 	{\Large Fakulta informatiky a informačných technológií \par}
   \vspace{0.5cm}
-  {\normalsize Evidenčné číslo: FIIT-111-22222 \par}
+  {\normalsize Evidenčné číslo: FIIT-000-00000 \par}
 	\vspace{7cm}
   {\large Matúš Cuper \par}
   \vspace{0.5cm}
@@ -65,7 +65,7 @@
   {\Large Slovenská technická univerzita v Bratislave \par}
 	{\Large Fakulta informatiky a informačných technológií \par}
   \vspace{0.5cm}
-  {\normalsize Evidenčné číslo: FIIT-111-22222 \par}
+  {\normalsize Evidenčné číslo: FIIT-000-00000 \par}
 	\vspace{7cm}
   {\large Matúš Cuper \par}
   \vspace{0.5cm}
@@ -108,18 +108,19 @@
 V práci sme sa zamerali na problémy vznikajúce pri prekcii časových radov.
 V súčasnosti existuje veľké množstvo metód, ktoré nám zabezpečujú predpoveď
 sledovanej veličiny s prijateľne malou odchýlkou na krátke obdobie v blízkej
-budúcnosti. Cieľom bakalárskej práce bolo vytvoriť program, ktorý používateľovi
+budúcnosti. Cieľom bakalárskej práce bolo vytvoriť systém, ktorý používateľovi
 poskytne jednoduché rozhranie pre porovnanie jednotlivých predikčných
 algoritmov nad množinou dát, ktorú si sám zvolí. Hľadanie ich optimálneho
 nastavenia prebieha pomocou optimalizačných algoritmov založených na správaní
 sa živočíchov v prírode.
 
-Analyzovali sme rozdelenie algoritmov používaných na predikciu ale aj na
-optimalizáciu. V jazyku R sme implementovali optimalizačné algoritmy, ktoré nie
-sú súčasťou knižníc. Jazyku R tiež poskytuje webové rozhranie, ktoré sme
-použili na interakciu s používateľom. Výsledný program umožňuje používateľovi
-využívať silu predikčných algoritmov bez vedomosti o ich vnútornej
-implmentácii a nájsť ich optimálne parametre pre zabezpečenie čo
+V práci sme analyzovali a opísali množinu predikčných a optimalizačných
+algoritmov. Navrhli sme systém na hľadanie optimálnych parametrov predikčných
+metód, čím sme výrazne ovplyvnili presnosť predikčných metód. Systém bol
+implementovaný v jazyku R a na vytvorenie používateľského rozhrania bola
+použitá knižnica Shiny. Optimalizácie sme vykonávali nad dátovými množinami
+v doméne energetiky. Výsledný systém umožňuje používateľovi využívať silu
+predikčných algoritmov a nájsť ich optimálne parametre pre zabezpečenie čo
 najpresnejšej predikcie.
 
 \newpage
@@ -237,15 +238,9 @@ predpovedá hodnotu časového radu v budúcnosti konzistentne
 a objektvíne~\cite{Sapankevych2009}.
 
 Časové rady sú najčastejšie vizualizované ako graf, kde pozorovania sú na
-osy $y$ a plynúci čas na osy $x$ ako je to znázornené
-v obrázku~\ref{fig-time-comp}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\textwidth]{time_series_components.png}
-  \caption{Príklad dekompozície additívne časového radu~\cite{Madison2016}.}
-  \label{fig-time-comp}
-\end{figure}
+osy $y$ a plynúci čas na osy $x$. Pre lepšie vysvetlenie časových radov, budú
+nasledujúce odstavce obsahovať aj obrázky zobrazujúce vygenerovanú dátovú
+množinu.
 
 \subsubsection{Zložky časových radov}
 Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú
@@ -265,6 +260,12 @@ a reziduálnu zložku~\cite{Agrawal2013}.
 časovom horizonte. Z tohto pohľadu má časový rad tendenciu klesať, rásť alebo
 stagnovať. Príkladom môže byť nárast populácie či klesajúca
 úmrtnosť~\cite{Agrawal2013}.
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{trend_component.pdf}
+  \caption{Príklad trendovej zložky časového radu.}
+  \label{fig-trend-comp}
+\end{figure}
 
 \paragraph{Cyklická zložka} je spôsobená zmenami, ktoré sa cyklicky opakujú.
 Dĺžka periódy je 2 a viac rokov, čo zodpovedá strednodobému časovému horizontu.
@@ -274,14 +275,26 @@ opakujú~\cite{Agrawal2013}.
 
 \paragraph{Sezónna zložka} predstavuje kolísanie časových radov počas ročných
 období. Dôležitými faktormi pri tom sú napr. klimatické podmienky, tradiície
- alebo počasie. Napríklad predaj zmrzliny sa v lete zvyšuje, ale počet
- predaných lyžiarskych súprav klesá~\cite{Agrawal2013}.
+alebo počasie. Napríklad predaj zmrzliny sa v lete zvyšuje, ale počet
+predaných lyžiarskych súprav klesá~\cite{Agrawal2013}.
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{season_component.pdf}
+  \caption{Príklad sezónnej zložky časového radu.}
+  \label{fig-season-comp}
+\end{figure}
 
 \paragraph{Reziduálna zložka} predstavuje veličinu, ktorá nemá žiadny
 opakovateľný vzor a ani dlhodobý trend. V časových radoch má nepredvídateľný
 vplyv na pozorovanú veličinu. V štatistike zatiaľ nie je definovaná metóda na
 jej meranie. Označuje sa aj ako náhodná zložka alebo biely šum. Je spôspobená
 nepredvídateľnými a nepravideľnými udalosťami~\cite{Agrawal2013}.
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{random_component.pdf}
+  \caption{Príklad reziduálnej zložky časového radu.}
+  \label{fig-random-comp}
+\end{figure}
 
 Vo všeobecnosti sa pre tieto 4 zložky používajú 2 rôzne modely. Je to
 multiplikatívny model a aditívny model.
@@ -295,9 +308,26 @@ multiplikatívny model a aditívny model.
 \end{equation}
 Vo vzorci~\ref{eq-ts-models} predstavuje $Y(t)$ meranie v čase $t$. Premenné
 $T(t)$, $S(t)$, $C(t)$ a $I(t)$ sú zložkami trendu, sezónnosti,
-cyklu a náhodnosti. Multiplikatívny model je založený na predpoklade, že časové
-rady môžu byť na sebe závislé a môžu byť ovplyvňované medzi sebou, zatiaľ čo
-aditívny model predpokladá nezávislosť zložiek~\cite{Agrawal2013}.
+cyklu a náhodnosti. Multiplikatívny model, zobrazený na
+obrázku~\ref{fig-multi-model} je založený na predpoklade, že časové rady môžu
+byť na sebe závislé a môžu byť ovplyvňované medzi sebou, zatiaľ čo aditívny
+model, zobrazený na obrázku~\ref{fig-add-model} predpokladá nezávislosť
+zložiek~\cite{Agrawal2013}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{multi_model.pdf}
+  \caption{Príklad multiplikatívneho modelu}
+  \label{fig-multi-model}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{add_model.pdf}
+  \caption{Príklad aditívneho modelu.}
+  \label{fig-add-model}
+\end{figure}
+
 
 %-------------------------------------------------------------------------------
 %   Analysis of prediction algorithms
@@ -449,18 +479,18 @@ ARMA model. Rovnakým spôsobom vieme dostať modely AR a MA~\cite{Agrawal2013}.
 %   Support vector regression
 %-------------------------------------------------------------------------------
 
-\subsubsection{Support vector regression}
-Support Vector Machine a Support Vector Regression sú založené na štatistickej
-teórií učenia, nazývanej aj VC teória, podľa svojich autorov, Vapnik
-a Chervonenkisa~\cite{Sapankevych2009}.
+\subsubsection{Regresia založená na podporných vektoroch}
+Regresia založená na podporných vektoroch a metóda podporných vektorov je
+založená na štatistickej teórií učenia, nazývanej aj VC teória, podľa svojich
+autorov, Vapnik a Chervonenkisa~\cite{Sapankevych2009}.
 
-Support Vector Machine je použité na množstvo úloh strojového učenia ako je
+Metóda podporných vektorov je použitá na množstvo úloh strojového učenia ako je
 rozoznávanie vzorov, klasifikácia objektov a v prípade predikcií časových
-radov to je regresná analýza. Support Vector Regression je postup, ktorého
-funkcia je predpovedaná pomocou nameraných dát, ktorými je Support Vector
-Machine postupne natrénované. Toto je odklon od tradičných predpovedí časových
-radov, v zmysle že Support Vector Machine nepoužíva žiadny model, ale
-predikciu riadia samotné dáta~\cite{Sapankevych2009}.
+radov to je regresná analýza. Regresia založená na podporných vektoroch je
+postup, ktorého funkcia je predpovedaná pomocou nameraných dát, ktorými je
+metóda podporných vektorov natrénovaná. Toto je odklon od tradičných predpovedí
+časových radov, v zmysle že metodá podporných vektorov nepoužíva žiadny model,
+ale predikciu riadia samotné dáta~\cite{Sapankevych2009}.
 
 Táto predikčná metóda poskytuje malý počet voľných parametrov. Garantuje
 konvergenciu k ideálnemu riešeniu a môže byť výpočtovo
@@ -607,32 +637,6 @@ Tento problém môžeme vyriešiť kombináciou ostatných metód, ako je napr.
 autoregresívny model či spektrálna analýza, s exponencionálnym
 vyrovnávaním~\cite{Mahalakshmi2016}.
 
-
-
-%-------------------------------------------------------------------------------
-%   Naive methods
-%-------------------------------------------------------------------------------
-
-\subsubsection{Naivné metódy}
-Predpovede sú vytvárané pomocou posledných hodnôt alebo ich priemerov.
-
-\paragraph{Seasonal naïve method}
-Poslednú nameranú hodnotu použijeme ako predpoveď pre nasledujúce obdobie. Ak
-sú naše dáta vysoko závisle od ročného obdobia, je lepšie použiť na predpoveď
-hodnotu z rovnakého obdobia, napr. z minulého roka~\cite{Grmanova2016}.
-
-\paragraph{Naïve average long-term method}
-Predpokladá, že dáta obsahujú vzory, ktoré nie sú závislé od ročných období.
-Kvôli tomu sú časové rady lokálne stabilné s pomaly meniacim sa priemerom.
-Hodnotu, ktorú použijeme ako predpoveď je iba priemorom viacerých posledných
-hodnôt~\cite{Grmanova2016}.
-
-\paragraph{Naïve In median long-term method}
-Táto metóda je alternativou k predchádzajúcej metóde. Keďže priemerom nedokáže
-model dostatočne rýchlo reagovať na rapídne výkyvy a abnormality, lepšie
-výsledky dosiahneme nahradením priemeru za median posledných \textit{n}
-meraní~\cite{Grmanova2016}.
-
 %-------------------------------------------------------------------------------
 %   Analysis of optimizing algorithms
 %-------------------------------------------------------------------------------
@@ -647,54 +651,26 @@ meraní~\cite{Grmanova2016}.
 %   Genetic algorithms
 %-------------------------------------------------------------------------------
 
-\subsubsection{Genetické algoritmy}
-Jedná sa o bilogicky inšpirované algoritmy patriace do triedy
-evolučných algoritmov. Genetické algoritmy sú stochastické optimalizačné
-algortimy s \textbf{global search potential}. Od tradičných algoritmov sa líšia
-hlavne v počte riešení, ktoré sú kandidátmi na najlepšie riešenie. Tradičné
-vyhľadávacie algoritmy prehľadávajú dôkladne iba jedno riešenie, zatiaľ čo
-genetické algoritmy hlbšie spracujú viacero kandidátou naraz. Každý kandidát na
-optimálne riešenie problému je reprezentovaný dátovou štruktúrou, ktorú
-označujeme pojmom jedinec. Súbor jedincov tvorí populáciu. Začiatok procesu
-začína náhodnými riešeniami populácie, ktorý sa postupne
-vylepšuje~\cite{Chavan2015}.
+\subsubsection{Genetický algoritmus}
+Genetický algoritmus patrí medzi bilogicky inšpirované algoritmy patriace do
+triedy evolučných algoritmov. Genetický algoritmus je stochastický
+optimalizačný algoritmus, ktorého úlohou je nájdenie globálneho riešenia pre
+zadaný problém, čiže sa nestane, že riešenie spadne do lokálne minima a nenájde
+sa tak optimálne riešenie. Od tradičných algoritmov sa líšia hlavne v počte
+riešení, ktoré sú kandidátmi na najlepšie riešenie. Tradičné vyhľadávacie
+algoritmy prehľadávajú dôkladne iba jedno riešenie, zatiaľ čo genetické
+algoritmy hlbšie spracujú viacero kandidátov naraz. Každý kandidát na optimálne
+riešenie problému je reprezentovaný dátovou štruktúrou, ktorú označujeme pojmom
+jedinec. Súbor jedincov tvorí populáciu. Začiatok procesu začína náhodnými
+riešeniami populácie, ktorý sa postupne vylepšuje~\cite{Chavan2015}.
+
+Vytvorenie novej generácie sa vykonáva pomocou genetických operátorov,
+a to selekciou, krížením a mutáciou. Proces selekcie vyberie kvalitnejšie
+chromozóny, ktoré prežijú a vyskytnú sa tak aj v ďalšej
+generácii~\cite{Simonova2007}.
 
 Pri genetických algoritmoch sa zavádzajú pojmy ako chromozón, fitness funkcia,
 kríženie, elitárstvo, operátor reprodukcie či mutácie~\cite{Chavan2015}.
-
-Vytvorenie novej generácie prebieha pomocou genetického operátora,
-a to selekciou, krížením a mutáciou. Proces selekcie vyberie kvalitnejšie
-chromozóny, ktoré prežijú a vyskytnú sa tak aj v ďalšej generácii. Tiež sa
-vyberajú nekvalitné chromozóny, ktoré zahynú a nebudú ďalej brané do
-úvahy~\cite{Simonova2007}.
-
-Princíp fungovania genetických algoritmov možno znázorniť v nasledujúcom
-pseudokóde~\cite{Chavan2015}
-\begin{algorithm}
-  \caption{Pseudokód genetického algoritmu}
-  \begin{algorithmic}[1]
-    \State Náhodne inicializovanie jedincov Inicializácia
-    \State Vyhodnotenie fitness funkcie pre každého jedinca \label{ga-fitness}
-    \State Výber jedincov pre ďalšiu populáciu na základe fitnesss funkcie \label{ga-selection}
-    \State Kríženie jedincov \label{ga-crossing}
-    \State Mutovanie jedincov \label{ga-mutation}
-    \State Kontrola či nebolo nájdené žiadané optimálne riešenie \label{ga-condition}
-    \State Ukončenie ak sa našlo takéto riešenie, inak opakovanie krokov \ref{ga-fitness} až \ref{ga-condition}
-    \State Koniec
-  \end{algorithmic}
-\end{algorithm}
-
-Veľkou výhodou genetických algoritmov je, že mutácia predchádza skĺznutiu do
-lokálnych miním a rekombinácia chromozónov vedie k rýchlemu približovaniu
-sa k optimálnemu riešeniu. Napriek týmto výhodám, majú genetické algoritmy aj
-niekoľko nevýhod~\cite{Deolekar2016}.
-\begin{itemize}
-  \item Reprezentovanie kandidátov je príliš obmedzujúce
-  \item Mutácia a kríženie sú v súčasnosti aplikovateľné iba na chromozóny
-        reprezentované bitovým reťazcvom alebo číslami
-  \item Definovanie fitness funkcie je často netriviálnou záležitosťou
-        a jej generalizácia je náročná
-\end{itemize}
 
 \paragraph{Chromozón} je pomenovanie pre jedinca. V literatúre sa tiež zvykne
 používať označenie kandidát~\cite{Arun2016}.
@@ -708,10 +684,9 @@ cieľového riešenia~\cite{Chavan2015, Simonova2007}.
 populáciu. Operátor náhodne vyberie reťazce z dvoch chromozónov na
 párenie~\cite{Chavan2015}.
 
-\paragraph{Kríženie} je operátor \textbf{recombination}. Kríženie vykonáva
-výmenu blokov chromozónov. Z druhého chromozónu je vybraný reťazec náhodnej
-veľkosti, ktorý sa vymení s rovnako dlhým reťazcom z prvého
-chromozónu~\cite{Chavan2015}.
+\paragraph{Kríženie} je operátor kombinácie. Kríženie vykonáva výmenu blokov
+chromozónov. Z druhého chromozónu je vybraný reťazec náhodnej veľkosti, ktorý
+sa vymení s rovnako dlhým reťazcom z prvého chromozónu~\cite{Chavan2015}.
 
 Vzniká problém ako, čo najvhodnejšie, určiť bod kríženia a vybrať tak
 najkvalitnejšie bloky chromozónu. Kvôli tomu je potrebné definovať nový element
@@ -728,33 +703,59 @@ miestach, kde je väzba, čo najmenšia~\cite{Simonova2007}.
 
 \paragraph{Elitárstvo} je to proces pridávania chromozónov s najlepšou hodnotou
 funkcie fitness priamo do ďalšej populácie. Zaisťuje to, že najlepšie riešenie
-budúcej generácie bude vždy lepšie alebo pri najhoršom rovnaké ako najlepšie
+budúcej generácie bude vždy lepšie, alebo pri najhoršom rovnaké, ako najlepšie
 riešenie predchádzajúcej generácie~\cite{Deolekar2016}.
 
 \paragraph{Operátor mutácie} sa vykoná po vykonaní operátora reprodukcie.
 Mutácia chromozónu väčšinou predstavuje operáciu, ktorá s nízkou
 pravdepodobnosťou invertuje jeden bit v chromozóne~\cite{Chavan2015}.
 
+\paragraph{Princíp} fungovania genetických algoritmov možno znázorniť
+v nasledujúcom pseudokóde~\cite{Chavan2015}
+\begin{algorithm}
+  \caption{Pseudokód genetického algoritmu}
+  \begin{algorithmic}[1]
+    \State Náhodne inicializovanie jedincov
+    \State Vyhodnotenie fitness funkcie pre každého jedinca \label{ga-fitness}
+    \State Výber jedincov pre ďalšiu populáciu na základe fitnesss funkcie \label{ga-selection}
+    \State Kríženie jedincov \label{ga-crossing}
+    \State Mutovanie jedincov \label{ga-mutation}
+    \State Kontrola či nebolo nájdené žiadané optimálne riešenie \label{ga-condition}
+    \State Ukončenie ak sa našlo takéto riešenie, inak opakovanie krokov \ref{ga-fitness} až \ref{ga-condition}
+    \State Koniec
+  \end{algorithmic}
+\end{algorithm}
+
+Veľkou výhodou genetického algoritmu je, že mutácia predchádza skĺznutiu do
+lokálnych miním a kombinácia chromozónov vedie k rýchlemu približovaniu
+sa k optimálnemu riešeniu. Napriek týmto výhodám, majú genetické algoritmy aj
+niekoľko nevýhod~\cite{Deolekar2016}.
+\begin{itemize}
+  \item Reprezentovanie kandidátov je príliš obmedzujúce
+  \item Mutácia a kríženie sú v súčasnosti aplikovateľné iba na chromozóny
+        reprezentované bitovým reťazcvom alebo číslami
+  \item Definovanie fitness funkcie je často netriviálnou záležitosťou
+        a jej generalizácia je náročná
+\end{itemize}
+
 %-------------------------------------------------------------------------------
 %   Grey wolf optimizer
 %-------------------------------------------------------------------------------
 
-\subsubsection{Grey wolf optimizer}
-Algoritmus je založený na správaní vlka dravého, ktorý je na vrchole
+\subsubsection{Optimalizácia svorkou divých vlkov}
+Algoritmus je založený na správaní vlka sivého, ktorý je na vrchole
 potravinového reťazca a preferuje život vo svorke. Lov pozostáva zo stopovania,
-naháňania, približovania sa, obkľúčenia, obťažovaním koristi, pokiaľ neprestane
-utekať a útokom na korisť. Vlkov vo svorke možno
-rozdeliť do niekoľko skupín~\cite{Seeley1991}.
+prenasledovania, približovania sa, obkľúčenia koristi a útokom na korisť. Vlkov
+vo svorke možno rozdeliť do niekoľkých skupín~\cite{Seeley1991}.
 
 \paragraph{Alfa vlky} sú vodcami svorky. Ich úlohou je robiť rozhodnutia
 ohľadom lovu, miesta na spanie či času zobudenia. Tieto príkazy diktujú svorke,
 avšak bolo pozorované aj demokratické správanie, kedy alfa vlky nasledovali
-ostatné vlky zo svorky. Pri stretnutí svorky dávajú všetky vlky najavo uznanie
-alfa vlkov stiahnutým chvostom. Zaujímavosťou je, že vodcom svorky nemusí byť
-najsilnejší jedinec, ale môže to byť aj jedinec najlepší v organizovaní
-svorky~\cite{Seeley1991}.
+ostatné vlky zo svorky. Všetky vlky uznávajú postavenie alfa vlkov vo svorke.
+Zaujímavosťou je, že vodcom svorky nemusí byť najsilnejší jedinec, ale môže to
+byť aj jedinec najlepší v organizovaní svorky~\cite{Seeley1991}.
 
-\paragraph{Beta vlky} sp druhým stupňom v hierarchii vlčej svorky, podriadené
+\paragraph{Beta vlky} sú druhým stupňom v hierarchii vlčej svorky, podriadené
 alfa vlkom, ktorým pomáhajú v rozhodovaní a organizácií svorky. Sú najlepšími
 kandidátmi na alfa vlkov v prípade úmrtia alebo zostarnutia alfa vlkov. Mali by
 rešpektovať alfa vlky a organizovať nižšie postavené vlky. Hrajú rolu radcu
@@ -762,18 +763,16 @@ a ďalej distribujú príkazy a vracajú sa s odozvou na ne~\cite{Seeley1991}.
 
 \paragraph{Delta vlky} inak nazývané aj podriadené vlky zastupujú vo svorke
 úlohy prieskumníkov, strážcov, starejších, lovcov či opatrovateľov.
-Prieskumníci hliadkujú hranice teritória a varujú svorku v prípade akéhokoľvek
-nebezpečia. Strážcovia zabezpečujú bežpečie svorky. Starejší sú skúsenými
-vlkmi, ktorí boli alfa alebo beta vlkmi. Lovci pomáhajú alfa a beta vlkom pri
-love a poskytujú svorke jedlo. Opatrovatelia sa starajú o slabé, choré alebo
-zranené vlky~\cite{Seeley1991}.
+Prieskumníci hliadkujú hranice a varujú svorku pred nebezpečím. Strážcovia
+zabezpečujú bežpečie svorky. Starejší sú skúsenými vlkmi, ktorí boli alfa alebo
+beta vlkmi. Lovci pomáhajú alfa a beta vlkom pri love. Opatrovatelia sa starajú
+o slabé, choré alebo zranené vlky~\cite{Seeley1991}.
 
 \paragraph{Omega vlky} majú najnižšiu hodnosť vo svorke. Hrajú rolu obetných
-baránkov, ktoré sa podrobia ostatným vlkom. Jedia úplne posledné. Aj keď sa
-možno javí ich postavenie vo svorke zbytočné, boli pozorované prípady, kedy
-ich strata spôsobila vo svorke nedorozumenia. Tiež slúžia na zbavenie sa
-frustrácie ostatných vlkov, čím prispievajú k spokojnosti celej
-svorky~\cite{Seeley1991}.
+baránkov, ktoré sa podrobia ostatným vlkom. K potrave sa dostanú ako úplne
+posledné. Aj keď sa možno javí ich postavenie vo svorke zbytočné, boli
+pozorované prípady, kedy ich strata spôsobila vo svorke
+nedorozumenia~\cite{Seeley1991}.
 
 \paragraph{Spoločenská hierarchia} reprezentovaná matematickým modelom,
 označuje najvhodnejšie riešenie ako alfa, druhé a tretie najvhodnejšie ako beta
@@ -810,7 +809,7 @@ získame aplikovaním vzorcov~\ref{eq-prey-main}~\cite{Seeley1991}.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.8\textwidth]{wolf_vector_positions.png}
+  \includegraphics[width=\textwidth]{wolf_vector_positions.png}
   \caption{Príklad možného umiestnenia vlka v dvojrozmernom priestore na základe polohy koristi.}
   \label{fig-wolf-pos}
 \end{figure}
@@ -940,13 +939,13 @@ dát~\cite{Agrawal2013}.
 
 \subsubsection{Symetrická stredná absolútna percentuálna chyba}
 V literatúre označovaná ako SMAPE
+% môzem
 
 %-------------------------------------------------------------------------------
-%   Chapter 3 - Analysis evaluation
+%   Analysis evaluation
 %-------------------------------------------------------------------------------
 
-\newpage
-\section{Zhodnotenie analýzy}
+\subsection{Zhodnotenie analýzy}
 
 %-------------------------------------------------------------------------------
 %   Chapter 4 - Specification
@@ -985,6 +984,9 @@ V literatúre označovaná ako SMAPE
 
 \newpage
 \section{Technická dokumentácia}
+
+\newpage
+\section{Plán do nasledujúceho semestra}
 
 %-------------------------------------------------------------------------------
 %   Bibliography
@@ -1093,6 +1095,30 @@ V literatúre označovaná ako SMAPE
 % nadobúdať hodnoty 0 alebo 1 pre situácie kedy udalosť nastane alebo nenastane.
 % Os $x$ reprezentuje vysvetľujúcu veličinu ako vektor, ktorý môže znázorňovať
 % pravdepodobnosť udalosti $(Y = 1)$~\cite{Li2010}.
+
+%-------------------------------------------------------------------------------
+%   Naive methods
+%-------------------------------------------------------------------------------
+
+% \subsubsection{Naivné metódy}
+% Predpovede sú vytvárané pomocou posledných hodnôt alebo ich priemerov.
+%
+% \paragraph{Seasonal naïve method}
+% Poslednú nameranú hodnotu použijeme ako predpoveď pre nasledujúce obdobie. Ak
+% sú naše dáta vysoko závisle od ročného obdobia, je lepšie použiť na predpoveď
+% hodnotu z rovnakého obdobia, napr. z minulého roka~\cite{Grmanova2016}.
+%
+% \paragraph{Naïve average long-term method}
+% Predpokladá, že dáta obsahujú vzory, ktoré nie sú závislé od ročných období.
+% Kvôli tomu sú časové rady lokálne stabilné s pomaly meniacim sa priemerom.
+% Hodnotu, ktorú použijeme ako predpoveď je iba priemorom viacerých posledných
+% hodnôt~\cite{Grmanova2016}.
+%
+% \paragraph{Naïve In median long-term method}
+% Táto metóda je alternativou k predchádzajúcej metóde. Keďže priemerom nedokáže
+% model dostatočne rýchlo reagovať na rapídne výkyvy a abnormality, lepšie
+% výsledky dosiahneme nahradením priemeru za median posledných \textit{n}
+% meraní~\cite{Grmanova2016}.
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion

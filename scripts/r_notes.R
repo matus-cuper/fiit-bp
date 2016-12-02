@@ -34,3 +34,32 @@ for (w in c(0:19)) {
   print(tmp$DATUM[a])
   line <- readline()
 }
+
+# creating plots into bp
+install.packages("Cairo")
+library(Cairo)
+
+dset <- read.csv("~/r/fiit-bp/data/fake_set1.csv")
+trend <- ts(dset$trend, frequency = 12, start = c(1990, 2))
+seasonal <- ts(dset$seasonal, frequency = 12, start = c(1990, 2))
+random <- ts(dset$random, frequency = 12, start = c(1990, 2))
+
+CairoPDF("trend_component.pdf")
+ts.plot(trend, main = "Trendová zložka", xlab = "Čas", ylab = "Nameraná hodnota")
+dev.off()
+
+CairoPDF("season_component.pdf")
+ts.plot(seasonal, main = "Sezónna zložka", xlab = "Čas", ylab = "Nameraná hodnota")
+dev.off()
+
+CairoPDF("random_component.pdf")
+ts.plot(random, main = "Reziduálna zložka", xlab = "Čas", ylab = "Nameraná hodnota")
+dev.off()
+
+CairoPDF("add_model.pdf")
+ts.plot(trend + seasonal + random, main = "Adítívny model", xlab = "Čas", ylab = "Nameraná hodnota")
+dev.off()
+
+CairoPDF("multi_model.pdf")
+ts.plot(trend * seasonal * random, main = "Multiplikatívny model", xlab = "Čas", ylab = "Nameraná hodnota")
+dev.off()

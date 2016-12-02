@@ -86,8 +86,9 @@
 %   ANOTATION
 %-------------------------------------------------------------------------------
 
-\newpage
-\thispagestyle{plain}
+% \newpage\null\thispagestyle{empty}\newpage
+
+\begin{titlepage}
 \begin{center}
   {\small Slovenská technická univerzita v Bratislave \par}
   {\small \textbf{FAKULTA INFORMATIKY A INFORMAČNÝCH TECHNOLÓGIÍ}}
@@ -104,7 +105,7 @@
 {Autor: Matúš Cuper \par}
 {Bakalárska práca: Optimalizácia konfiguračných parametrov predikčných metód \par}
 {Vedúci práce: Ing. Marek Lóderer \par}
-{máj 2016 \\} \\
+{máj 2017 \\} \\
 V práci sme sa zamerali na problémy vznikajúce pri prekcii časových radov.
 V súčasnosti existuje veľké množstvo metód, ktoré nám zabezpečujú predpoveď
 sledovanej veličiny s prijateľne malou odchýlkou na krátke obdobie v blízkej
@@ -122,11 +123,15 @@ použitá knižnica Shiny. Optimalizácie sme vykonávali nad dátovými množin
 v doméne energetiky. Výsledný systém umožňuje používateľovi využívať silu
 predikčných algoritmov a nájsť ich optimálne parametre pre zabezpečenie čo
 najpresnejšej predikcie.
+\end{titlepage}
 
-\newpage
-\thispagestyle{plain}
-\vspace*{1.5cm}
+\begin{titlepage}
 \begin{center}
+  {\small Slovak University of Technology Bratislava \par}
+  {\small \textbf{FACULTY OF INFORMATICS AND INFORMATION TECHNOLOGIES}}
+  \rule{\textwidth}{1pt}
+
+  \vspace*{1.5cm}
   \begin{Large}
     \textbf{Annotation} \par
   \end{Large}
@@ -137,26 +142,15 @@ najpresnejšej predikcie.
 {Author: Matúš Cuper \par}
 {Bachelor thesis: Optimizing configuration parameters of prediction methods \par}
 {Supervisor: Ing. Marek Lóderer \par}
-{May 2016 \\} \\
+{May 2017 \\} \\
 Tu bude text anglickej anotácie
+\end{titlepage}
 
 %-------------------------------------------------------------------------------
 %   Declaration
 %-------------------------------------------------------------------------------
 
-\newpage
-\thispagestyle{plain}
-\vspace*{15cm}
-\begin{large}
-  \noindent \textbf{POĎAKOVANIE} \par
-\end{large}
-\vspace*{0.5cm}
-\noindent
-Ďakujem vedúcemu bakalárskej práce Ing. Marekovi Lódererovi za odborné vedenie,
-cenné rady a pripomienky pri spracovaní bakalárskej práce.
-
-\newpage
-\thispagestyle{plain}
+\begin{titlepage}
 \vspace*{15cm}
 \begin{large}
   \noindent \textbf{ČESTNÉ PREHLÁSENIE} \par
@@ -169,6 +163,18 @@ v zozname použitej literatúry. \\
 \vspace*{0.5cm}\\
 \hspace*{10cm}............................\\
 \hspace*{10.7cm} Matúš Cuper
+\end{titlepage}
+
+\begin{titlepage}
+\vspace*{15cm}
+\begin{large}
+  \noindent \textbf{POĎAKOVANIE} \par
+\end{large}
+\vspace*{0.5cm}
+\noindent
+Ďakujem vedúcemu bakalárskej práce Ing. Marekovi Lódererovi za odborné vedenie,
+cenné rady a pripomienky pri spracovaní bakalárskej práce.
+\end{titlepage}
 
 %-------------------------------------------------------------------------------
 %   Table of contents
@@ -176,12 +182,22 @@ v zozname použitej literatúry. \\
 
 \newpage
 \tableofcontents
+\thispagestyle{empty}                                                           % removes page numbering from table of contents page
+
+\newpage
+\listoffigures
+\thispagestyle{empty}
+
+\newpage
+\listoftables
+\thispagestyle{empty}
 
 %-------------------------------------------------------------------------------
 %   Chapter 1 - Introduction
 %-------------------------------------------------------------------------------
 
 \newpage
+\setcounter{page}{1}
 \section{Úvod}
 
 %-------------------------------------------------------------------------------
@@ -232,9 +248,10 @@ na základe doteraz nameraných dátových vzoriek. Matematicky zapísané ako
   \hat{x}(t+\Delta_t) = f(x(t-a), x(t-b), x(t-c), ...)
   \label{eq-series}
 \end{equation}
-Hodnota $\hat{x}$ je predpovedaná ako hodnota diskrétneho časového radu $x$.
-Preto je potrebné nájsť funkciu $f(x)$, podobnú funkciu $\hat{x}$, ktorá
-predpovedá hodnotu časového radu v budúcnosti konzistentne
+Hodnota $\hat{x}$ vo vzorci~\ref{eq-series} je predpovedaná hodnota
+jednorozmerného diskrétneho časového radu $x$. Úlohou je nájsť takú funkciu
+$f(x)$, pre ktorú bude $\hat{x}$ predstavovať predpovedanú hodnotu časového
+radu. Táto funkcia by mala predpovedať hodnoty v budúcnosti konzistentne
 a objektvíne~\cite{Sapankevych2009}.
 
 Časové rady sú najčastejšie vizualizované ako graf, kde pozorovania sú na
@@ -327,7 +344,6 @@ zložiek~\cite{Agrawal2013}.
   \caption{Príklad aditívneho modelu.}
   \label{fig-add-model}
 \end{figure}
-
 
 %-------------------------------------------------------------------------------
 %   Analysis of prediction algorithms

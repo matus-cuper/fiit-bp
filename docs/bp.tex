@@ -17,7 +17,7 @@
 %\usepackage{indentfirst}                                                        % indent first line after section, but carefully, indent everything and everywhere
 \usepackage{amsmath}                                                            % for fractions
 \usepackage{amssymb}                                                            % for real numbers sign
-\usepackage{algorithm,algpseudocode}                                            % for pseudocode writting
+\usepackage{algorithm, algpseudocode}                                           % for pseudocode writting
 \usepackage{graphicx}                                                           % enable figures
 \graphicspath{ {images/} }                                                      % set path for figures
 \hypersetup{																																		% with default colours for links
@@ -351,7 +351,7 @@ stagnovať. Príkladom môže byť nárast populácie či klesajúca
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.7\textwidth]{trend_component.pdf}
+  \includegraphics[width=0.65\textwidth]{trend_component.pdf}
   \caption{Príklad trendovej zložky časového radu.}
   \label{fig-trend-comp}
 \end{figure}
@@ -362,30 +362,30 @@ Táto zložka je zastúpená najmä pri ekonomických časových radoch napríkl
 podnikateľský cyklus pozostávajúci zo 4 fáz, ktoré sa stále
 opakujú~\cite{Agrawal2013}.
 
-\paragraph{Sezónna zložka} predstavuje kolísanie časových radov počas ročných
-období. Dôležitými faktormi pri tom sú napr. klimatické podmienky, tradiície
-alebo počasie. Napríklad predaj zmrzliny sa v lete zvyšuje, ale počet
-predaných lyžiarskych súprav klesá~\cite{Agrawal2013}.
-
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{season_component.pdf}
   \caption{Príklad sezónnej zložky časového radu.}
   \label{fig-season-comp}
 \end{figure}
 
-\paragraph{Reziduálna zložka} predstavuje veličinu, ktorá nemá žiadny
-opakovateľný vzor a ani dlhodobý trend. V časových radoch má nepredvídateľný
-vplyv na pozorovanú veličinu. V štatistike zatiaľ nie je definovaná metóda na
-jej meranie. Označuje sa aj ako náhodná zložka alebo biely šum. Je spôspobená
-nepredvídateľnými a nepravideľnými udalosťami~\cite{Agrawal2013}.
-
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{random_component.pdf}
   \caption{Príklad reziduálnej zložky časového radu.}
   \label{fig-random-comp}
 \end{figure}
+
+\paragraph{Sezónna zložka} predstavuje kolísanie časových radov počas ročných
+období. Dôležitými faktormi pri tom sú napr. klimatické podmienky, tradiície
+alebo počasie. Napríklad predaj zmrzliny sa v lete zvyšuje, ale počet
+predaných lyžiarskych súprav klesá~\cite{Agrawal2013}.
+
+\paragraph{Reziduálna zložka} predstavuje veličinu, ktorá nemá žiadny
+opakovateľný vzor a ani dlhodobý trend. V časových radoch má nepredvídateľný
+vplyv na pozorovanú veličinu. V štatistike zatiaľ nie je definovaná metóda na
+jej meranie. Označuje sa aj ako náhodná zložka alebo biely šum. Je spôspobená
+nepredvídateľnými a nepravideľnými udalosťami~\cite{Agrawal2013}.
 
 Vo všeobecnosti sa pre tieto 4 zložky používajú 2 rôzne modely. Je to
 multiplikatívny model a aditívny model.
@@ -424,7 +424,11 @@ zložiek~\cite{Agrawal2013}.
 %-------------------------------------------------------------------------------
 
 \subsection{Analýza predičkných algoritmov}
-Na základe množstva predikčných
+Na základe množstva výskumov, ktoré analyzovali predikčné algoritmy, sme si
+zvolili reprezentatívnu vzorku algoritmov. Našou snahou bude rôzne predikčné
+metódy optimalizovať pomocou optimalizačných algoritmov. Pred tým je potrebné
+analyzovať a pochopiť použité predikčné metódy. Taktiež je potrebné
+identifikovať ich vstupné parametre, keďže ich neskôr budeme optimalizovať.
 
 %-------------------------------------------------------------------------------
 %   Linear regression
@@ -835,6 +839,10 @@ kríženie, elitárstvo, operátor reprodukcie či mutácie~\cite{Chavan2015}.
 \paragraph{Chromozón} je pomenovanie pre jedinca. V literatúre sa tiež zvykne
 používať označenie kandidát~\cite{Arun2016}.
 
+\paragraph{Inicializácia} je proces, ktorý po vygenerovaní generácie priradí
+kandidátom náhodné hodnoty. Pri prehľadávaní dvojrozmerného priestoru to budú
+náhodné hodnoty oboch súradníc~\cite{Lazinica2009}.
+
 \paragraph{Fitness funkcia} je funkcia určujúca efektívnosť chromozónu. Každý
 jedinec v množine je ohodnotený pomocou tejto funkcie, ktorá vracia číselnú
 reprezentáciu riešenia, čiže ako dobre daný kandidát vyriešil zadaný problém.
@@ -849,7 +857,22 @@ párenie~\cite{Chavan2015}.
 
 \paragraph{Kríženie} je operátor kombinácie. Kríženie vykonáva výmenu blokov
 chromozónov. Z druhého chromozónu je vybraný reťazec náhodnej veľkosti, ktorý
-sa vymení s rovnako dlhým reťazcom z prvého chromozónu~\cite{Chavan2015}.
+sa vymení s rovnako dlhým reťazcom z prvého chromozónu.
+V tabuľke~\ref{tab-crossing} je tento proces znázornený
+graficky~\cite{Chavan2015}.
+
+\begin{table}
+  \centering
+  \caption{Proces vytvorenia novej generácie z rodičovských chromozónov.}
+  \label{tab-crossing}
+  \begin{tabular}{p{4cm}l|l|l}
+    rodič č. 1      &  0110 & 0101  0010 & 0011  \\
+    rodič č. 2      &  1100 & 1101  1110 & 1111  \\
+    \hline
+    potomok č. 1    &  0110 & 1101  1110 & 0011  \\
+    potomok č. 2    &  1100 & 0101  0010 & 1111  \\
+  \end{tabular}
+\end{table}
 
 Vzniká problém ako, čo najvhodnejšie, určiť bod kríženia a vybrať tak
 najkvalitnejšie bloky chromozónu. Kvôli tomu je potrebné definovať nový element
@@ -873,8 +896,8 @@ riešenie predchádzajúcej generácie~\cite{Deolekar2016}.
 Mutácia chromozónu väčšinou predstavuje operáciu, ktorá s nízkou
 pravdepodobnosťou invertuje jeden bit v chromozóne~\cite{Chavan2015}.
 
-\paragraph{Princíp} fungovania genetických algoritmov možno znázorniť
-v nasledujúcom pseudokóde~\cite{Chavan2015}
+\paragraph{Princíp genetického algoritmu} môžeme znázorniť v nasledujúcom
+pseudokóde~\cite{Chavan2015}
 \begin{algorithm}
   \caption{Pseudokód genetického algoritmu}
   \begin{algorithmic}[1]

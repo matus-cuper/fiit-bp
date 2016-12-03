@@ -600,6 +600,15 @@ a končí po dosiahnutí listového uzla. Pre riešenie jedného problému je mo
 vytvoriť stromy s rôznym počtom a usporiadaním uzlov. Najlepším riešením je
 strom s najmenším počtom rozhodovacích uzlov~\cite{Merz1998}.
 
+Hlavnou výhodou rozhodovacích stromov oproti ostatným modelom je, že strom
+produkuje model, ktorý je reprezentovateľný ako pravidlá alebo logické výroky.
+Taktiež klasifikácia sa môže vykonávať bez komplikovaných výpočtov. Táto
+technika môže byť použítá ako na kategorické premenné tak aj na spojité.
+Rozhodovacie stromy neposkytujú také dobré výsledky pre nelineárne dáta ako
+neurónové siete. Vo všeobecnosti je táto metóda vhodnejšia pre predpovedanie
+kategorických dát alebo na dáta, ktoré v sebe obsahujú viditeľný
+trend~\cite{Tso2007}.
+
 \paragraph{Regresný rozhodovací strom}
 
 %-------------------------------------------------------------------------------
@@ -759,10 +768,44 @@ vyrovnávaním~\cite{Mahalakshmi2016}.
 %-------------------------------------------------------------------------------
 
 \subsection{Analýza optimalizačných algoritmov}
+Optimalizačné algoritmy, ktoré majú potenciál nájsť globálne alebo lokálne
+riešenie problému. Lokálne optimalizácie, nazývané aj vyhľadávacie algortimy,
+sa pokúšajú nájsť lokálne minimum v okolí štartovacieho riešenia. Väčšina
+týchto algoritmov je deterministických. Pri hľadaní minima používajú
+vyhodnocovaciu funkciu, na základe ktorej, aktualizujú doterajšie riešene.
+Z nových možných riešení je najlepšie to s najnižšiou hodnotou, čiže to ktoré
+je najlacnejšie. Kvôli tejto vlastnosti sa zvyknú tieto algortimy označovať aj
+ako nenásytné algoritmy (greedy algorithms). Spravidla tieto algoritmy nenájdu
+globálne minimum v prípade, že sa nachádza ďalej od štartovacieho riešenia ako
+nejaké lokálne minimum~\cite{Sen1995}.
 
-% definicia optimalizacnz algoritmov
-% preco optimalizacne algoritmy a nie hocco ine
+Na druhej strane, optimalizačné algoritmy s pontenciálom nájdenia globálneho
+minima nachádzajú riešenie, ktoré postupne konverguje k optimálnemu riešeniu.
+To ale nie je algoritmami úplne garantované. Algortimy s globálnym
+potencionálom majú väčší prehľad o svojom okolí, a preto uviaznutie v lokálnom
+minime je zriedkavé~\cite{Sen1995}.
 
+Nasledujúca tabuľka~\ref{tab-bio} zobrazuje rozdelenie algoritmov
+s pontenciálom nájdenia globálneho minima. Algoritmy sú biologicky inšpirované
+a ich ďalšie delenie vyplýva zo spoločných znakov, na ktorých sú založené.
+
+\begin{table}
+  \centering
+  \caption{Tabuľka rozdelenia vybraných biologicky inšpirovaných algoritmov~\cite{Goel2012}.}
+  \label{tab-bio}
+  % \begin{tabular}{|p{34mm}|p{34mm}|p{34mm}|p{34mm}|}
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Model ľudskej \\ mysle\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Umelé imunitné \\ systémy\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Rojová \\ inteligencia\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Ostatné napr. \\ prírodné úkazy\end{tabular}}} \\ \hline
+    Teória fuzzy množin                                                                           & Evolučný algoritmus                                                                             & \begin{tabular}[c]{@{}l@{}}Optimalizácia \\ kolóniu mravcov\end{tabular}                     & Tektonické dosky                                                                                      \\
+    \textbf{Rough Set theory}                                                                     & Umelé neurónové siete                                                                           & \begin{tabular}[c]{@{}l@{}}Optimalizácia \\ rojom častíc\end{tabular}                        & Veľký kolaps                                                                                          \\
+    \textbf{Granular COmputing}                                                                   & Celulárný automat                                                                               & \begin{tabular}[c]{@{}l@{}}Foraging \\ bacteria\end{tabular}                                  & Oceánske prúdy                                                                                       \\
+    \begin{tabular}[c]{@{}l@{}}Perception-Based \\ Computing\end{tabular}                         & \begin{tabular}[c]{@{}l@{}}Membrane \\ computing\end{tabular}                                   & \begin{tabular}[c]{@{}l@{}}Včelí zhlukovací \\ algoritmus\end{tabular}                       & Prílivové vlny                                                                                        \\
+    \textbf{Wisdom Technology}                                                                    & \textbf{DNA computing}                                                                          & \begin{tabular}[c]{@{}l@{}}Vyhľadávanie \\ kukučkou\end{tabular}                             & Sopečné erupcie                                                                                       \\
+    \begin{tabular}[c]{@{}l@{}}Anticipatory \\ Computing\end{tabular}                             &                                                                                                 & \begin{tabular}[c]{@{}l@{}}Inteligentná \\ kvapka vody\end{tabular}                          & Zemetrasenia                                                                                          \\
+    \hline
+  \end{tabular}
+\end{table}
 
 %-------------------------------------------------------------------------------
 %   Genetic algorithms
@@ -792,10 +835,13 @@ kríženie, elitárstvo, operátor reprodukcie či mutácie~\cite{Chavan2015}.
 \paragraph{Chromozón} je pomenovanie pre jedinca. V literatúre sa tiež zvykne
 používať označenie kandidát~\cite{Arun2016}.
 
-\paragraph{Fitness funkcia} je funkcia určujúca efektívnosť chromozónu, pre
-ktoré je vypočítaná fitness funkcia. Pri hľadaní optimálneho riešenia sa
-porovnáva hodnota fitness funkcie aktuálneho riešenie s hodnotou funkcie
-cieľového riešenia~\cite{Chavan2015, Simonova2007}.
+\paragraph{Fitness funkcia} je funkcia určujúca efektívnosť chromozónu. Každý
+jedinec v množine je ohodnotený pomocou tejto funkcie, ktorá vracia číselnú
+reprezentáciu riešenia, čiže ako dobre daný kandidát vyriešil zadaný problém.
+Pri hľadaní optimálneho riešenia sa porovnáva hodnota fitness funkcie aktuálneho
+riešenie s hodnotou funkcie cieľového riešenia, ale vo všeobecnosti, čím je
+hodnota väčšia, tým je kandidátovo riešenie
+lepšie~\cite{Chavan2015, Lazinica2009, Simonova2007}.
 
 \paragraph{Operátor reprodukcie} je obvykle prvý operátor, ktorý sa uplatní na
 populáciu. Operátor náhodne vyberie reťazce z dvoch chromozónov na

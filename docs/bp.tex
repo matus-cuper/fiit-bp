@@ -828,7 +828,7 @@ riešenie problému je reprezentovaný dátovou štruktúrou, ktorú označujeme
 jedinec. Súbor jedincov tvorí populáciu. Začiatok procesu začína náhodnými
 riešeniami populácie, ktorý sa postupne vylepšuje~\cite{Chavan2015}.
 
-Vytvorenie novej generácie sa vykonáva pomocou genetických operátorov,
+Vytvorenie novej generácie sa vykonáva pomocou genetických operátorov:
 a to selekciou, krížením a mutáciou. Proces selekcie vyberie kvalitnejšie
 chromozóny, ktoré prežijú a vyskytnú sa tak aj v ďalšej
 generácii~\cite{Simonova2007}.
@@ -1054,7 +1054,7 @@ v nasledujúcom pseudokóde~\cite{Seeley1991}
     \State Inicializácia $a$, $A$ a $C$
     \State Vyhodnotenie fitness funkcie pre každého jedinca
     \State Priradenie do 3 najlepších riešení do $X_\alpha$, $X_\beta$ resp. $D_\delta$
-    \State Opakuj kroky \ref{gwo-while} a \ref{gwo-iter} pokiaľ nebude prekročený maximálny počet iterácií \label{gwo-while}
+    \State Opakuj kroky \ref{gwo-while} až \ref{gwo-iter} pokiaľ nebude prekročený maximálny počet iterácií \label{gwo-while}
     \State Aktualizovanie polohy na základe rovnice \ref{eq-prey-main} pre každého jedinca
     \State Aktualizovanie $a$, $A$ a $C$
     \State Vyhodnotenie fitness funkcie pre každého jedinca
@@ -1071,19 +1071,84 @@ v nasledujúcom pseudokóde~\cite{Seeley1991}
 \subsubsection{Umelá kolónia včiel}
 V literatúre označovaný ako ABC algoritmus (Artifical bee colony) je pomerne
 nový medzi rojovými algoritmami. Princíp je založený na biologickom procese,
-správaní medonosných včiel pri hľadaní potravy. Hlavný mechanizmus ktorým včely
-optimalizujú množstvo procesov je tzv. včelí tanec (\textbf{waggle dance}),
-ktorým včely lokalizujú zdroje potravy a nachádzajú ďalšie~\cite{Chavan2015}.
+správaní medonosných včiel pri hľadaní potravy. Každá včela na pracujúca
+v roji sa spolupodiela na tvorbe celého systému na globálnej úrovni. Správanie
+systému je určené lokálnym správaním, kde spolupráca a zladenie jedincov vedie
+k štruktúrovanému kolaboračnému systému~\cite{Chavan2015}.
 
-Každá včela na pracujúca v roji sa spolupodiela na tvorbe celého systému na
-globálnej úrovni. Správanie systému je určené lokálnym správaním, kde spolupráca
-a zladenie jedincov vedie k štruktúrovanému kolaboračnému systému~\cite{Chavan2015}.
+V algoritme, kolónia umelých včiel pozostáva z 3 skupín včiel. Sú to včely
+robotnice, diváčky a prieskúmníčky. Včely si vymenieňajú informácie o zdrojoch
+potravy tancovaním (waggle dance) na tzv. tanečnej ploche. Včela diváčka
+čakajúca na tanečnej ploche, sa rozhoduje, ktorý zdroj potravy si vyberie.
+Včela robotnica najskôr tieto zdroje navštívi. Prieskumníčka uskutočňuje
+náhodné prehľadávanie priestoru. Pri aplikovaní ABC algoritmu, polovica včiel
+predstavuje robotnice, druhá polovica diváčky. Počet robotníc zodpovedá počtu
+zdrojov potravy v okolí úľu. Robotnica, ktorej zdroj je vyčerpaný inými
+včelami sa stáva prieskumníčkou~\cite{Karaboga2007}.
 
-Algoritmus funguje na princípe, že včely nájdu najviac výnosný zdroj
-s použitím, čo najmenšej energie. \textbf{Foragers} (zrejme robotnice hľadajúce zdroj jedla) uvažujú
-presúvanie sa medzi zdrojmi nektárov na základe kvality alebo zisku zdroju.
-Algoritmus poskytuje samo-manažovateľné a samo-organizované riešenie, vo svojej
-podstate decentralizované, pre daný problém~\cite{Buhussain2016}.
+Zväčšovaním množstva zdrojov potravy sa zväčšuje aj pravdepodobnosť vybratia
+zdroja diváčkou. Vďaka tomu je zabezpečené, že tanec robotníc, ktoré navštívili
+zdroje s najväčším množstvom nektáru, presvedčí najviac diváčok. Tie,
+na základe informácie o polohe zdroja, nájdu v jeho okolí nový zdroj, z ktorého
+budú zberať nektár. Po vyčerpaní nektáru, je tento zdroj opustený a včela sa
+presunie na zdroj, ktorý našli prieskumníčky~\cite{Karaboga2007}.
+
+Pozícia zdrojov jedla je reprezentácia možného riešenia daného problému.
+Množstvo nektáru je úmerné kvalite riešenia, ktoré je určené fitness funkciou.
+Počet robotníc a diváčiek je rovný počtu riešení v danej populácií. Každé
+riešenie je reprezentovateľné ako D-dimenzionálny vektor. Hodnota $D$ môže
+predstavovať počet optimalizačných parametrov~\cite{Karaboga2007}.
+
+Včely majú riešenie uložené vo vlastnej pamäti, kde si vytvárajú aj modifikáciu
+riešení, čím nachádzajú nové riešenia, ktoré následné vyskúšajú. Ak nové
+riešenie je lepšie ako predchádzajúce, včely si ho zapamätajú a predchádzajúcé
+zabudnú. Inak si pamätajú staré riešenie. Keď všetky robotnice skončia proces
+hľadania, zdieľajú informácie o zdrojoch s diváčkami. Tie vyhodnotia
+zhromaždené informácie a vyberú zdroj s najlepším riešením. Opäť vytvoria nové
+riešenie jeho modifikovaním a skontrolujú ho~\cite{Karaboga2007}.
+
+Diváčky vyberajú zdroj v závislosti od pravdepodobnosti zdroja $p_i$,
+ktorú vypočítame ako
+\begin{equation}
+  p_i = \frac{fit_i}{\sum_{j = 1}^{n} fit_j}
+  \label{eq-abc-prop}
+\end{equation}
+Vo vzorci \ref{eq-abc-prop} predstavuje $fit_i$ fitness funkciu, ktorá
+ohodnocuje riešenie $i$. Týmto spôsobom si vymieňajú medzi sebou informácie
+robotnice a diváčky~\cite{Karaboga2007}.
+
+Algoritmus počíta nové riešenie na základe starého, čo matematicky zapíšeme ako
+\begin{equation}
+  v_{ij} = x_{ij} + \phi_{ij} (x_{ij} - x_{kj})
+  \label{eq-abc-src}
+\end{equation}
+Ak si počet včiel definujeme ako $B$ potom na základe vzorca \ref{eq-abc-src}
+platí $k \in {1, 2, ..., B}$ a $j \in {1, 2, ..., D}$. Indexy $k$ a $j$ sú
+vybrané náhodne, ale $k$ musí byť rôzne od $i$. Hodnota $\phi_{ij}$ je
+z intervalu [-1, 1] vyberaná náhodne. Je zrejmé, že čím bude menší rozdiel
+medzi $(x_{ij}$ a $x_{kj})$, tým bude menší rozdiel aj medzi starým a novým
+riešením~\cite{Karaboga2007}.
+
+Algoritmus má 3 konfigurovateľné parametre a to: počet robotníc alebo diváčok,
+ktorý je rovný počtu zdrojov jedla, limit, ktorý ohraničuje prehľadávaný
+priestor a maximálny počet cyklov, ktorý sa vykoná ak sa skôr nenájde
+optimálne riešenie~\cite{Karaboga2007}.
+
+\paragraph{Princíp umelej kolónii včiel} znázorňuje nasledujúci
+pseudokód~\cite{Karaboga2007}
+\begin{algorithm}[H]
+  \caption{Pseudokód umelej kolónie včiel}
+  \begin{algorithmic}[1]
+    \State Inicializácia včiel na náhodné zdroje potravy
+    \State Opakuj kroky \ref{abc-while} až \ref{abc-end} pokiaľ nebude dosiahnutý cieľ \label{abc-while}
+    \State Umiestnenie robotníc na zdroje potravy, ktoré boli nájdené
+    \State Vyhodnotenie zdroja na základe množstva nektáru
+    \State Umiestnenie diváčok na zdroje potravy na základe získaných informácií
+    \State Vyhodnotenie, ktoré včely sa stanú prieskumníčkami
+    \State Vyslanie prieskumníčok do prehľadávanie priestoru za účelom objavenia nových zdrojov potravy \label{abc-end}
+    \State Vráť optimálne riešenie
+  \end{algorithmic}
+\end{algorithm}
 
 %-------------------------------------------------------------------------------
 %   Ant colony optimization
@@ -1390,6 +1455,22 @@ V literatúre označovaná ako SMAPE
 % jej spotrebu, čím zamedzíme ekonomickým stratám ako na strane výrobcu tak aj na
 % strane spotrebiteľa. Predpoveď by sa, v ideálnom prípade, mala líšiť od
 % skutočnej hodnoty minimálne a
+
+% V literatúre označovaný ako ABC algoritmus (Artifical bee colony) je pomerne
+% nový medzi rojovými algoritmami. Princíp je založený na biologickom procese,
+% správaní medonosných včiel pri hľadaní potravy. Hlavný mechanizmus ktorým včely
+% optimalizujú množstvo procesov je tzv. včelí tanec (\textbf{waggle dance}),
+% ktorým včely lokalizujú zdroje potravy a nachádzajú ďalšie~\cite{Chavan2015}.
+%
+% Každá včela na pracujúca v roji sa spolupodiela na tvorbe celého systému na
+% globálnej úrovni. Správanie systému je určené lokálnym správaním, kde spolupráca
+% a zladenie jedincov vedie k štruktúrovanému kolaboračnému systému~\cite{Chavan2015}.
+%
+% Algoritmus funguje na princípe, že včely nájdu najviac výnosný zdroj
+% s použitím, čo najmenšej energie. \textbf{Foragers} (zrejme robotnice hľadajúce zdroj jedla) uvažujú
+% presúvanie sa medzi zdrojmi nektárov na základe kvality alebo zisku zdroju.
+% Algoritmus poskytuje samo-manažovateľné a samo-organizované riešenie, vo svojej
+% podstate decentralizované, pre daný problém~\cite{Buhussain2016}.
 
 %-------------------------------------------------------------------------------
 %   Chapter X - Conclusion

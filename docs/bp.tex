@@ -903,12 +903,11 @@ pseudokóde~\cite{Chavan2015}
   \begin{algorithmic}[1]
     \State Náhodne inicializovanie jedincov
     \State Vyhodnotenie fitness funkcie pre každého jedinca \label{ga-fitness}
-    \State Výber jedincov pre ďalšiu populáciu na základe fitnesss funkcie \label{ga-selection}
-    \State Kríženie jedincov \label{ga-crossing}
-    \State Mutovanie jedincov \label{ga-mutation}
-    \State Kontrola či nebolo nájdené žiadané optimálne riešenie \label{ga-condition}
-    \State Ukončenie ak sa našlo takéto riešenie, inak opakovanie krokov \ref{ga-fitness} až \ref{ga-condition}
-    \State Koniec
+    \State Výber jedincov pre ďalšiu populáciu na základe fitnesss funkcie
+    \State Kríženie jedincov
+    \State Mutovanie jedincov
+    \State Ak bolo nájdené žiadané optimálne riešenie pokračuj, inak návrat na krok \ref{ga-fitness}
+    \State Vráť optimálne riešenie
   \end{algorithmic}
 \end{algorithm}
 
@@ -932,7 +931,16 @@ niekoľko nevýhod~\cite{Deolekar2016}.
 Algoritmus je založený na správaní vlka sivého, ktorý je na vrchole
 potravinového reťazca a preferuje život vo svorke. Lov pozostáva zo stopovania,
 prenasledovania, približovania sa, obkľúčenia koristi a útokom na korisť. Vlkov
-vo svorke možno rozdeliť do niekoľkých skupín~\cite{Seeley1991}.
+vo svorke možno rozdeliť do niekoľkých skupín.
+V obrázku~\ref{fig-wolf-hierarchy} je znázornená hierarchia týchto
+skupín~\cite{Seeley1991}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{wolf_hierarchy.png}
+  \caption{Hierarchia vlkov vo svorke.}
+  \label{fig-wolf-hierarchy}
+\end{figure}
 
 \paragraph{Alfa vlky} sú vodcami svorky. Ich úlohou je robiť rozhodnutia
 ohľadom lovu, miesta na spanie či času zobudenia. Tieto príkazy diktujú svorke,
@@ -969,15 +977,25 @@ sú nasledovaní kandidátmi omega~\cite{Seeley1991}.
 \paragraph{Obkľúčenie koristi} môžeme matematicky reprezentovať ako
 \begin{equation}
   \begin{split}
-    \vec{D} = | \vec{C} \cdot \vec{X_p}(t) \vec{X}(t) |
-    \\
-    \vec{X}(t+1) = \vec{X_p}(t) - \vec{A} \cdot \vec{D}
+    \begin{gathered}
+      \vec{D} = | \vec{C} \cdot \vec{X_p}(t) - \vec{X}(t) |
+      \\
+      \vec{X}(t+1) = \vec{X_p}(t) - \vec{A} \cdot \vec{D}
+      \\
+      \Downarrow
+      \\
+      \vec{D_\alpha} = | \vec{C_1} \cdot \vec{X_\alpha} - \vec{X} |\text{,  }\vec{D_\beta} = | \vec{C_2} \cdot \vec{X_\beta} - \vec{X} |\text{,  }\vec{D_\delta} = | \vec{C_3} \cdot \vec{X_\delta} - \vec{X} |
+      \\
+      \vec{X_1} = \vec{X_\alpha} - \vec{A_1} \cdot \vec{D_\alpha}\text{,  }\vec{X_2} = \vec{X_\beta} - \vec{A_2} \cdot \vec{D_\beta}\text{,  }\vec{X_3} = \vec{X_\delta} - \vec{A_3} \cdot \vec{D_\delta}
+    \end{gathered}
   \end{split}
   \label{eq-prey-main}
 \end{equation}
 Aktuálnu iteráciu vo vzorci~\ref{eq-prey-main} zapíšeme ako $t$, vektor
 $\vec{X_p}$ predstavuje vektor polohy koristi a $\vec{X}$ je vektor polohy
-vlka. Vektory $\vec{A}$ a $\vec{C}$ sú koeficienty, ktoré zapíšeme ako
+vlka. Z tohto predpokladu môžeme odvodiť spodnú dvojicu vzorcov, ktoré opisujú
+obkľúčenie koristi. Vektory $\vec{A}$ a $\vec{C}$ sú koeficienty, ktoré
+zapíšeme ako
 \begin{equation}
   \begin{split}
     \vec{A} = 2\vec{a} \cdot \vec{r_1} - \vec{a}
@@ -999,6 +1017,52 @@ získame aplikovaním vzorcov~\ref{eq-prey-main}~\cite{Seeley1991}.
   \caption{Príklad možného umiestnenia vlka v dvojrozmernom priestore na základe polohy koristi.}
   \label{fig-wolf-pos}
 \end{figure}
+
+\paragraph{Hľadanie koristi} je zabezpečené vektorom $\vec{A}$, ktorý mimo
+intervalu [-1, 1] núti vlky divergovať od seba, čím je zdôraznená potreba
+prehľadávať okolie a neskĺznuť do lokálneho minima. Náhodný vektor $\vec{C}$
+similuje prekážky v prírode, s ktorými sa vlk stretne pri hľadaní koristi.
+V závislosti od vygenerovanej hodnoty, môže simulovať aj opačný prípad, ktorý
+je pre vlka priaznivejší~\cite{Seeley1991}.
+
+\paragraph{Lov} je vedený alfa vlkmi, beta a delta vlky sa tiež môžu na ňom
+príležitostne podielať. V prírode vlky disponujú schopnosťou rozpoznať
+umiestnenie koristi a obklúčiť ju. Avšak pri simulácií tohto správania, nemáme
+vedomosť o presnej polohe koristi. Preto na základe prvých troch najlepších
+riešení vypočítame predpokladanú polohu koristi, čím vznikne
+vzorec~\ref{eq-prey-pos}. Kandidáti, vrátane omeage vlkov, potom na základe
+rovnice~\ref{eq-prey-main} aktualizujú svoju polohu~\cite{Seeley1991}.
+\begin{equation}
+  \vec{X}(t+1) = \frac{\vec{X_1} + \vec{X_2} + \vec{X_3}}{3}
+  \label{eq-prey-pos}
+\end{equation}
+
+\paragraph{Útok} na korisť v matematickom modely dosiahne približovaním sa ku
+koristi, čiže znižením hodnoty $\vec{a}$. Tak dosiaheme aj zníženie hodnoty
+$\vec{A}$ až bude jeho hodnota v intervale [-1, 1]. Potom ďalšia vypočítana
+hodnota pozície vlka sa bude nachádzať medzi pôvodnou polohou vlka
+a polohou koristi. V prípade, že hodnota $\vec{A}$ sa nachádza mimo spomínaného
+intervalu, vlk diverguje od koristi, čo nastáva vo fáze hľadania koristi. Tým
+je zabezpečené prehľadávanie priestoru agentami~\cite{Seeley1991}.
+
+\paragraph{Princíp optimalizácie svorkou divých vlkov} môžeme znázorniť
+v nasledujúcom pseudokóde~\cite{Seeley1991}
+\begin{algorithm}[H]
+  \caption{Pseudokód optimalizácie svorkou divých vlkov}
+  \begin{algorithmic}[1]
+    \State Náhodná inicializácia vlkov
+    \State Inicializácia $a$, $A$ a $C$
+    \State Vyhodnotenie fitness funkcie pre každého jedinca
+    \State Priradenie do 3 najlepších riešení do $X_\alpha$, $X_\beta$ resp. $D_\delta$
+    \State Opakuj kroky \ref{gwo-while} a \ref{gwo-iter} pokiaľ nebude prekročený maximálny počet iterácií \label{gwo-while}
+    \State Aktualizovanie polohy na základe rovnice \ref{eq-prey-main} pre každého jedinca
+    \State Aktualizovanie $a$, $A$ a $C$
+    \State Vyhodnotenie fitness funkcie pre každého jedinca
+    \State Aktualizovanie $X_\alpha$, $X_\beta$ a $D_\delta$
+    \State Aktualizovanie počtu iterácií \label{gwo-iter}
+    \State Vráť optimálne riešenie $X_\alpha$
+  \end{algorithmic}
+\end{algorithm}
 
 %-------------------------------------------------------------------------------
 %   Artifical bee colony

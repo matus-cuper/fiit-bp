@@ -247,7 +247,7 @@ jednotlivých vstupných parametrov metód. Je na zvážení používateľa, ak�
 parametre zvolí pre optimalizačné algoritmy. Vstupné parametre predikčných
 metód budú zvolené optimálne na základe výstupných hodnôt optimalizačných
 algoritmov. Používateľ má k dispozícií vyhodnotenie predpovede, ktoré porovnáva
-predpovedanú a skutočnú hodnotu rôznymi metódami.
+predpovedanú a skutočnú hodnotu rôznymi metrikami.
 
 Celá práca je rozdelená do niekoľkých kapitol. V
 kapitole~\ref{problem-analysis} sme sa zamerali na analýzu problému. Definovali
@@ -1306,14 +1306,39 @@ percentách. Našim cieľom bolo poskytnúť používateľovi, čo najviac infor
 o presnosti predpovede, a preto sú použité viaceré metódy merania chýb
 predikcií.
 
-% %-------------------------------------------------------------------------------
-% %   Chapter 3 - Specification
-% %-------------------------------------------------------------------------------
-%
-% \newpage
-% \section{Špecifikácia požiadaviek}
-% \label{specification}
-%
+%-------------------------------------------------------------------------------
+%   Chapter 3 - Requirements specification
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Špecifikácia požiadaviek}
+\label{specification}
+Cieľom práce je navrhnúť systém, ktorý umožní používateľovi nájsť optimálne
+nastavenie vstupných parametrov predikčných metód. Používateľ bude mať
+k dispozícií niekoľko predikčných a optimalizačných algoritmov, bude môcť
+meniť ich parametre a výpočty vykonávať nad dátami, ktoré si sám zvolí.
+K uvedeným parametrom bude poskytnuté vysvetlenie a opis zmeny správania na
+základe ich zmeny. Presnosť predpovede bude určená pomocou používaných metrík
+na meranie chyby predikcie.
+
+Dáta, ktoré budeme používať počas tvorby informačného systému, pochdázajú zo
+Slovenska a sú dostupné každých 15 minút. Keďže budeme vždy predpovedať práve
+jednu veličinu na základe samej seba, jedno meranie by malo zodpovedať formátu
+``dátum, nameraná hodnota''. Formát dátumu bude od začiatku jednotný a bude
+zodpovedať norme ISO 8601. Námeraná hodnota bude reprezentovaná reálnym číslom.
+
+Používateľ si bude môcť vyberať z ponúknutých predikčných a optimalizačných
+algoritmov. K dispozícii bude mať lineárnu regresiu, stochastické modely,
+regresiu založenú na podporných vektoroch, rozhodovacie stromy a prírodne
+inšpirované optimalizačné algoritmy ako genetický algoritmus, umelú kolóniu
+včiel alebo svorku divých vlkov. Systém bude navrhnutý tak, aby pridanie
+ďalších algoritmov spôsobilo, čo možno najmenšie zmeny v pôvodnom systéme.
+Pripadá do úvahy, že samotný systém bude poskytovať rozhranie, ktoré
+používateľovi umožní použiť vlastnú implementáciu iných algoritmov.
+
+Systém bude implementovaný v jazyku R a webové používateľské rozhranie bude
+vytvorené pomocou knižnice Shiny.
+
 % %-------------------------------------------------------------------------------
 % %   Chapter 4 -  Solution design
 % %-------------------------------------------------------------------------------

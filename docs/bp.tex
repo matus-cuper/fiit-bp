@@ -215,14 +215,14 @@ cenné rady a pripomienky pri spracovaní bakalárskej práce.
 \section{Úvod}
 V súčasnosti sme obklopený množstvom zariadení, ktoré merajú a zhromažďujú
 informácie z iných zariadení. Príkladom môžu byť rôzne mobilné aplikácie,
-meteorologické stanice alebo chytré merače merajúce spotrebu elektriky, vody
-či plynu. Namerané dáta sa môžu meniť v závislosti od napr. hodiny, dňa alebo
-počasia. Samozrejme existujú aj merania, ktoré sú ovplyvnené ľudským správaním,
-ktoré sa môže líšiť v závislosti od vyššie uvedených faktorov, ale aj faktorov
-ako sú kultúrne tradície, zvyky či náboženstvo. Na základe nameraných dát vieme
-vytvoriť predpoveď, ktorá opäť môže ovplyvniť ostatné faktory a celé
-predpovedanie sa tak stáva opäť komplexnejším. Ak sú dáta merané v pravidelných
-intervaloch a konzistentne, nazývame ich časový rad.
+meteorologické stanice alebo chytré merače merajúce spotrebu elektrickej
+energie, vody či plynu. Namerané dáta sa môžu meniť v závislosti od napr.
+hodiny, dňa alebo počasia. Samozrejme existujú aj merania, ktoré sú ovplyvnené
+ľudským správaním, ktoré sa môže líšiť v závislosti od vyššie uvedených
+faktorov, ale aj faktorov ako sú kultúrne tradície, zvyky či náboženstvo. Na
+základe nameraných dát vieme vytvoriť predpoveď, ktorá opäť môže ovplyvniť
+ostatné faktory a celé predpovedanie sa tak stáva opäť komplexnejším. Ak sú
+dáta merané v pravidelných intervaloch a konzistentne, nazývame ich časový rad.
 
 V práci sme sa zamerali na predpovedanie veličín na základe ich historických
 meraní. Ostatné faktory pri tom neboli brané do úvahy. Tým sa stáva
@@ -265,11 +265,11 @@ Výsledky práce sú zhodnotené v kapitole~6.                                  
 \newpage
 \section{Analýza problému}
 \label{problem-analysis}
-Predpovedanie spotreby elektriky je kľúčovou činnosťou pre plánovanie
+Predpovedanie spotreby elektrickej energie je kľúčovou činnosťou pre plánovanie
 a prevádzkovanie rôznych elektronických zariadení. Hľadaný vzor pre časové
-rady spotreby elektriny je často komplexný a je zložité ho nájsť aj kvôli
-faktorom ako sú napr. zmeny cien elektriky na trhu. Preto sa stáva
-implementácia vhodného modelu zaručujúceho presnú predpoveď
+rady spotreby elektrickej energie je často komplexný a je zložité ho nájsť aj
+kvôli faktorom ako sú napr. zmeny cien elektrickej energie na trhu. Preto sa
+stáva implementácia vhodného modelu zaručujúceho presnú predpoveď
 náročnou~\cite{Mahalakshmi2016}.
 
 Práve preto vznikajú rôzne metódy na predpovedanie časových radov, ktoré sú
@@ -331,8 +331,8 @@ nasledujúce odstavce obsahovať aj obrázky zobrazujúce vygenerovanú dátovú
 množinu.
 
 \subsubsection{Zložky časových radov}
-Pri predpovedaní časových radov ako napr. meraní odberu elektriky vznikajú
-2 typy trendov. Prvým typom je trvalá alebo dočasná zmena spôsobená
+Pri predpovedaní časových radov ako napr. meraní odberu elektrickej energie
+vznikajú 2 typy trendov. Prvým typom je trvalá alebo dočasná zmena spôsobená
 ekonomickými alebo ekologickými faktormi. Druhým typom je sezónna zmena,
 spôsobená zmenami ročných období a množstvom denného svetla. Môžeme ju pozorovať
 na úrovni dňov, týždňov alebo rokov. Veličina, ktorú sa snažíme predpovedať
@@ -437,9 +437,9 @@ identifikovať ich vstupné parametre, keďže ich neskôr budeme optimalizovať
 \subsubsection{Lineárna regresia}
 Najpoužívanejšia štatistická metóda, ktorá modeluje vzťah závislej premennej
 a vysvetľujúcej premmennej. Závislú premmenu predstavuje veličina, ktorú sa
-snažíme predpovedať, čo je v našom prípade spotreba elektriky. Vysvetľujúca
-premenná v sebe zahŕňa rôzne faktory, ktoré ovplyvňujú závislú premennú.
-Môžeme si pod tým predstaviť deň v týždni, počasie, tradície alebo rôzne
+snažíme predpovedať, čo je v našom prípade spotreba elektrickej energie.
+Vysvetľujúca premenná v sebe zahŕňa rôzne faktory, ktoré ovplyvňujú závislú
+premennú. Môžeme si pod tým predstaviť deň v týždni, počasie, tradície alebo rôzne
 udalosti, ktoré majú vplyv na predpoveď.~\cite{KumarSingh2013, Mahalakshmi2016}.
 
 Predpokladajme typický regresný problém. Dáta pozostávajúce z množiny \textit{n}
@@ -461,10 +461,10 @@ $L(t)$ definovanú ako
   L(t) = Ln(t) + \sum a_i x_i(t) + e(t)
   \label{eq-odber}
 \end{equation}
-Vo vzorci~\ref{eq-odber} funkcia $Ln(t)$ predstavuje odber elektriky v čase
-$t$. Hodnota $a_i$ je odhadovaný pomaly meniaci sa koeficient. Faktory
-$x_i(t)$ nezávisle vplývajú na spotrebu elektriky. Môže sa jednať napríklad
-o počasie alebo zvyky ľudí. Komponent $e(t)$ je biely šum, ktorý má nulovú
+Vo vzorci~\ref{eq-odber} funkcia $Ln(t)$ predstavuje odber elektrickej energie
+v čase $t$. Hodnota $a_i$ je odhadovaný pomaly meniaci sa koeficient. Faktory
+$x_i(t)$ nezávisle vplývajú na spotrebu elektrickej energie. Môže sa jednať
+napr. o počasie alebo zvyky ľudí. Komponent $e(t)$ je biely šum, ktorý má nulovú
 strednú hodnotu a pevnú varianciu. Číslo $n$ je počet meraní, obvykle 24
 alebo 168, v našom prípade 96 meraní počas jedného dňa~\cite{KumarSingh2013}.
 
@@ -488,11 +488,11 @@ Túto funkciu môžeme zapísať ako
   \label{eq-multi-regresia}
 \end{equation}
 Vo vzorci~\ref{eq-multi-regresia} $t$ označuje čas, kedy bolo meranie
-uskutočnené. $Y(t)$ predstavuje celkový nameraný odber elektriky. Vektor $V_t$
-reprezentuje hodnoty vysvetľujúcich premenných v čase merania. Vysvetľujúce
-premenné môžu predstavovať meteorologické vplyvy, ekonomický nárast, ceny
-elektriky či kruzy mien. Chybu modelu v čase $t$ zapíšeme
-ako $e_t$~\cite{KumarSingh2013, Mahalakshmi2016}.
+uskutočnené. $Y(t)$ predstavuje celkový nameraný odber elektrickej energie.
+Vektor $V_t$ reprezentuje hodnoty vysvetľujúcich premenných v čase merania.
+Vysvetľujúce premenné môžu predstavovať meteorologické vplyvy, ekonomický
+nárast, ceny elektrickej energie či kruzy mien. Chybu modelu v čase $t$
+zapíšeme ako $e_t$~\cite{KumarSingh2013, Mahalakshmi2016}.
 
 %-------------------------------------------------------------------------------
 %   Stochastic models
@@ -576,7 +576,9 @@ ARMA model. Rovnakým spôsobom vieme dostať modely AR a MA~\cite{Agrawal2013}.
 \subsubsection{Regresia založená na podporných vektoroch}
 Regresia založená na podporných vektoroch a metóda podporných vektorov je
 založená na štatistickej teórií učenia, nazývanej aj VC teória, podľa svojich
-autorov, Vapnik a Chervonenkisa~\cite{Sapankevych2009}.
+autorov, Vapnik a Chervonenkisa. Táto predikčná metóda poskytuje malý počet
+voľných parametrov. Garantuje konvergenciu k ideálnemu riešeniu a môže byť
+výpočtovo efektívna~\cite{Sapankevych2009}.
 
 Metóda podporných vektorov je použitá na množstvo úloh strojového učenia ako je
 rozoznávanie vzorov, klasifikácia objektov a v prípade predikcií časových
@@ -586,9 +588,34 @@ metóda podporných vektorov natrénovaná. Toto je odklon od tradičných predp
 časových radov, v zmysle že metodá podporných vektorov nepoužíva žiadny model,
 ale predikciu riadia samotné dáta~\cite{Sapankevych2009}.
 
-Táto predikčná metóda poskytuje malý počet voľných parametrov. Garantuje
-konvergenciu k ideálnemu riešeniu a môže byť výpočtovo
-efektívna~\cite{Sapankevych2009}.
+Uvažujme množinu trénovacích dát
+${(x_1, y_1), (x_2, y_2), ..., (x_n, y_n)} \subset \chi \times \mathbb{R}$, kde
+v našom prípade hodnota $x_i$ predstavuje odber elektrickej energie v čase $i$
+a množina $\chi$ označuje vstupnú množinu dát. Úlohou algoritmu je nájsť
+funkciu  $f(x_i)$, pre ktorú hodnota $\varepsilon$ nadobúda pre všetky
+trénovacie dáta, čo najväčšie hodnoty oproti $y_i$ a súčasne, nadobúda
+najmenšie možné hodnoty menšie ako $\varepsilon$~\cite{Smola2004}.
+
+Matematicky môžeme túto lineárnu zapísať ako
+\begin{equation}
+  f(x) = \langle w, x \rangle +  b
+  \label{eq-svr}
+\end{equation}
+Vo vzorci~\ref{eq-svr} platí $w \in \chi$ a $b \in \mathbb{R}$. Výsledok
+vektorového súčinu $\langle w, x \rangle$ sa nachádza v množine $\chi$. Našou
+snahou je dosiahnuť, čo najmenšie hodnotu $w$. Zabezpčiť to môžeme
+minimalizovaním hodnoty $|| w ||^2 = \langle w, w \rangle$. Pri ciely
+minimalizovať hodnotu $\frac{1}{2} || w ||^2$, môžeme opisovaný problém zapísať
+ako
+\begin{equation}
+  \begin{cases}
+    y_i - \langle w, x_i \rangle - b \leq \varepsilon \\
+    \langle w, x_i \rangle + b - y_i \leq \varepsilon \\
+  \end{cases}
+  \label{eq-svr-min}
+\end{equation}
+Predpokladom pre vzorec~\ref{eq-svr-min} je, že funkcia $f$ existuje pre všetky
+páry $(x_i, y_i)$ s presnosťou~$\varepsilon$~\cite{Smola2004}.
 
 %-------------------------------------------------------------------------------
 %   Decision trees

@@ -215,7 +215,7 @@ cenné rady a pripomienky pri spracovaní bakalárskej práce.
 \section{Úvod}
 V súčasnosti sme obklopený množstvom zariadení, ktoré merajú a zhromažďujú
 informácie z iných zariadení. Príkladom môžu byť rôzne mobilné aplikácie,
-meteorologické stanice alebo chytré merače merajúce spotrebu elektrickej
+meteorologické stanice alebo inteligentné merače merajúce spotrebu elektrickej
 energie, vody či plynu. Namerané dáta sa môžu meniť v závislosti od napr.
 hodiny, dňa alebo počasia. Samozrejme existujú aj merania, ktoré sú ovplyvnené
 ľudským správaním, ktoré sa môže líšiť v závislosti od vyššie uvedených
@@ -247,7 +247,7 @@ jednotlivých vstupných parametrov metód. Je na zvážení používateľa, ak�
 parametre zvolí pre optimalizačné algoritmy. Vstupné parametre predikčných
 metód budú zvolené optimálne na základe výstupných hodnôt optimalizačných
 algoritmov. Používateľ má k dispozícií vyhodnotenie predpovede, ktoré porovnáva
-predpovedanú a skutočnú hodnotu rôznymi metodikami.
+predpovedanú a skutočnú hodnotu rôznymi metódami.
 
 Celá práca je rozdelená do niekoľkých kapitol. V
 kapitole~\ref{problem-analysis} sme sa zamerali na analýzu problému. Definovali
@@ -304,10 +304,11 @@ reprezentujú diskrétny časový rad. Vtedy sú pozorovania oddelené rovnakým
 prípade sú namerané dáta dostupné každú celú štvrťhodinu.
 
 \subsubsection{Analýza časových radov}
+\label{time-series-analysis}
 V praxi je vhodný model napasovaný do daného časového radu a zodpovedajúce
 parametre sú predpovedané na základe známych dát. Pri predopovedaní časových
 radov sú dáta z predchádzajúcich meraní zhromažďované a analyzované za účelom
-navrhnutia vhodného matematického modelu, ktorý zachytáva proces generovania
+navrhnutia vhodného matematického modelu, ktorý zaznamenáva proces generovania
 dát pre časové rady. Pomocou tohto modelu sú predpovedané hodnoty budúcich
 meraní. Takýto prístup je užitočný, keď nemáme veľa poznatkov o vzore
 v meraniach idúcich za sebou alebo máme model, ktorý poskytuje nedostatočne
@@ -1264,6 +1265,46 @@ dát~\cite{Agrawal2013}.
 %-------------------------------------------------------------------------------
 
 \subsection{Zhodnotenie analýzy}
+S rastúcim množstvom dát z rôznych zdrojov vzniká potreba predpovedať správanie
+týchto veličín v budúcnosti. Existuje množstvo článkov, ktoré sa zaoberajú
+týmto problémom. Neustále prinášajú a vylepšujú existujúce matematické modely,
+ktoré sú schopné predpovedať budúce hodnoty meraných veličín. Výsledky nie sú
+presné, ale chyba výpočtu je dostatočne nízka na to, aby sme takýto výsledok
+mohli považovať za relevantný. Zvýšiť presnosť výsledkov je možné viacerými
+metódami, či už kombináciou viacerých matematických modelov alebo ich
+optimálnym nastavením. My sme sa v práci zamerali na hľadanie optimálneho
+nastavenia používaných modelov.
+
+Preskúmané predikčné modely potrebujú pre svoje správne fungovanie vstupné
+parametre. Pomocou nich vieme ovplyvniť chybu predikcie. Problémom je nájdenie
+takých parametrov, pre ktoré by bola chyba predickie, čo najmenšia. Hľadanie
+najlepšieho riešenia by bolo časovo neprípustné, a preto budeme hľadať iba
+optimálne riešenie, ktoré nám poskytne prijateľnú chybu predikcie. Je dôležité
+poznamenať, že vstupné parametre, ktoré nájdu optimálnu predikciu závisa aj od
+samotných dát. Ako bolo spomenuté v sekcii~\ref{time-series-analysis}, dáta
+pozostávajú z viacerých zložiek a ich pomer sa môže líšiť pri rôznych
+veličinách.
+
+Na hľadanie optimálneho nastavenie predikčných algoritmov sme použili
+prírodne inšpirované optimalizačné algoritmy. Ako ich názov napovedá, hľadanie
+optimálneho riešenia sa vykonáva na základe správania sa nejakého živočíšneho
+druhu alebo prírodného javu. Tieto algoritmy sa osvedčili ako efektívne a
+rýchle riešenie problémov, ktorých prehľadávaný priestor riešení nie je možné
+prehľadať celý. Algoritmy sa vyhýbajú spadnutiu do lokálnych miním a tak je
+nájdené riešenie obvykle optimálne v globálnom rozsahu. Opäť aj tieto algoritmy
+poskytujú niekoľko konfiguračných parametrov ovplyvňujúce rýchlosť a presnosť
+nájdeného riešenia. Avšak cieľom tejto práce je optimalizovať predikčné
+a nie optimalizačné algoritmy a poskytnúť tak používateľovi univerzálne
+a jednoduché riešenie predikčných problémov.
+
+Dôležitou súčasťou predpovedí je vyhodnotenie ich úspešnosti porovnávaním
+predpovedanej hodnoty s ich skutočnými nameranými hodnotami. Existuje množstvo
+metód, ktorými vieme zmerať chybu predpovede. Niektoré nám poskytujú informáciu
+o smere chyby, iné zohľadňujú extrémne chyby. Výsledky niektorých sa viažu na
+škálu, v ktorej sa nachádzajú naše merania, iné sú nezávislé, merané v
+percentách. Našim cieľom bolo poskytnúť používateľovi, čo najviac informácií
+o presnosti predpovede, a preto sú použité viaceré metódy merania chýb
+predikcií.
 
 % %-------------------------------------------------------------------------------
 % %   Chapter 3 - Specification
@@ -1343,8 +1384,8 @@ dát~\cite{Agrawal2013}.
   \begin{tabular}{|p{0.9\textwidth}|}
     \hline
     % pridať ACO od Marca Doriga      \\ \hline
-    pridať regresné stromy          \\ \hline
-    nájsť a pridať vzorec pre SVR   \\ \hline
+    % pridať regresné stromy          \\ \hline
+    % nájsť a pridať vzorec pre SVR   \\ \hline
     pridať zhodnotenie analýzy      \\ \hline
     pridať špecifikáciu požiadaviek (opis use case)   \\ \hline
     % pridať exponencionálne vyrovnávanie               \\ \hline

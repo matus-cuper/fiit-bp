@@ -644,18 +644,43 @@ trend~\cite{Tso2007}.
 %   Regression trees
 %-------------------------------------------------------------------------------
 
-\paragraph{Regresný rozhodovací strom}
+\paragraph{Regresný rozhodovací strom} obsahuje odozvový vektor $Y$
+reprezentujúci odozvu hodnôt ku každému meraniu v matici $X$. Vetvy sú
+rozdeľované na základe štvorcového zostatkového minimalizačného algoritmu.
+Ten zabezpečuje, že očakávaný súčet variancií dvoch uzlov bude minimalizovaný.
+Algoritmus tak nájde optimálnu podmienku rozdelenia uzlu na jeho
+potomokov~\cite{Bel2009}.
+
+Priradením hodnoty 1 pre triedu $k$ a hodnoty 0 pre ostatné triedy, získame
+varianciu rovnú $p(k|t)[1 - p(k|t)]$. Sčítaním $K$ tried získame funkciu
+\begin{equation}
+  i(t) = 1 - \sum_{k = 1}^K p^2 (k|t)
+  \label{eq-tree-impurity}
+\end{equation}
+Tým sme vytvorili maximálny strom, čo znamená, že uzly sa rozdeľovali až do
+posledného merania, ktoré sa nachádzalo v trénovacej množine. Maximálny strom
+sa tak môže stať veľmi veľkým~\cite{Bel2009}.
+
+Jedným z najpoužívanejších algoritmov na rozdeľovanie uzlov sa nazýva index
+Gini alebo rozhodovacie pravidlo Gini. Tento algoritmus zapíšeme ako
+\begin{equation}
+  i(t) = \sum_{k \neq l} p(k|t) p(l|t)
+  \label{eq-tree-gini}
+\end{equation}
+Vo vzorci~\ref{eq-tree-gini} predstavujú $k$ a $l$ indexy tried o 1 po $K$ a
+$p(k|t)$ označuje podmienenú pravdepodobnosť triedy $k$ za predpokladu, že
+aktuálny uzol je uzol $t$. Aplikovaním Gini algoritmu nájdeme v trénovacej
+množine najväčšiu triedu, ktorú odizolujeme od ostatných dát~\cite{Bel2009}.
 
 %-------------------------------------------------------------------------------
 %   Random forest
 %-------------------------------------------------------------------------------
 
-\paragraph{Náhodné lesy}
-Náhodné lesy sú kombináciou predpovedí stromov. Každý strom závisí od hodnoty
-náhodného vektora s rovnakým rozdelením. Chyba lesu závisí od sily jednotlivých
-strom a koreláciou medzi nimi. Náhodný les môžeme definovať ako klasifikátor
-pozostávajúci z množiny stromov $\{h(x, \Theta_k), k=1, 2, ... \}$, kde
-$\{\Theta_k\}$ sú nezávislé rovnomerne distribuované náhodné vektory a každý
+\paragraph{Náhodné lesy} sú kombináciou predpovedí stromov. Každý strom závisí
+od hodnoty náhodného vektora s rovnakým rozdelením. Chyba lesu závisí od sily
+jednotlivých strom a koreláciou medzi nimi. Náhodný les môžeme definovať ako
+klasifikátor pozostávajúci z množiny stromov $\{h(x, \Theta_k), k=1, 2, ... \}$,
+kde $\{\Theta_k\}$ sú nezávislé rovnomerne distribuované náhodné vektory a každý
 strom sa podiela na hlasom na voľbe triedy vstupu $x$. S nárastom počtu stromov
 hodnota $\{\Theta_k\}$ konverguje k určitému bodu. Tým je zabezpečené, že
 náhodné lesy sa s pridávajúcim počtom stromov nepretrénujú ale veľkosť chyby sa

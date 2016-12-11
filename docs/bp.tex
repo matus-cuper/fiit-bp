@@ -213,7 +213,7 @@ cenné rady a pripomienky pri spracovaní bakalárskej práce.
 \newpage
 \setcounter{page}{1}
 \section{Úvod}
-V súčasnosti sme obklopený množstvom zariadení, ktoré merajú a zhromažďujú
+V súčasnosti sme obklopení množstvom zariadení, ktoré merajú a zhromažďujú
 informácie z iných zariadení. Príkladom môžu byť rôzne mobilné aplikácie,
 meteorologické stanice alebo inteligentné merače merajúce spotrebu elektrickej
 energie, vody či plynu. Namerané dáta sa môžu meniť v závislosti od napr.
@@ -384,8 +384,8 @@ predaných lyžiarskych súprav klesá~\cite{Agrawal2013}.
 
 \paragraph{Reziduálna zložka} predstavuje veličinu, ktorá nemá žiadny
 opakovateľný vzor a ani dlhodobý trend. V časových radoch má nepredvídateľný
-vplyv na pozorovanú veličinu. V štatistike zatiaľ nie je definovaná metóda na
-jej meranie. Označuje sa aj ako náhodná zložka alebo biely šum. Je spôsobená
+vplyv na pozorovanú veličinu. V štatistike zatiaľ nie je definovaná metóda jej
+merania. Označuje sa aj ako náhodná zložka alebo biely šum. Je spôsobená
 nepredvídateľnými a nepravidelnými udalosťami~\cite{Agrawal2013}.
 
 Vo všeobecnosti sa pre tieto 4 zložky používajú 2 rôzne modely. Je to
@@ -552,7 +552,7 @@ generalizáciou modelu ARMA. V literatúre sa označuje ako ARIMA (autoregressiv
 integrated moving average). Modely typu ARMA môžu byť použité iba na statické
 časové rady. Mnoho časových radov v praxi vykazuje nestatické správanie a napr.
 tie, ktoré obsahujú komponenty trendu a sezónnosti. Kvôli tomu bol navrhnutý
-model ARIMA, ktorý je zahŕňa v sebe aj prípady nestatických časových radov.
+model ARIMA, ktorý zahŕňa v sebe aj prípady nestatických časových radov.
 Z nestatických časových radov sa vytvárajú statické pomocou konečného počtu
 derivovaní dátových bodov. Vzniká tak matematický model, ktorý môžeme zapísať
 ako
@@ -586,7 +586,7 @@ rozoznávanie vzorov, klasifikácia objektov a v prípade predikcií časových
 radov to je regresná analýza. Regresia založená na podporných vektoroch je
 postup, ktorého funkcia je predpovedaná pomocou nameraných dát, ktorými je
 metóda podporných vektorov natrénovaná. Toto je odklon od tradičných predpovedí
-časových radov, v zmysle že metóda podporných vektorov nepoužíva žiadny model,
+časových radov v zmysle, že metóda podporných vektorov nepoužíva žiadny model,
 ale predikciu riadia samotné dáta~\cite{Sapankevych2009}.
 
 Uvažujme množinu trénovacích dát
@@ -594,7 +594,7 @@ ${(x_1, y_1), (x_2, y_2), ..., (x_n, y_n)} \subset \chi \times \mathbb{R}$, kde
 v našom prípade hodnota $x_i$ predstavuje odber elektrickej energie v čase $i$
 a množina $\chi$ označuje vstupnú množinu dát. Úlohou algoritmu je nájsť
 funkciu  $f(x_i)$, pre ktorú hodnota $\varepsilon$ nadobúda pre všetky
-trénovacie dáta, čo najväčšie hodnoty oproti $y_i$ a súčasne, nadobúda
+trénovacie dáta čo najväčšie hodnoty oproti $y_i$ a súčasne nadobúda
 najmenšie možné hodnoty menšie ako $\varepsilon$~\cite{Smola2004}.
 
 Matematicky môžeme túto lineárnu zapísať ako
@@ -604,7 +604,7 @@ Matematicky môžeme túto lineárnu zapísať ako
 \end{equation}
 Vo vzorci~\ref{eq-svr} platí $w \in \chi$ a $b \in \mathbb{R}$. Výsledok
 vektorového súčinu $\langle w, x \rangle$ sa nachádza v množine $\chi$. Našou
-snahou je dosiahnuť, čo najmenšie hodnotu $w$. Zabezpčiť to môžeme
+snahou je dosiahnuť čo najmenšiu hodnotu $w$. Zabezpčiť to môžeme
 minimalizovaním hodnoty $|| w ||^2 = \langle w, w \rangle$. Pri cieli
 minimalizovať hodnotu $\frac{1}{2} || w ||^2$, môžeme opisovaný problém zapísať
 ako
@@ -682,10 +682,10 @@ od hodnoty náhodného vektora s rovnakým rozdelením. Chyba lesu závisí od s
 jednotlivých strom a koreláciou medzi nimi. Náhodný les môžeme definovať ako
 klasifikátor pozostávajúci z množiny stromov $\{h(x, \Theta_k), k=1, 2, ... \}$,
 kde $\{\Theta_k\}$ sú nezávislé rovnomerne distribuované náhodné vektory a každý
-strom sa podieľa na hlasom na voľbe triedy vstupu $x$. S nárastom počtu stromov
+strom sa podieľa hlasom na voľbe triedy vstupu $x$. S nárastom počtu stromov
 hodnota $\{\Theta_k\}$ konverguje k určitému bodu. Tým je zabezpečené, že
-náhodné lesy sa s pridávajúcim počtom stromov nepretrénujú ale veľkosť chyby sa
-postupne ustáli. Pri výbere náhodného vektora sa snažíme pri zachovaní jeho
+náhodné lesy sa s pridávajúcim počtom stromov nepretrénujú, ale veľkosť chyby
+sa postupne ustáli. Pri výbere náhodného vektora sa snažíme pri zachovaní jeho
 sily minimalizovať koreláciu, čím zvyšujeme presnosť celého
 výpočtu~\cite{Breiman2001}.
 
@@ -724,20 +724,20 @@ príklad takéhoto neurónu~\cite{Tso2007}.
 \end{figure}
 
 Neurónová sieť predstavuje orientovaný graf uzlov. Uzol neurónovej
-siete sa nazývame neurón. Každý uzol počíta svoj výstup na základe vstupov od
+siete sa nazýva neurón. Každý uzol počíta svoj výstup na základe vstupov od
 susedných uzlov. Výpočet prebieha aplikovaním funkcie, ktorá sa nazýva sigmoid,
 na vážený súčet vstupov~\cite{Gruau1994}.
 
-Trénovanie sieti je proces nastavovania, čo najlepších váh na vstupy
+Trénovanie siete je proces nastavovania, čo najlepších váh na vstupy
 jednotlivých neurónov. Chyba neurónovej siete sa najčastejšie počíta pomocou
-spätnej propagácie (backpropagation) čím dostaneme rast chyby pre danú
+spätnej propagácie (backpropagation), čím dostaneme rast chyby pre danú
 neurónovú sieť~\cite{Tso2007}.
 
 Je veľa typov neurónových sietí napríklad viacvrstvové perceptónové siete,
 samoriadiace siete, siete s viacerými skrytými vrstvami, alebo aj viacvrstvové
 spätne propagované neurónové siete, pričom príklad takejto siete môžeme vidieť
 aj na obrázku~\ref{fig-neural-network}. V každej skrytej vrstve je množstvo
-neurónov. Hlavnou výhodou je, že väčšina sietí nepotrebuje. Na druhej strane,
+neurónov. Hlavnou výhodou je, že väčšina sietí nepotrebuje model. Na druhej strane,
 trénovanie obvykle zaberá veľa času. Výstupom siete je lineárna rovnica váh
 prepojených so vstupom~\cite{KumarSingh2013}.
 
@@ -788,8 +788,8 @@ Optimalizačné algoritmy, ktoré majú potenciál nájsť globálne alebo loká
 riešenie problému. Lokálne optimalizácie, nazývané aj vyhľadávacie algoritmy,
 sa pokúšajú nájsť lokálne minimum v okolí štartovacieho riešenia. Väčšina
 týchto algoritmov je deterministická. Pri hľadaní minima používajú
-vyhodnocovaciu funkciu, na základe ktorej, aktualizujú doterajšie riešene.
-Z nových možných riešení je najlepšie to s najnižšou hodnotou, čiže to ktoré
+vyhodnocovaciu funkciu, na základe ktorej aktualizujú doterajšie riešene.
+Z nových možných riešení je najlepšie to s najnižšou hodnotou, čiže to, ktoré
 je najlacnejšie. Kvôli tejto vlastnosti sa zvyknú tieto algoritmy označovať aj
 ako nenásytné algoritmy (greedy algorithms). Spravidla tieto algoritmy nenájdu
 globálne minimum v prípade, že sa nachádza ďalej od štartovacieho riešenia ako
@@ -873,7 +873,7 @@ sa vymení s rovnako dlhým reťazcom z prvého chromozómu.
 V tabuľke~\ref{tab-crossing} je tento proces znázornený
 graficky~\cite{Chavan2015}.
 
-\begin{table}
+\begin{table}[H]
   \centering
   \caption{Proces vytvorenia novej generácie z rodičovských chromozómov.}
   \label{tab-crossing}
@@ -886,7 +886,7 @@ graficky~\cite{Chavan2015}.
   \end{tabular}
 \end{table}
 
-Vzniká problém ako, čo najvhodnejšie, určiť bod kríženia a vybrať tak
+Vzniká problém ako čo najvhodnejšie určiť bod kríženia a vybrať tak
 najkvalitnejšie bloky chromozómu. Kvôli tomu je potrebné definovať nový element
 nazývaný väzba, označovaný ako $d_i$
 \begin{equation}
@@ -899,9 +899,9 @@ maticu $1 \times (N-1)$. Vypočítaním priemeru susedných hodnôt aj pre cieľ
 maticu a nájdením priemeru matice, určíme body kríženia. Chromozóm rozdelíme na
 miestach, kde je väzba, čo najmenšia~\cite{Simonova2007}.
 
-\paragraph{Elitárstvo} je to proces pridávania chromozómov s najlepšou hodnotou
+\paragraph{Elitárstvo} je proces pridávania chromozómov s najlepšou hodnotou
 funkcie fitness priamo do ďalšej populácie. Zaisťuje to, že najlepšie riešenie
-budúcej generácie bude vždy lepšie, alebo pri najhoršom rovnaké, ako najlepšie
+budúcej generácie bude vždy lepšie alebo pri najhoršom rovnaké, ako najlepšie
 riešenie predchádzajúcej generácie~\cite{Deolekar2016}.
 
 \paragraph{Operátor mutácie} sa vykoná po vykonaní operátora reprodukcie.
@@ -957,28 +957,26 @@ skupín~\cite{Seeley1991}.
 \paragraph{Alfa vlky} sú vodcami svorky. Ich úlohou je robiť rozhodnutia
 ohľadom lovu, miesta na spanie či času zobudenia. Tieto príkazy diktujú svorke,
 avšak bolo pozorované aj demokratické správanie, kedy alfa vlky nasledovali
-ostatné vlky zo svorky. Všetky vlky uznávajú postavenie alfa vlkov vo svorke.
-Zaujímavosťou je, že vodcom svorky nemusí byť najsilnejší jedinec, ale môže to
+ostatných členov svorky. Všetky vlky uznávajú postavenie alfy vo svorke.
+Zaujímavosťou je, že vodcom nemusí byť najsilnejší jedinec, ale môže to
 byť aj jedinec najlepší v organizovaní svorky~\cite{Seeley1991}.
 
-\paragraph{Beta vlky} sú druhým stupňom v hierarchii vlčej svorky, podriadené
-alfa vlkom, ktorým pomáhajú v rozhodovaní a organizácií svorky. Sú najlepšími
-kandidátmi na alfa vlkov v prípade úmrtia alebo zostarnutia alfa vlkov. Mali by
-rešpektovať alfa vlky a organizovať nižšie postavené vlky. Hrajú rolu radcu
-a ďalej distribuujú príkazy a vracajú sa s odozvou na ne~\cite{Seeley1991}.
+\paragraph{Beta vlky} sú druhým stupňom v hierarchii, podriadené alfa vlkom,
+ktorým pomáhajú v rozhodovaní a organizácií. Sú najlepšími kandidátmi na alfu
+v prípade úmrtia alebo zostarnutia alfa jedincov. Hrajú rolu radcu a ďalej
+distribuujú príkazy a vracajú sa s odozvou na ne~\cite{Seeley1991}.
 
-\paragraph{Delta vlky} inak nazývané aj podriadené vlky zastupujú vo svorke
+\paragraph{Delta vlky} inak nazývané aj podriadené, zastupujú vo svorke
 úlohy prieskumníkov, strážcov, starejších, lovcov či opatrovateľov.
 Prieskumníci hliadkujú hranice a varujú svorku pred nebezpečím. Strážcovia
-zabezpečujú bezpečie svorky. Starejší sú skúsenými vlkmi, ktorí boli alfa alebo
-beta vlkmi. Lovci pomáhajú alfa a beta vlkom pri love. Opatrovatelia sa starajú
-o slabé, choré alebo zranené vlky~\cite{Seeley1991}.
+sa starajú o bezpečie svorky. Starejší sú skúsenými vlkmi, ktorí boli na pozícii
+alfa alebo beta. Lovci pomáhajú alfa a beta vlkom pri love. Opatrovatelia sa
+starajú o slabé, choré alebo zranené jedince~\cite{Seeley1991}.
 
 \paragraph{Omega vlky} majú najnižšiu hodnosť vo svorke. Hrajú rolu obetných
-baránkov, ktoré sa podrobia ostatným vlkom. K potrave sa dostanú ako úplne
-posledné. Aj keď sa možno javí ich postavenie vo svorke zbytočné, boli
-pozorované prípady, kedy ich strata spôsobila vo svorke
-nedorozumenia~\cite{Seeley1991}.
+baránkov, ktoré sa podrobia ostatným. K potrave sa dostanú ako úplne posledné.
+Aj keď sa možno javí ich postavenie zbytočné, boli pozorované prípady, kedy ich
+strata spôsobila vo svorke nedorozumenia~\cite{Seeley1991}.
 
 \paragraph{Spoločenská hierarchia} reprezentovaná matematickým modelom,
 označuje najvhodnejšie riešenie ako alfa, druhé a tretie najvhodnejšie ako beta
@@ -987,7 +985,7 @@ optimalizácie (v prírode lovu) je vedený alfa, beta a delta kandidátmi, ktor
 sú nasledovaní kandidátmi omega~\cite{Seeley1991}.
 
 \paragraph{Obkľúčenie koristi} jednotlivými vlkmi $\alpha$, $\beta$ a $\delta$
-môžeme matematicky reprezentovať nasledujúcimi rovnica
+môžeme matematicky vyjadriť nasledujúcimi rovnicami
 \begin{equation}
   \vec{D_\alpha} = | \vec{C_1} \cdot \vec{X_\alpha} - \vec{X} |
   \label{eq-prey-alpha}
@@ -1054,8 +1052,8 @@ V závislosti od vygenerovanej hodnoty, môže simulovať aj opačný prípad, k
 je pre vlka priaznivejší~\cite{Seeley1991}.
 
 \paragraph{Lov} je vedený alfa vlkmi, beta a delta vlky sa tiež môžu na ňom
-príležitostne podieľať. V prírode vlky disponujú schopnosťou rozpoznať
-umiestnenie koristi a obkľúčiť ju. Avšak pri simulácií tohto správania, nemáme
+príležitostne podieľať. V prírode disponujú schopnosťou rozpoznať
+umiestnenie koristi a obkľúčiť ju, avšak pri simulácií tohto správania, nemáme
 vedomosť o presnej polohe koristi. Preto na základe prvých troch najlepších
 riešení vypočítame predpokladanú polohu koristi, čím vznikne
 vzorec~\ref{eq-prey-pos}. Kandidáti, vrátane omega vlkov, potom na základe
@@ -1066,12 +1064,12 @@ polohu~\cite{Seeley1991}.
   \label{eq-prey-pos}
 \end{equation}
 
-\paragraph{Útok} na korisť v matematickom modely dosiahne približovaním sa ku
+\paragraph{Útok} na korisť v matematickom modely dosiahneme približovaním sa ku
 koristi, čiže znížením hodnoty $\vec{a}$. Tak dosiahneme aj zníženie hodnoty
 $\vec{A}$ až bude jeho hodnota v intervale [-1, 1]. Potom ďalšia vypočítaná
-hodnota pozície vlka sa bude nachádzať medzi pôvodnou polohou vlka
-a polohou koristi. V prípade, že hodnota $\vec{A}$ sa nachádza mimo spomínaného
-intervalu, vlk diverguje od koristi, čo nastáva vo fáze hľadania koristi. Tým
+hodnota pozície vlka sa bude nachádzať medzi jeho pôvodnou polohou a polohou
+koristi. V prípade, že hodnota $\vec{A}$ sa nachádza mimo spomínaného
+intervalu, vlk diverguje od koristi, čo nastáva vo fáze jej hľadania. Tým
 je zabezpečené prehľadávanie priestoru agentami~\cite{Seeley1991}.
 
 \paragraph{Princíp optimalizácie svorkou divých vlkov} môžeme znázorniť
@@ -1099,42 +1097,42 @@ v nasledujúcom pseudokóde~\cite{Seeley1991}
 
 \subsubsection{Umelá kolónia včiel}
 V literatúre označovaný ako ABC algoritmus (Artifical bee colony) je pomerne
-nový medzi rojovými algoritmami. Princíp je založený na biologickom procese,
-správaní medonosných včiel pri hľadaní potravy. Každá včela na pracujúca
+nový medzi rojovými algoritmami. Princíp je založený na biologickom procese
+správaní medonosných včiel pri hľadaní potravy. Každá včela pracujúca
 v roji sa spolupodieľa na tvorbe celého systému na globálnej úrovni. Správanie
 systému je určené lokálnym správaním, kde spolupráca a zladenie jedincov vedie
 k štruktúrovanému kolaboračnému systému~\cite{Chavan2015}.
 
-V algoritme, kolónia umelých včiel pozostáva z 3 skupín včiel. Sú to včely
-robotnice, diváčky a prieskúmníčky. Včely si vymieňajú informácie o zdrojoch
-potravy tancovaním (waggle dance) na tzv. tanečnej ploche. Včela diváčka
-čakajúca na tanečnej ploche, sa rozhoduje, ktorý zdroj potravy si vyberie.
-Včela robotnica najskôr tieto zdroje navštívi. Prieskumníčka uskutočňuje
-náhodné prehľadávanie priestoru. Pri aplikovaní ABC algoritmu, polovica včiel
+V algoritme, kolónia umelých včiel pozostáva z 3 skupín. Sú to včely
+robotnice, diváčky a prieskúmníčky. Informácie o zdrojoch potravy si vymieňajú
+tancovaním (waggle dance) na tzv. tanečnej ploche. Diváčky čakajúce na tanečnej
+ploche sa rozhodujú, ktorý zdroj potravy si vyberú. Robotnice najskôr tieto
+zdroje navštívia a prieskumníčky uskutočňujú náhodné prehľadávanie priestoru.
+Pri aplikovaní ABC algoritmu, polovica včiel
 predstavuje robotnice, druhá polovica diváčky. Počet robotníc zodpovedá počtu
 zdrojov potravy v okolí úľu. Robotnica, ktorej zdroj je vyčerpaný inými
 včelami sa stáva prieskumníčkou~\cite{Karaboga2007}.
 
 Zväčšovaním množstva zdrojov potravy sa zväčšuje aj pravdepodobnosť vybratia
 zdroja diváčkou. Vďaka tomu je zabezpečené, že tanec robotníc, ktoré navštívili
-zdroje s najväčším množstvom nektáru, presvedčí najviac diváčok. Tie,
-na základe informácie o polohe zdroja, nájdu v jeho okolí nový zdroj, z ktorého
-budú zberať nektár. Po vyčerpaní nektáru, je tento zdroj opustený a včela sa
+zdroje s najväčším množstvom nektáru, presvedčí najviac diváčok. Tie
+na základe informácie o polohe zdroja nájdu v jeho okolí nový zdroj, z ktorého
+budú zberať nektár. Po vyčerpaní nektáru je tento zdroj opustený a včela sa
 presunie na zdroj, ktorý našli prieskumníčky~\cite{Karaboga2007}.
 
 Pozícia zdrojov jedla je reprezentácia možného riešenia daného problému.
 Množstvo nektáru je úmerné kvalite riešenia, ktoré je určené fitness funkciou.
-Počet robotníc a diváčok je rovný počtu riešení v danej populácií. Každé
-riešenie je reprezentovateľné ako D-dimenzionálny vektor. Hodnota $D$ môže
+Počet robotníc a diváčok je rovný počtu riešení v danej populácií, pričom každé
+je reprezentovateľné ako D-dimenzionálny vektor. Hodnota $D$ môže
 predstavovať počet optimalizačných parametrov~\cite{Karaboga2007}.
 
-Včely majú riešenie uložené vo vlastnej pamäti, kde si vytvárajú aj modifikáciu
-riešení, čím nachádzajú nové riešenia, ktoré následné vyskúšajú. Ak nové
-riešenie je lepšie ako predchádzajúce, včely si ho zapamätajú a predchádzajúce
-zabudnú. Inak si pamätajú staré riešenie. Keď všetky robotnice skončia proces
-hľadania, zdieľajú informácie o zdrojoch s diváčkami. Tie vyhodnotia
-zhromaždené informácie a vyberú zdroj s najlepším riešením. Opäť vytvoria nové
-riešenie jeho modifikovaním a skontrolujú ho~\cite{Karaboga2007}.
+Včely majú riešenie uložené vo vlastnej pamäti, z ktorého modifikáciou vznikajú
+nové, ktoré následné vyskúšajú. Ak je nové riešenie lepšie ako predchádzajúce,
+včely si ho zapamätajú a predchádzajúce zabudnú. Inak si pamätajú staré. Keď
+všetky robotnice skončia proces hľadania, zdieľajú informácie o zdrojoch
+s diváčkami. Tie vyhodnotia zhromaždené informácie a vyberú zdroj s najlepším
+riešením a jeho modifikovaním vytvoria nové, ktoré následne
+skontrolujú~\cite{Karaboga2007}.
 
 Diváčky vyberajú zdroj v závislosti od pravdepodobnosti zdroja $p_i$,
 ktorú vypočítame ako
@@ -1183,24 +1181,24 @@ pseudokód~\cite{Karaboga2007}
 %   Measurement of prediction accuracy
 %-------------------------------------------------------------------------------
 
-\subsection{Meranie presnosti predpovedi}
+\subsection{Meranie presnosti predpovede}
 Pre vyhodnotenie efektívnosti a presnosti modelov je potrebné merať ich
-vlastnosti tak, aby sme ich vedeli medzi sebou porovnáva. V nasledujúcich
+vlastnosti tak, aby sme ich vedeli medzi sebou porovnávať. V nasledujúcich
 spôsoboch merania sú použité pojmy ako aktuálna hodnota $y_t$, predpovedaná
 hodnota $f_t$ alebo chyba predpovede $e_t$ definovaná ako $e_t = y_t - f_t$.
 Veľkosť testovacej množiny budeme označovať ako $n$~\cite{Agrawal2013}.
 
 \subsubsection{Stredná chyba predpovede}
 V literatúre označovaná ako MFE (mean forecast error). Matematickú funkciu
-zapísať ako
+môžeme zapísať ako
 \begin{equation}
   MFE = \frac{1}{n} \sum_{t=1}^{n} e_t
   \label{eq-mfe}
 \end{equation}
 Týmto spôsobom meriame priemernú odchýlku predpovedanej hodnoty od aktuálnej.
 Zistíme tak smer chyby. Nevýhodou je, že kladné a záporné chyby sa vynulujú
-a potom nie je možné zistiť presnú hodnotu chyby. Pri nameraní extrémnych chýb,
-nie sú nijak špeciálne penalizované. Taktiež hodnota chyby závisí od škály
+a potom nie je možné zistiť presnú hodnotu chyby. Pri nameraní extrémnych chýb
+nedochádza k žiadnej špeciálnej penalizácii. Taktiež hodnota chyby závisí od škály
 meraní a môže byť ovplyvnená aj transformáciami dát. Dobré predpovede majú
 hodnotu blízku 0~\cite{Agrawal2013}.
 
@@ -1215,22 +1213,21 @@ Týmto spôsobom meriame priemernú absolútnu odchýlku predpovedanej hodnoty o
 aktuálnej. Zistíme tak celkový rozsah chyby, ktorá nastala počas predpovede.
 Na rozdiel od merania chyby pomocou vzorca~\ref{eq-mfe} sa kladné a záporné
 chyby nevynulujú, no ani napriek tomu nevieme určiť celkový smer chyby.
-Na druhej strane tiež nenastáva žiadna penalizácia pri extrémnych chybách,
-hodnota chyby závisí od škály meraní, môže byť ovplyvnená transformáciami dát
-a dobré predpovede majú hodnotu čo
-najbližšiu 0~\cite{Agrawal2013, Gutierrez2015}.
+Na druhej strane tiež nenastáva žiadna penalizácia pri extrémnych chybách.
+Hodnota chyby závisí od škály meraní a transformácií dát. Dobré predpovede majú
+hodnotu čo najbližšiu 0~\cite{Agrawal2013, Gutierrez2015}.
 
 \subsubsection{Stredná percentuálna chyba}
-V označovaná ako MPE (mean percentage error). Matematicky môžeme túto funkciu
-zapísať ako
+V literatúre označovaná ako MPE (mean percentage error). Matematicky môžeme
+túto funkciu zapísať ako
 \begin{equation}
   MPE = \frac{1}{n} \sum_{t=1}^{n} \frac{e_t}{y_t} \times 100
   \label{eq-mpe}
 \end{equation}
 Vlastnosti sú veľmi podobné ako pri MAPE v časti \ref{mape}. Chyba nám
 poskytuje prehľad o priemernej chybe, ktorá sa vyskytla počas predpovede.
-Naviac, oproti MAPE, získame prehľad o smere chyby, čo má však za následok, že
-opačné znamienka sa vynulujú. O modely, ktorého chyba MPE sa blíži k 0
+Naviac oproti MAPE získame prehľad o smere chyby, čo má však za následok, že
+opačné znamienka sa vynulujú. O modely, ktorého chyba MPE sa blíži k 0,
 nemôžeme s určitosťou tvrdiť, že funguje správne~\cite{Agrawal2013}.
 
 \subsubsection{Stredná absolútna percentuálna chyba}
@@ -1277,7 +1274,7 @@ nastavenia používaných modelov.
 
 Preskúmané predikčné modely potrebujú pre svoje správne fungovanie vstupné
 parametre. Pomocou nich vieme ovplyvniť chybu predikcie. Problémom je nájdenie
-takých parametrov, pre ktoré by bola chyba predikcie, čo najmenšia. Hľadanie
+takých parametrov, pre ktoré by bola chyba predikcie čo najmenšia. Hľadanie
 najlepšieho riešenia by bolo časovo neprípustné, a preto budeme hľadať iba
 optimálne riešenie, ktoré nám poskytne prijateľnú chybu predikcie. Je dôležité
 poznamenať, že vstupné parametre, ktoré nájdu optimálnu predikciu závisia aj od
@@ -1291,7 +1288,7 @@ optimálneho riešenia sa vykonáva na základe správania sa nejakého živoč�
 druhu alebo prírodného javu. Tieto algoritmy sa osvedčili ako efektívne a
 rýchle riešenie problémov, ktorých prehľadávaný priestor riešení nie je možné
 prehľadať celý. Algoritmy sa vyhýbajú spadnutiu do lokálnych miním a tak je
-nájdené riešenie obvykle optimálne v globálnom rozsahu. Opäť aj tieto algoritmy
+nájdené riešenie obvykle optimálne v globálnom rozsahu. A taktiež tieto algoritmy
 poskytujú niekoľko konfiguračných parametrov ovplyvňujúce rýchlosť a presnosť
 nájdeného riešenia. Avšak cieľom tejto práce je optimalizovať predikčné
 a nie optimalizačné algoritmy a poskytnúť tak používateľovi univerzálne
@@ -1302,7 +1299,7 @@ predpovedanej hodnoty s ich skutočnými nameranými hodnotami. Existuje množst
 metód, ktorými vieme zmerať chybu predpovede. Niektoré nám poskytujú informáciu
 o smere chyby, iné zohľadňujú extrémne chyby. Výsledky niektorých sa viažu na
 škálu, v ktorej sa nachádzajú naše merania, iné sú nezávislé, merané v
-percentách. Našim cieľom bolo poskytnúť používateľovi, čo najviac informácií
+percentách. Našim cieľom bolo poskytnúť používateľovi čo najviac informácií
 o presnosti predpovede, a preto sú použité viaceré metódy merania chýb
 predikcií.
 
@@ -1332,7 +1329,7 @@ algoritmov. K dispozícii bude mať lineárnu regresiu, stochastické modely,
 regresiu založenú na podporných vektoroch, rozhodovacie stromy a prírodne
 inšpirované optimalizačné algoritmy ako genetický algoritmus, umelú kolóniu
 včiel alebo svorku divých vlkov. Systém bude navrhnutý tak, aby pridanie
-ďalších algoritmov spôsobilo, čo možno najmenšie zmeny v pôvodnom systéme.
+ďalších algoritmov spôsobilo čo najmenšie zmeny v pôvodnom systéme.
 Pripadá do úvahy, že samotný systém bude poskytovať rozhranie, ktoré
 používateľovi umožní použiť vlastnú implementáciu iných algoritmov.
 

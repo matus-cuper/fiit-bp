@@ -1,14 +1,14 @@
 %%
-%% This is file `czechiso.bst',
+%% This is file `slovakiso.bst',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% merlin.mbs  (with options: `head,exlang,lang,vonx,nm-rev,jnrlst,aunm-semi,nmlm,x3,m3,atit-u,vnum-nr,volp-sp,jwdpg,pp-last,jwdvol,num-xser,ser-vol,ser-ed,pg-bk,add-pub,isbn,issn,doi,edpar,edby,blk-tit,au-col,èe¹tina,pp,and-xcom,xand,eprint,url,url-nl,nfss,,{}')
-%% czech.mbs  (with options: `exlang,lang,vonx,nm-rev,jnrlst,aunm-semi,nmlm,x3,m3,atit-u,vnum-nr,volp-sp,jwdpg,pp-last,jwdvol,num-xser,ser-vol,ser-ed,pg-bk,add-pub,isbn,issn,doi,edpar,edby,blk-tit,au-col,èe¹tina,pp,and-xcom,xand,eprint,url,url-nl,nfss,,{}')
-%% merlin.mbs  (with options: `tail,exlang,lang,vonx,nm-rev,jnrlst,aunm-semi,nmlm,x3,m3,atit-u,vnum-nr,volp-sp,jwdpg,pp-last,jwdvol,num-xser,ser-vol,ser-ed,pg-bk,add-pub,isbn,issn,doi,edpar,edby,blk-tit,au-col,èe¹tina,pp,and-xcom,xand,eprint,url,url-nl,nfss,,{}')
+%% merlin.mbs  (with options: `head,exlang,lang,vonx,nm-rev,jnrlst,aunm-semi,nmlm,x3,m3,atit-u,vnum-nr,volp-sp,jwdpg,pp-last,jwdvol,num-xser,ser-vol,ser-ed,pg-bk,add-pub,isbn,issn,doi,edpar,edby,blk-tit,au-col,ï¿½eï¿½tina,pp,and-xcom,xand,eprint,url,url-nl,nfss,,{}')
+%% slovak.mbs  (with options: `exlang,lang,vonx,nm-rev,jnrlst,aunm-semi,nmlm,x3,m3,atit-u,vnum-nr,volp-sp,jwdpg,pp-last,jwdvol,num-xser,ser-vol,ser-ed,pg-bk,add-pub,isbn,issn,doi,edpar,edby,blk-tit,au-col,ï¿½eï¿½tina,pp,and-xcom,xand,eprint,url,url-nl,nfss,,{}')
+%% merlin.mbs  (with options: `tail,exlang,lang,vonx,nm-rev,jnrlst,aunm-semi,nmlm,x3,m3,atit-u,vnum-nr,volp-sp,jwdpg,pp-last,jwdvol,num-xser,ser-vol,ser-ed,pg-bk,add-pub,isbn,issn,doi,edpar,edby,blk-tit,au-col,ï¿½eï¿½tina,pp,and-xcom,xand,eprint,url,url-nl,nfss,,{}')
 %% ----------------------------------------
-%% *** Styl sna¾ící se být v souladu s normou ISO 690. Pomocí latex makebst vytvoøil David Martinek. ***
+%% *** Styl snaï¿½ï¿½cï¿½ se bï¿½t v souladu s normou ISO 690. Pomocï¿½ latex makebst vytvoï¿½il David Martinek. ***
 %% 
 %% Copyright 1994-2011 Patrick W Daly
  % ===============================================================
@@ -222,7 +222,7 @@ FUNCTION {space.word}
  % Each function has a name bbl.xxx where xxx is the English word.
  %-------------------------------------------------------------------
  % Begin module:
- % \ProvidesFile{czech.mbs}[2006/03/31 1.0 (DM)]
+ % \ProvidesFile{slovak.mbs}[2006/03/31 1.0 (DM)]
 
  % The language selected here is CZECH
 FUNCTION {bbl.and}
@@ -283,7 +283,7 @@ FUNCTION {bbl.second}
 { "Druh\'{e}" }
 
 FUNCTION {bbl.third}
-{ "Trete" }
+{ "Tretie" }
 
 FUNCTION {bbl.fourth}
 { "\v{S}tvrt\'{e}" }
@@ -327,7 +327,7 @@ MACRO {nov} {"November"}
 
 MACRO {dec} {"December"}
 
- % End module: czech.mbs
+ % End module: slovak.mbs
 %% Copyright 1994-2011 Patrick W Daly
 MACRO {acmcs} {"ACM Computing Surveys"}
 
@@ -1604,4 +1604,4 @@ FUNCTION {end.bib}
 EXECUTE {end.bib}
 %% End of customized bst file
 %%
-%% End of file `czechiso.bst'.
+%% End of file `slovakiso.bst'.

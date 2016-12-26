@@ -35,7 +35,7 @@
  %-------------------------------------------------------------------
  % Begin module:
 %\fi
- % \ProvidesFile{czech.mbs}[2006/03/31 1.0 (DM)]
+ % \ProvidesFile{slovak.mbs}[2006/03/31 1.0 (DM)]
 %\iffalse
 %<*a&!a>
 % The following ensures that the driver part is not seen by makebst
@@ -59,7 +59,7 @@
    \setlength{\evensidemargin}{\oddsidemargin}
 
 \begin{document}
-   \DocInput{czech.mbs}
+   \DocInput{slovak.mbs}
 \end{document}
 %</driver>
 %                   END OF META COMMENT   \fi
@@ -93,7 +93,7 @@
 %
 % \author{David Martinek, Patrick W. Daly}
 %
-% \GetFileInfo{czech.mbs}
+% \GetFileInfo{slovak.mbs}
 % \date{This paper describes file \texttt{\filename},\\
 %  version \fileversion{} from \filedate}
 %
@@ -252,7 +252,7 @@ FUNCTION {bbl.second}
 %<ord>{ "2." }
 
 FUNCTION {bbl.third}
-%<!ord>{ "Trete" }
+%<!ord>{ "Tretie" }
 %<ord>{ "3." }
 
 FUNCTION {bbl.fourth}
@@ -332,6 +332,6 @@ MACRO {dec} {"Dec."}
 
 %</abr>
 %</!options&!driver>
- % End module: czech.mbs
+ % End module: slovak.mbs
 %    \end{macrocode}
 % \Finale

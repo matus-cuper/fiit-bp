@@ -1,12 +1,12 @@
 %% Driver file to produce czechiso.bst from merlin.mbs
 %% Generated with makebst, version 4.1 (2003/09/08)
 %% Produced on 2006/03/31 at 13:42
-%% 
+%%
 \input docstrip
 
 \preamble
 ----------------------------------------
-*** Styl sna¾ící se být v souladu s normou ISO 690. Pomocí latex makebst vytvoøil David Martinek. ***
+*** Styl snaï¿½ï¿½cï¿½ se bï¿½t v souladu s normou ISO 690. Pomocï¿½ latex makebst vytvoï¿½il David Martinek. ***
 
 \endpreamble
 
@@ -19,10 +19,10 @@ End of customized bst file
 \askforoverwritefalse
 \def\MBopts{\from{merlin.mbs}{%
 %EXTERNAL FILES:
-%Name of language file: \cfile=czech.mbs.
+%Name of language file: \cfile=slovak.mbs.
 %No included files.
   head,\MBopta}
-\from{czech.mbs}{\MBopta}
+\from{slovak.mbs}{\MBopta}
 \from{merlin.mbs}{tail,\MBopta}}
 \def\MBopta{%
 %<<INTERNAL LANGUAGE SUPPORT (if no external language file)
@@ -64,7 +64,7 @@ End of customized bst file
 %>>HARVARD EXTENSIONS INCLUDED (if Harvard support selected)
 %>>AUTHOR--YEAR SUPPORT SYSTEM (if author-year citations)
 %<<LANGUAGE FIELD
-%   %: (def) No language field 
+%   %: (def) No language field
   lang,%: Add language field to switch hyphenation patterns temporarily
 %------\ans=l(==lang)-------
 %>>LANGUAGE FIELD
@@ -123,16 +123,16 @@ End of customized bst file
 %------\ans=*(==)-------
 %>>JUNIOR PART IN THE CITATION (if author-year citations)
 %<<PUNCTUATION BETWEEN AUTHOR NAMES:
-%   %: (def) Author names separated by commas 
-  aunm-semi,%: Names separated by semi-colon 
+%   %: (def) Author names separated by commas
+  aunm-semi,%: Names separated by semi-colon
 % aunm-sl,%: Names separated by slash /
 %------\ans=s(==aunm-semi)-------
 %>>PUNCTUATION BETWEEN AUTHOR NAMES:
 %<<ADJACENT REFERENCES WITH REPEATED NAMES:
-    %: (def) Author/editor names always present 
-% nmdash,%: Repeated author/editor names replaced by dash 
-% nmdash,nmd-2,%: Repeated author/editor names replaced by 2 dashes 
-% nmdash,nmd-3,%: Repeated author/editor names replaced by 3 dashes 
+    %: (def) Author/editor names always present
+% nmdash,%: Repeated author/editor names replaced by dash
+% nmdash,nmd-2,%: Repeated author/editor names replaced by 2 dashes
+% nmdash,nmd-3,%: Repeated author/editor names replaced by 3 dashes
 %------\ans=*(==)-------
 %>>ADJACENT REFERENCES WITH REPEATED NAMES:
 %<<NUMBER OF AUTHORS:
@@ -143,7 +143,7 @@ End of customized bst file
     x3,%: Maximum of 3 authors
     m3,%: Minimum of 3 authors
 %<<TYPEFACE FOR AUTHORS IN LIST OF REFERENCES:
-    %: (def) Normal font for author names 
+    %: (def) Normal font for author names
 % nmft,nmft-sc,%: Small caps authors (\sc)
 % nmft,nmft-it,%: Italic authors (\it or \em)
 % nmft,nmft-bf,%: Bold authors (\bf)
@@ -151,12 +151,12 @@ End of customized bst file
 %------\ans=*(==)-------
 %>>TYPEFACE FOR AUTHORS IN LIST OF REFERENCES:
 %<<FONT FOR FIRST NAMES (if non-default font for authors)
-%   %: (def) First names same font as surnames 
-% fnm-rm,%: First names in normal font 
+%   %: (def) First names same font as surnames
+% fnm-rm,%: First names in normal font
 % fnm-def,%: First names in user defined font (\bibfnamefont)
 %------\ans=*(==)-------
 %<<EDITOR NAMES IN INCOLLECTION ETC:
-%   %: (def) Editors incollection normal font 
+%   %: (def) Editors incollection normal font
 % nmfted,%: Editors incollection like authors font
 %------\ans=*(==)-------
 %>>EDITOR NAMES IN INCOLLECTION ETC:
@@ -168,35 +168,35 @@ End of customized bst file
 %>>FONT FOR FIRST NAMES (if non-default font for authors)
 %<<FONT OF CITATION LABELS IN TEXT (if author-year citations)
 %   %: (def) Cited authors plain as result of \cite command
-% lab,lab-it,%: Cited authors italic 
-% lab,lab-sc,%: Cited authors small caps 
-% lab,lab-bf,%: Cited authors bold 
+% lab,lab-it,%: Cited authors italic
+% lab,lab-sc,%: Cited authors small caps
+% lab,lab-bf,%: Cited authors bold
 % lab,lab-def,%: User defined citation font (\citenamefont)
 %------\ans=*(==)-------
 %<<FONT FOR `AND' IN CITATIONS (if non-default font for citation lables)
-%   %: (def) Cited `and' in author font 
-% and-rm,%: Cited `and' in normal font 
+%   %: (def) Cited `and' in author font
+% and-rm,%: Cited `and' in normal font
 %------\ans=*(==)-------
 %>>FONT FOR `AND' IN CITATIONS (if non-default font for citation lables)
 %<<FONT OF EXTRA LABEL (The extra letter on the year)
-%   %: (def) Extra label plain 
-% xlab-it,%: Extra label italic 
+%   %: (def) Extra label plain
+% xlab-it,%: Extra label italic
 %------\ans=*(==)-------
 %>>FONT OF EXTRA LABEL (The extra letter on the year)
 %>>FONT OF CITATION LABELS IN TEXT (if author-year citations)
 %<<LABEL WHEN AUTHORS MISSING (if author-year citations)
 % keyxyr,%: Year blank when KEY replaces missing author (for natbib 7.0)
-%   %: (def) Year included when KEY replaces missing author 
+%   %: (def) Year included when KEY replaces missing author
 %------\ans=*(==keyxyr)-------
 %>>LABEL WHEN AUTHORS MISSING (if author-year citations)
 %<<MISSING DATE (if author-year citations)
 %   %: (def) Missing date set to ???? in label and text
-% blkyear,%: Missing date left blank 
+% blkyear,%: Missing date left blank
 %------\ans=*(==)-------
 %>>MISSING DATE (if author-year citations)
 %<<DATE POSITION:
-    %: (def) Date at end 
-% dt-beg,%: Date after authors 
+    %: (def) Date at end
+% dt-beg,%: Date after authors
 % dt-jnl,%: Date part of journal spec. (as 1994;45:34-40) else at end
 % dt-end,%: Date at very end after any notes
 %------\ans=*(==)-------
@@ -211,13 +211,13 @@ End of customized bst file
 % yr-blk,%: Date preceded by space only, as ` May 1993'
 %------\ans=*(==)-------
 %<<SUPPRESS MONTH:
-    %: (def) Date is month and year 
-% xmth,%: Date is year only 
+    %: (def) Date is month and year
+% xmth,%: Date is year only
 %------\ans=*(==)-------
 %>>SUPPRESS MONTH:
 %<<REVERSED DATE (if including month)
-    %: (def) Date as month year 
-% dtrev,%: Date as year month 
+    %: (def) Date as month year
+% dtrev,%: Date as year month
 %------\ans=*(==)-------
 %>>REVERSED DATE (if including month)
 %>>DATE FORMAT (if non author-year citations)
@@ -232,12 +232,12 @@ End of customized bst file
 %------\ans=*(==)-------
 %<<INCLUDE MONTHS:
 %   %: (def) Date is year only without the month
-% aymth,%: Include month in date 
+% aymth,%: Include month in date
 %------\ans=*(==)-------
 %>>INCLUDE MONTHS:
 %<<REVERSED DATE (if including month)
-%   %: (def) Date as month year 
-% dtrev,%: Date as year month 
+%   %: (def) Date as month year
+% dtrev,%: Date as year month
 %------\ans=*(==)-------
 %>>REVERSED DATE (if including month)
 %>>DATE FORMAT (if author-year citations)
@@ -246,7 +246,7 @@ End of customized bst file
 % yrp-col,%: Colon after date as 1994:
 % yrp-semi,%: Semi-colon after date as 1994;
 % yrp-per,%: Period after date even when blocks use commas
-% yrp-x,%: No punct. after date 
+% yrp-x,%: No punct. after date
 %------\ans=*(==)-------
 %<<BLANK AFTER DATE:
 %   %: (def) Space after date and punctuation
@@ -255,8 +255,8 @@ End of customized bst file
 %>>BLANK AFTER DATE:
 %>>DATE PUNCTUATION (if date not at end)
 %<<DATE FONT:
-    %: (def) Date in normal font 
-% dtbf,%: Date in bold face 
+    %: (def) Date in normal font
+% dtbf,%: Date in bold face
 %------\ans=*(==)-------
 %>>DATE FONT:
 %<<TRUNCATE YEAR (if author-year citations)
@@ -277,7 +277,7 @@ End of customized bst file
 %>>TITLE OF ARTICLE:
 %<<COLLECTION/PROCEEDINGS TITLES (if quoted title)
 % bt-qq,%: Quote collection and proceedings titles too
-%   %: (def) Collection and proceedings titles not in quotes 
+%   %: (def) Collection and proceedings titles not in quotes
 %------\ans=*(==bt-qq)-------
 %>>COLLECTION/PROCEEDINGS TITLES (if quoted title)
 %<<CAPITALIZATION OF ARTICLE TITLE:
@@ -287,7 +287,7 @@ End of customized bst file
 %>>CAPITALIZATION OF ARTICLE TITLE:
 %<<ARTICLE TITLE PRESENT:
     %: (def) Article title present in journals and proceedings
-% jtit-x,%: No article title 
+% jtit-x,%: No article title
 %------\ans=*(==)-------
 %>>ARTICLE TITLE PRESENT:
 %<<JOURNAL NAMES:
@@ -296,19 +296,19 @@ End of customized bst file
 %------\ans=*(==)-------
 %>>JOURNAL NAMES:
 %<<JOURNAL NAME FONT:
-    %: (def) Journal name italics 
+    %: (def) Journal name italics
 % jttl-rm,%: Journal name normal font
 %------\ans=*(==)-------
 %>>JOURNAL NAME FONT:
 %<<THESIS TITLE:
-    %: (def) Thesis titles like books 
-% thtit-a,%: Thesis title like article 
-% thtit-x,%: No thesis title 
+    %: (def) Thesis titles like books
+% thtit-a,%: Thesis title like article
+% thtit-x,%: No thesis title
 %------\ans=*(==)-------
 %>>THESIS TITLE:
 %<<TECHNICAL REPORT TITLE:
-    %: (def) Tech. report title like articles 
-% trtit-b,%: Tech. report title like books 
+    %: (def) Tech. report title like articles
+% trtit-b,%: Tech. report title like books
 %------\ans=*(==)-------
 %>>TECHNICAL REPORT TITLE:
 %<<TECHNICAL REPORT NUMBER:
@@ -351,11 +351,11 @@ End of customized bst file
 %>>YEAR IN JOURNAL SPECIFICATION:
 %<<PAGE NUMBERS:
     %: (def) Start and stop page numbers given
-% jpg-1,%: Only start page number 
+% jpg-1,%: Only start page number
 %------\ans=*(==)-------
 %>>PAGE NUMBERS:
 %<<LARGE PAGE NUMBERS:
-    %: (def) No separators for large page numbers 
+    %: (def) No separators for large page numbers
 % pgsep-c,%: Comma inserted over 9999 as 11,234
 % pgsep-s,%: Thin space inserted over 9999 as 11 234
 % pgsep-p,%: Period inserted over 9999 as 11.234
@@ -388,11 +388,11 @@ End of customized bst file
 %>>POSITION OF NUMBER AND SERIES:
 %<<VOLUME AND SERIES FOR BOOKS/COLLECTIONS:
 %   %: (def) Vol. 23 of Series as in standard BibTeX
-  ser-vol,%: Series, vol. 23 
+  ser-vol,%: Series, vol. 23
 %------\ans=s(==ser-vol)-------
 %>>VOLUME AND SERIES FOR BOOKS/COLLECTIONS:
 %<<POSITION OF VOLUME AND SERIES FOR INCOLLECTIONS:
-%    %: (def) Series and volume after the editors 
+%    %: (def) Series and volume after the editors
  ser-ed,%: Series and volume after booktitle and before editors
 %------\ans=*(==)-------
 %>>POSITION OF VOLUME AND SERIES FOR INCOLLECTIONS:
@@ -413,9 +413,9 @@ End of customized bst file
 %------\ans=*(==)-------
 %>>PAGES IN BOOKS:
 %<<TOTAL PAGES OF A BOOK:
-%   %: (def) Total book pages not printed 
+%   %: (def) Total book pages not printed
   pg-bk,%: For book: 345 pages or pp.
-% pg-bk,pg-pre,%: Total book pages before publisher 
+% pg-bk,pg-pre,%: Total book pages before publisher
 %------\ans=p(==pg-bk)-------
 %>>TOTAL PAGES OF A BOOK:
 %<<PUBLISHER ADDRESS:
@@ -425,7 +425,7 @@ End of customized bst file
 %>>PUBLISHER ADDRESS:
 %<<PUBLISHER IN PARENTHESES:
     %: (def) Publisher as normal block without parentheses
-% pub-par,%: Publisher in parentheses 
+% pub-par,%: Publisher in parentheses
 % pub-date,%: Publisher and date in parentheses (Oxford, 1994)
 % pub-date,pub-xc,%: Publisher and date in parentheses, no comma (Oxford 1994)
 % pub-date,pub-xpar,%: Publisher and date without parentheses Oxford, 1994
@@ -433,29 +433,29 @@ End of customized bst file
 %------\ans=*(==)-------
 %>>PUBLISHER IN PARENTHESES:
 %<<PUBLISHER POSITION:
-    %: (def) Publisher after chapter, pages 
-% pre-pub,%: Publisher before chapter, pages 
-% pre-edn,%: Publisher after edition 
+    %: (def) Publisher after chapter, pages
+% pre-pub,%: Publisher before chapter, pages
+% pre-edn,%: Publisher after edition
 %------\ans=*(==)-------
 %>>PUBLISHER POSITION:
 %<<ISBN NUMBER:
   isbn,%: Include ISBN for books, booklets, etc.
-%   %: (def) No ISBN 
+%   %: (def) No ISBN
 %------\ans=*(==isbn)-------
 %>>ISBN NUMBER:
 %<<ISSN NUMBER:
   issn,%: Include ISSN for periodicals
-%   %: (def) No ISSN 
+%   %: (def) No ISSN
 %------\ans=*(==issn)-------
 %>>ISSN NUMBER:
 %<<DOI NUMBER:
   doi,%: Include DOI as "doi: number"
 % agu-doi,doi,%: Insert DOI AGU style as part of page number
-%   %: (def) No DOI 
+%   %: (def) No DOI
 %------\ans=*(==doi)-------
 %>>DOI NUMBER:
 %<<`EDITOR' AFTER NAMES (EDITED BOOKS WITHOUT AUTHORS):
-%   %: (def) Word `editor' after name 
+%   %: (def) Word `editor' after name
   edpar,%: `Name (editor),' in parentheses, after name, comma after
 % edpar,bkedcap,%: `Name (Editor),' as above, editor upper case
 % edparc,%: `Name, (editor)' in parentheses, after name, comma between
@@ -467,14 +467,14 @@ End of customized bst file
 %<<EDITOR IN COLLECTIONS:
 %   %: (def) Same as for edited book (names before booktitle)
   edby,%: In booktitle, edited by ..  (where .. is names)
-% edby-par,%: In booktitle (edited by ..) 
-% edby-parc,%: In booktitle, (edited by ..) 
-% edby,edbyx,%: In booktitle, editor .. 
-% edby,edbyw,%: In booktitle, (editor) .. 
-% edby-par,edbyx,%: In booktitle (editor..) 
-% edby-parc,edbyx,%: In booktitle, (editor..) 
-% edby,edbyy,%: In booktitle, .., editor 
-% edby-par,edbyy,%: In booktitle (.., editor) 
+% edby-par,%: In booktitle (edited by ..)
+% edby-parc,%: In booktitle, (edited by ..)
+% edby,edbyx,%: In booktitle, editor ..
+% edby,edbyw,%: In booktitle, (editor) ..
+% edby-par,edbyx,%: In booktitle (editor..)
+% edby-parc,edbyx,%: In booktitle, (editor..)
+% edby,edbyy,%: In booktitle, .., editor
+% edby-par,edbyy,%: In booktitle (.., editor)
 %------\ans=b(==edby)-------
 %>>EDITOR IN COLLECTIONS:
 %<<CAPITALIZE `EDITOR' OR `EDITED BY' (if editor capitalizable)
@@ -484,9 +484,9 @@ End of customized bst file
 %>>CAPITALIZE `EDITOR' OR `EDITED BY' (if editor capitalizable)
 %<<PUNCTUATION BETWEEN SECTIONS (BLOCKS):
 %   %: (def) \newblock after blocks (periods or new lines with openbib option)
-% blk-com,%: Comma between blocks 
-% blk-com,com-semi,%: Semi-colon between blocks 
-% blk-com,com-blank,%: Blanks between blocks 
+% blk-com,%: Comma between blocks
+% blk-com,com-semi,%: Semi-colon between blocks
+% blk-com,com-blank,%: Blanks between blocks
   blk-tit,%: Period after titles of articles, books, etc else commas
 % blk-tit,tit-col,%: Colon after titles of articles, books, etc else commas
 % blk-tita,%: Period after titles of articles else commas
@@ -495,36 +495,36 @@ End of customized bst file
 %>>PUNCTUATION BETWEEN SECTIONS (BLOCKS):
 %<<PUNCTUATION BEFORE NOTES (if not using \newblock)
     %: (def) Notes have regular punctuation like all other blocks
-% blknt,%: Notes preceded by period 
+% blknt,%: Notes preceded by period
 %------\ans=*(==)-------
 %>>PUNCTUATION BEFORE NOTES (if not using \newblock)
 %<<PUNCTUATION AFTER AUTHORS:
 %    %: (def) Author block normal with regular block punctuation
- au-col,%: Author block with colon 
+ au-col,%: Author block with colon
 %------\ans=*(==)-------
 %>>PUNCTUATION AFTER AUTHORS:
 %<<PUNCTUATION AFTER `IN':
     %: (def) Space after `in' for incollection or inproceedings
 % in-col,%: Colon after `in' (as `In: ...')
 % in-it,%: Italic `in' and space
-% in-col,in-it,%: Italic `in' and colon 
+% in-col,in-it,%: Italic `in' and colon
 % in-x,%: No word `in' for edited works
 %------\ans=*(==)-------
 %>>PUNCTUATION AFTER `IN':
 %<<`IN' WITH JOURNAL NAMES (if using 'in' with collections)
-    %: (def) No `in' before journal name 
+    %: (def) No `in' before journal name
 % injnl,%: Add `in' before journal name in style for incollection
 %------\ans=*(==)-------
 %>>`IN' WITH JOURNAL NAMES (if using 'in' with collections)
 %<<FINAL PUNCTUATION:
     %: (def) Period at very end of the listed reference
-% fin-bare,%: No period at end 
+% fin-bare,%: No period at end
 %------\ans=*(==)-------
 %>>FINAL PUNCTUATION:
 %<<ABBREVIATE WORD `PAGES' (if not using external language file)
 %   %: (def) `Page(s)' (no abbreviation)
 % pp,%: `Page' abbreviated as p. or pp.
-% ppx,%: `Page' omitted 
+% ppx,%: `Page' omitted
 %------\ans=*(==)-------
 %<<ABBREVIATE WORD `EDITORS':
 %   %: (def) `Editor(s)' (no abbreviation)
@@ -537,8 +537,8 @@ End of customized bst file
 %------\ans=*(==)-------
 %>>OTHER ABBREVIATIONS:
 %<<ABBREVIATION FOR `EDITION' (if abbreviating words)
-%   %: (def) `Edition' abbreviated as `edn' 
-% ednx,%: `Edition' abbreviated as `ed' 
+%   %: (def) `Edition' abbreviated as `edn'
+% ednx,%: `Edition' abbreviated as `ed'
 %------\ans=*(==)-------
 %<<MONTHS WITH DOTS:
 %   %: (def) Months with dots as Jan.
@@ -553,43 +553,43 @@ End of customized bst file
 %------\ans=*(==xedn)-------
 %>>EDITION NUMBERS:
 %>>ABBREVIATE WORD `PAGES' (if not using external language file)
-%Reading external language file \cfile=czech.mbs
-    èe¹tina,%: èeský jazyk
+%Reading external language file \cfile=slovak.mbs
+    ï¿½eï¿½tina,%: ï¿½eskï¿½ jazyk
 %<<ZKRATKA PRO `STRANA, STRAN'
-%   %: (def) `Stran(a)' (¾ádné zkratky)
-  pp,%: `Stran' zkráceno jako s. or str.
-% ppx,%: `Stran' vynecháno 
+%   %: (def) `Stran(a)' (ï¿½ï¿½dnï¿½ zkratky)
+  pp,%: `Stran' zkrï¿½ceno jako s. or str.
+% ppx,%: `Stran' vynechï¿½no
 %------\ans=a(==pp)-------
 %>>ZKRATKA PRO `STRANA, STRAN'
 %<<ZKRATKA PRO `EDITOR':
-    %: (def) `Editor(øi)' (¾ádné zkratky)
-% ed,%: `Editor' zkráceno jako ed. nebo edi.
+    %: (def) `Editor(ï¿½i)' (ï¿½ï¿½dnï¿½ zkratky)
+% ed,%: `Editor' zkrï¿½ceno jako ed. nebo edi.
 %------\ans=*(==)-------
 %>>ZKRATKA PRO `EDITOR':
-%<<DAL©Í ZKRATKY:
-    %: (def) ®ádné zkratky pro díl, vydání, kapitola, atd.
-% abr,%: Pou¾ívat zkratky tìchto slov
+%<<DALï¿½ï¿½ ZKRATKY:
+    %: (def) ï¿½ï¿½dnï¿½ zkratky pro dï¿½l, vydï¿½nï¿½, kapitola, atd.
+% abr,%: Pouï¿½ï¿½vat zkratky tï¿½chto slov
 %------\ans=*(==)-------
-%>>DAL©Í ZKRATKY:
-%<<ZKRATKA PRO `VYDÁNÍ' (if abbreviating words)
-%   %: (def) `Vydání' zkráceno jako `vyd.' 
-% ednx,%: `Vydání' zkráceno jako `v.' 
+%>>DALï¿½ï¿½ ZKRATKY:
+%<<ZKRATKA PRO `VYDï¿½Nï¿½' (if abbreviating words)
+%   %: (def) `Vydï¿½nï¿½' zkrï¿½ceno jako `vyd.'
+% ednx,%: `Vydï¿½nï¿½' zkrï¿½ceno jako `v.'
 %------\ans=*(==)-------
-%<<MÌSÍCE S TEÈKAMI:
-%   %: (def) Mìsíce s teèkami jako Led.
-% mth-bare,%: Mìsíce bez teèek jako Led Bøe
+%<<Mï¿½Sï¿½CE S TEï¿½KAMI:
+%   %: (def) Mï¿½sï¿½ce s teï¿½kami jako Led.
+% mth-bare,%: Mï¿½sï¿½ce bez teï¿½ek jako Led Bï¿½e
 %------\ans=*(==)-------
-%>>MÌSÍCE S TEÈKAMI:
-%>>ZKRATKA PRO `VYDÁNÍ' (if abbreviating words)
-%<<ÈÍSLOVÁNÍ VYDÁNÍ:
-% xedn,%: Jako v BibTeXové databázi ¹etøí mno¾ství pamìti
-%    %: (def) Vypisovat vydání jako první, druhé, tøetí, atd.
-% ord,%: Èíslovaná vydání jako 1., 2., 3., atd.
+%>>Mï¿½Sï¿½CE S TEï¿½KAMI:
+%>>ZKRATKA PRO `VYDï¿½Nï¿½' (if abbreviating words)
+%<<ï¿½ï¿½SLOVï¿½Nï¿½ VYDï¿½Nï¿½:
+% xedn,%: Jako v BibTeXovï¿½ databï¿½zi ï¿½etï¿½ï¿½ mnoï¿½stvï¿½ pamï¿½ti
+%    %: (def) Vypisovat vydï¿½nï¿½ jako prvnï¿½, druhï¿½, tï¿½etï¿½, atd.
+% ord,%: ï¿½ï¿½slovanï¿½ vydï¿½nï¿½ jako 1., 2., 3., atd.
 %------\ans=w(==)-------
-%>>ÈÍSLOVÁNÍ VYDÁNÍ:
+%>>ï¿½ï¿½SLOVï¿½Nï¿½ VYDï¿½Nï¿½:
 %<<STORED JOURNAL NAMES:
     %: (def) Full journal names for prestored journals
-% jabr,%: Abbreviated journal names 
+% jabr,%: Abbreviated journal names
 % jabr,jaa,%: Abbreviated with astronomy shorthands like ApJ and AJ
 %------\ans=*(==)-------
 %>>STORED JOURNAL NAMES:
@@ -616,8 +616,8 @@ End of customized bst file
 %------\ans=x(==xand)-------
 %>>NO `AND' IN REFERENCE LIST:
 %<<FONT OF `ET AL':
-    %: (def) Plain et al 
-% etal-it,%: Italic et al 
+    %: (def) Plain et al
+% etal-it,%: Italic et al
 % etal-rm,%: Roman et al even when authors something else
 %------\ans=*(==)-------
 %>>FONT OF `ET AL':
@@ -626,14 +626,14 @@ End of customized bst file
 % revdata,eprint,url,url-blk,%: Include REVTeX data fields collaboration, eid, eprint, archive, numpages, url
 %------\ans=*(==)-------
 %<<E-PRINT DATA FIELD: (without REVTeX fields)
-%   %: (def) Do not include eprint field 
+%   %: (def) Do not include eprint field
   eprint,%: Include eprint and archive fields for electronic publications
 %------\ans=e(==eprint)-------
 %>>E-PRINT DATA FIELD: (without REVTeX fields)
 %<<URL ADDRESS: (without REVTeX fields)
 %   %: (def) No URL for electronic (Internet) documents
 % url,url-blk,%: Include URL as regular item block
-% url,url-nt,%: URL as note 
+% url,url-nt,%: URL as note
   url,url-nl,%: URL on new line after rest of reference
 %------\ans=l(==url,url-nl)-------
 %>>URL ADDRESS: (without REVTeX fields)
@@ -657,5 +657,5 @@ End of customized bst file
 %>>COMPATIBILITY WITH PLAIN TEX:
 ,{%
   }}
-\generate{\file{czechiso.bst}{\MBopts}}
+\generate{\file{slovakiso.bst}{\MBopts}}
 \endbatchfile

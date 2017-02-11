@@ -8,3 +8,6 @@ docs/bp.lof
 docs/bp.lot
 
 docs/iso-690/czechiso.log
+
+webapp/.RData
+webapp/.Rhistory

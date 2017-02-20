@@ -63,3 +63,4 @@ dev.off()
 CairoPDF("multi_model.pdf")
 ts.plot(trend * seasonal * random, main = "Multiplikatívny model", xlab = "Čas", ylab = "Nameraná hodnota")
 dev.off()
+

@@ -33,7 +33,7 @@ testingSetRecords <- measurementsPerDay * testingSetSize
 
 trainingMatrix <- matrix(0, nrow = trainingSetRecords, ncol = measurementsPerDay + daysPerWeek)
 rownames(trainingMatrix) <- dataRaw$value[1:trainingSetRecords]
-colnames(trainingMatrix) <- c(seq(1, measurementsPerDay), seq(1, daysPerWeek))
+colnames(trainingMatrix) <- c(seq(1, measurementsPerDay), "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 trainingMatrix <- setHoursOnes(trainingMatrix, trainingSetSize, measurementsPerDay)
 trainingMatrix <- setDaysOnes(dataRaw$timtestamp[1:trainingSetRecords], trainingMatrix, trainingSetSize, measurementsPerDay)
 
@@ -44,7 +44,7 @@ stopifnot(trainingMatrix[96,97] == 1)
 stopifnot(trainingMatrix[97,98] == 1)
 
 testingMatrix <- matrix(0, nrow = testingSetRecords, ncol = measurementsPerDay + daysPerWeek)
-colnames(testingMatrix) <- c(seq(1, measurementsPerDay), seq(1, daysPerWeek))
+colnames(testingMatrix) <- c(seq(1, measurementsPerDay), "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 testingMatrix <- setHoursOnes(testingMatrix, testingSetSize, measurementsPerDay)
 testingMatrix <- setDaysOnes(dataRaw$timtestamp[(trainingSetRecords+1):(trainingSetRecords+1+testingSetRecords)], testingMatrix, testingSetSize, measurementsPerDay)
 
@@ -57,4 +57,16 @@ stopifnot(testingMatrix[96,100] == 1)
 #library(kernlab)
 require(kernlab)
 
+trainingMatrixWithoutLabel <- matrix(0, nrow = trainingSetRecords, ncol = measurementsPerDay + daysPerWeek)
+colnames(trainingMatrixWithoutLabel) <- c(seq(1, measurementsPerDay), "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+trainingMatrixWithoutLabel <- setHoursOnes(trainingMatrixWithoutLabel, trainingSetSize, measurementsPerDay)
+trainingMatrixWithoutLabel <- setDaysOnes(dataRaw$timtestamp[1:trainingSetRecords], trainingMatrixWithoutLabel, trainingSetSize, measurementsPerDay)
+
+
+## PSO will set epsilon and C parameters for correcting model error
+svrModel <- ksvm(value ~ ., data = trainingMatrix, type = "eps-svr", kernel = "rbfdot", epsilon = 0.1, C = 1)
+ksvm(trainingMatrixWithoutLabel, trainingMatrix, type = "eps-svr", kernel = "rbfdot", epsilon = 0.1, C = 1, scaled = FALSE )
+
+
 predict(ksvm(trainingMatrix), testingMatrix)
+

@@ -4,12 +4,14 @@ shinyUI(fluidPage(
 
   titlePanel("Optimalizácia konfiguračných parametrov predikčných metód"),
 
+  
   fluidRow(
     column(3,
       p("popis tejto aplikacie, co robi na co je a ako sa pouziva")
     )
   ),
 
+  
   fluidRow(
     column(3,
       selectInput(
@@ -39,13 +41,14 @@ shinyUI(fluidPage(
         "fitnessFunction",
         label = "Fitness funkcia",
         choices = list(
-          "prva" = 1,
+          "MAPE" = 1,
           "druha" = 2),
         selected = 1
       )
     )
   ),
 
+  
   fluidRow(
     column(3,
       fileInput(
@@ -76,41 +79,12 @@ shinyUI(fluidPage(
     )
   ),
     
-  fluidRow(
-    h3("Parametre predikčnej metódy"),
-    column(3,
-      sliderInput(
-        "paramter1",
-        label = "parameter1",
-        min = 0,
-        max = 100,
-        value = 20
-      )
-    ),
-
-    column(3,
-      tags$div(
-        title = "A tu je tooltip ajhla",
-        sliderInput(
-          "parameter2",
-          label = "Parameter 2",
-          min = 1,
-          max = 15,
-          value = 12
-        )
-      )
-    ),
-
-    column(3,
-      tags$div(
-        title = "Another tooltip",
-        htmlOutput("selectUI")
-      )
-
-    )
-  ),
-
-  mainPanel(plotOutput("random"))
+  
+  h3("Parametre predikčnej metódy"),
+  
+  uiOutput("numberOfParameters")
+  
+  # mainPanel(plotOutput("random"))
 
 ))
 

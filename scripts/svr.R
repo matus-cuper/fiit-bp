@@ -39,13 +39,13 @@ testingSetRecords <- measurementsPerDay * testingSetSize
 
 trainingMatrix <- matrix(0, nrow = trainingSetRecords, ncol = measurementsPerDay + daysPerWeek)
 trainingMatrix <- setHoursOnes(trainingMatrix, trainingSetSize, measurementsPerDay)
-trainingMatrix <- setDaysOnes(dataRaw$timtestamp[1:trainingSetRecords], trainingMatrix, trainingSetSize, measurementsPerDay)
+trainingMatrix <- setDaysOnes(dataRaw$timestamp[1:trainingSetRecords], trainingMatrix, trainingSetSize, measurementsPerDay)
 colnames(trainingMatrix) <- c(paste("V", 1:(measurementsPerDay + daysPerWeek), sep = ""))
 trainingMatrix <- cbind(value=c(dataRaw$value[1:trainingSetRecords]), trainingMatrix)
 
 testingMatrix <- matrix(0, nrow = testingSetRecords, ncol = measurementsPerDay + daysPerWeek)
 testingMatrix <- setHoursOnes(testingMatrix, testingSetSize, measurementsPerDay)
-testingMatrix <- setDaysOnes(dataRaw$timtestamp[(trainingSetRecords+1):(trainingSetRecords+1+testingSetRecords)], testingMatrix, testingSetSize, measurementsPerDay)
+testingMatrix <- setDaysOnes(dataRaw$timestamp[(trainingSetRecords+1):(trainingSetRecords+1+testingSetRecords)], testingMatrix, testingSetSize, measurementsPerDay)
 colnames(testingMatrix) <- c(paste("V", 1:(measurementsPerDay + daysPerWeek), sep = ""))
 
 # install.packages("kernlab")

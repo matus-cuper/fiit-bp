@@ -50,7 +50,7 @@ fileContent$CAS <- lapply(fileContent$CAS, setRightHour)
 fileContent$TIME <- paste(floor(as.numeric(fileContent$CAS)), ":", as.numeric(fileContent$CAS) %% 1 * 60, ":00", sep = "")
 
 # create timestamp from DATUM and TIME
-fileContent$timtestamp <- strptime(paste(fileContent$DATUM, fileContent$TIME), "%Y-%m-%d %H : %M :%S")
+fileContent$timestamp <- strptime(paste(fileContent$DATUM, fileContent$TIME), "%Y-%m-%d %H : %M :%S")
 
 # remove fields
 fileContent$value <- fileContent$Suma_odbery

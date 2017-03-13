@@ -56,3 +56,33 @@ require(kernlab)
 svrModel <- ksvm(value ~ ., data = trainingMatrix, type = "eps-svr", kernel = "rbfdot", epsilon = 0.1, C = 1, scaled = FALSE )
 svrPredict <- predict(svrModel, testingMatrix)
 mape(svrPredict, dataRaw$value[(trainingSetRecords+1):(trainingSetRecords+testingSetRecords)])
+
+
+svrCompute <- function(trainingMatrix, testingMatrix, dataRawValues, epsilonToOptimize, CToOptimize) {
+  svrModel <- ksvm(value ~ ., data = trainingMatrix, type = "eps-svr", kernel = "rbfdot", epsilon = epsilonToOptimize, C = CToOptimize, scaled = FALSE)
+  svrPredict <- predict(svrModel, testingMatrix)
+  return(mape(svrPredict, dataRawValues))
+}
+
+# svrCompute(trainingMatrix, testingMatrix, dataRaw$value[(trainingSetRecords+1):(trainingSetRecords+testingSetRecords)], 0.1, 1)
+
+svrOptimize <- function(vectorOfParameters) {
+  return(svrCompute(trainingMatrix, testingMatrix, dataRaw$value[(trainingSetRecords+1):(trainingSetRecords+testingSetRecords)], 
+                    epsilonToOptimize = vectorOfParameters[1], CToOptimize = vectorOfParameters[2]))
+}
+
+# install.packages("psoptim")
+# library(psoptim)
+require(psoptim)
+
+n <- 10
+m.l <- 20
+xmin <- c(0.0, 0.0)
+xmax <- c(1, 1)
+
+startTime <- Sys.time()
+result <- psoptim(FUN = svrOptimize, n = n, max.loop = m.l, xmin = xmin, xmax = xmax, anim = FALSE)
+Sys.time() - startTime
+
+
+svrCompute(data.frame(0.1, 1))

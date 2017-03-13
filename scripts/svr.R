@@ -27,7 +27,7 @@ mape <- function(yhat, y) {
 
 
 
-dataRaw <- read.csv("~/r/fiit-bp/data/suma_do_maj2015/99_UPLNE_CONVERTED.csv", header = TRUE, sep = ",")
+dataRaw <- read.csv("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED.csv", header = TRUE, sep = ",")
 
 daysPerWeek <- 7
 measurementsPerDay <- 96      # adept for paramater
@@ -71,17 +71,16 @@ svrOptimize <- function(vectorOfParameters) {
                     epsilonToOptimize = vectorOfParameters[1], CToOptimize = vectorOfParameters[2]))
 }
 
-# install.packages("psoptim")
-# library(psoptim)
-require(psoptim)
+# install.packages("pso")
+library(pso)
+# require(psoptim)
 
-n <- 10
-m.l <- 20
-xmin <- c(0.0, 0.0)
-xmax <- c(1, 1)
+par <- c(0.1, 1)
+lowerBound <- 1
+upperBound <- 5
 
 startTime <- Sys.time()
-result <- psoptim(FUN = svrOptimize, n = n, max.loop = m.l, xmin = xmin, xmax = xmax, anim = FALSE)
+result <- psoptim(par = par, fn = svrOptimize)
 Sys.time() - startTime
 
 

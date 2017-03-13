@@ -1,8 +1,9 @@
 ## read data from CSV and prepare matrices for SVR
 
 # Example call
-# matrices <- readData("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv", measurementsPerDay = 96, 0.8)
-# where matrices variable will contain 2 matrices matrices$trainingMatrix and matrices$testingMatrix
+# values <- readData("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv", measurementsPerDay = 96, 0.8)
+# where values variable will contain 2 matrices matrices$trainingMatrix and matrices$testingMatrix and
+# third one will be data.frame of values from origin dataset needed for verification process
 
 # Convert time of the day to n-th measurement of the day
 orderOfTimestamp <- function(t1, measurementsPerDay) {
@@ -55,5 +56,5 @@ readData <- function(pathToFile, measurementsPerDay, trainingSetProportion) {
   testingM <- setOnesForDayOfWeek(testingM, dataRaw$timestamp[(trainingSetRecords + 1):nrow(dataRaw)], testingSetRecords, measurementsPerDay)
   colnames(testingM) <- c(paste("V", 1:(measurementsPerDay + daysPerWeek), sep = ""))
 
-  return(list(trainingMatrix = trainingM, testingMatrix = testingM))
+  return(list(trainingMatrix = trainingM, testingMatrix = testingM, verificationData = dataRaw$value[(trainingSetRecords + 1):nrow(dataRaw)]))
 }

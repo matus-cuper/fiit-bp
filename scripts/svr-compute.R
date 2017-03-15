@@ -16,11 +16,18 @@ svrCompute <- function(trainingMatrix, testingMatrix, verificationData, deviatio
   return(result)
 }
 
-svrOptimize <- function(vectorOfParameters) {
+trainingMatrix <- values$trainingMatrix
+testingMatrix <- values$testingMatrix
+verificationData <- values$verificationData
+source("~/r/fiit-bp/scripts/compute-deviation.R")
+deviationFunction <- "mape"
+
+svrOptimize <- function(params) {
   return(svrCompute(trainingMatrix, 
                     testingMatrix, 
                     verificationData, 
                     deviationFunction,
-                    epsilonToOptimize = vectorOfParameters[1], 
-                    CToOptimize = vectorOfParameters[2]))
+                    epsilonToOptimize = params[1], 
+                    CToOptimize = params[2]))
 }
+

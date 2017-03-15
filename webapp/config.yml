@@ -1,0 +1,42 @@
+---
+  default:
+
+    ui:
+        titlePanelLabel: "Optimalizácia konfiguračných parametrov predikčných metód"
+        descriptionPanelLabel: "Popis aplikácie, prečo a ako sa používa"
+
+        predictionAlgorithmsLabel: "Predikčné algoritmy"
+        predictionAlgorithms:
+          - label: "Regresné stromy"
+            readData: "readDataForSVR"
+            optimizingFunction: "svrOptimize"
+          - label: "druhe"
+            id: "dru"
+          - label: "tretie"
+            id: "tre"
+
+        optimizationAlgorithmsLabel: "Optimalizačné algoritmy"
+        optimizationAlgorithms:
+          - label: "test"
+            id: 1
+
+        fitnessFunctionsLabel: "Fitness funkcia"
+        fitnessFunctions:
+          - label: "MAPE"
+            accuracyFunction: "mape"
+
+        inputFileLabel: "Vstupné dáta"
+
+        testDatasetProportion:
+          label: "Pomer testovacích dát"
+          min: 0
+          max: 1
+          default: 0.9
+
+        parametersLabel: "Parametre optimalizačnej metódy"
+
+        resultsLabel: "Vypočítané hodnoty"
+
+
+
+    server:

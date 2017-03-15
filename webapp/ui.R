@@ -1,13 +1,15 @@
 library(shiny)
+library(config)
+uiConfig <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
 
 fluidPage(
 
-  titlePanel("Optimalizácia konfiguračných parametrov predikčných metód"),
+  titlePanel(uiConfig$titlePanelLabel),
 
   
   fluidRow(
     column(3,
-      p("popis tejto aplikacie, co robi na co je a ako sa pouziva")
+      p(uiConfig$descriptionPanelLabel)
     )
   ),
 
@@ -16,7 +18,7 @@ fluidPage(
     column(3,
       selectInput(
         "predictionAlgorithms",
-        label = "Predikčné algoritmy",
+        label = uiConfig$predictionAlgorithmsLabel,
         choices = list(
           "Regresné stromy" = 1,
           "druhy" = 2,
@@ -27,8 +29,8 @@ fluidPage(
 
     column(3,
       selectInput(
-        "optimizationAlgorithms",
-        label = "Optimalizačné algoritmy",
+          "optimizationAlgorithms",
+        label = uiConfig$optimizationAlgorithmsLabel,
         choices = list(
           "Umelá kolónia včiel" = 1,
           "druhy" = 2),
@@ -39,7 +41,7 @@ fluidPage(
     column(3,
       selectInput(
         "fitnessFunction",
-        label = "Fitness funkcia",
+        label = uiConfig$fitnessFunctionsLabel,
         choices = list(
           "MAPE" = 1,
           "druha" = 2),
@@ -53,25 +55,27 @@ fluidPage(
     column(3,
       fileInput(
         "inputFile",
-        label = "Vstupné dáta"
+        label = uiConfig$inputFileLabel
       )
     ),
 
     column(3,
       sliderInput(
-        "testDatasetSize",
-        label = "Pomer testovacích dát",
-        min = 0,
-        max = 100,
-        value = 60
+        "testDatasetProportion",
+        label = uiConfig$testDatasetProportion$label,
+        min = uiConfig$testDatasetProportion$min,
+        max = uiConfig$testDatasetProportion$max,
+        value = uiConfig$testDatasetProportion$default
       )
     )
   ),
     
   
-  h3("Parametre predikčnej metódy"),
+  h3(uiConfig$parametersLabel),
   
-  textOutput("filename")
+  h3(uiConfig$resultsLabel),
+  
+  uiOutput("svrResult")
   
   # uiOutput("numberOfParameters")
 

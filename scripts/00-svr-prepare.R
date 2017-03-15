@@ -1,7 +1,7 @@
 ## read data from CSV and prepare matrices for SVR
 
 # Example call
-# values <- readData("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv", measurementsPerDay = 96, 0.8)
+# values <- readDataForSVR("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv", measurementsPerDay = 96, trainingSetProportion = 0.8)
 # where values variable will contain 2 matrices matrices$trainingMatrix and matrices$testingMatrix and
 # third one will be data.frame of values from origin dataset needed for verification process
 
@@ -35,7 +35,7 @@ setOnesForDayOfWeek <- function(m, d, recordsCount, measurementsPerDay) {
 # and n-th column, which represents n-th measurement in that day
 # training matrix wil have size = records * trainingSetProportion 
 # and testing matrix size = records - trainingRecords
-readData <- function(pathToFile, measurementsPerDay, trainingSetProportion) {
+readDataForSVR <- function(pathToFile, measurementsPerDay, trainingSetProportion) {
   dataRaw <- read.csv(file = pathToFile, header = TRUE, sep = ",")
   
   # Compute matrices sizes

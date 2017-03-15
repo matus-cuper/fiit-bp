@@ -1,16 +1,19 @@
 ## compute SVR and return accuracy
 
 library(kernlab)
+library(config)
+pathToConfig <- "~/r/fiit-bp/scripts/config.yml"
+conf02 <- config::get("02-svr-optimize", file = pathToConfig)
 
 # Set SVR parameters and return predicted data
 svrCompute <- function(trainingMatrix, testingMatrix, verificationData, accuracyFunction, CToOptimize, epsilonToOptimize) {
   svrModel <- ksvm(value ~ ., 
                    data = trainingMatrix, 
-                   type = "eps-svr", 
-                   kernel = "rbfdot", 
+                   type = conf02$svmType, 
+                   kernel = conf02$kernelFunction, 
                    C = CToOptimize,
                    epsilon = epsilonToOptimize, 
-                   scaled = FALSE)
+                   scaled = conf02$scaled)
   
   return(predict(svrModel, testingMatrix))
 }
@@ -19,11 +22,11 @@ svrCompute <- function(trainingMatrix, testingMatrix, verificationData, accuracy
 svrComputeError <- function(trainingMatrix, testingMatrix, verificationData, accuracyFunction, CToOptimize, epsilonToOptimize) {
   svrModel <- ksvm(value ~ ., 
                    data = trainingMatrix, 
-                   type = "eps-svr", 
-                   kernel = "rbfdot", 
+                   type = conf02$svmType, 
+                   kernel = conf02$kernelFunction, 
                    C = CToOptimize,                    
                    epsilon = epsilonToOptimize, 
-                   scaled = FALSE)
+                   scaled = conf02$scaled)
   
   svrPredict <- predict(svrModel, testingMatrix)
   result <- do.call(accuracyFunction, list(svrPredict, verificationData))

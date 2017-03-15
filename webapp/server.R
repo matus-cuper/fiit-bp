@@ -1,9 +1,27 @@
 library(shiny)
+library(config)
+uiConfig <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
   
 function(input, output) {
   
+  output$svrResult <- renderText({
+    inputFile <- input$inputFile
+    if (is.null(inputFile))
+      return(NULL)
+     
+    readFunction <- uiConfig$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readData
+    preparedData <- do.call(readFunction, list(inputFile$datapath, 96, as.numeric(input$testDatasetProportion)))
+    
+    trainingMatrix <<- preparedData$trainingMatrix
+    testingMatrix <<- preparedData$testingMatrix
+    verificationData <<- preparedData$verificationData
+    accuracyFunction <<- uiConfig$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$accuracyFunction
+    
+    svrOptimize(c(1, 0.1))
+  })
+  
   output$filename <- renderText({
-    "test.txt"
+    getwd()
   })
   
   # tmp <- input$inputFile

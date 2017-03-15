@@ -1,6 +1,6 @@
 library(shiny)
 
-shinyUI(fluidPage(
+fluidPage(
 
   titlePanel("Optimalizácia konfiguračných parametrov predikčných metód"),
 
@@ -65,28 +65,14 @@ shinyUI(fluidPage(
         max = 100,
         value = 60
       )
-    ),
-
-    column(3,
-      radioButtons(
-        "someOptions",
-        label = "Nejake vstupy",
-        choices = list(
-        "prvy" = 1,
-        "druhy" = 2
-        )
-      )
     )
   ),
     
   
   h3("Parametre predikčnej metódy"),
   
-  uiOutput("numberOfParameters")
+  textOutput("filename")
   
-  # mainPanel(plotOutput("random"))
+  # uiOutput("numberOfParameters")
 
-))
-
-
-# maybe use grid layout
+)

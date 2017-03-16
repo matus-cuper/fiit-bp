@@ -73,6 +73,8 @@ fluidPage(
   
   h3(uiConfig$parametersLabel),
   
+  uiOutput("parameters"),
+  
   h3(uiConfig$resultsLabel),
   
   uiOutput("svrResult")

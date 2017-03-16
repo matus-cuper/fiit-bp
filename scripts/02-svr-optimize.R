@@ -6,7 +6,7 @@ pathToConfig <- "~/r/fiit-bp/scripts/config.yml"
 conf02 <- config::get("02-svr-optimize", file = pathToConfig)
 
 # Set SVR parameters and return predicted data
-svrCompute <- function(trainingMatrix, testingMatrix, verificationData, accuracyFunction, CToOptimize, epsilonToOptimize) {
+svrPredict <- function(trainingMatrix, testingMatrix, verificationData, accuracyFunction, CToOptimize, epsilonToOptimize) {
   svrModel <- ksvm(value ~ ., 
                    data = trainingMatrix, 
                    type = conf02$svmType, 
@@ -19,7 +19,7 @@ svrCompute <- function(trainingMatrix, testingMatrix, verificationData, accuracy
 }
 
 # Set SVR parameters and return degree of accuracy
-svrComputeError <- function(trainingMatrix, testingMatrix, verificationData, accuracyFunction, CToOptimize, epsilonToOptimize) {
+svrError <- function(trainingMatrix, testingMatrix, verificationData, accuracyFunction, CToOptimize, epsilonToOptimize) {
   svrModel <- ksvm(value ~ ., 
                    data = trainingMatrix, 
                    type = conf02$svmType, 
@@ -34,12 +34,11 @@ svrComputeError <- function(trainingMatrix, testingMatrix, verificationData, acc
 }
 
 # Used by optimization function, input is data.frame of two values representing epsilon and C
-svrOptimize <- function(params) {
-  return(svrComputeError(trainingMatrix, 
+svrErrorWrapper <- function(params) {
+  return(svrError(trainingMatrix, 
                     testingMatrix, 
                     verificationData, 
                     accuracyFunction,
                     CToOptimize = params[2],
                     epsilonToOptimize = params[1]))
 }
-

@@ -2,41 +2,37 @@
   default:
 
     ui:
-        titlePanelLabel: "Optimalizácia konfiguračných parametrov predikčných metód"
-        descriptionPanelLabel: "Popis aplikácie, prečo a ako sa používa"
+      titlePanelLabel: "Optimalizácia konfiguračných parametrov predikčných metód"
+      descriptionPanelLabel: "Popis aplikácie, prečo a ako sa používa"
 
-        predictionAlgorithmsLabel: "Predikčné algoritmy"
-        predictionAlgorithms:
-          - label: "Regresné stromy"
-            readData: "readDataForSVR"
-            optimizingFunction: "svrOptimize"
-          - label: "druhe"
-            id: "dru"
-          - label: "tretie"
-            id: "tre"
+      predictionAlgorithmsLabel: "Predikčné algoritmy"
+      optimizationAlgorithmsLabel: "Optimalizačné algoritmy"
+      fitnessFunctionsLabel: "Fitness funkcia"
+      inputFileLabel: "Vstupné dáta"
 
-        optimizationAlgorithmsLabel: "Optimalizačné algoritmy"
-        optimizationAlgorithms:
-          - label: "test"
-            id: 1
+      testDatasetProportion:
+        label: "Pomer testovacích dát"
+        min: 0
+        max: 1
+        default: 0.9
 
-        fitnessFunctionsLabel: "Fitness funkcia"
-        fitnessFunctions:
-          - label: "MAPE"
-            accuracyFunction: "mape"
-
-        inputFileLabel: "Vstupné dáta"
-
-        testDatasetProportion:
-          label: "Pomer testovacích dát"
-          min: 0
-          max: 1
-          default: 0.9
-
-        parametersLabel: "Parametre optimalizačnej metódy"
-
-        resultsLabel: "Vypočítané hodnoty"
-
-
+      parametersLabel: "Parametre optimalizačnej metódy"
+      resultsLabel: "Vypočítané hodnoty"
 
     server:
+      predictionAlgorithms:
+        - label: "Regresné stromy"
+          readDataFunction: "readDataForSVR"
+          predictFunction: "svrErrorWrapper"
+        - label: "druhe"
+          id: "dru"
+        - label: "tretie"
+          id: "tre"
+
+      optimizationAlgorithms:
+        - label: "Umelá kolónia včiel"
+          optimizeFunction: "psoptimWraper"
+
+      fitnessFunctions:
+        - label: "MAPE"
+          accuracyFunction: "mape"

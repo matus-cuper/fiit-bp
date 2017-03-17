@@ -40,19 +40,20 @@ function(input, output) {
 
   
   output$resultValues <- renderText({
-    # inputFile <- input$inputFile
-    # if (is.null(inputFile))
-    #   return(NULL)
-    # 
-    # readFunction <- serverConfig$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
-    # preparedData <- do.call(readFunction, list(inputFile$datapath, 96, as.numeric(input$testDatasetProportion)))
-    # 
-    # # Global assignment
-    # trainingMatrix <<- preparedData$trainingMatrix
-    # testingMatrix <<- preparedData$testingMatrix
-    # verificationData <<- preparedData$verificationData
-    # accuracyFunction <<- serverConfig$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$accuracyFunction
-    # 
+    inputFile <- input$inputFile
+    if (is.null(inputFile))
+      return(NULL)
+
+    readFunction <- serverConfig$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
+    preparedData <- do.call(readFunction, list(inputFile$datapath, 96, as.numeric(input$testDatasetProportion)))
+
+    # Global assignment
+    trainingMatrix <<- preparedData$trainingMatrix
+    testingMatrix <<- preparedData$testingMatrix
+    verificationData <<- preparedData$verificationData
+    accuracyFunction <<- serverConfig$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$accuracyFunction
+    
+    svrError(trainingMatrix, testingMatrix, verificationData, "mape", 1, 0.1) 
     # predictFunction <- serverConfig$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictFunction
     # optimizeFunction <- serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizeFunction
     # result <- do.call(optimizeFunction, list(match.fun(predictFunction), c(0, 0, 1, 1)))
@@ -66,8 +67,10 @@ function(input, output) {
     if (is.null(inputFile))
       return(NULL)
     
-    readFunction <- serverConfig$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
-    preparedData <- do.call(readFunction, list(inputFile$datapath, 96, as.numeric(input$testDatasetProportion)))
-    plot(preparedData$verificationData)
+    matplot(data.frame(verificationData, svrPredict(trainingMatrix, testingMatrix, verificationData, accuracyFunction, 1, 0.1)), 
+            type = c("l"), 
+            col = 1:length(verificationData), 
+            xlab = "Meranie č.",
+            ylab = "Dáta")
   })
 }

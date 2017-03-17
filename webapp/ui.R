@@ -71,14 +71,13 @@ fluidPage(
   ),
     
   
-  h3(uiConfig$parametersLabel),
+  h3(uiConfig$optimizationParametersLabel),
+  uiOutput("optimizationParameters"),
   
-  uiOutput("parameters"),
+  h3(uiConfig$predictionParametersLabel),
+  uiOutput("predictionParameters"),
   
   h3(uiConfig$resultsLabel),
-  
-  uiOutput("svrResult")
-  
-  # uiOutput("numberOfParameters")
-
+  uiOutput("resultValues"),
+  uiOutput("resultPlot")
 )

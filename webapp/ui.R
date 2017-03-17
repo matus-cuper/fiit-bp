@@ -87,7 +87,7 @@ fluidPage(
   h3(uiConfig$predictionParametersLabel),
   uiOutput("predictionParameters"),
   
-  h3(uiConfig$resultsLabel),
+  h3(uiConfig$results$label),
   uiOutput("resultValues"),
   plotOutput("resultPlot")
 )

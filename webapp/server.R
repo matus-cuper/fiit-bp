@@ -1,5 +1,6 @@
 library(shiny)
 library(config)
+uiConfig <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
 serverConfig <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
 
 function(input, output) {
@@ -45,7 +46,7 @@ function(input, output) {
       return(NULL)
 
     readFunction <- serverConfig$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
-    preparedData <- do.call(readFunction, list(inputFile$datapath, 96, as.numeric(input$testDatasetProportion)))
+    preparedData <- do.call(readFunction, list(inputFile$datapath, input$measurementsPerDay, input$testDatasetProportion))
 
     # Global assignment
     trainingMatrix <<- preparedData$trainingMatrix
@@ -70,7 +71,7 @@ function(input, output) {
     matplot(data.frame(verificationData, svrPredict(trainingMatrix, testingMatrix, verificationData, accuracyFunction, 1, 0.1)), 
             type = c("l"), 
             col = 1:length(verificationData), 
-            xlab = "Meranie č.",
-            ylab = "Dáta")
+            xlab = uiConfig$results$xlabel,
+            ylab = uiConfig$results$ylabel)
   })
 }

@@ -10,6 +10,12 @@
       fitnessFunctionsLabel: "Fitness funkcia"
       inputFileLabel: "Vstupné dáta"
 
+      measurementsPerDay:
+        label: "Počet meraní za deň"
+        min: 1
+        max: 1440
+        default: 96
+
       testDatasetProportion:
         label: "Pomer testovacích dát"
         min: 0

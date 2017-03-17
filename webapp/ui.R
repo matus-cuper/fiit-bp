@@ -58,6 +58,16 @@ fluidPage(
         label = uiConfig$inputFileLabel
       )
     ),
+    
+    column(3,
+      numericInput(
+        "measurementsPerDay",
+        label = uiConfig$measurementsPerDay$label,
+        min = uiConfig$measurementsPerDay$min,
+        max = uiConfig$measurementsPerDay$max,
+        value = uiConfig$measurementsPerDay$default
+      )
+    ),
 
     column(3,
       sliderInput(
@@ -79,5 +89,5 @@ fluidPage(
   
   h3(uiConfig$resultsLabel),
   uiOutput("resultValues"),
-  uiOutput("resultPlot")
+  plotOutput("resultPlot")
 )

@@ -4,11 +4,40 @@ serverConfig <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
 
 function(input, output) {
   
-  output$parameters <- renderText({
-    getwd()
+  output$optimizationParameters <- renderUI({
+    numberOfParameters <- as.numeric(serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
+    fluidRow(
+      lapply(1:numberOfParameters, function(i) {
+        column(numberOfParameters,
+               numericInput(serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$id,
+                            label = serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$label,
+                            value = as.numeric(serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$value),
+                            min = as.numeric(serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$min),
+                            max = as.numeric(serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$max)
+               )
+        )
+      })
+    )
+  })
+  
+  output$predictionParameters <- renderUI({
+    numberOfParameters <- as.numeric(serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfPredictionParameters)
+    fluidRow(
+      lapply(1:numberOfParameters, function(i) {
+        column(numberOfParameters,
+               numericInput(serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$id,
+                            label = serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$label,
+                            value = serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$value,
+                            min = serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$min,
+                            max = serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$max,
+                            step = serverConfig$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$step
+               )
+        )
+      })
+    )
   })
 
-  output$svrResult <- renderText({
+  output$resultValues <- renderText({
     inputFile <- input$inputFile
     if (is.null(inputFile))
       return(NULL)
@@ -29,7 +58,7 @@ function(input, output) {
 
   })
 
-  output$filename <- renderText({
+  output$resultPlot <- renderText({
     getwd()
   })
 

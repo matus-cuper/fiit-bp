@@ -24,7 +24,10 @@
 
       optimizationParametersLabel: "Parametre optimalizačnej metódy"
       predictionParametersLabel: "Parametre predikčnej metódy"
-      resultsLabel: "Vypočítané hodnoty"
+      results:
+        label: "Vypočítané hodnoty"
+        xlabel: "Poradové číslo merania"
+        ylabel: "Namerané a predikované dáta"
 
     server:
       predictionAlgorithms:

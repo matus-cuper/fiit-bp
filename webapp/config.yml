@@ -34,10 +34,8 @@
         - label: "Regresné stromy"
           readDataFunction: "readDataForSVR"
           predictFunction: "svrErrorWrapper"
-        - label: "druhe"
+        - label: "ARIMA"
           id: "dru"
-        - label: "tretie"
-          id: "tre"
 
       optimizationAlgorithms:
         - label: "Umelá kolónia včiel"

@@ -1,4 +1,5 @@
 library(shiny)
+library(kernlab)
 library(config)
 uiConfig <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
 serverConfig <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")

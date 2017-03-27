@@ -39,7 +39,7 @@
 
       optimizationAlgorithms:
         - label: "Umelá kolónia včiel"
-          optimizeFunction: "psoptimWraper"
+          optimizeFunction: "psoptimWrapper"
           numberOfOptimizationParameters: 2
           optimizationParameters:
             - id: "numberOfParticles"

@@ -47,17 +47,19 @@ function(input, output) {
       return(NULL)
 
     readFunction <- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
-    preparedData <- do.call(readFunction, list(inputFile$datapath, input$measurementsPerDay, input$testDatasetProportion))
+    predictFunction <- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictFunction
+    optimizeFunction <- config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizeFunction
 
     # Global assignment
+    preparedData <- do.call(readFunction, list(inputFile$datapath, input$measurementsPerDay, input$testDatasetProportion))
+
     trainingMatrix <<- preparedData$trainingMatrix
     testingMatrix <<- preparedData$testingMatrix
     verificationData <<- preparedData$verificationData
     accuracyFunction <<- config.server$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$accuracyFunction
 
     svrError(trainingMatrix, testingMatrix, verificationData, "mape", 1, 0.1)
-    # predictFunction <- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictFunction
-    # optimizeFunction <- config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizeFunction
+
     # result <- do.call(optimizeFunction, list(match.fun(predictFunction), c(0, 0, 1, 1)))
     # do.call(predictFunction, list(c(result$sol[1], result$sol[2])))
 

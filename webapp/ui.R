@@ -1,7 +1,7 @@
 library(shiny)
+source("~/r/fiit-bp/webapp/00-read-labels.R")
 library(config)
 config.ui <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
-config.server <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
 
 fluidPage(
 
@@ -28,10 +28,7 @@ fluidPage(
       selectInput(
           "optimizationAlgorithms",
         label = config.ui$optimizationAlgorithmsLabel,
-        choices = list(
-          "Umelá kolónia včiel" = 1,
-          "druhy" = 2),
-        selected = 1
+        choices = optimizationAlgorithmsLabels
       )
     ),
 
@@ -39,10 +36,7 @@ fluidPage(
       selectInput(
         "fitnessFunction",
         label = config.ui$fitnessFunctionsLabel,
-        choices = list(
-          "MAPE" = 1,
-          "druha" = 2),
-        selected = 1
+        choices = fitnessFunctionsLabels
       )
     )
   ),

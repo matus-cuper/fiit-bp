@@ -1,6 +1,7 @@
 library(shiny)
 library(config)
 uiConfig <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
+serverConfig <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
 
 fluidPage(
 
@@ -19,10 +20,7 @@ fluidPage(
       selectInput(
         "predictionAlgorithms",
         label = uiConfig$predictionAlgorithmsLabel,
-        choices = list(
-          "Regresné stromy" = 1,
-          "druhy" = 2,
-          "treti" = 3),
+        choices = predictionAlgorithmsLabels,
         selected = 1
       )
     ),

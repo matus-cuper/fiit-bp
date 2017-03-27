@@ -1,34 +1,33 @@
 library(shiny)
 library(config)
-uiConfig <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
-serverConfig <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
+config.ui <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
+config.server <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
 
 fluidPage(
 
-  titlePanel(uiConfig$titlePanelLabel),
+  titlePanel(config.ui$titlePanelLabel),
 
-  
+
   fluidRow(
     column(3,
-      p(uiConfig$descriptionPanelLabel)
+      p(config.ui$descriptionPanelLabel)
     )
   ),
 
-  
+
   fluidRow(
     column(3,
       selectInput(
         "predictionAlgorithms",
-        label = uiConfig$predictionAlgorithmsLabel,
-        choices = predictionAlgorithmsLabels,
-        selected = 1
+        label = config.ui$predictionAlgorithmsLabel,
+        choices = predictionAlgorithmsLabels
       )
     ),
 
     column(3,
       selectInput(
           "optimizationAlgorithms",
-        label = uiConfig$optimizationAlgorithmsLabel,
+        label = config.ui$optimizationAlgorithmsLabel,
         choices = list(
           "Umelá kolónia včiel" = 1,
           "druhy" = 2),
@@ -39,7 +38,7 @@ fluidPage(
     column(3,
       selectInput(
         "fitnessFunction",
-        label = uiConfig$fitnessFunctionsLabel,
+        label = config.ui$fitnessFunctionsLabel,
         choices = list(
           "MAPE" = 1,
           "druha" = 2),
@@ -48,44 +47,44 @@ fluidPage(
     )
   ),
 
-  
+
   fluidRow(
     column(3,
       fileInput(
         "inputFile",
-        label = uiConfig$inputFileLabel
+        label = config.ui$inputFileLabel
       )
     ),
-    
+
     column(3,
       numericInput(
         "measurementsPerDay",
-        label = uiConfig$measurementsPerDay$label,
-        min = uiConfig$measurementsPerDay$min,
-        max = uiConfig$measurementsPerDay$max,
-        value = uiConfig$measurementsPerDay$default
+        label = config.ui$measurementsPerDay$label,
+        min = config.ui$measurementsPerDay$min,
+        max = config.ui$measurementsPerDay$max,
+        value = config.ui$measurementsPerDay$default
       )
     ),
 
     column(3,
       sliderInput(
         "testDatasetProportion",
-        label = uiConfig$testDatasetProportion$label,
-        min = uiConfig$testDatasetProportion$min,
-        max = uiConfig$testDatasetProportion$max,
-        value = uiConfig$testDatasetProportion$default
+        label = config.ui$testDatasetProportion$label,
+        min = config.ui$testDatasetProportion$min,
+        max = config.ui$testDatasetProportion$max,
+        value = config.ui$testDatasetProportion$default
       )
     )
   ),
-    
-  
-  h3(uiConfig$optimizationParametersLabel),
+
+
+  h3(config.ui$optimizationParametersLabel),
   uiOutput("optimizationParameters"),
-  
-  h3(uiConfig$predictionParametersLabel),
+
+  h3(config.ui$predictionParametersLabel),
   uiOutput("predictionParameters"),
-  
-  h3(uiConfig$results$label),
+
+  h3(config.ui$results$label),
   uiOutput("resultValues"),
   plotOutput("resultPlot")
 )

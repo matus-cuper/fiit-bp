@@ -3,31 +3,31 @@
 library(kernlab)
 library(config)
 pathToConfig <- "~/r/fiit-bp/scripts/config.yml"
-conf02 <- config::get("02-svr-optimize", file = pathToConfig)
+config.svr.optimize <- config::get("02-svr-optimize", file = pathToConfig)
 
 # Set SVR parameters and return predicted data
 svrPredict <- function(trainingMatrix, testingMatrix, verificationData, accuracyFunction, CToOptimize, epsilonToOptimize) {
-  svrModel <- ksvm(value ~ ., 
-                   data = trainingMatrix, 
-                   type = conf02$svmType, 
-                   kernel = conf02$kernelFunction, 
+  svrModel <- ksvm(value ~ .,
+                   data = trainingMatrix,
+                   type = config.svr.optimize$svmType,
+                   kernel = config.svr.optimize$kernelFunction,
                    C = CToOptimize,
-                   epsilon = epsilonToOptimize, 
-                   scaled = conf02$scaled)
-  
+                   epsilon = epsilonToOptimize,
+                   scaled = config.svr.optimize$scaled)
+
   return(predict(svrModel, testingMatrix))
 }
 
 # Set SVR parameters and return degree of accuracy
 svrError <- function(trainingMatrix, testingMatrix, verificationData, accuracyFunction, CToOptimize, epsilonToOptimize) {
-  svrModel <- ksvm(value ~ ., 
-                   data = trainingMatrix, 
-                   type = conf02$svmType, 
-                   kernel = conf02$kernelFunction, 
-                   C = CToOptimize,                    
-                   epsilon = epsilonToOptimize, 
-                   scaled = conf02$scaled)
-  
+  svrModel <- ksvm(value ~ .,
+                   data = trainingMatrix,
+                   type = config.svr.optimize$svmType,
+                   kernel = config.svr.optimize$kernelFunction,
+                   C = CToOptimize,
+                   epsilon = epsilonToOptimize,
+                   scaled = config.svr.optimize$scaled)
+
   svrPredict <- predict(svrModel, testingMatrix)
   result <- do.call(accuracyFunction, list(svrPredict, verificationData))
   return(result)
@@ -35,10 +35,10 @@ svrError <- function(trainingMatrix, testingMatrix, verificationData, accuracyFu
 
 # Used by optimization function, input is data.frame of two values representing epsilon and C
 svrErrorWrapper <- function(params) {
-  return(svrError(trainingMatrix, 
-                    testingMatrix, 
-                    verificationData, 
+  return(svrError(trainingMatrix,
+                    testingMatrix,
+                    verificationData,
                     accuracyFunction,
-                    CToOptimize = params[2],
-                    epsilonToOptimize = params[1]))
+                    epsilonToOptimize = params[1],
+                    CToOptimize = params[2]))
 }

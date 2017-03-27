@@ -46,9 +46,9 @@ function(input, output) {
     if (is.null(inputFile))
       return(NULL)
 
-    readFunction <- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
-    predictFunction <- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictFunction
-    optimizeFunction <- config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizeFunction
+    readFunction <<- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
+    predictFunction <<- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictFunction
+    optimizeFunction <<- config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizeFunction
 
     # Global assignment
     preparedData <- do.call(readFunction, list(inputFile$datapath, input$measurementsPerDay, input$testDatasetProportion))
@@ -58,11 +58,14 @@ function(input, output) {
     verificationData <<- preparedData$verificationData
     accuracyFunction <<- config.server$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$accuracyFunction
 
-    svrError(trainingMatrix, testingMatrix, verificationData, "mape", 1, 0.1)
+    reactiveComputation <<- reactive({ do.call(optimizeFunction, list(svrErrorWrapper, c(list(numberOfParticles = input$numberOfParticles,
+                                                                     maxIterations = input$maxIterations,
+                                                                     xmin = c(input$minC, input$minEpsilon),
+                                                                     xmax = c(input$maxC, input$maxEpsilon)))))
+    })
 
-    # result <- do.call(optimizeFunction, list(match.fun(predictFunction), c(0, 0, 1, 1)))
-    # do.call(predictFunction, list(c(result$sol[1], result$sol[2])))
-
+    result <- reactiveComputation()
+    result$val
   })
 
 
@@ -71,7 +74,8 @@ function(input, output) {
     if (is.null(inputFile))
       return(NULL)
 
-    matplot(data.frame(verificationData, svrPredict(trainingMatrix, testingMatrix, verificationData, accuracyFunction, 1, 0.1)),
+    result <- reactiveComputation()
+    matplot(data.frame(verificationData, svrPredict(trainingMatrix, testingMatrix, verificationData, accuracyFunction, result$sol[1], result$sol[2])),
             type = c("l"),
             col = 1:length(verificationData),
             xlab = config.ui$results$xlabel,

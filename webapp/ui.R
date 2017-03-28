@@ -1,7 +1,8 @@
 library(shiny)
-source("~/r/fiit-bp/webapp/00-read-labels.R")
 library(config)
 config.ui <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
+
+source("~/r/fiit-bp/webapp/00-read-labels.R")
 
 fluidPage(
 

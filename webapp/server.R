@@ -4,8 +4,15 @@ library(config)
 config.ui <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
 config.server <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
 
+source("~/r/fiit-bp/scripts/00-svr-prepare-data.R")
+source("~/r/fiit-bp/scripts/01-measure-accuracy.R")
+source("~/r/fiit-bp/scripts/02-svr-optimize.R")
+source("~/r/fiit-bp/scripts/03-svr-psoptim.R")
+
 function(input, output) {
 
+  options(shiny.reactlog=TRUE)
+  
   output$optimizationParameters <- renderUI({
     numberOfParameters <- as.numeric(config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
     fluidRow(

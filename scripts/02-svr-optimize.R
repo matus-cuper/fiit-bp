@@ -39,6 +39,6 @@ svrErrorWrapper <- function(params) {
                     testingMatrix,
                     verificationData,
                     accuracyFunction,
-                    epsilonToOptimize = params[1],
-                    CToOptimize = params[2]))
+                    CToOptimize = params[1],
+                    epsilonToOptimize = params[2]))
 }

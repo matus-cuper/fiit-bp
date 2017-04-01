@@ -12,7 +12,7 @@
       trainingSetProportion: 0.9
       accuracyFunction: "mape"
 
-    03-svr-psoptim:
+    02-pso-optimize:
       numberOfParticles: 40
       maxIterations: 20
       minValues:

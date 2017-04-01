@@ -1,0 +1,1 @@
+pathToConfig <- "~/r/fiit-bp/scripts/config.yml"

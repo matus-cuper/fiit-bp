@@ -1,16 +1,16 @@
 ---
   default:
 
+    00-svr-predict:
+      svmType: "eps-svr"
+      kernelFunction: "rbfdot"
+      scaled: FALSE
+
     01-initialize:
       pathToData: "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv"
       measurementsPerDay: 96
       trainingSetProportion: 0.9
       accuracyFunction: "mape"
-
-    02-svr-optimize:
-      svmType: "eps-svr"
-      kernelFunction: "rbfdot"
-      scaled: FALSE
 
     03-svr-psoptim:
       numberOfParticles: 40

@@ -1,10 +1,14 @@
 ## compute SVR and return error
 
+# tmp <- svr.readDataFn("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", 96, 0.9)
+# svr.predictFn(c(tmp, CToOptimize = 1, epsilonToOptimize = 2, errorFn = "mape"))
+# do.call("svr.predictFn", list( c(tmp, CToOptimize = 1, epsilonToOptimize = 2, errorFn = "mape") ))
+
 library(kernlab)
 library(config)
 svr.properties <- config::get("00-svr-predict", file = pathToConfig)
 
-# Set SVR parameters and return predicted data
+# Set SVR parameters, compute and return predicted values
 svr.predict <- function(params) {
   svrModel <- ksvm(value ~ .,
                    data = params$trainingMatrix,

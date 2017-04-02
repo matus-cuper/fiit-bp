@@ -5,8 +5,6 @@
 # do.call("svr.predictFn", list( c(tmp, CToOptimize = 1, epsilonToOptimize = 2, errorFn = "mape") ))
 
 library(forecast)
-library(config)
-arima.properties <- config::get("00-arima-predict", file = pathToConfig)
 
 # Set ARIMA parameters, compute and return predicted values
 arima.predict <- function(params) {

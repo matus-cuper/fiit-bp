@@ -3,15 +3,15 @@
 # In functions yhat is predicted value and y is real value
 
 mfe <- function(yhat, y) {
-  0
+  mean(yhat - y)
 }
 
 mae <- function(yhat, y) {
-  0
+  mean(abs(yhat - y))
 }
 
 mpe <- function(yhat, y) {
-  0
+  mean((yhat - y)/y)*100
 }
 
 mape <- function(yhat, y) {
@@ -19,5 +19,5 @@ mape <- function(yhat, y) {
 }
 
 mse <- function(yhat, y) {
-  0
+  mean((yhat - y)^2)
 }

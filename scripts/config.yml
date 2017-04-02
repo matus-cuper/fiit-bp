@@ -6,33 +6,5 @@
       kernelFunction: "rbfdot"
       scaled: FALSE
 
-    01-initialize:
-      pathToData: "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv"
-      measurementsPerDay: 96
-      trainingSetProportion: 0.9
-      accuracyFunction: "mape"
-
     02-pso-optimize:
-      numberOfParticles: 40
-      maxIterations: 20
-      minValues:
-        C: 0.0
-        epsilon: 0.0
-      maxValues:
-        C: 1.0
-        epsilon: 1.0
       animation: FALSE
-
-    03-svr-pso-2007:
-      defaultParameters:
-        C: 1.0
-        epsilon: 0.1
-      lowerBound: 0
-      upperBound: 3
-      trace: 1
-      REPORT: TRUE
-      numberOfParticles: 40
-      maxIterations: 20
-      maxStagnateIterations: 5
-      diameter: 0.01
-      maxVelocity: 0.1

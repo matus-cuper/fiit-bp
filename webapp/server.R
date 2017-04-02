@@ -1,5 +1,6 @@
+## Shiny app server side
+
 library(shiny)
-library(kernlab)
 library(config)
 ui.properties <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
 server.properties <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")

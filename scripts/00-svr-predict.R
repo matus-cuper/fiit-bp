@@ -20,7 +20,7 @@ svr.predict <- function(params) {
   return(predict(svrModel, params$testingMatrix))
 }
 
-# Used by optimization function, input is data.frame of two values representing epsilon and C
+# Used by optimization function
 svr.predictFn <- function(params) {
   svrModel <- ksvm(value ~ .,
                    data = params$trainingMatrix,

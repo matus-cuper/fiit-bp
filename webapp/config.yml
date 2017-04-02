@@ -16,14 +16,16 @@
         max: 1440
         default: 96
 
-      testDatasetProportion:
-        label: "Pomer testovacích dát"
+      trainingDatasetProportion:
+        label: "Pomer trénovacích dát"
         min: 0
         max: 1
         default: 0.9
 
       optimizationParametersLabel: "Parametre optimalizačnej metódy"
       predictionParametersLabel: "Parametre predikčnej metódy"
+      submitButtonLabel: "Vypočítaj"
+
       results:
         label: "Vypočítané hodnoty"
         xlabel: "Poradové číslo merania"

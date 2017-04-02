@@ -18,4 +18,4 @@ readLabels <- function(property, numberOfProperties) {
 
 predictionAlgorithmsLabels <- readLabels(config::get("server", file = "~/r/fiit-bp/webapp/config.yml")$predictionAlgorithms, 2)
 optimizationAlgorithmsLabels <- readLabels(config::get("server", file = "~/r/fiit-bp/webapp/config.yml")$optimizationAlgorithms, 1)
-fitnessFunctionsLabels <- readLabels(config::get("server", file = "~/r/fiit-bp/webapp/config.yml")$fitnessFunctions, 1)
+fitnessFunctionsLabels <- readLabels(config::get("server", file = "~/r/fiit-bp/webapp/config.yml")$fitnessFunctions, 5)

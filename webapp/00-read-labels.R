@@ -1,4 +1,4 @@
-# utility function to read labels for UI
+## utility function to read labels for UI
 
 library(config)
 

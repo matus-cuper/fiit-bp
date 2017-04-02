@@ -62,8 +62,30 @@
               max: 10
               step: 0.001
 
-        - label: "ARIMA"
-          id: "dru"
+        - label: "Autoregresívny integrovaný model kĺzavého priemeru"
+          readDataFn: "arima.readDataFn"
+          predictFn: "arima.predictFn"
+          numberOfPredictionParameters: 3
+          predictionParameters:
+            - id: "p"
+              label: "Rad autoregresného modelu"
+              value: 1
+              min: 0
+              max: 10
+              step: 1
+            - id: "d"
+              label: "Stupeň derivovania"
+              value: 1
+              min: 0
+              max: 10
+              step: 1
+            - id: "q"
+              label: "Rad modelu kĺzavých priemerov"
+              value: 1
+              min: 0
+              max: 10
+              step: 1
+
 
       optimizationAlgorithms:
         - label: "Umelá kolónia včiel"

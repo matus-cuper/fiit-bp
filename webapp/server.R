@@ -1,28 +1,21 @@
 library(shiny)
 library(kernlab)
 library(config)
-config.ui <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
-config.server <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
-
-source("~/r/fiit-bp/scripts/00-svr-prepare-data.R")
-source("~/r/fiit-bp/scripts/01-measure-accuracy.R")
-source("~/r/fiit-bp/scripts/02-svr-optimize.R")
-source("~/r/fiit-bp/scripts/03-svr-psoptim.R")
+ui.properties <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
+server.properties <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
 
 function(input, output) {
 
-  options(shiny.reactlog=TRUE)
-  
   output$optimizationParameters <- renderUI({
-    numberOfParameters <- as.numeric(config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
+    numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
     fluidRow(
       lapply(1:numberOfParameters, function(i) {
-        column(numberOfParameters,
-               numericInput(config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$id,
-                            label = config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$label,
-                            value = as.numeric(config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$value),
-                            min = as.numeric(config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$min),
-                            max = as.numeric(config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$max)
+        column(2,
+               numericInput(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$id,
+                            label = server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$label,
+                            value = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$value),
+                            min = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$min),
+                            max = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$max)
                )
         )
       })
@@ -31,16 +24,16 @@ function(input, output) {
 
 
   output$predictionParameters <- renderUI({
-    numberOfParameters <- as.numeric(config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfPredictionParameters)
+    numberOfParameters <- as.numeric(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$numberOfPredictionParameters)
     fluidRow(
       lapply(1:numberOfParameters, function(i) {
-        column(numberOfParameters,
-               numericInput(config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$id,
-                            label = config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$label,
-                            value = config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$value,
-                            min = config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$min,
-                            max = config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$max,
-                            step = config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$predictionParameters[[i]]$step
+        column(2,
+               numericInput(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$id,
+                            label = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$label,
+                            value = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$value,
+                            min = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$min,
+                            max = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$max,
+                            step = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$step
                )
         )
       })
@@ -53,9 +46,9 @@ function(input, output) {
     if (is.null(inputFile))
       return(NULL)
 
-    readFunction <<- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
-    predictFunction <<- config.server$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictFunction
-    optimizeFunction <<- config.server$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizeFunction
+    readFunction <<- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
+    predictFunction <<- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictFunction
+    optimizeFunction <<- server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizeFunction
 
     # Global assignment
     preparedData <- do.call(readFunction, list(inputFile$datapath, input$measurementsPerDay, input$testDatasetProportion))
@@ -63,7 +56,7 @@ function(input, output) {
     trainingMatrix <<- preparedData$trainingMatrix
     testingMatrix <<- preparedData$testingMatrix
     verificationData <<- preparedData$verificationData
-    accuracyFunction <<- config.server$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$accuracyFunction
+    accuracyFunction <<- server.properties$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$accuracyFunction
 
     reactiveComputation <<- reactive({ do.call(optimizeFunction, list(svrErrorWrapper, c(list(numberOfParticles = input$numberOfParticles,
                                                                      maxIterations = input$maxIterations,
@@ -85,7 +78,7 @@ function(input, output) {
     matplot(data.frame(verificationData, svrPredict(trainingMatrix, testingMatrix, verificationData, accuracyFunction, result$sol[1], result$sol[2])),
             type = c("l"),
             col = 1:length(verificationData),
-            xlab = config.ui$results$xlabel,
-            ylab = config.ui$results$ylabel)
+            xlab = ui.properties$results$xlabel,
+            ylab = ui.properties$results$ylabel)
   })
 }

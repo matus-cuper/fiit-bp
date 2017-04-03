@@ -11,7 +11,7 @@ function(input, output) {
     numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
     fluidRow(
       lapply(1:numberOfParameters, function(i) {
-        column(2,
+        column(5,
                numericInput(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$id,
                             label = server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$label,
                             value = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$value),
@@ -28,7 +28,7 @@ function(input, output) {
     numberOfParameters <- as.numeric(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$numberOfPredictionParameters)
     fluidRow(
       lapply(1:numberOfParameters, function(i) {
-        column(2,
+        column(5,
                numericInput(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$id,
                             label = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$label,
                             value = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$value,
@@ -76,38 +76,10 @@ function(input, output) {
       }
       params.optimization <- as.list(setNames(values, names))
 
-      params.optimization$numberOfParticles
       
+      length(params.prediction)
     })
   })
-
-
-  # output$resultValues <- renderText({
-  #   inputFile <- input$inputFile
-  #   if (is.null(inputFile))
-  #     return(NULL)
-  # 
-  #   readFunction <<- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$readDataFunction
-  #   predictFunction <<- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictFunction
-  #   optimizeFunction <<- server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizeFunction
-  # 
-  #   # Global assignment
-  #   preparedData <- do.call(readFunction, list(inputFile$datapath, input$measurementsPerDay, input$testDatasetProportion))
-  # 
-  #   trainingMatrix <<- preparedData$trainingMatrix
-  #   testingMatrix <<- preparedData$testingMatrix
-  #   verificationData <<- preparedData$verificationData
-  #   accuracyFunction <<- server.properties$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$accuracyFunction
-  # 
-  #   reactiveComputation <<- reactive({ do.call(optimizeFunction, list(svrErrorWrapper, c(list(numberOfParticles = input$numberOfParticles,
-  #                                                                    maxIterations = input$maxIterations,
-  #                                                                    xmin = c(input$minC, input$minEpsilon),
-  #                                                                    xmax = c(input$maxC, input$maxEpsilon)))))
-  #   })
-  # 
-  #   result <- reactiveComputation()
-  #   result$val
-  # })
 
 
   output$resultPlot <- renderPlot({

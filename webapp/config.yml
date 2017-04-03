@@ -67,23 +67,41 @@
         - label: "Autoregresívny integrovaný model kĺzavého priemeru"
           readDataFn: "arima.readDataFn"
           predictFn: "arima.predictFn"
-          numberOfPredictionParameters: 3
+          numberOfPredictionParameters: 6
           predictionParameters:
-            - id: "p"
-              label: "Rad autoregresného modelu"
+            - id: "minP"
+              label: "Minimum p"
               value: 1
               min: 0
               max: 10
               step: 1
-            - id: "d"
-              label: "Stupeň derivovania"
+            - id: "maxP"
+              label: "Maximum p"
+              value: 2
+              min: 0
+              max: 10
+              step: 1
+            - id: "minD"
+              label: "Minimum d"
               value: 1
               min: 0
               max: 10
               step: 1
-            - id: "q"
-              label: "Rad modelu kĺzavých priemerov"
+            - id: "maxD"
+              label: "Maximum d"
+              value: 2
+              min: 0
+              max: 10
+              step: 1
+            - id: "minQ"
+              label: "Minimum q"
               value: 1
+              min: 0
+              max: 10
+              step: 1
+            - id: "maxQ"
+              label: "Maximum q"
+              value: 2
               min: 0
               max: 10
               step: 1

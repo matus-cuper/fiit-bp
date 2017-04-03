@@ -11,30 +11,13 @@ server.properties <- config::get("server", file = pathToShinyConfig)
 
 pso.optimizeFn <- function(params) {
   
-  selectedPredictionFn <- 1
-  selectedFitnessFn <- 1
+  preparedData <- do.call(params.prediction$readDataFn, list(pathToFile = params.prediction$pathToFile,
+                                                             measurementsPerDay = params.prediction$measurementsPerDay,
+                                                             trainingSetProportion = params.prediction$trainingSetProportion))
 
-  params <- list(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv",
-                 measurementsPerDay = 96,
-                 trainingSetProportion = 0.9,
-                 readDataFn = server.properties$predictionAlgorithms[[as.numeric(selectedPredictionFn)]]$readDataFn,
-                 predictFn = server.properties$predictionAlgorithms[[as.numeric(selectedPredictionFn)]]$predictFn,
-                 errorFn = server.properties$fitnessFunctions[[as.numeric(selectedFitnessFn)]]$errorFn)
+  params.prediction <<- c(params.prediction, preparedData)
 
-  params.optimization <- list(numberOfParticles = 10,
-                              maxIterations = 20,
-                              minC = 0.5,
-                              maxC = 1.5,
-                              minEpsilon = 0.05,
-                              maxEpsilon = 0.2)
-
-  preparedData <- do.call(readDataFn, list(pathToFile = params$pathToFile,
-                                           measurementsPerDay = params$measurementsPerDay,
-                                           trainingSetProportion = params$trainingSetProportion))
-
-  params.prediction <<- c(preparedData, "errorFn" = params$errorFn)
-
-  result <- psoptim::psoptim(FUN = eval(parse(text = predictFn)),
+  result <- psoptim::psoptim(FUN = eval(parse(text = params.prediction$predictFn)),
                              n = params.optimization$numberOfParticles,
                              max.loop = params.optimization$maxIterations,
                              xmin = c(params.optimization$minC, params.optimization$minEpsilon),

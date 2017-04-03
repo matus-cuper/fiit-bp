@@ -2,8 +2,20 @@
 
 library(shiny)
 library(config)
-ui.properties <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
-server.properties <- config::get("server", file = "~/r/fiit-bp/webapp/config.yml")
+
+source("~/r/fiit-bp/scripts/global.R")
+
+source("~/r/fiit-bp/scripts/00-svr-read-data.R")
+source("~/r/fiit-bp/scripts/00-arima-read-data.R")
+source("~/r/fiit-bp/scripts/00-svr-predict.R")
+source("~/r/fiit-bp/scripts/00-arima-predict.R")
+
+source("~/r/fiit-bp/scripts/01-measure-error.R")
+
+source("~/r/fiit-bp/scripts/02-pso-optimize.R")
+
+ui.properties <- config::get("ui", file = pathToShinyConfig)
+server.properties <- config::get("server", file = pathToShinyConfig)
 
 function(input, output) {
 
@@ -41,44 +53,55 @@ function(input, output) {
     )
   })
   
-  
-  observeEvent({
-    input$submitComputation
-  }, {
-    output$resultValues <- renderText({
-      
-      selectedAlgorithm <- as.numeric(input$predictionAlgorithms)
-      numberOfParameters <- server.properties$predictionAlgorithms[[selectedAlgorithm]]$numberOfPredictionParameters
-      parameters <- server.properties$predictionAlgorithms[[selectedAlgorithm]]$predictionParameters
-        
-      names <- list()
-      values <- list()
-      for (i in 1:numberOfParameters) {
-        names <- c(names, parameters[[i]]$id)
-          
-        value <- eval(parse(text = paste("input", "$", parameters[[i]]$id, sep = "")))
-        values <- c(values, value)
-      }
-      params.prediction <- as.list(setNames(values, names))
-      
-      
-      selectedAlgorithm <- as.numeric(input$optimizationAlgorithms)
-      numberOfParameters <- server.properties$optimizationAlgorithms[[selectedAlgorithm]]$numberOfOptimizationParameters
-      parameters <- server.properties$optimizationAlgorithms[[selectedAlgorithm]]$optimizationParameters
-      
-      names <- list()
-      values <- list()
-      for (i in 1:numberOfParameters) {
-        names <- c(names, parameters[[i]]$id)
-        
-        value <- eval(parse(text = paste("input", "$", parameters[[i]]$id, sep = "")))
-        values <- c(values, value)
-      }
-      params.optimization <- as.list(setNames(values, names))
+  output$resultValues <- renderText({
 
-      
-      length(params.prediction)
+    inputFile <- input$inputFile
+    if (is.null(inputFile))
+      return(NULL)
+
+    input$submitComputation
+
+    isolate({
+      selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
+      selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
+      selectedFitnessFn <- as.numeric(input$fitnessFunction)
     })
+
+    numberOfParameters <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$numberOfPredictionParameters
+    parameters <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictionParameters
+    names <- list()
+    values <- list()
+    for (i in 1:numberOfParameters) {
+      names <- c(names, parameters[[i]]$id)
+
+      value <- eval(parse(text = paste("input", "$", parameters[[i]]$id, sep = "")))
+      values <- c(values, value)
+    }
+    params.optimization <- as.list(setNames(values, names))
+
+    numberOfParameters <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$numberOfOptimizationParameters
+    parameters <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizationParameters
+    names <- list()
+    values <- list()
+    for (i in 1:numberOfParameters) {
+      names <- c(names, parameters[[i]]$id)
+
+      value <- eval(parse(text = paste("input", "$", parameters[[i]]$id, sep = "")))
+      values <- c(values, value)
+    }
+    params.optimization <<- c(params.optimization, as.list(setNames(values, names)))
+
+    params.prediction <<- list(pathToFile = input$inputFile$datapath,
+                               measurementsPerDay = input$measurementsPerDay,
+                               trainingSetProportion = input$trainingDatasetProportion,
+                               readDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$readDataFn,
+                               predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
+                               errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
+
+    result <- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
+
+    result$minError
+
   })
 
 

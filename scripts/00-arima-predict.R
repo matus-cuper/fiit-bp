@@ -1,28 +1,29 @@
 ## compute ARIMA and return error
 
 # tmp <- arima.readDataFn("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", 96, 0.9)
-# arima.predictFn(c(tmp, pToOptimize = 1, dToOptimize = 1, qToOptimize = 1, errorFn = "mape"))
-# tmd <- do.call("arima.predictFn", list( c(tma, pToOptimize = 1, dToOptimize = 1, qToOptimize = 1, errorFn = "mape") ))
+# params.prediction <<- c(tmp, errorFn = "mape")
+# arima.predictFn(c(1, 2, 3))
+# do.call("arima.predictFn", list(c(1, 2, 3)))
+# where 1 is p, 2 is d and 3 is q
 
 library(forecast)
 
 # Set ARIMA parameters, compute and return predicted values
 arima.predict <- function(params) {
-  arimaModel <- arima(x = params$trainingTimeSeries,
-                      order = c(p = params$pToOptimize,
-                                d = params$dToOptimize,
-                                q = params$qToOptimize))
-  return(forecast.Arima(arimaModel, h = 192))
+  arimaModel <- arima(x = params.prediction$trainingTimeSeries,
+                      order = c(p = params[1],
+                                d = params[2],
+                                q = params[3]))
+  return(forecast.Arima(arimaModel, h = length(params.prediction$testingTimeSeries)))
 }
 
 # Used by optimization function
 arima.predictFn <- function(params) {
-  arimaModel <- arima(x = params$trainingTimeSeries,
-                      order = c(p = params$pToOptimize,
-                                d = params$dToOptimize,
-                                q = params$qToOptimize))
-  arimaForecast <- forecast.Arima(arimaModel, h = 192) 
+  arimaModel <- arima(x = params.prediction$trainingTimeSeries,
+                      order = c(p = params[1],
+                                d = params[2],
+                                q = params[3]))
+  arimaForecast <- forecast.Arima(arimaModel, h = length(params.prediction$testingTimeSeries))
   # add testing TS ?
-  # add parameter h as testingTS size
-  return(do.call(params$errorFn, list(c(arimaForecast$mean), params$verificationData)))  
+  return(do.call(params.prediction$errorFn, list(arimaForecast$mean, params.prediction$verificationData)))
 }

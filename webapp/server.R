@@ -3,16 +3,12 @@
 library(shiny)
 library(config)
 
-source("~/r/fiit-bp/scripts/global.R")
-
-source("~/r/fiit-bp/scripts/00-svr-read-data.R")
-source("~/r/fiit-bp/scripts/00-arima-read-data.R")
-source("~/r/fiit-bp/scripts/00-svr-predict.R")
-source("~/r/fiit-bp/scripts/00-arima-predict.R")
-
-source("~/r/fiit-bp/scripts/01-measure-error.R")
-
-source("~/r/fiit-bp/scripts/02-pso-optimize.R")
+source(paste(pathToScripts, "00-svr-read-data.R", sep = ""))
+source(paste(pathToScripts, "00-arima-read-data.R", sep = ""))
+source(paste(pathToScripts, "00-svr-predict.R", sep = ""))
+source(paste(pathToScripts, "00-arima-predict.R", sep = ""))
+source(paste(pathToScripts, "01-measure-error.R", sep = ""))
+source(paste(pathToScripts, "02-pso-optimize.R", sep = ""))
 
 ui.properties <- config::get("ui", file = pathToShinyConfig)
 server.properties <- config::get("server", file = pathToShinyConfig)

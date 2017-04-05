@@ -124,6 +124,22 @@ function(input, output) {
       result$minError
     }
   })
+  
+  
+  output$resultSolutions <- renderDataTable({
+    
+    inputFile <- input$inputFile
+    if (is.null(inputFile))
+      return(NULL)
+    
+    input$submitComputation
+    
+    if (input$submitComputation > 0) {
+      dataTable <- result$bestSolution
+      colnames(dataTable) <- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels
+      dataTable
+    }
+  })
 
 
   output$resultPlot <- renderPlot({
@@ -133,10 +149,13 @@ function(input, output) {
       return(NULL)
 
     input$submitComputation
-    matplot(data.frame(params.prediction$verificationData, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),
-            type = c("l"),
-            col = 1:length(verificationData),
-            xlab = ui.properties$results$xlabel,
-            ylab = ui.properties$results$ylabel)
+
+    if (input$submitComputation > 0) {
+      matplot(data.frame(params.prediction$verificationData, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),
+              type = c("l"),
+              col = 1:length(params.prediction$verificationData),
+              xlab = ui.properties$results$xlabel,
+              ylab = ui.properties$results$ylabel)
+    }
   })
 }

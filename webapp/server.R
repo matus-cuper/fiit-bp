@@ -68,15 +68,21 @@ function(input, output) {
 
       numberOfParameters <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$numberOfPredictionParameters
       parameters <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictionParameters
-      names <- list()
-      values <- list()
+      lows <- c()
+      highs <- c()
       for (i in 1:numberOfParameters) {
-        names <- c(names, parameters[[i]]$id)
-
         value <- eval(parse(text = paste("input", "$", parameters[[i]]$id, sep = "")))
-        values <- c(values, value)
+
+        if (grepl("^min", parameters[[i]]$id)) {
+          lows <- c(lows, value)
+        } else if (grepl("^max", parameters[[i]]$id)) {
+          highs <- c(highs, value)
+        } else {
+          cat("Unexpected error", file = stderr())
+        }
       }
-      params.optimization <- as.list(setNames(values, names))
+      params.optimization <- as.list(setNames(list(lows), "lows"))
+      params.optimization <- c(params.optimization, as.list(setNames(list(highs), "highs")))
 
       numberOfParameters <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$numberOfOptimizationParameters
       parameters <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizationParameters

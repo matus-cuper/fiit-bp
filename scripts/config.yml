@@ -8,3 +8,7 @@
 
     02-pso-optimize:
       animation: FALSE
+      vmax:
+        - 0.05
+        - 0.05
+        - 0.05

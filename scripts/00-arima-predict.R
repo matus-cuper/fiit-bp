@@ -24,6 +24,5 @@ arima.predictFn <- function(params) {
                                 d = params[2],
                                 q = params[3]))
   arimaForecast <- forecast.Arima(arimaModel, h = length(params.prediction$testingTimeSeries))
-  # add testing TS ?
   return(do.call(params.prediction$errorFn, list(arimaForecast$mean, params.prediction$verificationData)))
 }

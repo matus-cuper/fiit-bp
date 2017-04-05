@@ -19,7 +19,7 @@ arima.readDataFn <- function(pathToFile, measurementsPerDay, trainingSetProporti
   trainingTS <- ts(dataRaw$value[1:(trainingSetDays*measurementsPerDay)], frequency = measurementsPerDay)
 
   # Create testing time series
-  testingTS <- ts(dataRaw$value[(trainingSetDays * measurementsPerDay + 1):((trainingSetDays + testingSetDays)*measurementsPerDay)])
+  testingTS <- ts(dataRaw$value[(trainingSetDays * measurementsPerDay + 1):((trainingSetDays + testingSetDays)*measurementsPerDay)], frequency = measurementsPerDay)
   
   return(list(trainingTimeSeries = trainingTS, testingTimeSeries = testingTS, verificationData = dataRaw$value[(trainingSetDays * measurementsPerDay + 1):((trainingSetDays + testingSetDays)*measurementsPerDay)]))
 }

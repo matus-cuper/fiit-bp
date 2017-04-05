@@ -20,8 +20,9 @@ pso.optimizeFn <- function(params) {
   result <- psoptim::psoptim(FUN = eval(parse(text = params.prediction$predictFn)),
                              n = params.optimization$numberOfParticles,
                              max.loop = params.optimization$maxIterations,
-                             xmin = c(params.optimization$minC, params.optimization$minEpsilon),
-                             xmax = c(params.optimization$maxC, params.optimization$maxEpsilon),
+                             xmin = params.optimization$lows,
+                             xmax = params.optimization$highs,
+                             vmax = pso.properties$vmax,
                              anim = pso.properties$animation)
 
   return(list(minError = result$val, bestSolution = result$sol))

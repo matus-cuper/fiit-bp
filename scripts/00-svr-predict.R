@@ -11,7 +11,7 @@ library(config)
 svr.properties <- config::get("00-svr-predict", file = pathToConfig)
 
 # Set SVR parameters, compute and return predicted values
-svr.predict <- function(params) {
+svr.predictDataFn <- function(params) {
   svrModel <- ksvm(value ~ .,
                    data = params.prediction$trainingMatrix,
                    type = svr.properties$svmType,
@@ -19,7 +19,8 @@ svr.predict <- function(params) {
                    C = params[1],
                    epsilon = params[2],
                    scaled = svr.properties$scaled)
-  return(predict(svrModel, params.prediction$testingMatrix))
+  svrPrediction <- predict(svrModel, params.prediction$testingMatrix)
+  return(data.frame(svrPrediction))
 }
 
 # Used by optimization function

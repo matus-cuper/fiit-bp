@@ -2,9 +2,11 @@
 
 library(shiny)
 library(config)
-ui.properties <- config::get("ui", file = "~/r/fiit-bp/webapp/config.yml")
 
+source("~/r/fiit-bp/scripts/global.R")
 source("~/r/fiit-bp/webapp/00-read-labels.R")
+
+ui.properties <- config::get("ui", file = pathToShinyConfig)
 
 fluidPage(
 

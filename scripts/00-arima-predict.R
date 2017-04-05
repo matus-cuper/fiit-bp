@@ -9,12 +9,13 @@
 library(forecast)
 
 # Set ARIMA parameters, compute and return predicted values
-arima.predict <- function(params) {
+arima.predictDataFn <- function(params) {
   arimaModel <- arima(x = params.prediction$trainingTimeSeries,
                       order = c(p = params[1],
                                 d = params[2],
                                 q = params[3]))
-  return(forecast.Arima(arimaModel, h = length(params.prediction$testingTimeSeries)))
+  arimaForecast <- forecast.Arima(arimaModel, h = length(params.prediction$testingTimeSeries))
+  return(data.frame(arimaForecast$mean))
 }
 
 # Used by optimization function

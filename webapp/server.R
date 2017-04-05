@@ -101,6 +101,7 @@ function(input, output) {
                                  trainingSetProportion = input$trainingDatasetProportion,
                                  readDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$readDataFn,
                                  predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
+                                 predictDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictDataFn,
                                  errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
 
       result <- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
@@ -111,12 +112,13 @@ function(input, output) {
 
 
   output$resultPlot <- renderPlot({
+
     inputFile <- input$inputFile
     if (is.null(inputFile))
       return(NULL)
 
-    result <- reactiveComputation()
-    matplot(data.frame(verificationData, svrPredict(trainingMatrix, testingMatrix, verificationData, accuracyFunction, result$sol[1], result$sol[2])),
+    input$submitComputation
+    matplot(data.frame(params.prediction$verificationData, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),
             type = c("l"),
             col = 1:length(verificationData),
             xlab = ui.properties$results$xlabel,

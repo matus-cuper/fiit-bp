@@ -31,6 +31,10 @@
         xlabel: "Poradové číslo merania"
         ylabel: "Namerané a predikované dáta"
 
+      numberOfPredictionAlgorithms: 2
+      numberOfOptimizationAlgorithms: 1
+      numberOfFitnessFunctions: 5
+
 
     server:
       predictionAlgorithms:

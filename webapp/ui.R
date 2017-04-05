@@ -77,15 +77,19 @@ fluidPage(
   ),
 
 
-  h3(ui.properties$optimizationParametersLabel),
+  h2(ui.properties$optimizationParametersLabel),
   uiOutput("optimizationParameters"),
 
-  h3(ui.properties$predictionParametersLabel),
+  h2(ui.properties$predictionParametersLabel),
   uiOutput("predictionParameters"),
 
   actionButton("submitComputation", ui.properties$submitButtonLabel),
 
-  h3(ui.properties$results$label),
+  h2(ui.properties$results$label),
+  h3(ui.properties$results$valueLabel),
   uiOutput("resultValues"),
+
+  h3(ui.properties$results$solutionLabel),
+  dataTableOutput("resultSolutions"),
   plotOutput("resultPlot")
 )

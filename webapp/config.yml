@@ -3,7 +3,15 @@
 
     ui:
       titlePanelLabel: "Optimalizácia konfiguračných parametrov predikčných metód"
-      descriptionPanelLabel: "Popis aplikácie, prečo a ako sa používa"
+      descriptionPanelLabel: >
+        Aplikácia umožňuje používateľovi vybrať si predikčný a optimalizačný
+        algoritmus, pomocou ktorých bude nájdená optimálna hodnota vybranej
+        fitness funkcie. Používateľ má možnosť konfigurovať parametre
+        optimalizačnej a interval jednotlivých paramtrov predikčnej metódy.
+        Nad dátami, ktoré vloží bude vypočítaná najmenšia odchýlka a parametre,
+        ktoré k tomuto výsledku viedli. Dáta musia byť vo formáte CSV, kde
+        prvý stĺpec timestamp označuje čas merania, a stĺpec value hodnotu tohto
+        merania.
 
       predictionAlgorithmsLabel: "Predikčné algoritmy"
       optimizationAlgorithmsLabel: "Optimalizačné algoritmy"

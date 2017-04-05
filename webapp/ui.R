@@ -14,14 +14,14 @@ fluidPage(
 
 
   fluidRow(
-    column(3,
+    column(12,
       p(ui.properties$descriptionPanelLabel)
     )
   ),
 
 
   fluidRow(
-    column(3,
+    column(4,
       selectInput(
         "predictionAlgorithms",
         label = ui.properties$predictionAlgorithmsLabel,
@@ -29,7 +29,7 @@ fluidPage(
       )
     ),
 
-    column(3,
+    column(4,
       selectInput(
         "optimizationAlgorithms",
         label = ui.properties$optimizationAlgorithmsLabel,
@@ -37,7 +37,7 @@ fluidPage(
       )
     ),
 
-    column(3,
+    column(4,
       selectInput(
         "fitnessFunction",
         label = ui.properties$fitnessFunctionsLabel,
@@ -48,14 +48,14 @@ fluidPage(
 
 
   fluidRow(
-    column(3,
+    column(4,
       fileInput(
         "inputFile",
         label = ui.properties$inputFileLabel
       )
     ),
 
-    column(3,
+    column(4,
       numericInput(
         "measurementsPerDay",
         label = ui.properties$measurementsPerDay$label,
@@ -65,7 +65,7 @@ fluidPage(
       )
     ),
 
-    column(3,
+    column(4,
       sliderInput(
         "trainingDatasetProportion",
         label = ui.properties$trainingDatasetProportion$label,

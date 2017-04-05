@@ -53,6 +53,49 @@ function(input, output) {
     )
   })
   
+  
+  setOptimizationParameters <- function() {
+    
+    selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
+    selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
+    
+    predictParamsCount <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$numberOfPredictionParameters
+    optimParamsCount <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$numberOfOptimizationParameters
+    predictParams <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictionParameters
+    optimParams <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizationParameters
+    
+    optimizationParams <- list()
+    lows <- c()
+    highs <- c()
+    names <- list()
+    values <- list()
+    
+    for (i in 1:predictParamsCount) {
+      value <- eval(parse(text = paste("input", "$", predictParams[[i]]$id, sep = "")))
+      
+      if (grepl("^min", predictParams[[i]]$id)) {
+        lows <- c(lows, value)
+      } 
+      else if (grepl("^max", predictParams[[i]]$id)) {
+        highs <- c(highs, value)
+      }
+    }
+    
+    for (i in 1:optimParamsCount) {
+      value <- eval(parse(text = paste("input", "$", optimParams[[i]]$id, sep = "")))
+      
+      names <- c(names, optimParams[[i]]$id)
+      values <- c(values, value)
+    }
+    
+    optimParams <- c(optimParams, as.list(setNames(list(lows), "lows")))
+    optimParams <- c(optimParams, as.list(setNames(list(highs), "highs")))
+    optimParams <- c(optimParams, as.list(setNames(values, names)))
+    
+    return(optimParams)
+  }
+  
+  
   output$resultValues <- renderText({
 
     inputFile <- input$inputFile
@@ -65,37 +108,8 @@ function(input, output) {
       selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
       selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
       selectedFitnessFn <- as.numeric(input$fitnessFunction)
-
-      numberOfParameters <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$numberOfPredictionParameters
-      parameters <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictionParameters
-      lows <- c()
-      highs <- c()
-      for (i in 1:numberOfParameters) {
-        value <- eval(parse(text = paste("input", "$", parameters[[i]]$id, sep = "")))
-
-        if (grepl("^min", parameters[[i]]$id)) {
-          lows <- c(lows, value)
-        } else if (grepl("^max", parameters[[i]]$id)) {
-          highs <- c(highs, value)
-        } else {
-          cat("Unexpected error", file = stderr())
-        }
-      }
-      params.optimization <- as.list(setNames(list(lows), "lows"))
-      params.optimization <- c(params.optimization, as.list(setNames(list(highs), "highs")))
-
-      numberOfParameters <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$numberOfOptimizationParameters
-      parameters <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizationParameters
-      names <- list()
-      values <- list()
-      for (i in 1:numberOfParameters) {
-        names <- c(names, parameters[[i]]$id)
-
-        value <- eval(parse(text = paste("input", "$", parameters[[i]]$id, sep = "")))
-        values <- c(values, value)
-      }
-      params.optimization <<- c(params.optimization, as.list(setNames(values, names)))
-
+      
+      params.optimization <<- setOptimizationParameters()
       params.prediction <<- list(pathToFile = input$inputFile$datapath,
                                  measurementsPerDay = input$measurementsPerDay,
                                  trainingSetProportion = input$trainingDatasetProportion,
@@ -103,11 +117,12 @@ function(input, output) {
                                  predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
                                  predictDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictDataFn,
                                  errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
-
-      result <- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
-
-      result$minError
     })
+    
+    if (input$submitComputation > 0) {
+      result <<- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
+      result$minError
+    }
   })
 
 

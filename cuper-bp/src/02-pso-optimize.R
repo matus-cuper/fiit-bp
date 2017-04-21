@@ -6,11 +6,11 @@
 
 library(psoptim)
 library(config)
-pso.properties <- config::get("02-pso-optimize", file = pathToConfig)
+pso.properties <- config::get("02-pso-optimize", file = pathToAppConfig)
 server.properties <- config::get("server", file = pathToShinyConfig)
 
 pso.optimizeFn <- function(params) {
-  
+
   preparedData <- do.call(params.prediction$readDataFn, list(pathToFile = params.prediction$pathToFile,
                                                              measurementsPerDay = params.prediction$measurementsPerDay,
                                                              trainingSetProportion = params.prediction$trainingSetProportion))

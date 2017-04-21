@@ -8,7 +8,7 @@
 
 library(kernlab)
 library(config)
-svr.properties <- config::get("00-svr-predict", file = pathToConfig)
+svr.properties <- config::get("00-svr-predict", file = pathToAppConfig)
 
 # Set SVR parameters, compute and return predicted values
 svr.predictDataFn <- function(params) {

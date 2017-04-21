@@ -3,7 +3,7 @@
 library(config)
 server.properties <- config::get(file = path.server.conf)
 
-readLabels <- function(property, numberOfProperties) {
+labels.read <- function(property, numberOfProperties) {
   title <- c()
   values <- c()
   
@@ -17,6 +17,6 @@ readLabels <- function(property, numberOfProperties) {
   return(result)
 }
 
-predictionAlgorithmsLabels <- readLabels(server.properties$predictionAlgorithms, server.properties$numberOfPredictionAlgorithms)
-optimizationAlgorithmsLabels <- readLabels(server.properties$optimizationAlgorithms, server.properties$numberOfOptimizationAlgorithms)
-fitnessFunctionsLabels <- readLabels(server.properties$fitnessFunctions, server.properties$numberOfFitnessFunctions)
+labels.prediction <- labels.read(server.properties$predictionAlgorithms, server.properties$numberOfPredictionAlgorithms)
+labels.optimization <- labels.read(server.properties$optimizationAlgorithms, server.properties$numberOfOptimizationAlgorithms)
+labels.fitness <- labels.read(server.properties$fitnessFunctions, server.properties$numberOfFitnessFunctions)

@@ -23,7 +23,7 @@ fluidPage(
       selectInput(
         "predictionAlgorithms",
         label = ui.properties$predictionAlgorithmsLabel,
-        choices = predictionAlgorithmsLabels
+        choices = labels.prediction
       )
     ),
 
@@ -31,7 +31,7 @@ fluidPage(
       selectInput(
         "optimizationAlgorithms",
         label = ui.properties$optimizationAlgorithmsLabel,
-        choices = optimizationAlgorithmsLabels
+        choices = labels.optimization
       )
     ),
 
@@ -39,7 +39,7 @@ fluidPage(
       selectInput(
         "fitnessFunction",
         label = ui.properties$fitnessFunctionsLabel,
-        choices = fitnessFunctionsLabels
+        choices = labels.fitness
       )
     )
   ),
@@ -81,6 +81,7 @@ fluidPage(
   h2(ui.properties$predictionParametersLabel),
   uiOutput("predictionParameters"),
 
+  shinyjs::useShinyjs(),
   actionButton("submitComputation", ui.properties$submitButtonLabel),
 
   htmlOutput("resultLabel"),

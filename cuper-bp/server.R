@@ -1,6 +1,7 @@
 ## Shiny app server side
 
 library(shiny)
+library(shinyjs)
 library(config)
 
 source(paste(path.src, "00-svr-read-data.R", sep = ""))
@@ -14,6 +15,10 @@ ui.properties <- config::get(file = path.ui.conf)
 server.properties <- config::get(file = path.server.conf)
 
 function(input, output) {
+
+  shinyjs::disable("submitComputation")
+
+  observeEvent(input$inputFile, shinyjs::enable("submitComputation"))
 
   output$optimizationParameters <- renderUI({
     numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)

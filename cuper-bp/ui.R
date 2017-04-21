@@ -33,14 +33,6 @@ fluidPage(
         label = ui.properties$optimizationAlgorithmsLabel,
         choices = labels.optimization
       )
-    ),
-
-    column(4,
-      selectInput(
-        "fitnessFunction",
-        label = ui.properties$fitnessFunctionsLabel,
-        choices = labels.fitness
-      )
     )
   ),
 
@@ -76,6 +68,13 @@ fluidPage(
 
 
   h2(ui.properties$optimizationParametersLabel),
+  column(3,
+         selectInput(
+           "fitnessFunction",
+           label = ui.properties$fitnessFunctionsLabel,
+           choices = labels.fitness
+         )
+  ),
   uiOutput("optimizationParameters"),
 
   h2(ui.properties$predictionParametersLabel),

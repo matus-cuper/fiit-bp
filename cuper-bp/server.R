@@ -3,15 +3,15 @@
 library(shiny)
 library(config)
 
-source(paste(pathToSources, "00-svr-read-data.R", sep = ""))
-source(paste(pathToSources, "00-arima-read-data.R", sep = ""))
-source(paste(pathToSources, "00-svr-predict.R", sep = ""))
-source(paste(pathToSources, "00-arima-predict.R", sep = ""))
-source(paste(pathToSources, "01-measure-error.R", sep = ""))
-source(paste(pathToSources, "02-pso-optimize.R", sep = ""))
+source(paste(path.src, "00-svr-read-data.R", sep = ""))
+source(paste(path.src, "00-arima-read-data.R", sep = ""))
+source(paste(path.src, "00-svr-predict.R", sep = ""))
+source(paste(path.src, "00-arima-predict.R", sep = ""))
+source(paste(path.src, "01-measure-error.R", sep = ""))
+source(paste(path.src, "02-pso-optimize.R", sep = ""))
 
-ui.properties <- config::get("ui", file = pathToShinyConfig)
-server.properties <- config::get("server", file = pathToShinyConfig)
+ui.properties <- config::get(file = path.ui.conf)
+server.properties <- config::get(file = path.server.conf)
 
 function(input, output) {
 
@@ -153,5 +153,27 @@ function(input, output) {
               xlab = ui.properties$results$xlabel,
               ylab = ui.properties$results$ylabel)
     }
+  })
+
+  output$resultLabel <- renderUI({
+    inputFile <- input$inputFile
+    if (is.null(inputFile))
+      return(NULL)
+
+    input$submitComputation
+
+    if (input$submitComputation > 0)
+      HTML(paste("<h2>", ui.properties$results$label, "</h2>", "<h3>", ui.properties$results$valueLabel, "</h3>"))
+  })
+
+  output$solutionLabel <- renderUI({
+    inputFile <- input$inputFile
+    if (is.null(inputFile))
+      return(NULL)
+
+    input$submitComputation
+
+    if (input$submitComputation > 0)
+      HTML(paste("<h3>", ui.properties$results$solutionLabel, "<h/3>"))
   })
 }

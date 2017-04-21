@@ -1,0 +1,41 @@
+---
+  default:
+
+    titlePanelLabel: "Optimalizácia konfiguračných parametrov predikčných metód"
+    descriptionPanelLabel: >
+      Aplikácia umožňuje používateľovi vybrať si predikčný a optimalizačný
+      algoritmus, pomocou ktorých bude nájdená optimálna hodnota vybranej
+      fitness funkcie. Používateľ má možnosť konfigurovať parametre
+      optimalizačnej a interval jednotlivých paramtrov predikčnej metódy.
+      Nad dátami, ktoré vloží bude vypočítaná najmenšia odchýlka a parametre,
+      ktoré k tomuto výsledku viedli. Dáta musia byť vo formáte CSV, kde
+      prvý stĺpec timestamp označuje čas merania, a stĺpec value hodnotu tohto
+      merania.
+
+    predictionAlgorithmsLabel: "Predikčné algoritmy"
+    optimizationAlgorithmsLabel: "Optimalizačné algoritmy"
+    fitnessFunctionsLabel: "Fitness funkcia"
+    inputFileLabel: "Vstupné dáta"
+
+    measurementsPerDay:
+      label: "Počet meraní za deň"
+      min: 1
+      max: 1440
+      default: 96
+
+    trainingDatasetProportion:
+      label: "Pomer trénovacích dát"
+      min: 0
+      max: 1
+      default: 0.9
+
+    optimizationParametersLabel: "Parametre optimalizačnej metódy"
+    predictionParametersLabel: "Parametre predikčnej metódy"
+    submitButtonLabel: "Vypočítaj"
+
+    results:
+      label: "Vypočítané hodnoty"
+      xlabel: "Poradové číslo merania"
+      ylabel: "Namerané a predikované dáta"
+      valueLabel: "Najnižšia dosiahnutá chyba"
+      solutionLabel: "Optimálna konfigurácia parametrov"

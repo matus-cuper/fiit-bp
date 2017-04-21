@@ -3,8 +3,8 @@
 library(shiny)
 library(config)
 
-source(paste("./web/", "set-labels.R", sep = ""))
-ui.properties <- config::get("ui", file = pathToShinyConfig)
+source(paste(path.web, "set-labels.R", sep = ""))
+ui.properties <- config::get(file = path.ui.conf)
 
 fluidPage(
 
@@ -83,11 +83,10 @@ fluidPage(
 
   actionButton("submitComputation", ui.properties$submitButtonLabel),
 
-  h2(ui.properties$results$label),
-  h3(ui.properties$results$valueLabel),
+  htmlOutput("resultLabel"),
   uiOutput("resultValues"),
 
-  h3(ui.properties$results$solutionLabel),
+  htmlOutput("solutionLabel"),
   dataTableOutput("resultSolutions"),
   plotOutput("resultPlot")
 )

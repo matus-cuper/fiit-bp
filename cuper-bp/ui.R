@@ -3,7 +3,7 @@
 library(shiny)
 library(config)
 
-source(paste(pathToScripts, "00-read-labels.R", sep = ""))
+source(paste("./web/", "set-labels.R", sep = ""))
 ui.properties <- config::get("ui", file = pathToShinyConfig)
 
 fluidPage(

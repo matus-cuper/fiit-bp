@@ -7,7 +7,12 @@ docs/bp.blg
 docs/bp.lof
 docs/bp.lot
 
+docs/notes
+
 docs/iso-690/czechiso.log
 
-webapp/.RData
-webapp/.Rhistory
+cuper-bp/.RData
+cuper-bp/.Rhistory
+
+data
+revision

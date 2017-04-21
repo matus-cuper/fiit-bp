@@ -27,5 +27,5 @@ pso.optimizeFn <- function(params) {
                                         v.max = pso.properties$vmax,
                                         type = pso.properties$type))
 
-  return(list(minError = result$value, bestSolution = result$par))
+  return(list(minError = result$value, bestSolution = t(as.matrix(result$par))))
 }

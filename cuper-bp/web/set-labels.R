@@ -1,8 +1,7 @@
 ## utility function to read labels for UI
 
 library(config)
-ui.properties <- config::get("ui", file = pathToShinyConfig)
-server.properties <- config::get("server", file = pathToShinyConfig)
+server.properties <- config::get(file = path.server.conf)
 
 readLabels <- function(property, numberOfProperties) {
   title <- c()
@@ -18,6 +17,6 @@ readLabels <- function(property, numberOfProperties) {
   return(result)
 }
 
-predictionAlgorithmsLabels <- readLabels(server.properties$predictionAlgorithms, ui.properties$numberOfPredictionAlgorithms)
-optimizationAlgorithmsLabels <- readLabels(server.properties$optimizationAlgorithms, ui.properties$numberOfOptimizationAlgorithms)
-fitnessFunctionsLabels <- readLabels(server.properties$fitnessFunctions, ui.properties$numberOfFitnessFunctions)
+predictionAlgorithmsLabels <- readLabels(server.properties$predictionAlgorithms, server.properties$numberOfPredictionAlgorithms)
+optimizationAlgorithmsLabels <- readLabels(server.properties$optimizationAlgorithms, server.properties$numberOfOptimizationAlgorithms)
+fitnessFunctionsLabels <- readLabels(server.properties$fitnessFunctions, server.properties$numberOfFitnessFunctions)

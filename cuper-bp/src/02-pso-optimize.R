@@ -6,8 +6,8 @@
 
 library(psoptim)
 library(config)
-pso.properties <- config::get("02-pso-optimize", file = pathToAppConfig)
-server.properties <- config::get("server", file = pathToShinyConfig)
+pso.properties <- config::get("02-pso-optimize", file = path.app.conf)
+server.properties <- config::get(file = path.server.conf)
 
 pso.optimizeFn <- function(params) {
 

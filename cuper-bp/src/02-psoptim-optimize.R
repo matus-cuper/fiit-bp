@@ -4,12 +4,12 @@
 # result <- psoptimWraper(svrErrorWrapper, c(list(numberOfParticles = 10, maxIterations = 10, xmin = c(0.01, 0), xmax = c(2, 2))))
 # result <- do.call("psoptimWrapper", list(svrErrorWrapper, c(list(numberOfParticles = 10, maxIterations = 10, xmin = c(0.01, 0), xmax = c(2, 2)))))
 
-library(pso)
+library(psoptim)
 library(config)
-pso.properties <- config::get("02-pso-optimize", file = path.app.conf)
+psoptim.properties <- config::get("02-psoptim-optimize", file = path.app.conf)
 server.properties <- config::get(file = path.server.conf)
 
-pso.optimizeFn <- function(params) {
+psoptim.optimizeFn <- function(params) {
 
   preparedData <- do.call(params.prediction$readDataFn, list(pathToFile = params.prediction$pathToFile,
                                                              measurementsPerDay = params.prediction$measurementsPerDay,
@@ -17,15 +17,13 @@ pso.optimizeFn <- function(params) {
 
   params.prediction <<- c(params.prediction, preparedData)
 
-  result <- pso::psoptim(par = params.optimization$lows,
-                         fn = eval(parse(text = params.prediction$predictFn)),
-                         lower = params.optimization$lows,
-                         upper = params.optimization$highs,
-                         control = list(maxit = params.optimization$maxIterations,
-                                        maxit.stagnate = floor(params.optimization$maxIterations/2),
-                                        d = pso.properties$d,
-                                        v.max = pso.properties$vmax,
-                                        type = pso.properties$type))
+  result <- psoptim::psoptim(FUN = eval(parse(text = params.prediction$predictFn)),
+                             n = params.optimization$numberOfParticles,
+                             max.loop = params.optimization$maxIterations,
+                             xmin = params.optimization$lows,
+                             xmax = params.optimization$highs,
+                             vmax = psoptim.properties$vmax,
+                             anim = psoptim.properties$animation)
 
-  return(list(minError = result$value, bestSolution = result$par))
+  return(list(minError = result$val, bestSolution = result$sol))
 }

@@ -6,9 +6,14 @@
       kernelFunction: "rbfdot"
       scaled: FALSE
 
-    02-pso-optimize:
+    02-psoptim-optimize:
       animation: FALSE
       vmax:
         - 0.05
         - 0.05
         - 0.05
+
+    02-pso-optimize:
+      d: 5
+      vmax: 1
+      type: "SPSO2007"

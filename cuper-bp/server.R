@@ -9,6 +9,7 @@ source(paste(path.src, "00-arima-read-data.R", sep = ""))
 source(paste(path.src, "00-svr-predict.R", sep = ""))
 source(paste(path.src, "00-arima-predict.R", sep = ""))
 source(paste(path.src, "01-measure-error.R", sep = ""))
+source(paste(path.src, "02-psoptim-optimize.R", sep = ""))
 source(paste(path.src, "02-pso-optimize.R", sep = ""))
 
 ui.properties <- config::get(file = path.ui.conf)

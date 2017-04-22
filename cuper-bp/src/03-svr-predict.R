@@ -33,5 +33,5 @@ svr.predictFn <- function(params) {
                    epsilon = params[2],
                    scaled = svr.properties$scaled)
   svrPrediction <- predict(svrModel, params.prediction$testingMatrix)
-  return(do.call(params.prediction$errorFn, list(svrPrediction, params.prediction$verificationData)))
+  return(do.call(params.prediction$errorFn, list(svrPrediction, params.prediction$data$testingData$value)))
 }

@@ -18,5 +18,5 @@ arima.prepareFn <- function(preparedData) {
   # Create testing time series
   testingTS <- ts(preparedData$testingData, frequency = measurementsPerDay)
 
-  return(list(trainingTimeSeries = trainingTS, testingTimeSeries = testingTS, verificationData = preparedData$testingData))
+  return(list(trainingTimeSeries = trainingTS, testingTimeSeries = testingTS))
 }

@@ -7,11 +7,11 @@ library(config)
 source(paste(path.src, "00-read-data.R", sep = ""))
 source(paste(path.src, "01-svr-prepare.R", sep = ""))
 source(paste(path.src, "01-arima-prepare.R", sep = ""))
-source(paste(path.src, "00-svr-predict.R", sep = ""))
-source(paste(path.src, "00-arima-predict.R", sep = ""))
-source(paste(path.src, "01-measure-error.R", sep = ""))
-source(paste(path.src, "02-psoptim-optimize.R", sep = ""))
-source(paste(path.src, "02-pso-optimize.R", sep = ""))
+source(paste(path.src, "02-measure-error.R", sep = ""))
+source(paste(path.src, "03-svr-predict.R", sep = ""))
+source(paste(path.src, "03-arima-predict.R", sep = ""))
+source(paste(path.src, "04-psoptim-optimize.R", sep = ""))
+source(paste(path.src, "04-pso-optimize.R", sep = ""))
 
 ui.properties <- config::get(file = path.ui.conf)
 server.properties <- config::get(file = path.server.conf)
@@ -213,9 +213,9 @@ function(input, output) {
     input$submitComputation
 
     if (input$submitComputation > 0) {
-      matplot(data.frame(params.prediction$verificationData, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),
+      matplot(data.frame(params.prediction$data$testingData$value, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),
               type = c("l"),
-              col = 1:length(params.prediction$verificationData),
+              col = 1:length(params.prediction$data$testingData$value),
               xlab = ui.properties$results$xlabel,
               ylab = ui.properties$results$ylabel)
     }

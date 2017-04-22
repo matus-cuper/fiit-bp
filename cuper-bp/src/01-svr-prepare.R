@@ -57,5 +57,5 @@ svr.prepareFn <- function(preparedData) {
   testingM <- svr.setOnesForDayOfWeek(testingM, testingSetRecords$timestamp, testingSetSize, measurementsPerDay)
   colnames(testingM) <- c(paste("V", 1:(measurementsPerDay + daysPerWeek), sep = ""))
 
-  return(list(trainingMatrix = trainingM, testingMatrix = testingM, verificationData = testingSetRecords$value))
+  return(list(trainingMatrix = trainingM, testingMatrix = testingM))
 }

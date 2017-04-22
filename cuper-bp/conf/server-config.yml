@@ -10,7 +10,7 @@
         parameterLabels:
           - "C"
           - "epsilon"
-        readDataFn: "svr.readDataFn"
+        prepareFn: "svr.prepareFn"
         predictFn: "svr.predictFn"
         predictDataFn: "svr.predictDataFn"
         numberOfPredictionParameters: 4
@@ -45,7 +45,7 @@
           - "p"
           - "d"
           - "q"
-        readDataFn: "arima.readDataFn"
+        prepareFn: "arima.prepareFn"
         predictFn: "arima.predictFn"
         predictDataFn: "arima.predictDataFn"
         numberOfPredictionParameters: 6

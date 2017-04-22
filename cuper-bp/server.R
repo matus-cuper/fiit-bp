@@ -4,8 +4,9 @@ library(shiny)
 library(shinyjs)
 library(config)
 
-source(paste(path.src, "00-svr-read-data.R", sep = ""))
-source(paste(path.src, "00-arima-read-data.R", sep = ""))
+source(paste(path.src, "00-read-data.R", sep = ""))
+source(paste(path.src, "01-svr-prepare.R", sep = ""))
+source(paste(path.src, "01-arima-prepare.R", sep = ""))
 source(paste(path.src, "00-svr-predict.R", sep = ""))
 source(paste(path.src, "00-arima-predict.R", sep = ""))
 source(paste(path.src, "01-measure-error.R", sep = ""))
@@ -72,10 +73,7 @@ function(input, output) {
       return(dates[floor(length(dates) * 0.9)])
     }
     else if (choice == 3) {
-      return(dates[ceiling(length(dates) * 0.9)])
-    }
-    else if (choice == 4) {
-      return(max(dates))
+      return(max(dates) + 1)
     }
   }
 
@@ -88,28 +86,32 @@ function(input, output) {
     dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
 
     output$trainingSetRange <- renderUI({
-      dateRangeInput(
-        "trainingSetRange",
-        label = ui.properties$trainingSetRange$label,
-        separator = ui.properties$trainingSetRange$separator,
-        format = ui.properties$trainingSetRange$format,
-        min = ranges.read(dataRaw, 1),
-        max = ranges.read(dataRaw, 4),
-        start = ranges.read(dataRaw, 1),
-        end = ranges.read(dataRaw, 2)
+      column(3,
+        dateRangeInput(
+          "trainingSetRange",
+          label = ui.properties$trainingSetRange$label,
+          separator = ui.properties$trainingSetRange$separator,
+          format = ui.properties$trainingSetRange$format,
+          min = ranges.read(dataRaw, 1),
+          max = ranges.read(dataRaw, 3),
+          start = ranges.read(dataRaw, 1),
+          end = ranges.read(dataRaw, 2)
+        )
       )
     })
 
     output$testingSetRange <- renderUI({
-      dateRangeInput(
-        "testingSetRange",
-        label = ui.properties$testingSetRange$label,
-        separator = ui.properties$testingSetRange$separator,
-        format = ui.properties$testingSetRange$format,
-        min = ranges.read(dataRaw, 1),
-        max = ranges.read(dataRaw, 4),
-        start = ranges.read(dataRaw, 3),
-        end = ranges.read(dataRaw, 4)
+      column(3,
+        dateRangeInput(
+          "testingSetRange",
+          label = ui.properties$testingSetRange$label,
+          separator = ui.properties$testingSetRange$separator,
+          format = ui.properties$testingSetRange$format,
+          min = ranges.read(dataRaw, 1),
+          max = ranges.read(dataRaw, 3),
+          start = ranges.read(dataRaw, 2),
+          end = ranges.read(dataRaw, 3)
+        )
       )
     })
   })
@@ -157,20 +159,25 @@ function(input, output) {
 
     input$submitComputation
 
-    isolate({
-      selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
-      selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
-      selectedFitnessFn <- as.numeric(input$fitnessFunction)
-      
-      params.optimization <<- setOptimizationParameters()
-      params.prediction <<- list(pathToFile = input$inputFile$datapath,
-                                 measurementsPerDay = input$measurementsPerDay,
-                                 trainingSetProportion = input$trainingDatasetProportion,
-                                 readDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$readDataFn,
-                                 predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
-                                 predictDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictDataFn,
-                                 errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
-    })
+    if (input$submitComputation > 0) {
+      isolate({
+        selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
+        selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
+        selectedFitnessFn <- as.numeric(input$fitnessFunction)
+
+        preparedData <- data.prepare(pathToFile = input$inputFile$datapath,
+                                     measurementsPerDay = input$measurementsPerDay,
+                                     trainingSetRange = input$trainingSetRange,
+                                     testingSetRange = input$testingSetRange)
+
+        params.optimization <<- setOptimizationParameters()
+        params.prediction <<- list(data = preparedData,
+                                   prepareFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$prepareFn,
+                                   predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
+                                   predictDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictDataFn,
+                                   errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
+      })
+    }
     
     if (input$submitComputation > 0) {
       result <<- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())

@@ -23,11 +23,15 @@
       max: 1440
       default: 96
 
-    trainingDatasetProportion:
-      label: "Pomer trénovacích dát"
-      min: 0
-      max: 1
-      default: 0.9
+    trainingSetRange:
+      label: "Rozsah trénovacích dát"
+      separator: " do "
+      format: "yyyy-mm-dd"
+
+    testingSetRange:
+      label: "Rozsah testovacích dát"
+      separator: " do "
+      format: "yyyy-mm-dd"
 
     optimizationParametersLabel: "Parametre optimalizačnej metódy"
     predictionParametersLabel: "Parametre predikčnej metódy"

@@ -16,45 +16,6 @@ ui.properties <- config::get(file = path.ui.conf)
 server.properties <- config::get(file = path.server.conf)
 
 function(input, output) {
-
-  shinyjs::disable("submitComputation")
-
-  observeEvent(input$inputFile, shinyjs::enable("submitComputation"))
-
-  output$optimizationParameters <- renderUI({
-    numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
-    fluidRow(
-      lapply(1:numberOfParameters, function(i) {
-        column(3,
-               numericInput(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$id,
-                            label = server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$label,
-                            value = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$value),
-                            min = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$min),
-                            max = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$max)
-               )
-        )
-      })
-    )
-  })
-
-
-  output$predictionParameters <- renderUI({
-    numberOfParameters <- as.numeric(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$numberOfPredictionParameters)
-    fluidRow(
-      lapply(1:numberOfParameters, function(i) {
-        column(5,
-               numericInput(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$id,
-                            label = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$label,
-                            value = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$value,
-                            min = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$min,
-                            max = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$max,
-                            step = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$step
-               )
-        )
-      })
-    )
-  })
-  
   
   setOptimizationParameters <- function() {
     
@@ -97,7 +58,97 @@ function(input, output) {
     return(optimParams)
   }
   
+  ranges.read <- function(dataRaw, choice) {
+    if ("timestamp" %in% colnames(dataRaw)) {
+      dates <- unique(as.Date(dataRaw$timestamp))
+    } else {
+      dates <- unique(as.Date(dataRaw[[1]]))
+    }
+
+    if (choice == 1) {
+      return(min(dates))
+    }
+    else if (choice == 2) {
+      return(dates[floor(length(dates) * 0.9)])
+    }
+    else if (choice == 3) {
+      return(dates[ceiling(length(dates) * 0.9)])
+    }
+    else if (choice == 4) {
+      return(max(dates))
+    }
+  }
+
+  shinyjs::disable("submitComputation")
+
+
+  observeEvent(input$inputFile, {
+    shinyjs::enable("submitComputation")
+
+    dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
+
+    output$trainingSetRange <- renderUI({
+      dateRangeInput(
+        "trainingSetRange",
+        label = ui.properties$trainingSetRange$label,
+        separator = ui.properties$trainingSetRange$separator,
+        format = ui.properties$trainingSetRange$format,
+        min = ranges.read(dataRaw, 1),
+        max = ranges.read(dataRaw, 4),
+        start = ranges.read(dataRaw, 1),
+        end = ranges.read(dataRaw, 2)
+      )
+    })
+
+    output$testingSetRange <- renderUI({
+      dateRangeInput(
+        "testingSetRange",
+        label = ui.properties$testingSetRange$label,
+        separator = ui.properties$testingSetRange$separator,
+        format = ui.properties$testingSetRange$format,
+        min = ranges.read(dataRaw, 1),
+        max = ranges.read(dataRaw, 4),
+        start = ranges.read(dataRaw, 3),
+        end = ranges.read(dataRaw, 4)
+      )
+    })
+  })
+
+  output$optimizationParameters <- renderUI({
+    numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
+    fluidRow(
+      lapply(1:numberOfParameters, function(i) {
+        column(3,
+               numericInput(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$id,
+                            label = server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$label,
+                            value = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$value),
+                            min = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$min),
+                            max = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$max)
+               )
+        )
+      })
+    )
+  })
+
+
+  output$predictionParameters <- renderUI({
+    numberOfParameters <- as.numeric(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$numberOfPredictionParameters)
+    fluidRow(
+      lapply(1:numberOfParameters, function(i) {
+        column(5,
+               numericInput(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$id,
+                            label = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$label,
+                            value = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$value,
+                            min = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$min,
+                            max = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$max,
+                            step = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$step
+               )
+        )
+      })
+    )
+  })
   
+
   output$resultValues <- renderText({
 
     inputFile <- input$inputFile

@@ -38,14 +38,14 @@ fluidPage(
 
 
   fluidRow(
-    column(4,
+    column(3,
       fileInput(
         "inputFile",
         label = ui.properties$inputFileLabel
       )
     ),
 
-    column(4,
+    column(3,
       numericInput(
         "measurementsPerDay",
         label = ui.properties$measurementsPerDay$label,
@@ -55,14 +55,12 @@ fluidPage(
       )
     ),
 
-    column(4,
-      sliderInput(
-        "trainingDatasetProportion",
-        label = ui.properties$trainingDatasetProportion$label,
-        min = as.numeric(ui.properties$trainingDatasetProportion$min),
-        max = as.numeric(ui.properties$trainingDatasetProportion$max),
-        value = as.numeric(ui.properties$trainingDatasetProportion$default)
-      )
+    column(3,
+      uiOutput("trainingSetRange")
+    ),
+
+    column(3,
+      uiOutput("testingSetRange")
     )
   ),
 

@@ -55,13 +55,9 @@ fluidPage(
       )
     ),
 
-    column(3,
-      uiOutput("trainingSetRange")
-    ),
+    uiOutput("trainingSetRange"),
 
-    column(3,
-      uiOutput("testingSetRange")
-    )
+    uiOutput("testingSetRange")
   ),
 
 

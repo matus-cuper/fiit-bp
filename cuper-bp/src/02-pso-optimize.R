@@ -11,9 +11,7 @@ server.properties <- config::get(file = path.server.conf)
 
 pso.optimizeFn <- function(params) {
 
-  preparedData <- do.call(params.prediction$readDataFn, list(pathToFile = params.prediction$pathToFile,
-                                                             measurementsPerDay = params.prediction$measurementsPerDay,
-                                                             trainingSetProportion = params.prediction$trainingSetProportion))
+  preparedData <- do.call(params.prediction$prepareFn, list(params.prediction$data))
 
   params.prediction <<- c(params.prediction, preparedData)
 

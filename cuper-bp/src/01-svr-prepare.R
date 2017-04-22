@@ -35,26 +35,27 @@ svr.setOnesForDayOfWeek <- function(m, d, recordsCount, measurementsPerDay) {
 # and n-th column, which represents n-th measurement in that day
 # training matrix wil have size = records * trainingSetProportion 
 # and testing matrix size = records - trainingRecords
-svr.readDataFn <- function(pathToFile, measurementsPerDay, trainingSetProportion) {
-  dataRaw <- read.csv(file = pathToFile, header = TRUE, sep = ",")
-  
+svr.prepareFn <- function(preparedData) {
   # Compute matrices sizes
   daysPerWeek <- 7
-  trainingSetRecords <- round(nrow(dataRaw) * trainingSetProportion)
-  testingSetRecords <- nrow(dataRaw) - trainingSetRecords
+  measurementsPerDay <- preparedData$measurementsPerDay
+  trainingSetSize <- nrow(preparedData$trainingData)
+  testingSetSize <- nrow(preparedData$testingData)
+  trainingSetRecords <- preparedData$trainingData
+  testingSetRecords <- preparedData$testingData
 
   # Create training matrix and rename its columns
-  trainingM <- matrix(0, nrow = trainingSetRecords, ncol = measurementsPerDay + daysPerWeek)
-  trainingM <- svr.setOnesForTimestamp(trainingM, dataRaw$timestamp[1:trainingSetRecords], trainingSetRecords, measurementsPerDay)
-  trainingM <- svr.setOnesForDayOfWeek(trainingM, dataRaw$timestamp[1:trainingSetRecords], trainingSetRecords, measurementsPerDay)
+  trainingM <- matrix(0, nrow = trainingSetSize, ncol = measurementsPerDay + daysPerWeek)
+  trainingM <- svr.setOnesForTimestamp(trainingM, trainingSetRecords$timestamp, trainingSetSize, measurementsPerDay)
+  trainingM <- svr.setOnesForDayOfWeek(trainingM, trainingSetRecords$timestamp, trainingSetSize, measurementsPerDay)
   colnames(trainingM) <- c(paste("V", 1:(measurementsPerDay + daysPerWeek), sep = ""))
-  trainingM <- cbind(value=c(dataRaw$value[1:trainingSetRecords]), trainingM)
+  trainingM <- cbind(value=c(trainingSetRecords$value), trainingM)
 
   # Create testing matrix
-  testingM <- matrix(0, nrow = testingSetRecords, ncol = measurementsPerDay + daysPerWeek)
-  testingM <- svr.setOnesForTimestamp(testingM, dataRaw$timestamp[(trainingSetRecords + 1):nrow(dataRaw)], testingSetRecords, measurementsPerDay)
-  testingM <- svr.setOnesForDayOfWeek(testingM, dataRaw$timestamp[(trainingSetRecords + 1):nrow(dataRaw)], testingSetRecords, measurementsPerDay)
+  testingM <- matrix(0, nrow = testingSetSize, ncol = measurementsPerDay + daysPerWeek)
+  testingM <- svr.setOnesForTimestamp(testingM, testingSetRecords$timestamp, testingSetSize, measurementsPerDay)
+  testingM <- svr.setOnesForDayOfWeek(testingM, testingSetRecords$timestamp, testingSetSize, measurementsPerDay)
   colnames(testingM) <- c(paste("V", 1:(measurementsPerDay + daysPerWeek), sep = ""))
 
-  return(list(trainingMatrix = trainingM, testingMatrix = testingM, verificationData = dataRaw$value[(trainingSetRecords + 1):nrow(dataRaw)]))
+  return(list(trainingMatrix = trainingM, testingMatrix = testingM, verificationData = testingSetRecords$value))
 }

@@ -46,6 +46,14 @@ for (i in 1:nrow(fileContent)) {
 # set hours like -1.0 to 23.0
 fileContent$CAS <- lapply(fileContent$CAS, setRightHour)
 
+# find days, when measurement count per day is lower
+dates <- table(fileContent$DATUM)
+
+# remove first and last day from file
+for (x in names(dates[dates < 96])) {
+  fileContent <- subset(fileContent, !(fileContent$DATUM == as.Date(x)))
+}
+
 # set hours to normal time format 
 fileContent$TIME <- paste(floor(as.numeric(fileContent$CAS)), ":", as.numeric(fileContent$CAS) %% 1 * 60, ":00", sep = "")
 
@@ -60,4 +68,3 @@ fileContent$Suma_odbery <- NULL
 fileContent$TIME <- NULL
 
 write.csv(file = args[2], fileContent, row.names = FALSE, quote = FALSE)
-

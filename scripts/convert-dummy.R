@@ -39,6 +39,23 @@ fileContent$CAS <- fileContent$CAS / 60
 # set time to right position
 fileContent$CAS <- fileContent$CAS + abs(min(fileContent$CAS))
 
+# find dates, when times was changed
+dates <- table(fileContent$DATUM)
+
+# remove last measurements from longer days
+for (x in names(dates[dates == 100])) {
+  fileContent <- subset(fileContent, !(fileContent$DATUM == as.Date(x) & fileContent$CAS > 23.75))
+}
+
+# add first measurements to shorter days
+for (x in names(dates[dates == 92])) {
+  tmp <- subset(fileContent, fileContent$DATUM == as.Date(x) & fileContent$CAS == 1)
+  for (y in seq(0, 0.75, 0.25)) {
+    tmp$CAS <- y
+    fileContent <- rbind(fileContent, tmp)
+  }
+}
+
 # set hours to normal time format 
 fileContent$TIME <- paste(floor(as.numeric(fileContent$CAS)), ":", as.numeric(fileContent$CAS) %% 1 * 60, ":00", sep = "")
 
@@ -53,4 +70,3 @@ fileContent$Suma_odbery <- NULL
 fileContent$TIME <- NULL
 
 write.csv(file = args[2], fileContent, row.names = FALSE, quote = FALSE)
-

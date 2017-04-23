@@ -1,7 +1,7 @@
 ---
   default:
 
-    numberOfPredictionAlgorithms: 2
+    numberOfPredictionAlgorithms: 3
     numberOfOptimizationAlgorithms: 2
     numberOfFitnessFunctions: 5
 
@@ -84,6 +84,40 @@
             label: "Maximum q"
             value: 2
             min: 0
+            max: 10
+            step: 1
+
+      - label: "Náhodné lesy"
+        parameterLabels:
+          - "Počet stromov"
+          - "Veľkosť uzla"
+        prepareFn: "rf.prepareFn"
+        predictFn: "rf.predictFn"
+        predictDataFn: "rf.predictDataFn"
+        numberOfPredictionParameters: 4
+        predictionParameters:
+          - id: "minNtree"
+            label: "Minimum stromov"
+            value: 20
+            min: 1
+            max: 100
+            step: 1
+          - id: "maxNtree"
+            label: "Maximum stromov"
+            value: 40
+            min: 1
+            max: 100
+            step: 1
+          - id: "minNodesize"
+            label: "Minimum uzlov"
+            value: 3
+            min: 1
+            max: 10
+            step: 1
+          - id: "maxNodesize"
+            label: "Maximum uzlov"
+            value: 6
+            min: 1
             max: 10
             step: 1
 

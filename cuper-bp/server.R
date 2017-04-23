@@ -5,11 +5,17 @@ library(shinyjs)
 library(config)
 
 source(paste(path.src, "00-read-data.R", sep = ""))
+
 source(paste(path.src, "01-svr-prepare.R", sep = ""))
 source(paste(path.src, "01-arima-prepare.R", sep = ""))
+source(paste(path.src, "01-rf-prepare.R", sep = ""))
+
 source(paste(path.src, "02-measure-error.R", sep = ""))
+
 source(paste(path.src, "03-svr-predict.R", sep = ""))
 source(paste(path.src, "03-arima-predict.R", sep = ""))
+source(paste(path.src, "03-rf-predict.R", sep = ""))
+
 source(paste(path.src, "04-psoptim-optimize.R", sep = ""))
 source(paste(path.src, "04-pso-optimize.R", sep = ""))
 

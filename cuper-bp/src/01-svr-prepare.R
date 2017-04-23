@@ -1,4 +1,4 @@
-## read data from CSV and prepare matrices for SVR
+## prepare matrices for SVR
 
 # Example call
 # values <- svr.readDataFn("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv", measurementsPerDay = 96, trainingSetProportion = 0.8)

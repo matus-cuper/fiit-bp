@@ -1,19 +1,19 @@
 ---
   default:
 
-    00-svr-predict:
+    03-svr-predict:
       svmType: "eps-svr"
       kernelFunction: "rbfdot"
       scaled: FALSE
 
-    02-psoptim-optimize:
+    04-psoptim-optimize:
       animation: FALSE
       vmax:
         - 0.05
         - 0.05
         - 0.05
 
-    02-pso-optimize:
+    04-pso-optimize:
       d: 5
       vmax: 1
       type: "SPSO2007"

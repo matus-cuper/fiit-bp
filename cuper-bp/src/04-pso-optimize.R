@@ -6,7 +6,7 @@
 
 library(pso)
 library(config)
-pso.properties <- config::get("02-pso-optimize", file = path.app.conf)
+pso.properties <- config::get("04-pso-optimize", file = path.app.conf)
 server.properties <- config::get(file = path.server.conf)
 
 pso.optimizeFn <- function(params) {

@@ -9,14 +9,11 @@
 # training time series size is (in days) floor(records * trainingSetProportion / measurementsPerDay)
 # and testing time series is (in days) floor(records / measurementsPerDay) - trainingDays
 arima.prepareFn <- function(preparedData) {
-  # Compute timeseries sizes
-  measurementsPerDay <- preparedData$measurementsPerDay
-
   # Create training time series
-  trainingTS <- ts(preparedData$trainingData$value, frequency = measurementsPerDay)
+  trainingTS <- ts(preparedData$trainingData$value, frequency = preparedData$measurementsPerDay)
 
   # Create testing time series
-  testingTS <- ts(preparedData$testingData, frequency = measurementsPerDay)
+  testingTS <- ts(preparedData$testingData, frequency = preparedData$measurementsPerDay)
 
   return(list(trainingTimeSeries = trainingTS, testingTimeSeries = testingTS))
 }

@@ -253,10 +253,10 @@ Celá práca je rozdelená do niekoľkých kapitol. V
 kapitole~\ref{problem-analysis} sme sa zamerali na analýzu problému. Definovali
 sme kľúčové pojmy, použité metódy, opísali sme časové rady, ich vlastnosti,
 rozdelili sme predikčné a optimalizačné algoritmy do skupín.
-Kapitola~3 popisuje funkcionalitu, ktorú systém poskytuje                       % \ref{specification}
-používateľom. V kapitole~4 sa zameriavame na návrh systému                      % \ref{solution-design}
-a v kapitole~5 už samotnou implementáciou systému v jazyku R.                   % \ref{implementation}
-Výsledky práce sú zhodnotené v kapitole~6.                                      % \ref{evaluation}
+Kapitola~\ref{specification} popisuje funkcionalitu, ktorú systém poskytuje
+používateľom. V kapitole~\ref{solution-design} sa zameriavame na návrh systému
+a v kapitole~\ref{implementation} už samotnou implementáciou systému v jazyku R.
+Výsledky práce sú zhodnotené v kapitole~\ref{evaluation}.
 
 %-------------------------------------------------------------------------------
 %   Chapter 2 - Problem analysis
@@ -1313,16 +1313,19 @@ predikcií.
 Cieľom práce je navrhnúť systém, ktorý umožní používateľovi nájsť optimálne
 nastavenie vstupných parametrov predikčných metód. Používateľ bude mať
 k dispozícií niekoľko predikčných a optimalizačných algoritmov, bude môcť
-meniť ich parametre a výpočty vykonávať nad dátami, ktoré si sám zvolí.
-K uvedeným parametrom bude poskytnuté vysvetlenie a opis zmeny správania na
-základe ich zmeny. Presnosť predpovede bude určená pomocou používaných metrík
-na meranie chyby predikcie.
+meniť ich parametre a vykonávať výpočty. Množinu dát si sám zvolí, aplikácia
+je nezávislá na doméne, v ktorej boli dáta namerané. Ku každému z uvedených
+parametrov bude poskytnuté vysvetlenie a opis zmeny správania na základe
+ich zmeny. Presnosť predpovede bude určená pomocou používaných metrík na
+meranie chyby predikcie. Keďže metrík je viacero, používateľ bude mať možnosť
+si vybrať jednu z nich a tá bude následné použitá optimalizačných algoritmom.
 
-Dáta, ktoré budeme používať počas tvorby informačného systému, pochádzajú zo
-Slovenska a sú dostupné každých 15 minút. Keďže budeme vždy predpovedať práve
-jednu veličinu na základe samej seba, jedno meranie by malo zodpovedať formátu
-``dátum, nameraná hodnota''. Formát dátumu bude od začiatku jednotný a bude
-zodpovedať norme ISO 8601. Nameraná hodnota bude reprezentovaná reálnym číslom.
+Pri návrhu aplikácie boli použité dáta z inteligentných elektromeračov
+používaných na Slovensku. Dostupné sú každých 15 minút z rôznych obcí. Keďže
+budeme vždy predpovedať práve jednu veličinu na základe samej seba, jedno
+meranie by malo zodpovedať formátu ``dátum a čas, nameraná hodnota''. Formát
+dátumu bude od začiatku jednotný a bude zodpovedať norme ISO 8601. Nameraná
+hodnota bude reprezentovaná reálnym číslom.
 
 Používateľ si bude môcť vyberať z ponúknutých predikčných a optimalizačných
 algoritmov. K dispozícii bude mať lineárnu regresiu, stochastické modely,
@@ -1333,72 +1336,146 @@ včiel alebo svorku divých vlkov. Systém bude navrhnutý tak, aby pridanie
 Pripadá do úvahy, že samotný systém bude poskytovať rozhranie, ktoré
 používateľovi umožní použiť vlastnú implementáciu iných algoritmov.
 
-Systém bude implementovaný v jazyku R a webové používateľské rozhranie bude
-vytvorené pomocou knižnice Shiny.
+Optimalizačné algoritmy potrebujú mať určený definičný obor. Hodnoty
+z neho používajú na nájdenie optimálneho riešenia, čo je v našom prípade
+nájdenie kombinácie vstupných parametrov predikčných metód, ktorých výsledná
+chyba je čo najmenšia. V aplikácií sa budú nachádzať prednastavené definičné
+obory, ale zároveň bude poskytovať používaľovi ich zmenu. Samozrejme iba
+v určitom rozmedzí, aby tak používateľ nespôsobil dlhú odozvu systému, prípadne
+nezvolil hodnoty, ktoré nebudú z definičného oboru predikčnej metódy.
 
-% %-------------------------------------------------------------------------------
-% %   Chapter 4 -  Solution design
-% %-------------------------------------------------------------------------------
-%
-% \newpage
-% \section{Návrh riešenia}
-% \label{solution-design}
-%
-% %-------------------------------------------------------------------------------
-% %   Chapter 5 - Implementation
-% %-------------------------------------------------------------------------------
-%
-% \newpage
-% \section{Implementácia}
-% \label{implementation}
-%
-% %-------------------------------------------------------------------------------
-% %   Chapter 6 - Evaluation
-% %-------------------------------------------------------------------------------
-%
-% \newpage
-% \section{Zhodnotenie}
-% \label{evaluation}
-%
-% %-------------------------------------------------------------------------------
-% %   Chapter 7 - Conclusion
-% %-------------------------------------------------------------------------------
-%
-% \newpage
-% \section{Záver}
-% \label{conclusion}
-%
-% %-------------------------------------------------------------------------------
-% %   Chapter 8 - Technical documentation
-% %-------------------------------------------------------------------------------
-%
-% \newpage
-% \section{Technická dokumentácia}
-% \label{documentation}
+Systém bude implementovaný v jazyku R a webové používateľské rozhranie bude
+vytvorené pomocou knižnice Shiny. Web aplikácie bude navrhnutý tak, aby
+používateľovi poskytoval intuitívne a interaktívne rozhranie k predikčným
+metódam. Zároveň bude dostatočne robustný a aj menej znalý používateľ, by ho
+mal vedieť používať.
+
+%-------------------------------------------------------------------------------
+%   Chapter 4 -  Solution design
+%-------------------------------------------------------------------------------
 
 \newpage
-\section{Plán do nasledujúceho semestra}
+\section{Návrh riešenia}
+\label{solution-design}
+Výsledná webová aplikácia bude používateľovi poskytovať možnosť zvoliť si
+optimalizačný algoritmus, ktorým bude optimalizovať nastavenie predikčného
+algortimu. Keďže každý predikčný algoritmus potrebuje pre správnu funkcionalitu
+iné parametre s rôznymi hodnotami, je najskôr potrebné implementovať rozhranie,
+ktoré zabezpečí správnu interakciu s optimalizačným algoritmom. Používateľ
+preto bude vyberať iba z algoritmov, ktoré predom budú implementované.
 
-\begin{table}[H]
-  \centering
-  \begin{tabular}{||l|p{0.65\textwidth}||}
-    \hline \hline
-    \multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Poradie týždňa \\ v letnom semestri\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Popis plánovanej činnosti}}   \\ \hline
-    \hline
-    1. týždeň    &  úprava vstupných dát na požadovaný formát, aplikovanie predikčných algoritmov             \\ \hline
-    2. týždeň    &  aplikovanie predikčných a optimalizačných algoritmov                                      \\ \hline
-    3. týždeň    &  implementácia optimalizačných algoritmov, ktorým chýba podpora knižníc v jazyku R         \\ \hline
-    4. týždeň    &  implementácia optimalizačných algoritmov, tvorba kostry grafického rozhrania aplikácie    \\ \hline
-    5. týždeň    &  tvorba jednotného rozhrania medzi aplikáciou a grafickým rozhraním                        \\ \hline
-    6. týždeň    &  implementácia grafického rozhrania a následne prepojenie s aplikáciou                     \\ \hline
-    7. týždeň    &  ošetrenie neplatných akcií vykonané používateľom                                          \\ \hline
-    8. týždeň    &  testovanie aplikácie na rôznych vstupných dátach používateľmi                             \\ \hline
-    9. týždeň    &  tvorba technickej dokumentácie aplikácie                                                  \\ \hline
-    10. týždeň   &  testovanie algoritmov, dokumentácia a porovnanie algoritmov                               \\ \hline
-    11. týždeň   &  tvorba prezentácie a príprava na obhajobu projektu                                        \\ \hline
-    \hline
-  \end{tabular}
-\end{table}
+V práci som sa rozhodol zvoliť ako predikčné algoritmy metódu podporných
+vektorov, autoregresívny integrovaný model kĺzavého priemeru a náhodné lesy.
+Aplikácia je však navrhnutá genericky a pridanie ďalšieho algoritmu vyžaduje
+minimálne úsilie. Kvôli malému počtu implementovaných optimalizačných
+algoritmov v jazyku R som zvolil optimalizáciu rojom častíc. Pri nej má
+používateľ možnosť zvoliť počet cyklov a počet jedincov.
+
+% Rovno sem pisem
+% navrh co to ma robit a ako,
+
+\subsubsection{Vlastnosti vstupných dát}
+Vstupné dáta, ktoré vkladá do aplikácie opužívateľ by mali byť v formáte CSV.
+Súbor by mal pri tom obsahovať aspoň dva stĺpce, kde stĺpec ``timestamp''
+obsahuje dátum a čas získania hodnoty, ktorá sa nachádza v stĺpci ``value''.
+% TODO budú potrebné iba tieto dva stĺpce a budú takto pomenované?
+Zápis dátumu a času zodpovedá medzinárodnému štandardu ISO 8601.
+% TODO naozaj tam môžem hodit ISO 8601 a prežije to?
+Stĺpec s hodnotou obsahuje reálne číslo, ktoré reprezentuje veľkosť nameranej
+veličiny, ktorú sa bude aplikácia predpovedať. Jednotky, v ktorých budú hodnoty
+uvedené nie sú podstatné, výpočet je nezávislý na použitej škále. Obmedzenia
+na tento stĺpec sú, aby skutočne obsahoval iba reálne číslo zodpovedajúce
+nameranej hodnote a aby v rámci jedného súboru bola konzistentne použitá
+rovnaká škála hodnôt.
+
+Dáta by samozrejme nemali byť náhodné, ale malo by sa jednať o časový rad,
+ktorý je možné dekomponovať na cyklickú, trendovú a náhodnú zložku. Niektoré
+predikčné algoritmy priamo používajú dekompozíciu časových radov na
+predpovedanie hodnôt. Jednotlivé záznamy o meraniach by teda mali za sebou
+chronologicky nasledovať. V rámci jedného vstupného súboru musia mať dáta
+všetky záznamy rovnakú periódu časového radu. Ak používateľ v aplikácií zadá,
+že vložené dáta majú mať periódu napr. 96 meraní za deň, potom sa očakáva, že
+dáta majú zvolenú veľkosť periódy a ostatné záznamy nebudú použité pri výpočte.
+% TODO padne aplikácia ak budú záznamy aj v inej perióde _
+
+\subsubsection{Použité predikčné metódy}
+opis predikcnych metod,
+periodu si nastavuje pouzivatel,
+
+\subsubsection{Použité optimalizačné metódy}
+v navrhu su metody, ktore som pouzil a ich parametre, ktoro optimalizujem, spomenut min max pri optimalizovani,
+ako som pouzil optimalizacne algoritmz
+ze agenti su vlasne mozne riesenia, pri svr aj opisem aj ako predspracovavam data
+
+%-------------------------------------------------------------------------------
+%   Chapter 5 - Implementation
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Implementácia}
+\label{implementation}
+
+Aplikácia je kvôli prehľadnosti organizovaná do viacerých adresárov. Pri
+vytváraní webovej aplikácie pomocou knižnice Shiny, sa program rozdeľuje na
+časť webového rozhrania a serverovú časť. Tie sa pri jednoduchých aplikáciách
+môžu nachádzať v jednom súbore, ja som ich podľa dokumentácie rozdelil do
+súboroc ``ui.R'' resp. ``server.R'' pre webové rozhranie resp. serverovú
+logiku. V adresári ``src''sa nachádzajú zdrojové súbory, ktoré v sebe zahŕňajú
+všetky výpočty aplikácie. Od prípravy vstupných dát, cez predikčné
+a optimalizačné algoritmy až po fitness funkcie. Adresár ``conf'' obsahuje
+konfiguračné súbory, ktoré poskytujú celej aplikácií flexibilitu pri jej
+ďalšom rozšírovaní a udržiavaní. 
+
+%-------------------------------------------------------------------------------
+%   Chapter 6 - Evaluation
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Zhodnotenie}
+\label{evaluation}
+
+Snažil som sa optimalizovať
+
+%-------------------------------------------------------------------------------
+%   Chapter 7 - Conclusion
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Záver}
+\label{conclusion}
+pol strany
+
+%-------------------------------------------------------------------------------
+%   Chapter 8 - Technical documentation
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Technická dokumentácia}
+\label{documentation}
+
+% \newpage
+% \section{Plán do nasledujúceho semestra}
+%
+% \begin{table}[H]
+%   \centering
+%   \begin{tabular}{||l|p{0.65\textwidth}||}
+%     \hline \hline
+%     \multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Poradie týždňa \\ v letnom semestri\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Popis plánovanej činnosti}}   \\ \hline
+%     \hline
+%     1. týždeň    &  úprava vstupných dát na požadovaný formát, aplikovanie predikčných algoritmov             \\ \hline
+%     2. týždeň    &  aplikovanie predikčných a optimalizačných algoritmov                                      \\ \hline
+%     3. týždeň    &  implementácia optimalizačných algoritmov, ktorým chýba podpora knižníc v jazyku R         \\ \hline
+%     4. týždeň    &  implementácia optimalizačných algoritmov, tvorba kostry grafického rozhrania aplikácie    \\ \hline
+%     5. týždeň    &  tvorba jednotného rozhrania medzi aplikáciou a grafickým rozhraním                        \\ \hline
+%     6. týždeň    &  implementácia grafického rozhrania a následne prepojenie s aplikáciou                     \\ \hline
+%     7. týždeň    &  ošetrenie neplatných akcií vykonané používateľom                                          \\ \hline
+%     8. týždeň    &  testovanie aplikácie na rôznych vstupných dátach používateľmi                             \\ \hline
+%     9. týždeň    &  tvorba technickej dokumentácie aplikácie                                                  \\ \hline
+%     10. týždeň   &  testovanie algoritmov, dokumentácia a porovnanie algoritmov                               \\ \hline
+%     11. týždeň   &  tvorba prezentácie a príprava na obhajobu projektu                                        \\ \hline
+%     \hline
+%   \end{tabular}
+% \end{table}
 
 %-------------------------------------------------------------------------------
 %   Bibliography

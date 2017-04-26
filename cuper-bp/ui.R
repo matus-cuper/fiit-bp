@@ -8,6 +8,8 @@ ui.properties <- config::get(file = path.ui.conf)
 
 fluidPage(
 
+  tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "plot.css")),
+
   titlePanel(ui.properties$titlePanelLabel),
 
 
@@ -82,5 +84,9 @@ fluidPage(
 
   htmlOutput("solutionLabel"),
   dataTableOutput("resultSolutions"),
-  plotOutput("resultPlot")
+  div(id = "plot-container",
+      tags$img(src = "spinner.gif",
+               id = "loading-spinner"),
+      plotOutput("resultPlot")
+  )
 )

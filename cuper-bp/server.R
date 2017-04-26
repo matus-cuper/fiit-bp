@@ -18,6 +18,7 @@ source(paste(path.src, "03-rf-predict.R", sep = ""))
 
 source(paste(path.src, "04-psoptim-optimize.R", sep = ""))
 source(paste(path.src, "04-pso-optimize.R", sep = ""))
+source(paste(path.src, "04-abc-optimize.R", sep = ""))
 
 ui.properties <- config::get(file = path.ui.conf)
 server.properties <- config::get(file = path.server.conf)

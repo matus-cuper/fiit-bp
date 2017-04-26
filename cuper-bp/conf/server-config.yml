@@ -2,7 +2,7 @@
   default:
 
     numberOfPredictionAlgorithms: 3
-    numberOfOptimizationAlgorithms: 2
+    numberOfOptimizationAlgorithms: 3
     numberOfFitnessFunctions: 3
 
     predictionAlgorithms:
@@ -152,6 +152,26 @@
             value: 20
             min: 1
             max: 1000
+
+      - label: "ABC"
+        optimizeFn: "abc.optimizeFn"
+        numberOfOptimizationParameters: 3
+        optimizationParameters:
+          - id: "maxIterations"
+            label: "Maximum iterácií"
+            value: 20
+            min: 1
+            max: 1000
+          - id: "foodNumber"
+            label: "Maximum jedla na preskúmanie"
+            value: 20
+            min: 1
+            max: 500
+          - id: "limit"
+            label: "Maximum zdrojov jedla"
+            value: 5
+            min: 1
+            max: 100
 
 
     fitnessFunctions:

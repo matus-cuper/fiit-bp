@@ -77,10 +77,13 @@ function(input, output) {
       return(min(dates))
     }
     else if (choice == 2) {
-      return(dates[floor(length(dates) * 0.9)])
+      return(dates[floor(length(dates) * 0.9)] - 1)
     }
     else if (choice == 3) {
-      return(max(dates) + 1)
+      return(dates[floor(length(dates) * 0.9)])
+    }
+    else if (choice == 4) {
+      return(max(dates))
     }
   }
 
@@ -88,7 +91,6 @@ function(input, output) {
 
 
   observeEvent(input$inputFile, {
-
     validate(
       need({
         dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",", nrows = 1)
@@ -115,7 +117,7 @@ function(input, output) {
           separator = ui.properties$trainingSetRange$separator,
           format = ui.properties$trainingSetRange$format,
           min = ranges.read(dataRaw, 1),
-          max = ranges.read(dataRaw, 3),
+          max = ranges.read(dataRaw, 4),
           start = ranges.read(dataRaw, 1),
           end = ranges.read(dataRaw, 2)
         )
@@ -130,13 +132,25 @@ function(input, output) {
           separator = ui.properties$testingSetRange$separator,
           format = ui.properties$testingSetRange$format,
           min = ranges.read(dataRaw, 1),
-          max = ranges.read(dataRaw, 3),
-          start = ranges.read(dataRaw, 2),
-          end = ranges.read(dataRaw, 3)
+          max = ranges.read(dataRaw, 4),
+          start = ranges.read(dataRaw, 3),
+          end = ranges.read(dataRaw, 4)
         )
       )
     })
   })
+
+  observeEvent({
+    input$trainingSetRange
+    input$testingSetRange},{
+      shinyjs::disable("submitComputation")
+      validate(
+        need({input$trainingSetRange[1] < input$trainingSetRange[2]}, "Date from must be earlier than date to"),
+        need({input$testingSetRange[1] < input$testingSetRange[2]}, "Date from must be earlier than date to"),
+        need({input$trainingSetRange[2] < input$testingSetRange[1]}, "Date from must be earlier than date to")
+      )
+      shinyjs::enable("submitComputation")
+    })
 
   output$optimizationParameters <- renderUI({
     numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)

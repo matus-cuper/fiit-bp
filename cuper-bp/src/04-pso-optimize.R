@@ -21,6 +21,7 @@ pso.optimizeFn <- function(params) {
                          upper = params.optimization$highs,
                          control = list(maxit = params.optimization$maxIterations,
                                         maxit.stagnate = floor(params.optimization$maxIterations/2),
+                                        s = params.optimization$numberOfParticles,
                                         d = pso.properties$d,
                                         v.max = pso.properties$vmax,
                                         type = pso.properties$type))

@@ -1,6 +1,9 @@
 ---
   default:
 
+    03-arima-predict:
+      maximumOrder: 4
+
     03-svr-predict:
       svmType: "eps-svr"
       kernelFunction: "rbfdot"

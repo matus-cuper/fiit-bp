@@ -13,9 +13,9 @@ arima.properties <- config::get("03-arima-predict", file = path.app.conf)
 # Set ARIMA parameters, compute and return predicted values
 arima.predictDataFn <- function(params) {
   arimaModel <- Arima(y = params.prediction$trainingTimeSeries,
-                      order = c(p = params[1],
-                                d = params[2],
-                                q = params[3]),
+                      order = c(p = round(params[1]),
+                                d = round(params[2]),
+                                q = round(params[3])),
                       xreg = fourier(params.prediction$trainingTimeSeries, K = arima.properties$maximumOrder))
   arimaForecast <- forecast(object = arimaModel,
                             h = nrow(params.prediction$testingTimeSeries),
@@ -28,9 +28,9 @@ arima.predictDataFn <- function(params) {
 # Used by optimization function
 arima.predictFn <- function(params) {
   arimaModel <- arima(x = params.prediction$trainingTimeSeries,
-                      order = c(p = params[1],
-                                d = params[2],
-                                q = params[3]),
+                      order = c(p = round(params[1]),
+                                d = round(params[2]),
+                                q = round(params[3])),
                       xreg = fourier(params.prediction$trainingTimeSeries, K = arima.properties$maximumOrder))
   arimaForecast <- forecast(object = arimaModel,
                             h = nrow(params.prediction$testingTimeSeries),

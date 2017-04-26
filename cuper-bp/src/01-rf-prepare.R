@@ -13,7 +13,7 @@ rf.nthInDay <- function(date, frequency) {
 
 # Convert given date into nth day in week
 rf.nthInWeek <- function(date, frequency = 7) {
-  return((as.numeric(as.POSIXlt(date)$wday) + frequency - 1) %% frequency + 1)
+  return((as.numeric(as.POSIXlt(date)$wday) + frequency - 1) %% (frequency + 1))
 }
 
 # Represent measurements per day as sinus function
@@ -55,25 +55,19 @@ rf.prepareFn <- function(preparedData) {
   trainingSetRecords <- preparedData$trainingData
   testingSetRecords <- preparedData$testingData
   
-  # Compute seasonal component for given data
-  trainingSeasonalComponent <- as.data.frame(stl(ts(trainingSetRecords$value, frequency = measurementsPerDay), s.window = 7, robust = TRUE)$time.series)$seasonal
-  testingSeasonalComponent <- as.data.frame(stl(ts(testingSetRecords$value, frequency = measurementsPerDay), s.window = 1, robust = TRUE)$time.series)$seasonal
-  
   # Create training data frame with named columns
   trainingDF <- cbind(value=c(trainingSetRecords$value),
                       day_sin=c(rf.setSinForDay(trainingSetRecords$timestamp, measurementsPerDay)),
                       day_cos=c(rf.setCosForDay(trainingSetRecords$timestamp, measurementsPerDay)),
                       week_sin=c(rf.setSinForWeek(trainingSetRecords$timestamp, measurementsPerDay)),
-                      week_cos=c(rf.setCosForWeek(trainingSetRecords$timestamp, measurementsPerDay)),
-                      week_seas=c(trainingSeasonalComponent))
+                      week_cos=c(rf.setCosForWeek(trainingSetRecords$timestamp, measurementsPerDay)))
   
   # Create testing data frame with same format as training data frame with empty values
   testingDF <- cbind(value=c(NA),
                      day_sin=c(rf.setSinForDay(testingSetRecords$timestamp, measurementsPerDay)),
                      day_cos=c(rf.setCosForDay(testingSetRecords$timestamp, measurementsPerDay)),
                      week_sin=c(rf.setSinForWeek(testingSetRecords$timestamp, measurementsPerDay)),
-                     week_cos=c(rf.setCosForWeek(testingSetRecords$timestamp, measurementsPerDay)),
-                     week_seas=c(testingSeasonalComponent))
+                     week_cos=c(rf.setCosForWeek(testingSetRecords$timestamp, measurementsPerDay)))
   
   return(list(trainingDataFrame = trainingDF, testingDataFrame = testingDF))
 }

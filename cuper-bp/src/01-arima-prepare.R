@@ -13,7 +13,7 @@ arima.prepareFn <- function(preparedData) {
   trainingTS <- ts(preparedData$trainingData$value, frequency = preparedData$measurementsPerDay)
 
   # Create testing time series
-  testingTS <- ts(preparedData$testingData, frequency = preparedData$measurementsPerDay)
+  testingTS <- ts(preparedData$testingData$value, frequency = preparedData$measurementsPerDay)
 
   return(list(trainingTimeSeries = trainingTS, testingTimeSeries = testingTS))
 }

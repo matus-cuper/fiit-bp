@@ -5,6 +5,11 @@
 # where values variable will contain 2 matrices matrices$trainingMatrix and matrices$testingMatrix and
 # third one will be data.frame of values from origin dataset needed for verification process
 
+# Convert given date into nth day in week
+svr.nthInWeek <- function(date, frequency = 7) {
+  return((as.numeric(as.POSIXlt(date)$wday) + frequency - 1) %% (frequency + 1))
+}
+
 # Convert time of the day to n-th measurement of the day
 svr.orderOfTimestamp <- function(t1, measurementsPerDay) {
   t2 <- strptime(t1, "%Y-%m-%d %H:%M:%S")
@@ -23,7 +28,7 @@ svr.setOnesForTimestamp <- function(m, d, recordsCount, measurementsPerDay) {
 # When measurement was performed, set 1 in matrix for that day
 svr.setOnesForDayOfWeek <- function(m, d, recordsCount, measurementsPerDay) {
   for (i in 1:recordsCount) {
-    m[i, measurementsPerDay + as.POSIXlt(d[i])$wday + 1] <- 1
+    m[i, measurementsPerDay + svr.nthInWeek(d[i])] <- 1
   }
   return(m)
 }

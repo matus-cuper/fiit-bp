@@ -88,6 +88,21 @@ function(input, output) {
 
 
   observeEvent(input$inputFile, {
+
+    validate(
+      need({
+        dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",", nrows = 1)
+        "timestamp" %in% colnames(dataRaw) & "value" %in% colnames(dataRaw)
+      }, "Missing column timestamp or value"),
+      need({
+        dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
+        dataRaw$value <- NULL
+        dataRaw$timestamp <- as.Date(dataRaw$timestamp)
+        dataTable <- table(dataRaw)
+        length(dataTable[dataTable != as.numeric(input$measurementsPerDay)]) == 0
+      }, "Value of measurementsPerDay differs from computed period size")
+    )
+
     shinyjs::enable("submitComputation")
 
     dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")

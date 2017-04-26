@@ -16,6 +16,9 @@ data.prepare <- function(pathToFile, measurementsPerDay, trainingSetRange, testi
   allTrainingDates <- seq.POSIXt(from = startTrainingRange, to = endTrainingRange, by = "day")
   allTestingDates <- seq.POSIXt(from = startTestingRange, to = endTestingRange, by = "day")
 
+  dataRaw <- (dataRaw[order(as.POSIXct(dataRaw$timestamp)), ])
+  rownames(dataRaw) <- NULL
+
   return(list(trainingData = subset(dataRaw, as.Date(dataRaw$timestamp) %in% as.Date(allTrainingDates)),
               testingData = subset(dataRaw, as.Date(dataRaw$timestamp) %in% as.Date(allTestingDates)),
               measurementsPerDay = measurementsPerDay))

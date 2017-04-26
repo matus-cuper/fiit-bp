@@ -3,7 +3,7 @@
 
     numberOfPredictionAlgorithms: 3
     numberOfOptimizationAlgorithms: 2
-    numberOfFitnessFunctions: 5
+    numberOfFitnessFunctions: 3
 
     predictionAlgorithms:
       - label: "SVR"
@@ -150,12 +150,12 @@
 
 
     fitnessFunctions:
-      - label: "MFE"
-        errorFn: "mfe"
+      # - label: "MFE"
+      #   errorFn: "mfe"
       - label: "MAE"
         errorFn: "mae"
-      - label: "MPE"
-        errorFn: "mpe"
+      # - label: "MPE"
+      #   errorFn: "mpe"
       - label: "MAPE"
         errorFn: "mape"
       - label: "MSE"

@@ -203,6 +203,9 @@ function(input, output) {
     if (input$submitComputation > 0) {
       isolate({
         dataTable <- result$bestSolution
+        if (server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[1]]$step %% 1 == 0)
+          dataTable <- round(result$bestSolution)
+
         colnames(dataTable) <- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels
         dataTable
       })

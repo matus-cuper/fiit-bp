@@ -19,9 +19,7 @@ arima.predictDataFn <- function(params) {
                       xreg = fourier(params.prediction$trainingTimeSeries, K = arima.properties$maximumOrder))
   arimaForecast <- forecast(object = arimaModel,
                             h = nrow(params.prediction$testingTimeSeries),
-                            xreg = fourier(params.prediction$trainingTimeSeries,
-                                           K = arima.properties$maximumOrder,
-                                           h = nrow(params.prediction$testingTimeSeries)))
+                            xreg = fourier(params.prediction$testingTimeSeries, K = arima.properties$maximumOrder))
   return(data.frame(arimaForecast$mean))
 }
 
@@ -34,8 +32,6 @@ arima.predictFn <- function(params) {
                       xreg = fourier(params.prediction$trainingTimeSeries, K = arima.properties$maximumOrder))
   arimaForecast <- forecast(object = arimaModel,
                             h = nrow(params.prediction$testingTimeSeries),
-                            xreg = fourier(params.prediction$trainingTimeSeries,
-                                           K = arima.properties$maximumOrder,
-                                           h = nrow(params.prediction$testingTimeSeries)))
+                            xreg = fourier(params.prediction$testingTimeSeries, K = arima.properties$maximumOrder))
   return(do.call(params.prediction$errorFn, list(arimaForecast$mean, params.prediction$data$testingData$value)))
 }

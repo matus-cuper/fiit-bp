@@ -19,6 +19,7 @@
 \usepackage{amssymb}                                                            % for real numbers sign
 \usepackage{algorithm, algpseudocode}                                           % for pseudocode writting
 \usepackage{graphicx}                                                           % enable figures
+\usepackage{threeparttable}
 \graphicspath{ {images/} }                                                      % set path for figures
 \hypersetup{																																		% with default colours for links
     colorlinks,
@@ -1323,8 +1324,7 @@ si vybrať jednu z nich a tá bude následné použitá optimalizačných algori
 Pri návrhu aplikácie boli použité dáta z inteligentných elektromeračov
 používaných na Slovensku. Dostupné sú každých 15 minút z rôznych obcí. Keďže
 budeme vždy predpovedať práve jednu veličinu na základe samej seba, jedno
-meranie by malo zodpovedať formátu ``dátum a čas, nameraná hodnota''. Formát
-dátumu bude od začiatku jednotný a bude zodpovedať norme ISO 8601. Nameraná
+meranie by malo zodpovedať formátu ``dátum a čas, nameraná hodnota''. Nameraná
 hodnota bude reprezentovaná reálnym číslom.
 
 Používateľ si bude môcť vyberať z ponúknutých predikčných a optimalizačných
@@ -1368,25 +1368,61 @@ V práci som sa rozhodol zvoliť ako predikčné algoritmy metódu podporných
 vektorov, autoregresívny integrovaný model kĺzavého priemeru a náhodné lesy.
 Aplikácia je však navrhnutá genericky a pridanie ďalšieho algoritmu vyžaduje
 minimálne úsilie. Kvôli malému počtu implementovaných optimalizačných
-algoritmov v jazyku R som zvolil optimalizáciu rojom častíc. Pri nej má
-používateľ možnosť zvoliť počet cyklov a počet jedincov.
+algoritmov v jazyku R som zvolil optimalizáciu rojom častíc a ABC
+optimalizáciu. Používateľ bude môcť pomocou rozhrania určiť parametre pre tieto
+algoritmy, ako napr. počet častí alebo cyklov.
 
-% Rovno sem pisem
-% navrh co to ma robit a ako,
-
-\subsubsection{Vlastnosti vstupných dát}
-Vstupné dáta, ktoré vkladá do aplikácie opužívateľ by mali byť v formáte CSV.
+\subsection{Vlastnosti vstupných dát}
+Vstupné dáta, ktoré vkladá do aplikácie pužívateľ by mali byť vo formáte CSV.
 Súbor by mal pri tom obsahovať aspoň dva stĺpce, kde stĺpec ``timestamp''
 obsahuje dátum a čas získania hodnoty, ktorá sa nachádza v stĺpci ``value''.
-% TODO budú potrebné iba tieto dva stĺpce a budú takto pomenované?
-Zápis dátumu a času zodpovedá medzinárodnému štandardu ISO 8601.
-% TODO naozaj tam môžem hodit ISO 8601 a prežije to?
+Zámerom bolo, aby zápis dátumu a času zodpovedal medzinárodnému štandardu
+ISO 8601. Kvôli zložitosti čítania času v takomto formáte v použitom
+implementačnom prostredí som zvolil vlastný formát dátumu, ktorý mu je veľmi
+podobný. Formát dátumu je ``\%Y-\%m-\%d \%H:\%M:\%S'', podrobný rozbor sa
+nachádza v tabuľke~\ref{tab-timestamp}. Z pohľadu návrhu aplikácie je potrebné,
+aby vstupné dáta mali rovnaký počet meraní nameraných v jeden deň v celej
+vstupnej množine. To znamená, že veľkosť periódy dát by mala byť rovnaká
+a zároveň sa rovnala veľkosti periódy, ktorú zvolil používateľ vo webovej
+aplikácii.
+
 Stĺpec s hodnotou obsahuje reálne číslo, ktoré reprezentuje veľkosť nameranej
-veličiny, ktorú sa bude aplikácia predpovedať. Jednotky, v ktorých budú hodnoty
+veličiny, ktorú sa bude aplikácia snažiť predpovedať. Jednotky, v ktorých budú hodnoty
 uvedené nie sú podstatné, výpočet je nezávislý na použitej škále. Obmedzenia
 na tento stĺpec sú, aby skutočne obsahoval iba reálne číslo zodpovedajúce
 nameranej hodnote a aby v rámci jedného súboru bola konzistentne použitá
 rovnaká škála hodnôt.
+
+V prípade, že pri vkladaní súboru aplikácia nenájde spomínané stĺpce, nedovolí
+používateľovi spustiť výpočet. Pri návrhu aplikácie sa predpokladalo, že vstupné
+dáta budú vždy pochádzať z jedného zariadenia a budú teda mať rovnakú časovú
+zónu. Z tohto dôvodu stĺpec ``timestamp'' neobsahuje údaj o časovej zóne,
+v ktorej bola hodnota nameraná. Dáta, ktoré som používal pri návrhu aplikácie
+preto museli byť orezané tak, aby všetky dni mali rovnaký počet meraní alebo
+čas musel byť prekonvertovaný do takej časovej zóny, ktorá by nespôsobovala
+rôznu veľkosť periódy. Keďže množina dát, s ktorými som pracoval bola dostatočne
+veľká zvolil som prvú možnosť.
+
+\begin{table}[ht]
+  \centering
+  \caption{Rozbor formátu dátumu a času.}
+  \label{tab-timestamp}
+  \begin{threeparttable}
+    \begin{tabular}{|l|c|c|}
+      \hline
+      \textbf{Názov}  &   \textbf{Formátový reťazec}  &   \textbf{Hodnota}  \\ \hline
+      Rok     & \%Y & 2013 \\ \hline
+      Mesiac  & \%m & 07 \\ \hline
+      Deň     & \%d & 10 \\ \hline
+      Hodina  & \%H & 20 \\ \hline
+      Minúta  & \%M & 15 \\ \hline
+      Sekunda & \%S & 15 \\ \hline
+    \end{tabular}
+    \begin{tablenotes} \footnotesize
+      \item Dátum z tabuľky je ``2013-07-10 20:15:00''
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
 
 Dáta by samozrejme nemali byť náhodné, ale malo by sa jednať o časový rad,
 ktorý je možné dekomponovať na cyklickú, trendovú a náhodnú zložku. Niektoré
@@ -1396,19 +1432,15 @@ chronologicky nasledovať. V rámci jedného vstupného súboru musia mať dáta
 všetky záznamy rovnakú periódu časového radu. Ak používateľ v aplikácií zadá,
 že vložené dáta majú mať periódu napr. 96 meraní za deň, potom sa očakáva, že
 dáta majú zvolenú veľkosť periódy a ostatné záznamy nebudú použité pri výpočte.
-% TODO padne aplikácia ak budú záznamy aj v inej perióde _
 
-\subsubsection{Použité predikčné metódy}
+\subsection{Použité predikčné metódy}
 opis predikcnych metod,
 periodu si nastavuje pouzivatel,
 
-\subsubsection{Použité optimalizačné metódy}
+\subsection{Použité optimalizačné metódy}
 v navrhu su metody, ktore som pouzil a ich parametre, ktoro optimalizujem, spomenut min max pri optimalizovani,
 ako som pouzil optimalizacne algoritmz
 ze agenti su vlasne mozne riesenia, pri svr aj opisem aj ako predspracovavam data
-
-odbremenene od implementacneho prostredia, nacrtnu myšlienku toho, rozdelene na dve časti parametre, aké dáta tam musia vstupovať, stĺpce a atribúty, aké ošetrenia musím mať pri vstupoch
-čo musím z dátami urobiť, daj tam aj metódy a aj aké parametre som dovolil optimazolať, prípaden by som mohol ďalši možné parametre s využitím balíka SVR  vieme optimalizovať aj iné parametre napr,
 
 %-------------------------------------------------------------------------------
 %   Chapter 5 - Implementation
@@ -1417,7 +1449,6 @@ odbremenene od implementacneho prostredia, nacrtnu myšlienku toho, rozdelene na
 \newpage
 \section{Implementácia}
 \label{implementation}
-
 Aplikácia je kvôli prehľadnosti organizovaná do viacerých adresárov. Pri
 vytváraní webovej aplikácie pomocou knižnice Shiny, sa program rozdeľuje na
 časť webového rozhrania a serverovú časť. Tie sa pri jednoduchých aplikáciách
@@ -1428,7 +1459,7 @@ všetky výpočty aplikácie. Od prípravy vstupných dát, cez predikčné
 a optimalizačné algoritmy až po fitness funkcie. Adresár ``conf'' obsahuje
 konfiguračné súbory, ktoré poskytujú celej aplikácií flexibilitu pri jej
 ďalšom rozšírovaní a udržiavaní.
-presne čo som ako robil, architektúru aplikácie, podelené metódy, nastavenie konfiguráku, čo treba pridať a čo treba kd enapísať, č oto je konfigurákl, postupn apridenie,
+
 
 %-------------------------------------------------------------------------------
 %   Chapter 6 - Evaluation
@@ -1437,8 +1468,7 @@ presne čo som ako robil, architektúru aplikácie, podelené metódy, nastaveni
 \newpage
 \section{Zhodnotenie}
 \label{evaluation}
-vyskúšať appku na rôznych dátach, a skúsiť greedy, rôzne datasety
-Snažil som sa optimalizovať
+
 
 %-------------------------------------------------------------------------------
 %   Chapter 7 - Conclusion
@@ -1447,7 +1477,7 @@ Snažil som sa optimalizovať
 \newpage
 \section{Záver}
 \label{conclusion}
-pol strany
+
 
 %-------------------------------------------------------------------------------
 %   Chapter 8 - Technical documentation
@@ -1456,7 +1486,7 @@ pol strany
 \newpage
 \section{Technická dokumentácia}
 \label{documentation}
-grafy a ukážku konfiguráku a vysvietené časti otho a hentoho,
+
 
 % \newpage
 % \section{Plán do nasledujúceho semestra}

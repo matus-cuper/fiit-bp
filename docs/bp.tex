@@ -1314,7 +1314,11 @@ predikcií.
 Cieľom práce je navrhnúť systém, ktorý umožní používateľovi nájsť optimálne
 nastavenie vstupných parametrov predikčných metód. Používateľ bude mať
 k dispozícií niekoľko predikčných a optimalizačných algoritmov, bude môcť
-meniť ich parametre a vykonávať výpočty. Množinu dát si sám zvolí, aplikácia
+meniť ich konfiguračné parametre a vykonávať výpočty, vďaka ktorým zistí okrem
+veľkosti predikčnej chyby aj optimálne nastavenie paramterov. Tieto výsledky
+môže použiť vo vlastnej aplikácií alebo výskume. Predmetom optimalizácie budú
+parametre predičkných metód, konfigurácia optimalizačných algoritmov je
+ponechaná na používateľovi. Množinu dát si sám zvolí, aplikácia
 je nezávislá na doméne, v ktorej boli dáta namerané. Ku každému z uvedených
 parametrov bude poskytnuté vysvetlenie a opis zmeny správania na základe
 ich zmeny. Presnosť predpovede bude určená pomocou používaných metrík na
@@ -1323,32 +1327,41 @@ si vybrať jednu z nich a tá bude následné použitá optimalizačných algori
 
 Pri návrhu aplikácie boli použité dáta z inteligentných elektromeračov
 používaných na Slovensku. Dostupné sú každých 15 minút z rôznych obcí. Keďže
-budeme vždy predpovedať práve jednu veličinu na základe samej seba, jedno
-meranie by malo zodpovedať formátu ``dátum a čas, nameraná hodnota''. Nameraná
-hodnota bude reprezentovaná reálnym číslom.
+budeme vždy predpovedať práve jednu veličinu práve jedného merača, každé
+meranie potom bude jednoznačne identifikovateľné pomocou dátumu a času, kedy
+bolo uskutočnené. Nameraná hodnota bude reprezentovaná reálnym číslom.
+Našou úlohou nie je optimalizovať predpovede na základe faktorov, ktoré ich
+ovplyvňujú a teda merania, ktoré majú k dispozícií aj nejakú vysvetľujúcu
+premennú budú spracovávané rovnakým spôsobom ako tie bez nej.
 
 Používateľ si bude môcť vyberať z ponúknutých predikčných a optimalizačných
-algoritmov. K dispozícii bude mať lineárnu regresiu, stochastické modely,
+algoritmov. K dispozícii bude mať stochastické modely,
 regresiu založenú na podporných vektoroch, rozhodovacie stromy a prírodne
-inšpirované optimalizačné algoritmy ako genetický algoritmus, umelú kolóniu
-včiel alebo svorku divých vlkov. Systém bude navrhnutý tak, aby pridanie
-ďalších algoritmov spôsobilo čo najmenšie zmeny v pôvodnom systéme.
+inšpirované optimalizačné algoritmy ako umelú kolóniu včiel alebo optimaliziu
+založenú na správaní roja častíc. Systém bude navrhnutý tak, aby pridanie
+ďalších algoritmov nespôsobovalo zmeny v pôvodnej aplikácii a pozostávalo tak
+iba z pridania implementácie algoritmov a prípadne zmeny konfigurácie.
 Pripadá do úvahy, že samotný systém bude poskytovať rozhranie, ktoré
 používateľovi umožní použiť vlastnú implementáciu iných algoritmov.
 
 Optimalizačné algoritmy potrebujú mať určený definičný obor. Hodnoty
 z neho používajú na nájdenie optimálneho riešenia, čo je v našom prípade
 nájdenie kombinácie vstupných parametrov predikčných metód, ktorých výsledná
-chyba je čo najmenšia. V aplikácií sa budú nachádzať prednastavené definičné
-obory, ale zároveň bude poskytovať používaľovi ich zmenu. Samozrejme iba
-v určitom rozmedzí, aby tak používateľ nespôsobil dlhú odozvu systému, prípadne
-nezvolil hodnoty, ktoré nebudú z definičného oboru predikčnej metódy.
+chyba je čo najmenšia. Z tohto dôvodu je dôležité myslieť pri návrhu aplikácie
+na to, aby výstupom zvolených metód na meranie chyby boli nezáporné čísla.
+V aplikácií sa budú nachádzať prednastavené definičné obory, ktoré bude môcť
+používateľ v definovanom rozmedzí upravovať. Predídeme tak dlhým odozvám
+systému pri zvolení veľkého definičného oboru a zároveň nevzniknú situácie,
+kedy používateľ zvolí hodnotu, ktorá nebude patriť do definičného oboru
+predikčnej metódy.
 
 Systém bude implementovaný v jazyku R a webové používateľské rozhranie bude
 vytvorené pomocou knižnice Shiny. Web aplikácie bude navrhnutý tak, aby
-používateľovi poskytoval intuitívne a interaktívne rozhranie k predikčným
-metódam. Zároveň bude dostatočne robustný a aj menej znalý používateľ, by ho
-mal vedieť používať.
+používateľovi poskytoval interaktívne rozhranie s predikčnými metódami.
+Bude dostatočne robustný a intuitívny, aby s jeho používaním nemali problémy
+ani tí menej skúsení. Zároveň bude skúsenému používateľovi poskytovať
+modulárnosť, konfigurovateľnosť, ale hlavne rozhranie pre jednoduché pridávanie
+ďalších algoritmov, ktoré si môže sám implementovať.
 
 %-------------------------------------------------------------------------------
 %   Chapter 4 -  Solution design

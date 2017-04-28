@@ -1,13 +1,20 @@
 ## prepare matrices for SVR
 
 # Example call
-# values <- svr.readDataFn("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv", measurementsPerDay = 96, trainingSetProportion = 0.8)
-# where values variable will contain 2 matrices matrices$trainingMatrix and matrices$testingMatrix and
-# third one will be data.frame of values from origin dataset needed for verification process
+# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+#                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
+# values <- svr.prepareFn(preparedData)
+# return 2 matrices representing training and testing set with (measurements per day + day per week) columns
+# matrices are filled by 0 values, 1 is set only on place of measurement of day and on place day of week
 
 # Convert given date into nth day in week
 svr.nthInWeek <- function(date, frequency = 7) {
-  return((as.numeric(as.POSIXlt(date)$wday) + frequency - 1) %% (frequency + 1))
+  result <- as.numeric(as.POSIXlt(date)$wday)
+  for (i in 1:length(date)) {
+    if (result[i] == 0)
+      result[i] <- frequency
+  }
+  return(result)
 }
 
 # Convert time of the day to n-th measurement of the day

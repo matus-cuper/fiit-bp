@@ -1,5 +1,8 @@
 ## compute SVR and return error
 
+# Example call
+# params.prediction <- values
+
 # tmp <- svr.readDataFn("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", 96, 0.9)
 # params.prediction <<- c(tmp, errorFn = "mape")
 # svr.predictFn(c(1, 2))

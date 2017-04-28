@@ -1,4 +1,4 @@
-## Collection of functions, which will represent fitness function and compute accuracy
+## functions measuring errors, also represent fitness functions for optimization algorithms
 
 # In functions yhat is predicted value and y is real value
 

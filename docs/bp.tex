@@ -19,7 +19,8 @@
 \usepackage{amssymb}                                                            % for real numbers sign
 \usepackage{algorithm, algpseudocode}                                           % for pseudocode writting
 \usepackage{graphicx}                                                           % enable figures
-\usepackage{threeparttable}
+\usepackage{threeparttable}                                                     % enable table with footnotes
+\usepackage{url}                                                                % enable url in references chapter
 \graphicspath{ {images/} }                                                      % set path for figures
 \hypersetup{																																		% with default colours for links
     colorlinks,
@@ -501,6 +502,7 @@ zapíšeme ako $e_t$~\cite{KumarSingh2013, Mahalakshmi2016}.
 %-------------------------------------------------------------------------------
 
 \subsubsection{Stochastické modely}
+\label{stochastic}
 Tieto metódy časových radov sú založené na predpoklade, že dáta majú vnútornú
 štruktúru, ako napr. autokoreláciu, trend či sezónnu varianciu. Najprv sa
 precízne zostaví vzor zodpovedajúci dostupným dátam a potom sa na jeho základe
@@ -680,7 +682,7 @@ množine najväčšiu triedu, ktorú odizolujeme od ostatných dát~\cite{Bel200
 
 \paragraph{Náhodné lesy} sú kombináciou predpovedí stromov. Každý strom závisí
 od hodnoty náhodného vektora s rovnakým rozdelením. Chyba lesu závisí od sily
-jednotlivých strom a koreláciou medzi nimi. Náhodný les môžeme definovať ako
+jednotlivých stromov a koreláciou medzi nimi. Náhodný les môžeme definovať ako
 klasifikátor pozostávajúci z množiny stromov $\{h(x, \Theta_k), k=1, 2, ... \}$,
 kde $\{\Theta_k\}$ sú nezávislé rovnomerne distribuované náhodné vektory a každý
 strom sa podieľa hlasom na voľbe triedy vstupu $x$. S nárastom počtu stromov
@@ -1331,8 +1333,10 @@ budeme vždy predpovedať práve jednu veličinu práve jedného merača, každ�
 meranie potom bude jednoznačne identifikovateľné pomocou dátumu a času, kedy
 bolo uskutočnené. Nameraná hodnota bude reprezentovaná reálnym číslom.
 Našou úlohou nie je optimalizovať predpovede na základe faktorov, ktoré ich
-ovplyvňujú a teda merania, ktoré majú k dispozícií aj nejakú vysvetľujúcu
-premennú budú spracovávané rovnakým spôsobom ako tie bez nej.
+ovplyvňujú a teda merania, ktoré majú k dispozícií aj hodnotu nejakej vysvetľujúcej
+premennej budú spracovávané rovnakým spôsobom ako tie bez nej. Fungovanie
+aplikácie nie je závislé na doméne, z ktorej dáta pochádzajú. Používateľ tak
+môže optimalizovať predikčné parametre aj na základe iných dát ako z elektromeračov.
 
 Používateľ si bude môcť vyberať z ponúknutých predikčných a optimalizačných
 algoritmov. K dispozícii bude mať stochastické modely,
@@ -1375,7 +1379,8 @@ optimalizačný algoritmus, ktorým bude optimalizovať nastavenie predikčného
 algortimu. Keďže každý predikčný algoritmus potrebuje pre správnu funkcionalitu
 iné parametre s rôznymi hodnotami, je najskôr potrebné implementovať rozhranie,
 ktoré zabezpečí správnu interakciu s optimalizačným algoritmom. Používateľ
-preto bude vyberať iba z algoritmov, ktoré predom budú implementované.
+preto bude vyberať iba z algoritmov, ktoré budú predom implementované alebo tak
+sám urobí.
 
 V práci som sa rozhodol zvoliť ako predikčné algoritmy metódu podporných
 vektorov, autoregresívny integrovaný model kĺzavého priemeru a náhodné lesy.
@@ -1385,10 +1390,16 @@ algoritmov v jazyku R som zvolil optimalizáciu rojom častíc a ABC
 optimalizáciu. Používateľ bude môcť pomocou rozhrania určiť parametre pre tieto
 algoritmy, ako napr. počet častí alebo cyklov.
 
+%-------------------------------------------------------------------------------
+%   Features of input data
+%-------------------------------------------------------------------------------
+
 \subsection{Vlastnosti vstupných dát}
-Vstupné dáta, ktoré vkladá do aplikácie pužívateľ by mali byť vo formáte CSV.
-Súbor by mal pri tom obsahovať aspoň dva stĺpce, kde stĺpec ``timestamp''
+Vstupné dáta, ktoré vkladá do aplikácie používateľ by mali byť vo formáte CSV,
+teda súbor s tabuľkovými dátami, kde hodnoty v stĺpcoch sú oddelené čiarkami.
+Súbor by mal pri tom obsahovať aspoň dva pomenované stĺpce, kde stĺpec ``timestamp''
 obsahuje dátum a čas získania hodnoty, ktorá sa nachádza v stĺpci ``value''.
+Hodnoty v ostatných stĺpcoch budú ignorované.
 Zámerom bolo, aby zápis dátumu a času zodpovedal medzinárodnému štandardu
 ISO 8601. Kvôli zložitosti čítania času v takomto formáte v použitom
 implementačnom prostredí som zvolil vlastný formát dátumu, ktorý mu je veľmi
@@ -1398,23 +1409,6 @@ aby vstupné dáta mali rovnaký počet meraní nameraných v jeden deň v celej
 vstupnej množine. To znamená, že veľkosť periódy dát by mala byť rovnaká
 a zároveň sa rovnala veľkosti periódy, ktorú zvolil používateľ vo webovej
 aplikácii.
-
-Stĺpec s hodnotou obsahuje reálne číslo, ktoré reprezentuje veľkosť nameranej
-veličiny, ktorú sa bude aplikácia snažiť predpovedať. Jednotky, v ktorých budú hodnoty
-uvedené nie sú podstatné, výpočet je nezávislý na použitej škále. Obmedzenia
-na tento stĺpec sú, aby skutočne obsahoval iba reálne číslo zodpovedajúce
-nameranej hodnote a aby v rámci jedného súboru bola konzistentne použitá
-rovnaká škála hodnôt.
-
-V prípade, že pri vkladaní súboru aplikácia nenájde spomínané stĺpce, nedovolí
-používateľovi spustiť výpočet. Pri návrhu aplikácie sa predpokladalo, že vstupné
-dáta budú vždy pochádzať z jedného zariadenia a budú teda mať rovnakú časovú
-zónu. Z tohto dôvodu stĺpec ``timestamp'' neobsahuje údaj o časovej zóne,
-v ktorej bola hodnota nameraná. Dáta, ktoré som používal pri návrhu aplikácie
-preto museli byť orezané tak, aby všetky dni mali rovnaký počet meraní alebo
-čas musel byť prekonvertovaný do takej časovej zóny, ktorá by nespôsobovala
-rôznu veľkosť periódy. Keďže množina dát, s ktorými som pracoval bola dostatočne
-veľká zvolil som prvú možnosť.
 
 \begin{table}[ht]
   \centering
@@ -1432,28 +1426,176 @@ veľká zvolil som prvú možnosť.
       Sekunda & \%S & 15 \\ \hline
     \end{tabular}
     \begin{tablenotes} \footnotesize
-      \item Dátum z tabuľky je ``2013-07-10 20:15:00''
+      \item $^{*}$ Dátum z tabuľky je ``2013-07-10 20:15:00''
     \end{tablenotes}
   \end{threeparttable}
 \end{table}
 
+Stĺpec s hodnotou obsahuje reálne číslo, ktoré reprezentuje veľkosť nameranej
+veličiny, ktorú sa bude aplikácia snažiť predpovedať. Jednotky, v ktorých budú hodnoty
+uvedené nie sú podstatné, výpočet je nezávislý na použitej škále. Obmedzenia
+na tento stĺpec sú, aby skutočne obsahoval iba reálne číslo zodpovedajúce
+nameranej hodnote a aby v rámci jedného súboru bola konzistentne použitá
+rovnaká škála hodnôt. V stĺpci sa tak nesmie nachádzať názov či skratka
+jednotky, v ktorej je hodnota nameraná.
+
+V prípade, že pri vkladaní súboru aplikácia nenájde spomínané stĺpce, nedovolí
+používateľovi spustiť výpočet. Pri návrhu aplikácie sa predpokladalo, že vstupné
+dáta budú vždy pochádzať z jedného zariadenia a budú teda mať rovnakú časovú
+zónu. Z tohto dôvodu stĺpec ``timestamp'' neobsahuje údaj o časovej zóne,
+v ktorej bola hodnota nameraná. Dáta, ktoré som používal pri návrhu aplikácie
+preto museli byť orezané tak, aby všetky dni mali rovnaký počet meraní alebo
+čas musel byť prekonvertovaný do takej časovej zóny, ktorá by nespôsobovala
+rôznu veľkosť periódy. Keďže množina dát, s ktorými som pracoval bola dostatočne
+veľká zvolil som prvú možnosť.
+
 Dáta by samozrejme nemali byť náhodné, ale malo by sa jednať o časový rad,
 ktorý je možné dekomponovať na cyklickú, trendovú a náhodnú zložku. Niektoré
 predikčné algoritmy priamo používajú dekompozíciu časových radov na
-predpovedanie hodnôt. Jednotlivé záznamy o meraniach by teda mali za sebou
+predpovedanie hodnôt. Jednotlivé záznamy o meraniach by mali za sebou
 chronologicky nasledovať. V rámci jedného vstupného súboru musia mať dáta
-všetky záznamy rovnakú periódu časového radu. Ak používateľ v aplikácií zadá,
-že vložené dáta majú mať periódu napr. 96 meraní za deň, potom sa očakáva, že
-dáta majú zvolenú veľkosť periódy a ostatné záznamy nebudú použité pri výpočte.
+všetky záznamy rovnakú periódu časového radu. Ak používateľ vo webovom rozhraní
+zvolí, že vložené dáta majú periódu napr. 96 meraní za deň, potom aj aplikácia
+bude očakávať zvolenú veľkosť periódy. Ak pri overovaní dojde k zlyhanie
+aplikácie ohlási chybu.
+
+%-------------------------------------------------------------------------------
+%   Used prediction algorithms
+%-------------------------------------------------------------------------------
 
 \subsection{Použité predikčné metódy}
-opis predikcnych metod,
-periodu si nastavuje pouzivatel,
+Z pohľadu návrhu aplikácie nás budú pre každú predikčnú metódu zaujímať najmä
+vstupné parametre, ktoré budeme optimalizovať a transformácie, ktoré je
+potrebné nad vstupnými dátami vykonať. Takéto delenie je dôležité aj kvôli
+organizácií programu pri implementácií, keďže úprava dát sa vykoná iba raz,
+zatiaľ čo vstupné paramete sa budú meniť neustále. Výstupom výpočtu predpovede
+bude samotná predpoveď alebo veľkosť chyby dosiahnutá pri nej dosiahnutá.
+
+\subsubsection{Regresia založená na podporných vektoroch}
+Parametre, ktoré budeme optimalizovať budú $C$ a $\varepsilon$, ktoré môžu
+nadobúdať iba kladné hodnoty. Hodnota parametru $C$ reprezentuje cenu za
+prekročenie hranice, ktorú sme definovali. Hranicu si označíme ako $\varepsilon$.
+% TODO je epsilon táto hranica
+To znamená, že pri veľmi nízkej hodnote sa výsledná predikcia podobá na
+konštantnú funkciu. Pri veľmi vysokej hodnote môže dôjsť k pretrénovaniu modelu
+a zvýšeniu výslednej chyby na množine testovacích dát. Hodnota parametru
+$\varepsilon$ je hodnota použitá v nesenzitívnej stratovej funkcii, ktorá sa
+% TODO epsilon in the insensitive-loss function
+používa pre regresiu. Zvyšovaním tejto hodnoty sa funkcia reprezentujúca
+predpoveď postupne vyhladzuje, až sa bude podobať na konštantú funkciu.
+
+Vstupné dáta je potrebné tranformovať na 2 matice, jednu trénovaciu maticu
+a jednu testovaciu maticu. Trénovacia matica obsahuje stĺpec s hodnotami,
+ktoré boli v daných časoch namerané, testovacia má tento stĺpec prázdny,
+predpovedané hodnoty doplní algoritmus. Počet ďalších stĺpcov sa môže líšiť
+v závislosti od veľkosti zvolenej periódy. Ak si označíme počet meraní za deň
+ako $n$, potom stĺpce $C_1$ až $C_n$ budú obsahovať hodnotu 1 práva vtedy,
+keď poradie merania v dni bude totožné s poradím stĺpca. Rovnakým postupom
+pridáme ešte ďalších 7 stĺpcov, ktoré budú predstavovať poradie dňa v týždni.
+Pre iné stĺpce $C_1$ až $C_7$ bude potom platiť, že napr. v prvom stĺpci bude
+priradená hodnota 1 tým záznamom, ktoré boli namerané v pondelok. Zvyšok matíc
+bude doplnení nulami.
+
+\subsubsection{Autoregresívny integrovaný model kĺzavého priemeru}
+Parametre stochastického modelu ARIMA sú v literatúre označované ako $p$, $d$
+a $q$. Z kapitoly~\ref{stochastic} vieme, že model ARIMA je generalizáciou
+modelu ARMA, ktorý vznikol kombináciou autoregresívneho modelu a modelu
+kĺzavých priemerov. Vstupné parametre sú nezáporné celé čísle, kde $p$ a $q$
+predstavuje rad modelu a $d$ zodpovedá stupňu derivovania. Pri veľkom počte
+derivovaní sa funkcia predpovednej hodnoty podobá linárnej funkcii.
+% TODO Ostatné parametre netuším ako prispievajú k dielu, okrem toho, že im to trvá
+
+Príprava vstupných dát je veľmi jednoduchá. Keďže model pracuje priamo
+s časovými radmi a vstupné dáta sú časový rad, jedinou úpravou je rozdelenie dát
+na trénovaciu a testovaciu množinu a určenie veľkosti periódy, ktorú zadáva
+používateľ.
+
+\subsubsection{Náhodné lesy}
+Vstupné parametre, ktoré sa budeme snažiť v aplikácií optimalizovať bude počet
+stromov a minimálna veľkosť uzlu v stromoch. Je zrejmé, že číslo definujúce
+počet stromov bude musieť byť kladné a celé, zatiaľ čo veľkosť uzlu môže byť
+definovaná ako ľubovoľné nezáporné číslo. Pri zvyšovaní počtu stromov, ktoré
+budú vytvorené sa funkcia predpovedanej hodnoty javí, akoby každé pridanie stromu
+poskytovalo funkcii ďalšiu možnosť zmeny smeru. Funkcia tak pri malom počte
+stromov vyzerá kostrbato a náhodne, zväčšovaním počtu sa extrémy vyhladzujú a
+predpovedané hodnoty postupne konvergujú do funkcie, ktorá je obrysmi podobná
+funkcii reálnych dát. Zväčšovaním uzlov sa funkcia predikovaných hodnôt
+postupne vyhladzuje, až nakoniec opisuje konštantnú funkciu.
+
+Rovnako ako model ARIMA tak aj náhodné lesy pracujú priamo s časovými radmi.
+Je však potrebné pridať k dátam informáciu o tom, kedy boli namerané. Zároveň
+by táto funkcia mala byť spojitá. To najjednoduchšie dosiahneme tak, že z dátumu
+extrahujeme poradie dňa v týždni a z časovej zložky zasa poradie merania v dni.
+Funkcie zatiaľ nie sú spojité, a preto na ne aplikujeme transformáciu popísanú
+vo vzorci~\ref{eq-rf-prepare}~\cite{Laurinec2017}
+\begin{equation}
+  \frac{sin(2\Pi \frac{\text{poradie merania}}{\text{veľkosť periódy}}) + 1}{2} \text{  resp.  } \frac{cos(2\Pi \frac{\text{poradie merania}}{\text{veľkosť periódy}}) + 1}{2}
+  \label{eq-rf-prepare}
+\end{equation}
+a goniometrické funkcie sínus a kosínus. Výsledné funkcie sú spojité a svojou
+harmonickosťou opisujú vlastnosti dát skryté v dátume a čase. Priebeh 4 pomocných
+funkcií je znázornení na obrázku~\ref{fig-rf-prepare}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{random_forest_preparation.pdf}
+  \caption{Ukážka transformácií dátumu a času pri predikcii náhodnými lesmi.}
+  \label{fig-rf-prepare}
+\end{figure}
+
+%-------------------------------------------------------------------------------
+%   Used optimization algorithms
+%-------------------------------------------------------------------------------
 
 \subsection{Použité optimalizačné metódy}
-v navrhu su metody, ktore som pouzil a ich parametre, ktoro optimalizujem, spomenut min max pri optimalizovani,
-ako som pouzil optimalizacne algoritmz
-ze agenti su vlasne mozne riesenia, pri svr aj opisem aj ako predspracovavam data
+Aplikácia bude používateľovi poskytovať rozhranie na nastavenie vstupných
+parametrov predikčných metód a taktiež nastavanie rozsahu hodnôt, ktoré majú
+tieto metódy použiť pri optimalizovaní. Výsledkom výpočtu bude porovnanie
+reálnych a predpovedaných dát v podobe grafu a veľkosti výslednej chyby.
+Taktiež budú používateľovi zobrazené optimálne parametre pre zvolenú predikčnú
+metódu. Každá kombinácia parametrov vystupuje v optimalizačnom algoritme ako
+agent, ktorého úlohou je dosiahnuť, čo najnižšiu hodnotu fitness funkcie.
+V závisloti od použitého algoritmu a získaných vedomostí sa v nasledujúcich
+cykloch menia hodnoty reprezentujúce agenta. Hodnoty parametrov môžu byť
+ovplyvňované aj voľbou funkcie na meranie chyby, ktorá plní úlohu fitness
+funkcie pre optimalizačné algortimy.
+
+Pri návrhu aplikácie je dôležité najmä správne definovať rozhranie medzi
+predikčnými a optimalizačné metódami. Je nemysliteľné, aby pri pridávaní
+ďalších algoritmov bolo potrebné upravovať už používané algoritmy, najmä kvôli
+množstvu kombinácií, ktoré môže vzniknúť. Našťastie každého agenta definujeme
+práve hodnotami, ktoré vstupujú do predikčného algoritmu. Na výstupe očakáva
+optimalizačná metóda hodnotu fitness funkcie, ktorá určuje ďalšie smerovanie
+agentov. Tento proces sa opakuje až pokiaľ nebude dosiahnutá ukončovacia
+podmienka. V použitých algoritmoch to je maximálny počet iterácií algortimu.
+Túto hodnotu môže používateľ nastaviť v aplikácií v definovanom rozsahu.
+
+\subsubsection{Optimalizácia rojom častíc}
+Používateľ bude mať možnosť v aplikácií zvoliť počet častíc, ktoré budú
+použité na optimalizovanie problému. Pod každou časticou si môžeme predstaviť
+agenta, ktorý bude nositeľom informácie o okolitom prostredí a o hodnotách,
+ktoré ho viedli k aktuálnemu riešeniu. Pre každý optimalizovaný parameter je
+potrebné definovať rozsah hodnôt, ktoré môže používateľ v aplikácií nastaviť.
+Je dôležité poznamenať, že okrem hraníc rozsahu nás zaujímajú aj samotné
+hodnoty, ktoré bude algoritmus používať na optimalizáciu. Je zrejmé, že
+používať desatinné čísla pre parameter označujúci napr. počet stromov nie je
+logické a aplikácia by mala byť schopná sa s tým vysporiadať.
+
+V prostredí jazyka R sú k dispozícií 2 rôzne knižnice implementujúce
+optimalizáciu rojom častíc. V aplikácií sa budú pre porovnanie použité obidve
+implementácie.
+
+\subsubsection{Umelá kolónia včiel}
+Rovnako ako pri optimalizácii rojom častíc tak aj pri tomto algoritme bude mať
+používateľ možnosť zvoliť rozsah hodnôt, ktoré budú použité na optimalizovanie.
+Opäť bude dôležité vysporiadať sa s desatinými číslami. Používateľ bude môcť
+navyše nastavovať parametre ABC algoritmu ako je počet zdrojov potravy alebo
+limit pre daný zdroj. Pod limitom môžeme rozumieť počet iterácií cyklu, počas
+ktorého sa daný zdroj potravy nezlepšil. Týmto parametrom môžeme výrazne
+urýchliť nájdenie optimálneho riešenia, na druhej strane môže nastať situácia,
+kedy by sme rýchlym opustením zdroja potravy mohli stratiť lepšie riešenie.
+Zvyšovaním počtu zdrojov potravy sa zvyšuje aj čas výpočtu, ale zároveň bude
+nájdené optimálnejšie riešenie.
 
 %-------------------------------------------------------------------------------
 %   Chapter 5 - Implementation

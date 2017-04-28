@@ -13,7 +13,12 @@ rf.nthInDay <- function(date, frequency) {
 
 # Convert given date into nth day in week
 rf.nthInWeek <- function(date, frequency = 7) {
-  return((as.numeric(as.POSIXlt(date)$wday) + frequency - 1) %% (frequency + 1))
+  result <- as.numeric(as.POSIXlt(date)$wday)
+  for (i in 1:length(date)) {
+    if (result[i] == 0)
+      result[i] <- frequency
+  }
+  return(result)
 }
 
 # Represent measurements per day as sinus function
@@ -59,15 +64,15 @@ rf.prepareFn <- function(preparedData) {
   trainingDF <- cbind(value=c(trainingSetRecords$value),
                       day_sin=c(rf.setSinForDay(trainingSetRecords$timestamp, measurementsPerDay)),
                       day_cos=c(rf.setCosForDay(trainingSetRecords$timestamp, measurementsPerDay)),
-                      week_sin=c(rf.setSinForWeek(trainingSetRecords$timestamp, measurementsPerDay)),
-                      week_cos=c(rf.setCosForWeek(trainingSetRecords$timestamp, measurementsPerDay)))
+                      week_sin=c(rf.setSinForWeek(trainingSetRecords$timestamp, 7)),
+                      week_cos=c(rf.setCosForWeek(trainingSetRecords$timestamp, 7)))
   
   # Create testing data frame with same format as training data frame with empty values
   testingDF <- cbind(value=c(NA),
                      day_sin=c(rf.setSinForDay(testingSetRecords$timestamp, measurementsPerDay)),
                      day_cos=c(rf.setCosForDay(testingSetRecords$timestamp, measurementsPerDay)),
-                     week_sin=c(rf.setSinForWeek(testingSetRecords$timestamp, measurementsPerDay)),
-                     week_cos=c(rf.setCosForWeek(testingSetRecords$timestamp, measurementsPerDay)))
+                     week_sin=c(rf.setSinForWeek(testingSetRecords$timestamp, 7)),
+                     week_cos=c(rf.setCosForWeek(testingSetRecords$timestamp, 7)))
   
   return(list(trainingDataFrame = trainingDF, testingDataFrame = testingDF))
 }

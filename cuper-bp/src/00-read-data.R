@@ -1,5 +1,11 @@
-## read data from CSV and prepare for prediction fucntions
+## read data from CSV and prepare for prediction prepare fucntions
 
+# Example call
+# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+#                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
+# return 2 data frames representing training and testing set with columns timestamp and value, also return measurements per day
+
+# read data and determine size of training and testing set
 data.prepare <- function(pathToFile, measurementsPerDay, trainingSetRange, testingSetRange) {
   dataRaw <- read.csv(file = pathToFile, header = TRUE, sep = ",")
   

@@ -145,8 +145,8 @@ function(input, output) {
     input$testingSetRange},{
       shinyjs::disable("submitComputation")
       validate(
-        need({input$trainingSetRange[1] < input$trainingSetRange[2]}, "Date from must be earlier than date to"),
-        need({input$testingSetRange[1] < input$testingSetRange[2]}, "Date from must be earlier than date to"),
+        need({input$trainingSetRange[1] <= input$trainingSetRange[2]}, "Date from must be earlier than date to"),
+        need({input$testingSetRange[1] <= input$testingSetRange[2]}, "Date from must be earlier than date to"),
         need({input$trainingSetRange[2] < input$testingSetRange[1]}, "Date from must be earlier than date to")
       )
       shinyjs::enable("submitComputation")

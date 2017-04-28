@@ -98,11 +98,11 @@ function(input, output) {
       }, "Missing column timestamp or value"),
       need({
         dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
-        dataRaw$value <- NULL
-        dataRaw$timestamp <- as.Date(dataRaw$timestamp)
-        dataTable <- table(dataRaw)
-        length(dataTable[dataTable != as.numeric(input$measurementsPerDay)]) == 0
-      }, "Value of measurementsPerDay differs from computed period size")
+        try({
+          dataTable <- table(as.Date(dataRaw$timestamp))
+          length(dataTable[dataTable != as.numeric(input$measurementsPerDay)]) == 0
+        }, silent = TRUE)
+      }, "Value of measurementsPerDay differs from computed period size or timestamp is not parseable")
     )
 
     shinyjs::enable("submitComputation")

@@ -21,6 +21,11 @@
 \usepackage{graphicx}                                                           % enable figures
 \usepackage{threeparttable}                                                     % enable table with footnotes
 \usepackage{url}                                                                % enable url in references chapter
+\usepackage{listings}                                                           % enable source code syntax highlighting
+\lstset{
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
 \graphicspath{ {images/} }                                                      % set path for figures
 \hypersetup{																																		% with default colours for links
     colorlinks,
@@ -1606,17 +1611,366 @@ nájdené optimálnejšie riešenie.
 \newpage
 \section{Implementácia}
 \label{implementation}
-Aplikácia je kvôli prehľadnosti organizovaná do viacerých adresárov. Pri
-vytváraní webovej aplikácie pomocou knižnice Shiny, sa program rozdeľuje na
-časť webového rozhrania a serverovú časť. Tie sa pri jednoduchých aplikáciách
-môžu nachádzať v jednom súbore, ja som ich podľa dokumentácie rozdelil do
-súboroc ``ui.R'' resp. ``server.R'' pre webové rozhranie resp. serverovú
-logiku. V adresári ``src''sa nachádzajú zdrojové súbory, ktoré v sebe zahŕňajú
-všetky výpočty aplikácie. Od prípravy vstupných dát, cez predikčné
-a optimalizačné algoritmy až po fitness funkcie. Adresár ``conf'' obsahuje
-konfiguračné súbory, ktoré poskytujú celej aplikácií flexibilitu pri jej
-ďalšom rozšírovaní a udržiavaní.
+Webová aplikácia je implementovaná v jazyku R verzie 3.4.0. Pri implementácií
+som používal developerské prostredie RStudio verzia 1.0.143. Webové rozhranie je
+vytvorené pomocou knižnice ``shiny''. Konfigurácia aplikácie je zabezpečená
+knižnicou ``config'', informácie o ďalších použitých knižniciach a ich verziách
+sa nachádzajú v tabuľke~\ref{tab-libraries}. Nasledujúce podkapitoly obsahujú
+popis použitých transformáciami nad dátami, popis organizácie zdrojového kódu
+do funkcií a súborov, úpravu konfigurácie, ale aj postupy na pridanie ďalších
+predikčných a optimailzačných algoritmov.
 
+\begin{table}[ht]
+  \centering
+  \caption{Použité knižnice jazyka R.}
+  \label{tab-libraries}
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Názov}  &   \textbf{Použitá verzia}  \\ \hline
+    ABCoptim        &   0.14.0  \\ \hline
+    config          &   0.2     \\ \hline
+    forecast        &   8.0     \\ \hline
+    kernlab         &   0.9-25  \\ \hline
+    pso             &   1.0.3   \\ \hline
+    psoptim         &   1.0     \\ \hline
+    randomForest    &   4.6-12  \\ \hline
+    shiny           &   1.0.2   \\ \hline
+    shinyjs         &   0.9     \\ \hline
+  \end{tabular}
+\end{table}
+
+%-------------------------------------------------------------------------------
+%   Cleaning input data
+%-------------------------------------------------------------------------------
+
+\subsection{Úprava vstupných dát}
+Počas návrhu aplikácie bolo k dispozícií viacero datasetov, ktoré sme mohli
+použiť. Keďže je fungovanie aplikácie nezávislé na zvolenej doméne a nevzniká
+potreba trénovať model na veľkom množstve dát, jediným kritériom na vstupné
+dáta je, aby mali vlasnosti časových radov. Použité dáta pochádzajú
+z inteligentných elektromeračov nachádzajúcich sa na Slovensku. Veličina, ktorú
+sme predpovedali je odber elektrickej energie. Dáta sú k dispozícií každých
+15 minút a celý dataset obsahuje merania z obdobia takmer 2 rokov. Formát
+dát je nasledovný:
+
+\begin{lstlisting}{R}
+  DATUM,CAS,Suma_odbery
+  01/07/2013,-105,1979.647687
+  01/07/2013,-90,1866.069666
+  01/07/2013,-75,1657.762122
+  01/07/2013,-60,1646.840106
+  01/07/2013,-45,1654.063798
+  01/07/2013,-30,1719.126487
+  01/07/2013,-15,1725.385136
+  01/07/2013,0,1702.126518
+  01/07/2013,15,1653.233316
+  01/07/2013,30,1601.772426
+  01/07/2013,45,1577.106243
+  01/07/2013,60,1553.637892
+  01/07/2013,75,1557.940842
+  01/07/2013,90,1523.56265
+\end{lstlisting}
+
+Môžeme si všimnúť, že vstupný CSV súbor pozostáva z 3 stĺpcov ``DATUM'', ``CAS''
+a ``\text{Suma\_odbery}''. Hodnoty času pritom nezodpovedajú formátu, na ktorý sme
+bežne zvyknutý, hlavne preto, že sa jedná o jedno celé číslo, ktoré nadobúda aj
+záporné hodnoty. Je to z dôvodu, že toto číslo označuje poradie merania v dni
+v minútach v časovej zóne UTC, čiže záporné hodnoty tohto stĺpca označujú prvé
+hodiny v dni. Pri letnom čase sú to dve hodiny a pri zimnom iba jedna. Ako bolo
+spomenuté v kapitole~\ref{solution-design}, aplikácia nebude závislá od domény,
+časovej zóny alebo pomocných premenných, no zároveň je potrebné zachovať
+konzistentnú veľkosť periódy naprieč celým datasetom. Z toho dôvodu sa nám
+naskytujú dva spôsoby, ktorými môžeme upraviť dátum a čas do požadovaného
+formátu.
+
+Prvým je odstránenie nadbytočnej hodiny pri prechode na zimný čas,
+pridanie chýbajúcej hodiny pri prechode na letný čas (napr. opakovaním hodnôt
+z predchádzajúcej hodiny) a následne prekonvertovať stĺpec ``CAS'' do formátu
+``\%H:\%M:\%S'', s ktorým už ďalej vieme bez problémov pracovať. Druhým
+jednoduchším spôsobom je obmedziť používanie aplikácie na dáta s veľkosťou
+rádovo v týždňoch. Optimalizácia parametrov pri väčších dátach je aj tak veľmi
+časovo náročná. Potom môžeme záporné hodnoty presunúť do predchádzajúceho dňa
+a následne ich konvertovať spolu s dátumom do požadovaného formátu. Týmto
+spôsobom stratíme iba jeden deň na začiatku a na konci časového radu. Cenu za
+to je posunutie sledovanej veličiny spolu s posunutím času. Na výsledných dátach
+sa to prejaví tak, že vzory, ktoré si môžeme všimnúť v dátach z letného času,
+budú v zimnom čase o hodinu posunuté. Vstupná množina dát však nikdy nebude
+väčšia ako pár mesiacov, a tak nie je problém vyhnúť sa dvom dátumom v roku.
+Navyše tieto dáta boli použité iba pri návrhu a používateľ bude môcť použiť
+dáta, ktoré sám uzná za vhodné. Výsledný formát dát je potom nasledovný:
+
+\begin{lstlisting}{R}
+  timestamp,value
+  2013-07-01 00:00:00,1702.126518
+  2013-07-01 00:15:00,1653.233316
+  2013-07-01 00:30:00,1601.772426
+  2013-07-01 00:45:00,1577.106243
+  2013-07-01 01:00:00,1553.637892
+  2013-07-01 01:15:00,1557.940842
+  2013-07-01 01:30:00,1523.56265
+\end{lstlisting}
+
+Dáta v takomto formáte sú vhodné na spracovanie, avšak nie je možné ich priamo
+použiť predikčnými algoritmami. Každý z nich očakáva, že pracuje s dátami
+v rôznych dátových štruktúrach s rôznymi vysvetľujúcimi premennými. Aj keď bolo
+spomenuté, že aplikácia ich nebude používať v prípade, že vstupné dáta obsahujú
+viacero stĺpcov, v tomto prípade sa jedná o dekomponovanie zložiek časového radu
+a transformovanie datúmu a času tak, ako to požaduje konkrétny algortimus.
+
+Ako už bolo spomenuté SVR požaduje trénovacie aj testovacie dáta v štruktúre
+matici, ktorá bude až na stĺpec s nameranou alebo predpovedanou hodnotou
+obsahovať iba hodnoty 0 a 1. Po vytvorení matici, ktorá obsahuje iba 0, sa
+postupne na ňu aplikujú metódy ``svr.setOnesForTimestamp'' a ``svr.setOnesForDayOfWeek'',
+ktoré priradia hodnotu 1 pre stĺpec reprezentujúci poradie merania v dni a
+rovnako aj pre stĺpec reprezentujúci poradie dňa v týždni, kedy bolo meranie
+uskutočnené. Poslednou úpravou je pridanie stĺpca s nameranými hodnotami pre
+trénovaciu maticu a prázdneho stĺpca pre testovaciu maticu. Implementácia
+spomínaných funkcií je:
+
+\begin{lstlisting}[language=R]
+  svr.setOnesForTimestamp <- function(matrixM, dates, recordsCount, measurementsPerDay) {
+    for (i in 1:recordsCount) {
+      matrixM[i, svr.orderOfTimestamp(dates[i], measurementsPerDay) + 1] <- 1
+    }
+    return(matrixM)
+  }
+
+
+  svr.setOnesForDayOfWeek <- function(matrixM, dates, recordsCount, measurementsPerDay) {
+    for (i in 1:recordsCount) {
+      matrixM[i, measurementsPerDay + svr.nthInWeek(dates[i])] <- 1
+    }
+    return(matrixM)
+  }
+\end{lstlisting}
+
+Pri opužití modelu ARIMA je transformácia vstupných dát jednoduchá. Model
+dáta v štruktúre časového radu, v ktorej už samotné dáta sú. Príprava dát potom
+spočíva iba v rozdelení množiny na časti požadované používateľom. Implementácia
+je nasledovná:
+
+\begin{lstlisting}[language=R]
+  trainingTS <- ts(preparedData$trainingData$value, frequency = preparedData$measurementsPerDay)
+  testingTS <- ts(preparedData$testingData$value, frequency = preparedData$measurementsPerDay)
+\end{lstlisting}
+
+V prípade transformácie dát pre náhodné lesy, by sme mohli hovoriť o kombinácii
+predchádzajúcih dátových štruktúru s miernym vylepšením. Pri SVR vzniká matica
+s veľkosťou desiatkami stĺpcov a stovkami riadkov, ktoré v každom riadku
+obsahujú práve dve hodnoty 1, zvyšok sú samé 0. Dáta v takomto formáte je
+zložité nejako graficky znázorniť a pritom sa jedná iba o 2 pílovité funkcie,
+rastúce rozdieľnou rýchlosťou. Toto správanie by sme vedeli zachytiť aj dvoma
+číslami, ktoré by reprezentovali rovnaké funkcie. Ak by sme však chceli získať
+spojité funkcie, tak ako to požaduje implementácia náhodných lesov, je potrebné
+aplikovať na dáta mapovanie znázornené obrázkom~\ref{fig-rf-prepare}. Harmonické
+funkcie potom opisujú pozíciu merania v dni a týždni, čo implementujeme
+nasledujúcimi funkciami:
+
+\begin{lstlisting}[language=R]
+  rf.setSinForDay <- function(dates, frequencyF) {
+    return((sin(2 * pi * rf.nthInDay(dates, frequencyF) / frequencyF) + 1) / 2)
+  }
+
+  rf.setCosForDay <- function(dates, frequencyF) {
+    return((cos(2 * pi * rf.nthInDay(dates, frequencyF) / frequencyF) + 1) / 2)
+  }
+
+  rf.setSinForWeek <- function(dates, frequencyF) {
+    return((sin(2 * pi * rf.nthInWeek(dates, frequencyF) / frequencyF) + 1) / 2)
+  }
+
+  rf.setCosForWeek <- function(dates, frequencyF) {
+    return((cos(2 * pi * rf.nthInWeek(dates, frequencyF) / frequencyF) + 1) / 2)
+  }
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------
+%   Application architecture
+%-------------------------------------------------------------------------------
+
+\subsection{Architektúra aplikácie}
+Pri vytváraní webovej aplikácie pomocou knižnice Shiny, sa program rozdeľuje na
+časť webového rozhrania a serverovú časť. Tie sa pri jednoduchých aplikáciách
+môžu nachádzať v jednom súbore, ja som ich podľa odporúčaní dokumentácie
+rozdelil do súborov ``ui.R'' a ``server.R'' pre webové rozhranie serverovú
+logiku. Konfiguračné súbory pomocou, ktorých sa do aplikácie jednoducho
+pridávajú ďalšie algortimy sa nachádzajú v adresári ``conf''. Zdrojové kódy,
+ktoré zabezpečujú úpravu dát a výpočet sa nachádzajú v adresári ``src''.
+Keď sa podrobnejšie pozrieme na obsah tohto adresára zistíme, súbory sú
+očíslované prefixom, ktorý zodpovedá logickému poradiu ich používania, ale
+zároveň sú v tomto poradí aj importované pri spustení Shiny servera.
+
+Predikčné algoritmy sú implementované v súboroch s prefixami ``01'' a ``03'',
+za čím nasleduje skátený názov implementované algoritmu. Rozdeleným
+implementácie do dvoch súborov sa oddelí príprava dát na výpočet od samotného
+výpočtu. Názvy funkcií sú potom pomocou konfiguračného súboru namapované na
+jednotlivé grafické komponenty vo webovom rozhraní. Názov funkcie má vždy ako
+prefix skrátený názov algortimu, ktorý ho používa. Podobná konvencia je
+dodržaná aj pri optimalizačných algoritmoch, s tým že prefix súborov je ``04''.
+Volanie optimalizačných algoritmov zväčša pozostáva z jedného volania funkcie,
+a preto nevzniká potreba delenia na viacero súborov. Načítanie dát zo súboru
+a rôzne fitness funkcie sa nachádzajú v osobitnom súbore.
+
+Aplikácia je navrhnutá tak, aby pridávanie ďalších algoritmov vyžadovalo, čo
+najmenšie úsilie. Kvôli tomu sú grafické komponenty vykresľované zo súboru
+``server.R'' a ``ui.R'' ako je to pri stránkach so statickým, prípadne
+jednoducho dynamickým rozložením komponentov. Vykresľované sú na základe obsahu
+konfiguračného súboru ``conf/server-config.yml'', ktorý v sebe obsahuje
+mapovanie na použité metódy a na základe vstupov z grafického rozhrania, kde si
+používateľ volí používané algoritmy. V závislosti od toho sa mení počet
+zobrazovaných komponentov, ich obsah a význam. Komponenty vykresľované serverom,
+by sme mohli rozdeliť na parametre optimalizačných metód a rozsahy
+prehľadávania riešenie pre predikčné algoritmy.
+
+%-------------------------------------------------------------------------------
+%   Application configuration
+%-------------------------------------------------------------------------------
+
+\subsection{Konfigurácia aplikácie}
+Aplikácia je ľahko konfigurovateľná a rozšíriteľná aj vďaka konfiguračným
+súborom nachádzajúcich sa v adresári ``conf'', ale aj súboru ``global.R'',
+ktorý sa automaticky importuje pri spustený Shiny servera. Obsahuje informácie
+o cestách k súborom, ktoré aplikácia potrebuje pre správne fungovanie. Pri
+použití aplikácie na inom operačnom systéme ako Linux, prípade s iným
+rozmiestneným súborov, je možné v tomto súbore jednoducho zmeniť prednastavené
+cesty.
+
+Spomínaný konfiguračný adresár obsahuje ďalšie 3 súbory. Najdôležitejším je
+``server-config.yml'' a možno ho logicky rozdeliť na 3 časti a to predikčné
+algortimy, optimalizačné algoritmy a fitness funkcie. Každý z predikčných
+algoritmov obsahuje názvy parametrov, ktoré budú optimalizované, názvy funkcií,
+ktoré na to budú použité a názvy, ktoré budú zobrazované používateľovi pri
+používaní aplikácie. Parametre v sebe zahŕňajú aj informáciu o minimálnych,
+maximálnych a prednastavených hodnotách. V súbore sa taktiež nachádza množstvo
+premenných, ktoré označujú veľkosť nasledujúceho poľa, čo nie je navhodnejším
+riešením. Na druhej strane by v niektorých prípadoch odkazovanie na premenné
+v konfiguračnom súbore presiahlo viditeľnú dĺžku riadku a to by dramaticky
+znížilo čitateľnosť takéhoto zdrojového kódu.
+
+Ďalším konfiguračným súborom je ``ui-config.yml'', ktorý obsahuje väčšinou
+texty a názvy jednotlivých komponentov, no nájdu sa tu aj hodnoty argumentov
+pre komponenty, ktoré sa počas behu aplikácie nemenia. Takto je zmena jazyku
+aplikácie veľmi jednoduchá a a vykonané zmeny by sa týkali iba týchto dvoch
+súborov. Posledným konfiguračným súborom je ``app-config.yml'', kde sú
+umiestnené hodnoty, ktoré sa netýkajú webovej aplikácie, ale samotných
+algoritmov. Veľa z nich poskytuje väčšiu funkcionalitu ako sme reálne použili.
+To vieme ovplyvniť pri volaní funkcie napr. nastavením príznaku alebo
+konkrétnou hodnotou vymenovaného typu. Konkrétnym príkladom je predpovedanie
+pomocou SVR, ktorý sa bežne používa na klasifikačné problémy ako SVM. V súbore
+sa potom nachádza vymenovaný typ označujúci použitie regresie a nie klasifikácie.
+
+%-------------------------------------------------------------------------------
+%   Procedure for adding prediction algorithm
+%-------------------------------------------------------------------------------
+
+\subsection{Postup pridávania predikčných algoritmov}
+Najdôležitejšou časťou pridania ďalšieho algoritmu je implementovanie 3 funkcií,
+na ktoré sa neskôr budeme odkazovať z webového rozhrania. Prvá funkcia,
+v konfiguračnom súbore označovaná ako ``prepareFn'', bude na vstupe očakávať
+výsledok načítania súboru, čiže zoznam s dátami z trénovacej a testovacej
+množine so stĺpcami ``timestamp'' a ``value'' a počet meraní za deň. Výstupom
+funkcie je opäť zoznam, obsahujúci pripravené dátové štruktúry pre trénovacie
+a testovanie množiny. Ten je uložený do globálnej premennej
+``params.prediction'' zjednocujúcej parametre predikčnej metódy, ktoré nebudú
+optimalizované. Ďalšou funkciou je ``predictFn'', ktorá je jadrom celého procesu
+optimalzácie. Bude používaná v každom cykle každým agentom, a preto je dôležité
+dbať na efektivitu funkcie. Na vstupe očakáva pole číselných parametrov, ktoré
+budú optimalizované. Telo funkcie sa vo väčšine prípadov skladá z vytvorenia
+modelu, vypočítania predpovedi a vypočítania chyby, ktorú predpoveď dosiahla.
+Pri vytváraní modelu sú používané hodnoty z ``prepareFn'', ale môžeme
+dodefinovať aj parametre, ktoré sa nebudú optimalizovať a vložiť ich do
+``app-config.yml''. Výpočet chyby spočíva vo volaní funkcie podľa jej názvu,
+ktorý je uložený v ``params.prediction\$errorFn''. Parametrami sú skutočná
+hodnota z testovacích dát a predpovedaná hodnota. Pri pridávaní ďalších fitness
+funkcií je dôležité nezabudnúť, aby výsledkom bolo vždy nezáporné číslo, inak by
+mohla nastať situácia, kedy by optimalizačné algortimy nachádzali nevhodné
+riešenia. Posledná funkcia ``predictDataFn'' je implementáciou rovnaká, líši sa
+iba v tom, že namiesto veľkosti chyby vracia predpovedané hodnoty. Tie sú potom
+použité vo webovom rozhraní na vykreslenie grafu s reálnymi hodnotami a
+predpovedanými.
+
+Samozrejme, ak by sme teraz spustili aplikáciu, nepribudla by možnosť použitia
+nového algoritmu. Dôležité je vytvoriť v konfiguračnom súbore
+``server-config.yml'' nový element v poli predikčných algoritmov. Pre správne
+fungovanie aplikácie je dôležité, aby element obsahoval nasledujúce premenné:
+
+\begin{description}
+  \item[$\bullet$ label] názov algoritmu používaný v UI
+  \item[$\bullet$ parameterLabels] názvy optimalizovaných parametrov používaných v UI
+  \item[$\bullet$ prepareFn] funkcia pripravujúca dáta pre predikciu
+  \item[$\bullet$ predictFn] predikčná funkcia vracajúca veľkosť chyby
+  \item[$\bullet$ predictDataFn] predikčná funkcia vracajúca predpoveď
+  \item[$\bullet$ numberOfPredictionParameters] počet elementov nasledujúcej premennej
+  \item[$\bullet$ predictionParameters] pole predikčných parametrov, pre každý parameter sa
+  tu nachádza minimum a maximum, obsahuje nasledujúce hodnoty:
+  \begin{description}
+    \item[$-$ id] identifikátor komponentu používaný na referencovanie na serveri
+    \item[$-$ label] názov parametru používaný v UI
+    \item[$-$ value] prednastavená hodnota
+    \item[$-$ min] dolná hranica parametru
+    \item[$-$ max] horná hranica parametru
+    \item[$-$ step] krok, o ktorý sa minimálne zmení hodnota parametru pri nastavovaní komponentu
+  \end{description}
+\end{description}
+
+Ani teraz by som sa po spustení neprejavili zmeny, ak by sme pridali algoritmus
+na koniec zoznamu. Dôvodom je hodnota premennej ``numberOfPredictionAlgorithms'',
+ktorá stále obsahuje starý počet algoritmov a je potrebné ju preto navýšiť.
+Tentokrát po spustení máme k dispozícií nový algoritmus, ktorý môžeme zvoliť,
+avšak po spustení výpočtu aplikácia zlyhá, lebo server nemá žiadnu k dispozícií
+implementáciu metód, ktoré pozná z konfiguračného súboru. Preto je poslednou
+úpravou pridanie príkazu na importovanie vytvorených súborov do zdrojového
+súboru ``server.R''.
+
+Pri implmentácií funkcií ``predictFn'' a ``predictDataFn'' je dôležité myslieť
+na to, pre aké vstupné hodnoty je predikčný algoritmus definovaný. Definičný
+obor určujeme rozsahom v konfiguračnom súbore, ale problém nastáva v prípade
+ak je definovaný iba na množine celých čísel. Optimalizačné algortimy budú
+volať funkciu aj s desatinnými číslami v rámci určeného rozsahu. Niektoré
+implmentácie predikčných algoritmov sa s týmto problémom vedia vysporiadať
+a zaokrúhľujú desatinné čísla na celé podľa potreby. Niektoré nemajú ošetrené
+vstupy a tak sa môže program začať správať nepredvídateľné alebo prestane
+reagovať úplne. Z toho dôvodu som hodnoty, ktoré majú byť celočíselne vnútri
+týchto metód zaokrúhľoval. Najlepším riešením by bolo postihovať tie riešania,
+ktoré nie sú celočíselné, ale to by mohlo spôsobiť rozsiahle zmeny v
+implementovaných funkciách.
+
+%-------------------------------------------------------------------------------
+%   Procedure for adding optimization algorithm
+%-------------------------------------------------------------------------------
+
+\subsection{Postup pridávania optimalizačných algoritmov}
+Pridanie ďalšieho optimalizačného algoritmu je jednoduchší proces, no vo
+svojej podstate pozostáva z rovnakých krokov ako pridanie nového predikčného
+algoritmu. Implementácia väčšinou pozostáva z jednej funkcie vnútri, v ktorej sa
+okrem optimalizácie iba pripravia dáta pre predikčný algoritmus a transformujú
+výstupy optimalizačného algoritmu na jednotný formát. Optimalizácia pozostáva
+obvykle z jedného volania knižničnej funkcie. Vstupné parametre, ktoré sa
+nemenia, môžeme umiestniť do konfiguračného súboru. Ostatnými parametrami bývajú
+hranice, v rámci ktorých má algoritmus hľadať riešenie a parametre špecifické
+pre použitý algoritmus. Výstupom tejto metódy je zoznam obsahujúci najnižšiu
+nájdenú chybu a pole parametrov, ktorými bola hodnota získaná.
+
+Pred spustením aplikácie je potrebné vykonať kroky, ktoré boli opísané
+v predchádzajúcej kapitole. Konkrétne pridať implementovaný algortimus do
+konfiguračného súboru, zvýšiť počet dostupných algoritmov a pridanie
+importovania do súboru ``server.R''. Pridaný záznam v konfiguračnom súbore
+bude mať nasledovný formát:
+
+\begin{description}
+  \item[$\bullet$ label] názov algoritmu používaný v UI
+  \item[$\bullet$ optimizeFn] optimalizačná funkcia vracajúca najlepšie nájdené riešenie
+  \item[$\bullet$ numberOfOptimizationParameters] počet elementov nasledujúcej premennej
+  \item[$\bullet$ optimizationParameters] pole optimalizačných parametrov, pre každý parameter sa
+  tu nachádza minimum a maximum, obsahuje nasledujúce hodnoty:
+  \begin{description}
+    \item[$-$ id] identifikátor komponentu používaný na referencovanie na serveri
+    \item[$-$ label] názov parametru používaný v UI
+    \item[$-$ value] prednastavená hodnota
+    \item[$-$ min] dolná hranica parametru
+    \item[$-$ max] horná hranica parametru
+  \end{description}
+\end{description}
 
 %-------------------------------------------------------------------------------
 %   Chapter 6 - Evaluation
@@ -1634,7 +1988,12 @@ konfiguračné súbory, ktoré poskytujú celej aplikácií flexibilitu pri jej
 \newpage
 \section{Záver}
 \label{conclusion}
-
+Našou úlohou bolo vytvoriť webovú aplikáciu, ktorá bude používateľovi poskytovať
+možnosť výberu predikčných algoritmov, ktorých optimálne vstupné parametre budú
+nachádzané pomocou optimalizačných algoritmov. Zároveň bolo cieľom navrhnúť
+aplikáciu tak, aby pridávanie nových algoritmov nespôsobovalo vážne zmeny v nej.
+To sa nám do značnej miery podarilo zabezpečiť a pridaním konfiguračných
+súborov a navrhnutím rozhrania medzi jednotlivý funkciami. 
 
 %-------------------------------------------------------------------------------
 %   Chapter 8 - Technical documentation
@@ -1679,6 +2038,17 @@ konfiguračné súbory, ktoré poskytujú celej aplikácií flexibilitu pri jej
 \bibliography{bibliography}
 
 \end{document}
+
+% Aplikácia je kvôli prehľadnosti organizovaná do viacerých adresárov. Pri
+% vytváraní webovej aplikácie pomocou knižnice Shiny, sa program rozdeľuje na
+% časť webového rozhrania a serverovú časť. Tie sa pri jednoduchých aplikáciách
+% môžu nachádzať v jednom súbore, ja som ich podľa dokumentácie rozdelil do
+% súboroc ``ui.R'' resp. ``server.R'' pre webové rozhranie resp. serverovú
+% logiku. V adresári ``src''sa nachádzajú zdrojové súbory, ktoré v sebe zahŕňajú
+% všetky výpočty aplikácie. Od prípravy vstupných dát, cez predikčné
+% a optimalizačné algoritmy až po fitness funkcie. Adresár ``conf'' obsahuje
+% konfiguračné súbory, ktoré poskytujú celej aplikácií flexibilitu pri jej
+% ďalšom rozšírovaní a udržiavaní.
 
 % \begin{table}[H]
 %   \caption{Čo ešte určite musím stihnúť VYMAZAŤ (podľa dôležitosti)}

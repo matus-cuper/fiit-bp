@@ -77,7 +77,7 @@ fluidPage(
   uiOutput("predictionParameters"),
 
   shinyjs::useShinyjs(),
-  actionButton("submitComputation", ui.properties$submitButtonLabel),
+  actionButton("submitComputation", ui.properties$submitButtonLabel, style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 
   htmlOutput("resultLabel"),
   uiOutput("resultValues"),

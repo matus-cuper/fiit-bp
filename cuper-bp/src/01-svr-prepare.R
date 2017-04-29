@@ -25,19 +25,19 @@ svr.orderOfTimestamp <- function(t1, measurementsPerDay) {
 }
 
 # When measurement was performed, set 1 in matrix for that timestamp
-svr.setOnesForTimestamp <- function(m, d, recordsCount, measurementsPerDay) {
+svr.setOnesForTimestamp <- function(matrixM, dates, recordsCount, measurementsPerDay) {
   for (i in 1:recordsCount) {
-    m[i, svr.orderOfTimestamp(d[i], measurementsPerDay) + 1] <- 1
+    matrixM[i, svr.orderOfTimestamp(dates[i], measurementsPerDay) + 1] <- 1
   }
-  return(m)
+  return(matrixM)
 }
 
 # When measurement was performed, set 1 in matrix for that day
-svr.setOnesForDayOfWeek <- function(m, d, recordsCount, measurementsPerDay) {
+svr.setOnesForDayOfWeek <- function(matrixM, dates, recordsCount, measurementsPerDay) {
   for (i in 1:recordsCount) {
-    m[i, measurementsPerDay + svr.nthInWeek(d[i])] <- 1
+    matrixM[i, measurementsPerDay + svr.nthInWeek(dates[i])] <- 1
   }
-  return(m)
+  return(matrixM)
 }
 
 # Function will create trainning and testing matrices filled by one on position, 

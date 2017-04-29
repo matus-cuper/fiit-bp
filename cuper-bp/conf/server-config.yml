@@ -5,6 +5,7 @@
     numberOfOptimizationAlgorithms: 3
     numberOfFitnessFunctions: 3
 
+
     predictionAlgorithms:
       - label: "SVR"
         parameterLabels:

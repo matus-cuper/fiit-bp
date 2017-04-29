@@ -123,8 +123,8 @@
 
 
     optimizationAlgorithms:
-      - label: "PSO z knižnice psoptim"
-        optimizeFn: "psoptim.optimizeFn"
+      - label: "PSO z knižnice pso"
+        optimizeFn: "pso.optimizeFn"
         numberOfOptimizationParameters: 2
         optimizationParameters:
           - id: "numberOfParticles"
@@ -138,8 +138,8 @@
             min: 1
             max: 1000
 
-      - label: "PSO z knižnice pso"
-        optimizeFn: "pso.optimizeFn"
+      - label: "PSO z knižnice psoptim"
+        optimizeFn: "psoptim.optimizeFn"
         numberOfOptimizationParameters: 2
         optimizationParameters:
           - id: "numberOfParticles"

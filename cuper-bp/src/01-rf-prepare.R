@@ -3,8 +3,8 @@
 # Example call
 
 # Convert given time into nth measurement in day
-rf.nthInDay <- function(date, frequency) {
-  measurementsPerHour <- frequency / 24
+rf.nthInDay <- function(date, frequencyF) {
+  measurementsPerHour <- frequencyF / 24
   minutesPerHour <- 60
   
   return((as.numeric(format(as.POSIXct(date), "%H")) * measurementsPerHour) + 
@@ -12,33 +12,33 @@ rf.nthInDay <- function(date, frequency) {
 }
 
 # Convert given date into nth day in week
-rf.nthInWeek <- function(date, frequency = 7) {
+rf.nthInWeek <- function(date, frequencyF = 7) {
   result <- as.numeric(as.POSIXlt(date)$wday)
   for (i in 1:length(date)) {
     if (result[i] == 0)
-      result[i] <- frequency
+      result[i] <- frequencyF
   }
   return(result)
 }
 
 # Represent measurements per day as sinus function
-rf.setSinForDay <- function(dates, frequency) {
-  return((sin(2 * pi * rf.nthInDay(dates, frequency) / frequency) + 1) / 2)
+rf.setSinForDay <- function(dates, frequencyF) {
+  return((sin(2 * pi * rf.nthInDay(dates, frequencyF) / frequencyF) + 1) / 2)
 }
 
 # Represent measurements per day as cosinus function
-rf.setCosForDay <- function(dates, frequency) {
-  return((cos(2 * pi * rf.nthInDay(dates, frequency) / frequency) + 1) / 2)
+rf.setCosForDay <- function(dates, frequencyF) {
+  return((cos(2 * pi * rf.nthInDay(dates, frequencyF) / frequencyF) + 1) / 2)
 }
 
 # Represent day per week as sinus function
-rf.setSinForWeek <- function(dates, frequency) {
-  return((sin(2 * pi * rf.nthInWeek(dates, frequency) / frequency) + 1) / 2)
+rf.setSinForWeek <- function(dates, frequencyF) {
+  return((sin(2 * pi * rf.nthInWeek(dates, frequencyF) / frequencyF) + 1) / 2)
 }
 
 # Represent day per week as cosinus function
-rf.setCosForWeek <- function(dates, frequency) {
-  return((cos(2 * pi * rf.nthInWeek(dates, frequency) / frequency) + 1) / 2)
+rf.setCosForWeek <- function(dates, frequencyF) {
+  return((cos(2 * pi * rf.nthInWeek(dates, frequencyF) / frequencyF) + 1) / 2)
 }
 
 # Function will create training and testing data frames with 6 columns,

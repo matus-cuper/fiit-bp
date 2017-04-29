@@ -77,10 +77,10 @@ function(input, output) {
       return(min(dates))
     }
     else if (choice == 2) {
-      return(dates[floor(length(dates) * 0.9)] - 1)
+      return(dates[floor(length(dates) * 0.95)] - 1)
     }
     else if (choice == 3) {
-      return(dates[floor(length(dates) * 0.9)])
+      return(dates[floor(length(dates) * 0.95)])
     }
     else if (choice == 4) {
       return(max(dates))

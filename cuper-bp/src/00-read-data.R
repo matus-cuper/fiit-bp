@@ -7,8 +7,9 @@
 
 # read data and determine size of training and testing set
 data.prepare <- function(pathToFile, measurementsPerDay, trainingSetRange, testingSetRange) {
-  dataRaw <- read.csv(file = pathToFile, header = TRUE, sep = ",")
-  
+  rawFile <- read.csv(file = pathToFile, header = TRUE, sep = ",")
+  dataRaw <- data.frame(timestamp = rawFile$timestamp, value = rawFile$value)
+
   startTrainingRange <- as.POSIXct(trainingSetRange[1])
   endTrainingRange <- as.POSIXct(trainingSetRange[2])
   startTestingRange <- as.POSIXct(testingSetRange[1])

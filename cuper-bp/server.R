@@ -31,10 +31,10 @@ function(input, output) {
     selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
     selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
 
-    predictParamsCount <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$numberOfPredictionParameters
-    optimParamsCount <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$numberOfOptimizationParameters
     predictParams <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictionParameters
     optimParams <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizationParameters
+    predictParamsCount <- length(predictParams)
+    optimParamsCount <- length(optimParams)
 
     optimizationParams <- list()
     lows <- c()
@@ -154,7 +154,7 @@ function(input, output) {
 
   # on optimization algoritm change render specific components
   output$optimizationParameters <- renderUI({
-    numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
+    numberOfParameters <- length(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters)
     fluidRow(
       lapply(1:numberOfParameters, function(i) {
         column(3,
@@ -171,7 +171,7 @@ function(input, output) {
 
   # on prediction algoritm change render specific components
   output$predictionParameters <- renderUI({
-    numberOfParameters <- as.numeric(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$numberOfPredictionParameters)
+    numberOfParameters <- length(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters)
     fluidRow(
       lapply(1:numberOfParameters, function(i) {
         column(5,

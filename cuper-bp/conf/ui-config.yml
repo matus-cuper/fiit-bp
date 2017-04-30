@@ -16,6 +16,8 @@
     optimizationAlgorithmsLabel: "Optimalizačné algoritmy"
     fitnessFunctionsLabel: "Fitness funkcia"
     inputFileLabel: "Vstupné dáta"
+    inputFileButton: "Vložiť..."
+    inputFilePlaceholder: "Nie je zvolený žiadny súbor"
 
     measurementsPerDay:
       label: "Počet meraní za deň"

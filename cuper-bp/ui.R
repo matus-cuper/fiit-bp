@@ -41,7 +41,13 @@ fluidPage(
     column(3,
       fileInput(
         "inputFile",
-        label = ui.properties$inputFileLabel
+        label = ui.properties$inputFileLabel,
+        buttonLabel = ui.properties$inputFileButton,
+        placeholder = ui.properties$inputFilePlaceholder,
+        accept = c(
+          "text/csv",
+          "text/comma-separated-values,text/plain",
+          ".csv")
       )
     ),
 

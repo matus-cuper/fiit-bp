@@ -22,11 +22,17 @@
 \usepackage{threeparttable}                                                     % enable table with footnotes
 \usepackage{url}                                                                % enable url in references chapter
 \usepackage{listings}                                                           % enable source code syntax highlighting
+\usepackage{dirtree}                                                            % enable directory tree
+\usepackage[a4paper, centering,
+											left=35mm, top=25mm, right=20mm, bottom=25mm]{geometry}		% set page margins
+
 \lstset{
     breaklines=true,
     postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
 }
+
 \graphicspath{ {images/} }                                                      % set path for figures
+
 \hypersetup{																																		% with default colours for links
     colorlinks,
 		pageanchor=false,
@@ -35,12 +41,6 @@
     linkcolor=black,
     urlcolor=black
 }
-
-% \usepackage{cite}
-% \usepackage{times}
-% \usepackage[dvips,dvipdfm,a4paper,centering,textwidth=14cm,top=4.6cm,headsep=.6cm,footnotesep=1cm,footskip=0.6cm,bottom=3.8cm]{geometry}
-\usepackage[a4paper, centering,
-											left=35mm, top=25mm, right=20mm, bottom=25mm]{geometry}		% set page margins
 
 %-------------------------------------------------------------------------------
 %   TITLE PAGES
@@ -1374,6 +1374,29 @@ ani tí menej skúsení. Zároveň bude skúsenému používateľovi poskytovať
 modulárnosť, konfigurovateľnosť, ale hlavne rozhranie pre jednoduché pridávanie
 ďalších algoritmov, ktoré si môže sám implementovať.
 
+Spomenúté vlastnosti môžeme rozdeliť na funkcionálne a nefunkcionálne
+nasledujúcimi odrážkami.
+
+\noindent
+\paragraph{Funkcionálne požiadavky:}
+\begin{description}
+  \item[$\bullet$ webová aplikácia] implementovaná pomocou jazyka R a knižnice Shiny
+  \item[$\bullet$ vkladanie dát] používateľom v predefinovanom formáte
+  \item[$\bullet$ výber predikčnej metódy] z implementovaných metód závisí od používateľovej voľby
+  \item[$\bullet$ výber optimalizačnej metódy] ovyplvňuje rýchlosť a optimálnosť vypočítaného výsledku
+  \item[$\bullet$ chyba predpovedi] je použítá pri optimaiizácií ako fitness funkcia
+  \item[$\bullet$ vyhodnotenie výpočtu] zobrazením veľkosti chyby, nájdených optimálnych parametrov a vykreslením grafu
+\end{description}
+
+\noindent
+\paragraph{Nefunkcionálne požiadavky:}
+\begin{description}
+  \item[$\bullet$ efektívnosť] implementácie je kľúčová pre zazpečenie rýchleho výpočtu výsledku
+  \item[$\bullet$ jednoduchosť] použitia webovej aplikácie aj napriek množstvu parametrov, ktoré môže používateľ meniť
+  \item[$\bullet$ modulárnosť] dovoľuje skúsenému používateľovi pridávať vlastné predikčné a optimalizačné algoritmy
+  \item[$\bullet$ konfigurovateľnosť] aplikácie bude zabezpečená viacerými konfiguračnými súbormi
+\end{description}
+
 %-------------------------------------------------------------------------------
 %   Chapter 4 -  Solution design
 %-------------------------------------------------------------------------------
@@ -1994,6 +2017,120 @@ súborov a navrhnutím rozhrania medzi jednotlivý funkciami.
 \section{Technická dokumentácia}
 \label{documentation}
 
+\subsection{Spustenie aplikácie}
+Jediným potrebným krokom na spustenie aplikácie je otvorenie obsahu
+elektronického média v RStudio a pri zvolení súbora ``server.R'' kliknúť na
+``Run App'', čím sa nám otvorí nové okno v prehliadači s aplikáciou. Odporúčaná
+verzia developerského prostredia RStudio je 1.0.143.
+
+\subsection{Používateľská príručka}
+Obrazovku webovej aplikácie možno rozdeliť na časti:
+\begin{description}
+  \item[$\bullet$ výber algoritmov]
+  \item[$\bullet$ informácie o vstupných dátach]
+  \item[$\bullet$ parametre optimalizačnej metódy]
+  \item[$\bullet$ rozsah parametrov predikčnej metódy]
+  \item[$\bullet$ vypočítaný výsledok]
+\end{description}
+Používateľ môže podľa potreby zvoliť algoritmy, ktoré chce použiť, ich vstupné
+parametre, rozsahy, prípadne zmeniť fitness funkciu. Na obrázku~\ref{fig-app-screen}
+si môžeme v dolnej časti všimnúť tlačidlo, ktoré je zakázané. Je to spôsobné
+tým, že zatiaľ nevložil do aplikácie dáta, nad ktorými sa majú vykonávať
+predpovede. Po pridaní súboru sa objavia na obrazovke nové komponenty, ktoré
+slúžia na ohraničenie trénovacích a testovacích dát. Môžeme ich vidieť na
+obrázku~\ref{fig-app-data}. V prípade, že sa polia pre výber dátumov nezobrazia,
+používateľ vložil nevalidné dáta, čiže môžu chýbať hlavička súboru, nemusí sa
+jednať o CSV alebo názvy stĺpcov nie sú ``timestamp'' a ``value''. Po vložení
+validných dát sa spomínané komponenty vykreslia.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{app_welcome.png}
+  \caption{Úvodná obrazovka webovej aplikácie.}
+  \label{fig-app-screen}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{app_data.png}
+  \caption{Výber trénovacej a testovacej množiny.}
+  \label{fig-app-data}
+\end{figure}
+
+Po vložení dát môže používateľ ďalej upravovať parametre, ktoré má k dispozícií.
+Pri zmene prednastavených rozsahov pre dátové množiny netreba zabudnúť, že čím
+bude väčšia testovacia množina dát, tým bude výsledná chyba menšia. Aplikácia
+môže predpovedať dopredu jednu periódu alebo jej celé násobky. Zmena množiny,
+z ktorej budú optimalizované parametre predikčnej metódy je priamo úmerná
+času, ktorý bude zaberať výpočet. Rovnako pri navýšení hodnôt parametrov
+optimalizačných metód ako je počet jedincov alebo iterácií, dochádza k získaniu
+presnejšieho výsledku za cenu dlhšej odozvy. Toto samozrejme nemusí platiť vždy
+a keďže používame algoritmy ako sú napr. náhodné lesy, vypočítaný výsledok môže
+byť aj horší ako predchádzajúci. Nastavenie parametrov môžeme vidieť na
+obrázkoch~\ref{fig-app-optimization} a~\ref{fig-app-prediction}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{app_optimization.png}
+  \caption{Výber parametrov optimalizačnej metódy.}
+  \label{fig-app-optimization}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{app_prediction.png}
+  \caption{Výber paramterov predikčnej metódy.}
+  \label{fig-app-prediction}
+\end{figure}
+
+Po kliknutí na tlačidlo ``Vypočítaj'' sa spustí výpočet a tlačidlo sa zakáže.
+Povolené je v momente ukončenia výpočtu, kedy sa používateľovi zobraznia
+výsledky. Výsledky pozostávajú z najmenšej chyby, ktorú zvolený algoritmus našiel,
+tabuľku obsahujúcu parametre predikčnej metódy, ktoré viedli k tomuto výsledku
+a graf zobrazujúci reálne a predpovedané hodnoty. Výstup aplikácie môžeme
+vidieť na obrázku~\ref{fig-app-result}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{app_result.png}
+  \caption{Zobrazenie vypočítaného výsledku používateľovi.}
+  \label{fig-app-result}
+\end{figure}
+
+\subsection{Obsah elektronického média}
+\dirtree{%
+  .1 CD nosič.
+  .2 \textbf{doc}.
+  .2 \textbf{conf}.
+  .3 app-config.yml.
+  .3 server-config.yml.
+  .3 ui-config.yml.
+  .2 \textbf{data}.
+  .3 90\_UPLNE\_CONVERTED\_1W.csv.
+  .3 90\_UPLNE\_CONVERTED.csv.
+  .2 \textbf{src}.
+  .3 00-read-data.R.
+  .3 01-arima-prepare.R.
+  .3 01-rf-prepare.R.
+  .3 01-svr-prepare.R.
+  .3 02-measure-error.R.
+  .3 03-arima-predict.R.
+  .3 03-rf-predict.R.
+  .3 03-svr-predict.R.
+  .3 04-abc-optimize.R.
+  .3 04-pso-optimize.R.
+  .3 04-psoptim-optimize.R.
+  .2 \textbf{test}.
+  .3 arima.R.
+  .3 bf.R.
+  .3 svr.R.
+  .2 \textbf{web}.
+  .3 bound-dates.R.
+  .3 set-labels.R.
+  .2 global.R.
+  .2 server.R.
+  .2 ui.R.
+}
 
 % \newpage
 % \section{Plán do nasledujúceho semestra}

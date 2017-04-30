@@ -1,6 +1,13 @@
 ## prepare dataframes for random forest
 
 # Example call
+# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+#                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
+# values <- rf.prepareFn(preparedData)
+# return 2 data frames representing training and testing set
+# each data frame has 5 columns, first one is respose variable,
+# in testing data frame need to be computed, other columns represent
+# timestamp of measurement as sinus and cosinus functions
 
 # Convert given time into nth measurement in day
 rf.nthInDay <- function(date, frequencyF) {
@@ -41,38 +48,33 @@ rf.setCosForWeek <- function(dates, frequencyF) {
   return((cos(2 * pi * rf.nthInWeek(dates, frequencyF) / frequencyF) + 1) / 2)
 }
 
-# Function will create training and testing data frames with 6 columns,
+# Function will create training and testing data frames with 5 columns,
 # each data frame is filled by data from different ranges selected by user,
 # the first column represents value of measurement, in testing data frame
-# is not present, random forest has to computes it, the second column is 
+# is present empty, random forest has to computes it, the second column is
 # transformation of sequence of measurements into sinus function, if the
 # sequence is 1,2..96,1,2..96, result will be continuos sinus function 
 # with range between 0 and 1 inclusively, next column is almost same, but 
 # input is transformed into cosinus, the other two columns is also same, 
-# but sequence represents order of the day of the week, last column is 
-# seasonal component of given time series object
+# but sequence represents order of the day of the week
 rf.prepareFn <- function(preparedData) {
-  # Compute matrices sizes
+
   daysPerWeek <- 7
   measurementsPerDay <- preparedData$measurementsPerDay
-  trainingSetSize <- nrow(preparedData$trainingData)
-  testingSetSize <- nrow(preparedData$testingData)
-  trainingSetRecords <- preparedData$trainingData
-  testingSetRecords <- preparedData$testingData
   
   # Create training data frame with named columns
-  trainingDF <- cbind(value=c(trainingSetRecords$value),
-                      day_sin=c(rf.setSinForDay(trainingSetRecords$timestamp, measurementsPerDay)),
-                      day_cos=c(rf.setCosForDay(trainingSetRecords$timestamp, measurementsPerDay)),
-                      week_sin=c(rf.setSinForWeek(trainingSetRecords$timestamp, 7)),
-                      week_cos=c(rf.setCosForWeek(trainingSetRecords$timestamp, 7)))
+  trainingDF <- cbind(value=c(preparedData$trainingData$value),
+                      day_sin=c(rf.setSinForDay(preparedData$trainingData$timestamp, measurementsPerDay)),
+                      day_cos=c(rf.setCosForDay(preparedData$trainingData$timestamp, measurementsPerDay)),
+                      week_sin=c(rf.setSinForWeek(preparedData$trainingData$timestamp, 7)),
+                      week_cos=c(rf.setCosForWeek(preparedData$trainingData$timestamp, 7)))
   
   # Create testing data frame with same format as training data frame with empty values
   testingDF <- cbind(value=c(NA),
-                     day_sin=c(rf.setSinForDay(testingSetRecords$timestamp, measurementsPerDay)),
-                     day_cos=c(rf.setCosForDay(testingSetRecords$timestamp, measurementsPerDay)),
-                     week_sin=c(rf.setSinForWeek(testingSetRecords$timestamp, 7)),
-                     week_cos=c(rf.setCosForWeek(testingSetRecords$timestamp, 7)))
+                     day_sin=c(rf.setSinForDay(preparedData$testingData$timestamp, measurementsPerDay)),
+                     day_cos=c(rf.setCosForDay(preparedData$testingData$timestamp, measurementsPerDay)),
+                     week_sin=c(rf.setSinForWeek(preparedData$testingData$timestamp, 7)),
+                     week_cos=c(rf.setCosForWeek(preparedData$testingData$timestamp, 7)))
   
   return(list(trainingDataFrame = trainingDF, testingDataFrame = testingDF))
 }

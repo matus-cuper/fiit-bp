@@ -1,4 +1,4 @@
-## Shiny app server side
+## shiny web app server
 
 library(shiny)
 library(shinyjs)
@@ -25,17 +25,17 @@ ui.properties <- config::get(file = path.ui.conf)
 server.properties <- config::get(file = path.server.conf)
 
 function(input, output) {
-  
+
+  # return parameters selected by user
   setOptimizationParameters <- function() {
-    
     selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
     selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
-    
+
     predictParamsCount <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$numberOfPredictionParameters
     optimParamsCount <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$numberOfOptimizationParameters
     predictParams <- server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictionParameters
     optimParams <- server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizationParameters
-    
+
     optimizationParams <- list()
     lows <- c()
     highs <- c()
@@ -70,6 +70,7 @@ function(input, output) {
   shinyjs::disable("submitComputation")
 
 
+  # on measurementsPerDay change, disable button if period length consistency is broken
   observeEvent(input$measurementsPerDay, {
     shinyjs::disable("submitComputation")
     validate(
@@ -85,6 +86,7 @@ function(input, output) {
     shinyjs::enable("submitComputation")
   })
 
+  # on file select, disable button if data are not valid, otherwise render date ranges
   observeEvent(input$inputFile, {
     shinyjs::disable("submitComputation")
     validate(
@@ -104,6 +106,7 @@ function(input, output) {
     shinyjs::enable("submitComputation")
 
     dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
+    dates <- unique(as.Date(dataRaw$timestamp))
 
     output$trainingSetRange <- renderUI({
       column(3,
@@ -112,10 +115,10 @@ function(input, output) {
           label = ui.properties$trainingSetRange$label,
           separator = ui.properties$trainingSetRange$separator,
           format = ui.properties$trainingSetRange$format,
-          min = dates.read(dataRaw, 1),
-          max = dates.read(dataRaw, 4),
-          start = dates.read(dataRaw, 1),
-          end = dates.read(dataRaw, 2)
+          min = dates.read(dates, 1),
+          max = dates.read(dates, 4),
+          start = dates.read(dates, 1),
+          end = dates.read(dates, 2)
         )
       )
     })
@@ -127,15 +130,16 @@ function(input, output) {
           label = ui.properties$testingSetRange$label,
           separator = ui.properties$testingSetRange$separator,
           format = ui.properties$testingSetRange$format,
-          min = dates.read(dataRaw, 1),
-          max = dates.read(dataRaw, 4),
-          start = dates.read(dataRaw, 3),
-          end = dates.read(dataRaw, 4)
+          min = dates.read(dates, 1),
+          max = dates.read(dates, 4),
+          start = dates.read(dates, 3),
+          end = dates.read(dates, 4)
         )
       )
     })
   })
 
+  # on date ranges change, disable button if logical error is detected
   observeEvent({
     input$trainingSetRange
     input$testingSetRange}, {
@@ -148,8 +152,43 @@ function(input, output) {
       shinyjs::enable("submitComputation")
     })
 
-  observeEvent(input$submitComputation, {
+  # on optimization algoritm change render specific components
+  output$optimizationParameters <- renderUI({
+    numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
+    fluidRow(
+      lapply(1:numberOfParameters, function(i) {
+        column(3,
+               numericInput(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$id,
+                            label = server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$label,
+                            value = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$value),
+                            min = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$min),
+                            max = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$max)
+               )
+        )
+      })
+    )
+  })
 
+  # on prediction algoritm change render specific components
+  output$predictionParameters <- renderUI({
+    numberOfParameters <- as.numeric(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$numberOfPredictionParameters)
+    fluidRow(
+      lapply(1:numberOfParameters, function(i) {
+        column(5,
+               numericInput(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$id,
+                            label = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$label,
+                            value = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$value,
+                            min = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$min,
+                            max = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$max,
+                            step = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$step
+               )
+        )
+      })
+    )
+  })
+
+  # on submit button click, start computation and render output components
+  observeEvent(input$submitComputation, {
     if (is.null(input$inputFile) || input$submitComputation <= 0)
       return(NULL)
 
@@ -205,38 +244,5 @@ function(input, output) {
     })
 
     shinyjs::enable("submitComputation")
-  })
-
-  output$optimizationParameters <- renderUI({
-    numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
-    fluidRow(
-      lapply(1:numberOfParameters, function(i) {
-        column(3,
-               numericInput(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$id,
-                            label = server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$label,
-                            value = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$value),
-                            min = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$min),
-                            max = as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$optimizationParameters[[i]]$max)
-               )
-        )
-      })
-    )
-  })
-
-  output$predictionParameters <- renderUI({
-    numberOfParameters <- as.numeric(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$numberOfPredictionParameters)
-    fluidRow(
-      lapply(1:numberOfParameters, function(i) {
-        column(5,
-               numericInput(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$id,
-                            label = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$label,
-                            value = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$value,
-                            min = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$min,
-                            max = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$max,
-                            step = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$step
-               )
-        )
-      })
-    )
   })
 }

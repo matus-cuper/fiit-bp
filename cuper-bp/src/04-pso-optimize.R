@@ -1,8 +1,4 @@
-## optimalize PSO and return solution and result
-
-# example function call
-# result <- psoptimWraper(svrErrorWrapper, c(list(numberOfParticles = 10, maxIterations = 10, xmin = c(0.01, 0), xmax = c(2, 2))))
-# result <- do.call("psoptimWrapper", list(svrErrorWrapper, c(list(numberOfParticles = 10, maxIterations = 10, xmin = c(0.01, 0), xmax = c(2, 2)))))
+## optimalize PSO and return best solution and its error
 
 library(pso)
 library(config)

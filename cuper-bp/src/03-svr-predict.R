@@ -1,13 +1,13 @@
 ## compute SVR and return error
 
 # Example call
-# params.prediction <- values
-
-# tmp <- svr.readDataFn("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", 96, 0.9)
-# params.prediction <<- c(tmp, errorFn = "mape")
-# svr.predictFn(c(1, 2))
-# do.call("svr.predictFn", list(c(1, 2)))
-# where 1 is C and 2 is epsilon
+# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+#                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
+# params.prediction <- list(data = preparedData, errorFn = "mape")
+# params.prediction <- c(params.prediction, svr.prepareFn(preparedData))
+# errorSize <- svr.predictFn(c(1, 0.1))
+# predictedData <- svr.predictDataFn(c(1, 0.1))
+# where params are C and epsilon
 
 library(kernlab)
 library(config)

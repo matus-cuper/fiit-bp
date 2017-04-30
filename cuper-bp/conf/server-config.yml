@@ -1,11 +1,6 @@
 ---
   default:
 
-    numberOfPredictionAlgorithms: 3
-    numberOfOptimizationAlgorithms: 3
-    numberOfFitnessFunctions: 3
-
-
     predictionAlgorithms:
       - label: "SVR"
         parameterLabels:
@@ -14,7 +9,6 @@
         prepareFn: "svr.prepareFn"
         predictFn: "svr.predictFn"
         predictDataFn: "svr.predictDataFn"
-        numberOfPredictionParameters: 4
         predictionParameters:
           - id: "minC"
             label: "Minimum C"
@@ -49,7 +43,6 @@
         prepareFn: "arima.prepareFn"
         predictFn: "arima.predictFn"
         predictDataFn: "arima.predictDataFn"
-        numberOfPredictionParameters: 6
         predictionParameters:
           - id: "minP"
             label: "Minimum p"
@@ -95,7 +88,6 @@
         prepareFn: "rf.prepareFn"
         predictFn: "rf.predictFn"
         predictDataFn: "rf.predictDataFn"
-        numberOfPredictionParameters: 4
         predictionParameters:
           - id: "minNtree"
             label: "Minimum stromov"
@@ -126,7 +118,6 @@
     optimizationAlgorithms:
       - label: "PSO z knižnice pso"
         optimizeFn: "pso.optimizeFn"
-        numberOfOptimizationParameters: 2
         optimizationParameters:
           - id: "numberOfParticles"
             label: "Počet častíc"
@@ -141,7 +132,6 @@
 
       - label: "PSO z knižnice psoptim"
         optimizeFn: "psoptim.optimizeFn"
-        numberOfOptimizationParameters: 2
         optimizationParameters:
           - id: "numberOfParticles"
             label: "Počet častíc"
@@ -156,7 +146,6 @@
 
       - label: "ABC"
         optimizeFn: "abc.optimizeFn"
-        numberOfOptimizationParameters: 3
         optimizationParameters:
           - id: "maxIterations"
             label: "Maximum iterácií"

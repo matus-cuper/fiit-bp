@@ -1841,11 +1841,7 @@ algortimy, optimalizačné algoritmy a fitness funkcie. Každý z predikčných
 algoritmov obsahuje názvy parametrov, ktoré budú optimalizované, názvy funkcií,
 ktoré na to budú použité a názvy, ktoré budú zobrazované používateľovi pri
 používaní aplikácie. Parametre v sebe zahŕňajú aj informáciu o minimálnych,
-maximálnych a prednastavených hodnotách. V súbore sa taktiež nachádza množstvo
-premenných, ktoré označujú veľkosť nasledujúceho poľa, čo nie je navhodnejším
-riešením. Na druhej strane by v niektorých prípadoch odkazovanie na premenné
-v konfiguračnom súbore presiahlo viditeľnú dĺžku riadku a to by dramaticky
-znížilo čitateľnosť takéhoto zdrojového kódu.
+maximálnych a prednastavených hodnotách.
 
 Ďalším konfiguračným súborom je ``ui-config.yml'', ktorý obsahuje väčšinou
 texty a názvy jednotlivých komponentov, no nájdu sa tu aj hodnoty argumentov
@@ -1900,7 +1896,6 @@ fungovanie aplikácie je dôležité, aby element obsahoval nasledujúce premenn
   \item[$\bullet$ prepareFn] funkcia pripravujúca dáta pre predikciu
   \item[$\bullet$ predictFn] predikčná funkcia vracajúca veľkosť chyby
   \item[$\bullet$ predictDataFn] predikčná funkcia vracajúca predpoveď
-  \item[$\bullet$ numberOfPredictionParameters] počet elementov nasledujúcej premennej
   \item[$\bullet$ predictionParameters] pole predikčných parametrov, pre každý parameter sa
   tu nachádza minimum a maximum, obsahuje nasledujúce hodnoty:
   \begin{description}
@@ -1913,14 +1908,11 @@ fungovanie aplikácie je dôležité, aby element obsahoval nasledujúce premenn
   \end{description}
 \end{description}
 
-Ani teraz by som sa po spustení neprejavili zmeny, ak by sme pridali algoritmus
-na koniec zoznamu. Dôvodom je hodnota premennej ``numberOfPredictionAlgorithms'',
-ktorá stále obsahuje starý počet algoritmov a je potrebné ju preto navýšiť.
-Tentokrát po spustení máme k dispozícií nový algoritmus, ktorý môžeme zvoliť,
-avšak po spustení výpočtu aplikácia zlyhá, lebo server nemá žiadnu k dispozícií
-implementáciu metód, ktoré pozná z konfiguračného súboru. Preto je poslednou
-úpravou pridanie príkazu na importovanie vytvorených súborov do zdrojového
-súboru ``server.R''.
+Ani teraz by som sa po spustení nevykoná výpočet. Aj keď máme k dispozícií voľbu
+nového algoritmu, po spustení výpočtu aplikácia zlyhá, lebo server nemá žiadnu
+k dispozícií implementáciu metód, ktoré pozná z konfiguračného súboru. Preto je
+poslednou úpravou pridanie príkazu na importovanie vytvorených súborov do
+zdrojového súboru ``server.R''.
 
 Pri implmentácií funkcií ``predictFn'' a ``predictDataFn'' je dôležité myslieť
 na to, pre aké vstupné hodnoty je predikčný algoritmus definovaný. Definičný
@@ -1960,7 +1952,6 @@ bude mať nasledovný formát:
 \begin{description}
   \item[$\bullet$ label] názov algoritmu používaný v UI
   \item[$\bullet$ optimizeFn] optimalizačná funkcia vracajúca najlepšie nájdené riešenie
-  \item[$\bullet$ numberOfOptimizationParameters] počet elementov nasledujúcej premennej
   \item[$\bullet$ optimizationParameters] pole optimalizačných parametrov, pre každý parameter sa
   tu nachádza minimum a maximum, obsahuje nasledujúce hodnoty:
   \begin{description}
@@ -1993,7 +1984,7 @@ možnosť výberu predikčných algoritmov, ktorých optimálne vstupné paramet
 nachádzané pomocou optimalizačných algoritmov. Zároveň bolo cieľom navrhnúť
 aplikáciu tak, aby pridávanie nových algoritmov nespôsobovalo vážne zmeny v nej.
 To sa nám do značnej miery podarilo zabezpečiť a pridaním konfiguračných
-súborov a navrhnutím rozhrania medzi jednotlivý funkciami. 
+súborov a navrhnutím rozhrania medzi jednotlivý funkciami.
 
 %-------------------------------------------------------------------------------
 %   Chapter 8 - Technical documentation

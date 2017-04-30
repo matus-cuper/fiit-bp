@@ -1,14 +1,15 @@
-## read data from CSV and prepare for ARIMA
+## prepare timeseries for ARIMA
 
 # Example call
-# values <- arima.readDataFn("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_10D.csv", measurementsPerDay = 96, trainingSetProportion = 0.8)
-# where values variable will contain 2 time series ts$trainingTimeSeries and ts$testingTimeSeries and
-# third one will be data.frame of values from origin dataset needed for verification process
+# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+#                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
+# values <- arima.prepareFn(preparedData)
+# return 2 time series representing training and testing set
+# time series frequency is set to measurements per day
 
-# Function will create trainning and testing timeseries filled by data from original CSV
-# training time series size is (in days) floor(records * trainingSetProportion / measurementsPerDay)
-# and testing time series is (in days) floor(records / measurementsPerDay) - trainingDays
+# Function will create trainning and testing timeseries filled by values from preparedData
 arima.prepareFn <- function(preparedData) {
+
   # Create training time series
   trainingTS <- ts(preparedData$trainingData$value, frequency = preparedData$measurementsPerDay)
 

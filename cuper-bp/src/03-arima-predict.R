@@ -1,10 +1,13 @@
 ## compute ARIMA and return error
 
-# tmp <- arima.readDataFn("~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", 96, 0.9)
-# params.prediction <<- c(tmp, errorFn = "mape")
-# arima.predictFn(c(1, 2, 3))
-# do.call("arima.predictFn", list(c(1, 2, 3)))
-# where 1 is p, 2 is d and 3 is q
+# Example call
+# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+#                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
+# params.prediction <- list(data = preparedData, errorFn = "mape")
+# params.prediction <- c(params.prediction, arima.prepareFn(preparedData))
+# errorSize <- arima.predictFn(c(1, 1, 1))
+# predictedData <- arima.predictDataFn(c(1, 1, 1))
+# where params are p, d, q
 
 library(forecast)
 library(config)

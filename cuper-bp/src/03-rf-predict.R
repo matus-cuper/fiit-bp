@@ -1,7 +1,13 @@
-## compute random forest and return erro
+## compute random forest and return error
 
 # Example call
-
+# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+#                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
+# params.prediction <- list(data = preparedData, errorFn = "mape")
+# params.prediction <- c(params.prediction, rf.prepareFn(preparedData))
+# errorSize <- rf.predictFn(c(20, 5))
+# predictedData <- rfr.predictDataFn(c(20, 5))
+# where params are number of trees to grow and minimum size of terminal nodes
 
 library(randomForest)
 

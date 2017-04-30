@@ -1,8 +1,9 @@
-## utility function to read labels for UI
+## utility function to read labels for UI selectInput components
 
 library(config)
 server.properties <- config::get(file = path.server.conf)
 
+# create named vector, where name of column is displayed in UI, value represent position in selectInput
 labels.read <- function(property, numberOfProperties) {
   title <- c()
   values <- c()

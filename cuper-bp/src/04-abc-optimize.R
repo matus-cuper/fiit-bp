@@ -1,6 +1,4 @@
-## optimalize ABC and return solution and result
-
-# example function call
+## optimalize ABC and return best solution and its error
 
 library(ABCoptim)
 library(config)

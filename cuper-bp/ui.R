@@ -1,4 +1,4 @@
-## Shiny app client side
+## shiny web app ui
 
 library(shiny)
 library(config)
@@ -8,18 +8,16 @@ ui.properties <- config::get(file = path.ui.conf)
 
 fluidPage(
 
-  tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "plot.css")),
-
   titlePanel(ui.properties$titlePanelLabel),
 
-
+  # application description
   fluidRow(
     column(12,
       p(ui.properties$descriptionPanelLabel)
     )
   ),
 
-
+  # application settings, user can select prediction and optimization algoritmhs
   fluidRow(
     column(4,
       selectInput(
@@ -38,7 +36,7 @@ fluidPage(
     )
   ),
 
-
+  # input data settings
   fluidRow(
     column(3,
       fileInput(
@@ -62,8 +60,9 @@ fluidPage(
     uiOutput("testingSetRange")
   ),
 
-
+  # optimization algorithm settings
   h2(ui.properties$optimizationParametersLabel),
+
   column(3,
          selectInput(
            "fitnessFunction",
@@ -71,14 +70,21 @@ fluidPage(
            choices = labels.fitness
          )
   ),
+
   uiOutput("optimizationParameters"),
 
+  # prediction algorithm settings
   h2(ui.properties$predictionParametersLabel),
+
   uiOutput("predictionParameters"),
 
+  # submit button setup
   shinyjs::useShinyjs(),
-  actionButton("submitComputation", ui.properties$submitButtonLabel, style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+  actionButton("submitComputation",
+               ui.properties$submitButtonLabel,
+               style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 
+  # application output
   htmlOutput("resultLabel"),
   uiOutput("resultValues"),
 

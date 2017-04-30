@@ -20,6 +20,7 @@ source(paste(path.src, "04-psoptim-optimize.R", sep = ""))
 source(paste(path.src, "04-pso-optimize.R", sep = ""))
 source(paste(path.src, "04-abc-optimize.R", sep = ""))
 
+source(paste(path.web, "bound-dates.R", sep = ""))
 ui.properties <- config::get(file = path.ui.conf)
 server.properties <- config::get(file = path.server.conf)
 
@@ -65,32 +66,27 @@ function(input, output) {
     
     return(optimParams)
   }
-  
-  ranges.read <- function(dataRaw, choice) {
-    if ("timestamp" %in% colnames(dataRaw)) {
-      dates <- unique(as.Date(dataRaw$timestamp))
-    } else {
-      dates <- unique(as.Date(dataRaw[[1]]))
-    }
-
-    if (choice == 1) {
-      return(min(dates))
-    }
-    else if (choice == 2) {
-      return(dates[floor(length(dates) * 0.95)] - 1)
-    }
-    else if (choice == 3) {
-      return(dates[floor(length(dates) * 0.95)])
-    }
-    else if (choice == 4) {
-      return(max(dates))
-    }
-  }
 
   shinyjs::disable("submitComputation")
 
 
+  observeEvent(input$measurementsPerDay, {
+    shinyjs::disable("submitComputation")
+    validate(
+      need({
+        try({
+          dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
+          dataTable <- table(as.Date(dataRaw$timestamp))
+          length(dataTable[dataTable != as.numeric(input$measurementsPerDay)]) == 0
+        }, silent = TRUE)
+      }, "Value of measurementsPerDay differs from computed period size or timestamp is not parseable")
+    )
+
+    shinyjs::enable("submitComputation")
+  })
+
   observeEvent(input$inputFile, {
+    shinyjs::disable("submitComputation")
     validate(
       need({
         dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",", nrows = 1)
@@ -116,10 +112,10 @@ function(input, output) {
           label = ui.properties$trainingSetRange$label,
           separator = ui.properties$trainingSetRange$separator,
           format = ui.properties$trainingSetRange$format,
-          min = ranges.read(dataRaw, 1),
-          max = ranges.read(dataRaw, 4),
-          start = ranges.read(dataRaw, 1),
-          end = ranges.read(dataRaw, 2)
+          min = dates.read(dataRaw, 1),
+          max = dates.read(dataRaw, 4),
+          start = dates.read(dataRaw, 1),
+          end = dates.read(dataRaw, 2)
         )
       )
     })
@@ -131,10 +127,10 @@ function(input, output) {
           label = ui.properties$testingSetRange$label,
           separator = ui.properties$testingSetRange$separator,
           format = ui.properties$testingSetRange$format,
-          min = ranges.read(dataRaw, 1),
-          max = ranges.read(dataRaw, 4),
-          start = ranges.read(dataRaw, 3),
-          end = ranges.read(dataRaw, 4)
+          min = dates.read(dataRaw, 1),
+          max = dates.read(dataRaw, 4),
+          start = dates.read(dataRaw, 3),
+          end = dates.read(dataRaw, 4)
         )
       )
     })

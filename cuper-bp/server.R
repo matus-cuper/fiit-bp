@@ -138,7 +138,7 @@ function(input, output) {
 
   observeEvent({
     input$trainingSetRange
-    input$testingSetRange},{
+    input$testingSetRange}, {
       shinyjs::disable("submitComputation")
       validate(
         need({input$trainingSetRange[1] <= input$trainingSetRange[2]}, "Date from must be earlier than date to"),
@@ -147,6 +147,65 @@ function(input, output) {
       )
       shinyjs::enable("submitComputation")
     })
+
+  observeEvent(input$submitComputation, {
+
+    if (is.null(input$inputFile) || input$submitComputation <= 0)
+      return(NULL)
+
+    shinyjs::disable("submitComputation")
+
+    output$resultLabel <- renderUI({
+        HTML(paste("<h2>", ui.properties$results$label, "</h2>", "<h3>", ui.properties$results$valueLabel, "</h3>"))
+    })
+    output$solutionLabel <- renderUI({
+        HTML(paste("<h3>", ui.properties$results$solutionLabel, "<h/3>"))
+    })
+
+    isolate({
+      selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
+      selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
+      selectedFitnessFn <- as.numeric(input$fitnessFunction)
+
+      preparedData <- data.prepare(pathToFile = input$inputFile$datapath,
+                                   measurementsPerDay = input$measurementsPerDay,
+                                   trainingSetRange = input$trainingSetRange,
+                                   testingSetRange = input$testingSetRange)
+
+      params.optimization <<- setOptimizationParameters()
+      params.prediction <<- list(data = preparedData,
+                                 prepareFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$prepareFn,
+                                 predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
+                                 predictDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictDataFn,
+                                 errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
+      result <<- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
+    })
+
+    output$resultValues <- renderText({
+      result$minError
+    })
+
+    output$resultSolutions <- renderDataTable({
+      dataTable <- result$bestSolution
+      if (server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[1]]$step %% 1 == 0)
+        dataTable <- round(result$bestSolution)
+
+      if (length(dataTable) == length(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels)) {
+        colnames(dataTable) <- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels
+        dataTable 
+      }
+    })
+
+    output$resultPlot <- renderPlot({
+      matplot(data.frame(params.prediction$data$testingData$value, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),
+              type = c("l"),
+              col = 1:length(params.prediction$data$testingData$value),
+              xlab = ui.properties$results$xlabel,
+              ylab = ui.properties$results$ylabel)
+    })
+
+    shinyjs::enable("submitComputation")
+  })
 
   output$optimizationParameters <- renderUI({
     numberOfParameters <- as.numeric(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$numberOfOptimizationParameters)
@@ -164,7 +223,6 @@ function(input, output) {
     )
   })
 
-
   output$predictionParameters <- renderUI({
     numberOfParameters <- as.numeric(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$numberOfPredictionParameters)
     fluidRow(
@@ -180,101 +238,5 @@ function(input, output) {
         )
       })
     )
-  })
-  
-
-  output$resultValues <- renderText({
-
-    inputFile <- input$inputFile
-    if (is.null(inputFile))
-      return(NULL)
-
-    input$submitComputation
-
-    if (input$submitComputation > 0) {
-      isolate({
-        selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
-        selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
-        selectedFitnessFn <- as.numeric(input$fitnessFunction)
-
-        preparedData <- data.prepare(pathToFile = input$inputFile$datapath,
-                                     measurementsPerDay = input$measurementsPerDay,
-                                     trainingSetRange = input$trainingSetRange,
-                                     testingSetRange = input$testingSetRange)
-
-        params.optimization <<- setOptimizationParameters()
-        params.prediction <<- list(data = preparedData,
-                                   prepareFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$prepareFn,
-                                   predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
-                                   predictDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictDataFn,
-                                   errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
-      })
-    }
-    
-    if (input$submitComputation > 0) {
-      result <<- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
-      result$minError
-    }
-  })
-  
-  
-  output$resultSolutions <- renderDataTable({
-    
-    inputFile <- input$inputFile
-    if (is.null(inputFile))
-      return(NULL)
-    
-    input$submitComputation
-    
-    if (input$submitComputation > 0) {
-      isolate({
-        dataTable <- result$bestSolution
-        if (server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[1]]$step %% 1 == 0)
-          dataTable <- round(result$bestSolution)
-
-        colnames(dataTable) <- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels
-        dataTable
-      })
-    }
-  })
-
-
-  output$resultPlot <- renderPlot({
-
-    inputFile <- input$inputFile
-    if (is.null(inputFile))
-      return(NULL)
-
-    input$submitComputation
-
-    if (input$submitComputation > 0) {
-      matplot(data.frame(params.prediction$data$testingData$value, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),
-              type = c("l"),
-              col = 1:length(params.prediction$data$testingData$value),
-              xlab = ui.properties$results$xlabel,
-              ylab = ui.properties$results$ylabel)
-    }
-  })
-
-  output$resultLabel <- renderUI({
-    inputFile <- input$inputFile
-    if (is.null(inputFile))
-      return(NULL)
-
-    input$submitComputation
-
-    if (input$submitComputation > 0)
-      HTML(paste("<h2>", ui.properties$results$label, "</h2>", "<h3>", ui.properties$results$valueLabel, "</h3>"))
-  })
-
-  output$solutionLabel <- renderUI({
-    inputFile <- input$inputFile
-    if (is.null(inputFile))
-      return(NULL)
-
-    input$submitComputation
-
-    if (input$submitComputation > 0)
-      HTML(paste("<h3>", ui.properties$results$solutionLabel, "<h/3>"))
   })
 }

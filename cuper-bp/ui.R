@@ -84,9 +84,6 @@ fluidPage(
 
   htmlOutput("solutionLabel"),
   dataTableOutput("resultSolutions"),
-  div(id = "plot-container",
-      tags$img(src = "spinner.gif",
-               id = "loading-spinner"),
-      plotOutput("resultPlot")
-  )
+
+  plotOutput("resultPlot")
 )

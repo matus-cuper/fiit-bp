@@ -1,7 +1,7 @@
 ## prepare matrices for SVR
 
 # Example call
-# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+# preparedData <- data.prepare(pathToFile = "data/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
 #                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
 # values <- svr.prepareFn(preparedData)
 # return 2 matrices representing training and testing set with (measurements per day + day per week) columns
@@ -42,7 +42,7 @@ svr.setOnesForDayOfWeek <- function(matrixM, dates, measurementsPerDay) {
   return(matrixM)
 }
 
-# Function will create trainning and testing matrices filled by one on position, 
+# Function will create trainning and testing matrices filled by one on position,
 # which represents when measurement was performed, matrices have for example 96 + 7 columns
 # where 96 is number of measurements per day and 7 is count of days in the week,
 # one row is full of zeros except of two columns which represents day of the week when

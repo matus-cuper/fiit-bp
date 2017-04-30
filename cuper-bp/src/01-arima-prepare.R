@@ -1,7 +1,7 @@
 ## prepare timeseries for ARIMA
 
 # Example call
-# preparedData <- data.prepare(pathToFile = "~/r/fiit-bp/data/cleaned/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
+# preparedData <- data.prepare(pathToFile = "data/99_UPLNE_CONVERTED_11D.csv", measurementsPerDay = 96,
 #                              trainingSetRange = c("2013-07-01", "2013-07-10"), testingSetRange = c("2013-07-11", "2013-07-11"))
 # values <- arima.prepareFn(preparedData)
 # return 2 time series representing training and testing set

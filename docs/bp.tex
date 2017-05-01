@@ -1846,6 +1846,84 @@ by sme mohli rozdeliť na parametre optimalizačných metód a rozsahy
 prehľadávania riešenie pre predikčné algoritmy.
 
 %-------------------------------------------------------------------------------
+%   Using Shiny library
+%-------------------------------------------------------------------------------
+
+\subsection{Použitie knižnice Shiny}
+Webová aplikácia, s ktorou prichádza používateľ do styku je vytvorená pomocou
+knižnice Shiny v jazyku R. Zdrojový kód býva obvykle organizovaný do súborov
+``ui.R'' pre grafické komponenty a ``server.R'' pre logiku skrytú za nimi.
+Zároveň je možné vykreslovať jednotlivé komponenty aj zo serverovej časti
+aplikácie na predefinované miesto v ``ui.R''. Takéto použite má zmysel
+v prípade, že zobrazované komponenty sa budú dynamicky pridávať a odoberať
+v závislosti od zvolených možností. Tento príklad presne zodpovedá problému,
+s ktorým sme sa stretli pri implementácií aplikácie. Zobrazovanie jednotlivých
+parametrov závisí od predom zvolených metód. Navyše kvôli zachovaniu
+konfigurovateľnosti je potrebné vlastnosti komponentov čítať z konfiguračného
+súboru, čím strácame možnosť sa na ne jednoducho odkazovať. Zobrazovanie
+komponentov priamo z ``server.R'' povolíme volaním funkcie
+``uiOutput("predictionParameters")'' v ``ui.R''. Následne je potrebné priradiť
+komponenty do premennej ``output\$predictionParameters'' v serverovej časti.
+To zabezpečíme nasledujúcim zdrojovým kódom:
+
+\begin{lstlisting}[language=R]
+output$predictionParameters <- renderUI({ $ % TODO remove
+  numberOfParameters <- length(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters)
+  fluidRow(
+    lapply(1:numberOfParameters, function(i) {
+      column(5,
+       numericInput(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$id,
+        label = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$label,
+        value = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$value,
+        min = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$min,
+        max = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$max,
+        step = server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[i]]$step
+       )
+      )
+    })
+  )
+}) $ % TODO remove
+\end{lstlisting}
+
+\begin{description}
+  \item[$\bullet$ numberOfParameters] počet parametrov zvoleného predikčného algoritmu
+  \item[$\bullet$ as.numeric(input\$predictionAlgorithms)] index zvoleného predikčného algoritmu pomocou, ktoré sa pristupuje do poľa algoritmov v konfiguračnom súbore
+  \item[$\bullet$ server.properties\$predictionAlgorithms] pole predikčných algoritmov v konfiguračnom súbore
+  \item[$\bullet$ lapply(1:numberOfParameters, function(i)] vytvorenie objektov typu ``column'' v cykle
+  \item[$\bullet$ predictionParameters[[ i \textbf{]]} ] pristupovanie k jednotlivým parametrom nachádzajúcich sa v konfiguračnom súbore
+\end{description}
+
+Po vykreslení komponentov vzniká nový problém, ktorým je získanie hodnôt, ktoré
+nastavil používateľ. Keďže nikdy nie sú vykreslené všetky komponenty a každý
+z nich má iný identifikátor, museli by sme sa pri dotazovaní sa najprv uistiť,
+či daný komponent existuje. To vy nebolo najvhodnejšie riešenie, keďže zároveň
+by sme dosiahli aj množstvo duplicitných častí kódu a znížila by sa udržatelnosť
+a čitetaľnosť. Ak by sme problém riešili rovnakými identifikátormi stále by to
+neriešlo rôzne počty parametrov. Jediným rozumným riešením je opäť použiť
+odkazovanie na hodnoty v konfiguračnom súbore, čo je zabezpečené funkciou
+``setOptimizationParameters''. Kľúčovými časťami kódu je cyklus:
+
+\begin{lstlisting}[language=R]
+for (i in 1:predictParamsCount) {
+  value <- eval(parse(text = paste("input", "$", predictParams[[i]]$id, sep = "")))
+
+  if (grepl("^min", predictParams[[i]]$id)) {
+    lows <- c(lows, value)
+  }
+  else if (grepl("^max", predictParams[[i]]$id)) {
+    highs <- c(highs, value)
+  }
+}
+\end{lstlisting}
+
+\begin{description}
+  \item[$\bullet$ predictParamsCount] počet parametrov zvoleného predikčného algoritmu
+  \item[$\bullet$ predictParams] pole parametrov predikčného algoritmu
+  \item[$\bullet$ value] hodnota, ktorá zadal používateľ, vzniká evaluovaním reťazca, ktorý spája používanú syntax a identifikátor komponentu z konfiguračného súboru
+  \item[$\bullet$ if] vzhľadom na to, že pri optimalizácií vždy určujeme rozsah použitých hodnôt, môžeme ich identifikovať prefixom ``min'' a ``max'' a oddeliť ich od seba
+\end{description}
+
+%-------------------------------------------------------------------------------
 %   Application configuration
 %-------------------------------------------------------------------------------
 
@@ -1912,7 +1990,6 @@ Samozrejme, ak by sme teraz spustili aplikáciu, nepribudla by možnosť použit
 nového algoritmu. Dôležité je vytvoriť v konfiguračnom súbore
 ``server-config.yml'' nový element v poli predikčných algoritmov. Pre správne
 fungovanie aplikácie je dôležité, aby element obsahoval nasledujúce premenné:
-
 \begin{description}
   \item[$\bullet$ label] názov algoritmu používaný v UI
   \item[$\bullet$ parameterLabels] názvy optimalizovaných parametrov používaných v UI
@@ -1971,7 +2048,6 @@ v predchádzajúcej kapitole. Konkrétne pridať implementovaný algortimus do
 konfiguračného súboru, zvýšiť počet dostupných algoritmov a pridanie
 importovania do súboru ``server.R''. Pridaný záznam v konfiguračnom súbore
 bude mať nasledovný formát:
-
 \begin{description}
   \item[$\bullet$ label] názov algoritmu používaný v UI
   \item[$\bullet$ optimizeFn] optimalizačná funkcia vracajúca najlepšie nájdené riešenie
@@ -2005,9 +2081,19 @@ bude mať nasledovný formát:
 Našou úlohou bolo vytvoriť webovú aplikáciu, ktorá bude používateľovi poskytovať
 možnosť výberu predikčných algoritmov, ktorých optimálne vstupné parametre budú
 nachádzané pomocou optimalizačných algoritmov. Zároveň bolo cieľom navrhnúť
-aplikáciu tak, aby pridávanie nových algoritmov nespôsobovalo vážne zmeny v nej.
-To sa nám do značnej miery podarilo zabezpečiť a pridaním konfiguračných
-súborov a navrhnutím rozhrania medzi jednotlivý funkciami.
+aplikáciu tak, aby pridávanie nových algoritmov nespôsobovalo vážne zmeny v jej
+implementácii. To sa nám do značnej miery podarilo zabezpečiť pridaním
+konfiguračných súborov a navrhnutím rozhrania medzi jednotlivý funkciami.
+Taktiež aplikácia spĺňa opísanú funkcionalitu a poskytuje používateľovi
+výsledky v podobe nájdených optimálnych parametrov.
+
+Počas analýzy problému sme sa zaoberali jednotlivými predikčnými
+a optimalizačnými metódami, ich výhodami a nevýhodami. Zamerali sme sa najmä na
+biologicky inšpirované algoritmy, ktoré nám poskytujú v krátkom čase uspokojivé
+výsledky. Taktiež sme si spomenuli možnosti merania chyby predikcií, ktoré
+zároveň v našom prípade reprezentujú fitness funkciu optimalizačnej metódy.
+Testovaní sme zistili, že nie všetky metódy merania chyby sú vhodným kandidátom
+na fitness funkciu.
 
 %-------------------------------------------------------------------------------
 %   Chapter 8 - Technical documentation
@@ -2097,6 +2183,7 @@ vidieť na obrázku~\ref{fig-app-result}.
   \label{fig-app-result}
 \end{figure}
 
+\newpage
 \subsection{Obsah elektronického média}
 \dirtree{%
   .1 CD nosič.
@@ -2132,29 +2219,38 @@ vidieť na obrázku~\ref{fig-app-result}.
   .2 ui.R.
 }
 
-% \newpage
-% \section{Plán do nasledujúceho semestra}
-%
-% \begin{table}[H]
-%   \centering
-%   \begin{tabular}{||l|p{0.65\textwidth}||}
-%     \hline \hline
-%     \multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Poradie týždňa \\ v letnom semestri\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Popis plánovanej činnosti}}   \\ \hline
-%     \hline
-%     1. týždeň    &  úprava vstupných dát na požadovaný formát, aplikovanie predikčných algoritmov             \\ \hline
-%     2. týždeň    &  aplikovanie predikčných a optimalizačných algoritmov                                      \\ \hline
-%     3. týždeň    &  implementácia optimalizačných algoritmov, ktorým chýba podpora knižníc v jazyku R         \\ \hline
-%     4. týždeň    &  implementácia optimalizačných algoritmov, tvorba kostry grafického rozhrania aplikácie    \\ \hline
-%     5. týždeň    &  tvorba jednotného rozhrania medzi aplikáciou a grafickým rozhraním                        \\ \hline
-%     6. týždeň    &  implementácia grafického rozhrania a následne prepojenie s aplikáciou                     \\ \hline
-%     7. týždeň    &  ošetrenie neplatných akcií vykonané používateľom                                          \\ \hline
-%     8. týždeň    &  testovanie aplikácie na rôznych vstupných dátach používateľmi                             \\ \hline
-%     9. týždeň    &  tvorba technickej dokumentácie aplikácie                                                  \\ \hline
-%     10. týždeň   &  testovanie algoritmov, dokumentácia a porovnanie algoritmov                               \\ \hline
-%     11. týždeň   &  tvorba prezentácie a príprava na obhajobu projektu                                        \\ \hline
-%     \hline
-%   \end{tabular}
-% \end{table}
+\begin{description}
+  \item[$\bullet$ doc] dokumentácia, obrázky použité v nej a zdrojové súbory pre LaTeX
+  \item[$\bullet$ conf] adresár obsahujúci konfiguračné súbory aplikácie
+  \item[$\bullet$ data] vzorové vstupné dáta použité pri návrhu webovej aplikácie
+  \item[$\bullet$ src] zdrojové súbory, v ktorých je implementovaná celá funkcionalita
+  \item[$\bullet$ test] zdrojové súbry použité pri validácií riešenia
+  \item[$\bullet$ web] zdrojové súbory pre Shiny
+\end{description}
+
+\newpage
+\section{Plán do letného semestra}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{||l|p{0.65\textwidth}||}
+    \hline \hline
+    \multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Poradie týždňa \\ v letnom semestri\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Popis plánovanej činnosti}}   \\ \hline
+    \hline
+    1. týždeň    &  úprava vstupných dát na požadovaný formát, aplikovanie predikčných algoritmov             \\ \hline
+    2. týždeň    &  aplikovanie predikčných a optimalizačných algoritmov                                      \\ \hline
+    3. týždeň    &  implementácia optimalizačných algoritmov, ktorým chýba podpora knižníc v jazyku R         \\ \hline
+    4. týždeň    &  implementácia optimalizačných algoritmov, tvorba kostry grafického rozhrania aplikácie    \\ \hline
+    5. týždeň    &  tvorba jednotného rozhrania medzi aplikáciou a grafickým rozhraním                        \\ \hline
+    6. týždeň    &  implementácia grafického rozhrania a následne prepojenie s aplikáciou                     \\ \hline
+    7. týždeň    &  ošetrenie neplatných akcií vykonané používateľom                                          \\ \hline
+    8. týždeň    &  testovanie aplikácie na rôznych vstupných dátach používateľmi                             \\ \hline
+    9. týždeň    &  tvorba technickej dokumentácie aplikácie                                                  \\ \hline
+    10. týždeň   &  testovanie algoritmov, dokumentácia a porovnanie algoritmov                               \\ \hline
+    11. týždeň   &  tvorba prezentácie a príprava na obhajobu projektu                                        \\ \hline
+    \hline
+  \end{tabular}
+\end{table}
 
 %-------------------------------------------------------------------------------
 %   Bibliography

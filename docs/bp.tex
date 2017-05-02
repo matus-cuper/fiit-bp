@@ -22,12 +22,17 @@
 \usepackage{threeparttable}                                                     % enable table with footnotes
 \usepackage{url}                                                                % enable url in references chapter
 \usepackage{listings}                                                           % enable source code syntax highlighting
+\usepackage{courier}																														% enable monospace in listings
 \usepackage{dirtree}                                                            % enable directory tree
+\usepackage{caption}																														% enable caption for source under caption
 \usepackage[a4paper, centering,
 											left=35mm, top=25mm, right=20mm, bottom=25mm]{geometry}		% set page margins
 
+\newcommand{\source}[1]{\caption*{\footnotesize Zdroj: {#1}} }
+
 \lstset{
-    breaklines=true,
+    basicstyle=\ttfamily,
+		breaklines=true,
     postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
 }
 
@@ -729,7 +734,12 @@ príklad takéhoto neurónu~\cite{Tso2007}.
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.6\textwidth]{neuron.png}
-  \caption{Príklad neurónu v neurónovej sieti~\cite{Tso2007}.}
+  \caption{Príklad neurónu v neurónovej sieti.}
+	\source{Tso, G. K.; Yau, K. K.: Predicting electricity energy consumption:
+					A comparison of regression analysis, decision tree and neural
+					networks. Energy, ročník 32, č. 9, 2007: s. 1761 – 1768, ISSN 0360-5442,
+					doi:http://dx.doi.org/10.1016/j.energy.2006.11.010.
+					URL http://www.sciencedirect.com/science/article/pii/S0360544206003288}
   \label{fig-neuron}
 \end{figure}
 
@@ -754,7 +764,10 @@ prepojených so vstupom~\cite{KumarSingh2013}.
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=\textwidth]{neural_network.png}
-  \caption{Príklad viacvrstvovej spätne propagovanej neurónovej siete~\cite{Kennedy2002}.}
+  \caption{Príklad viacvrstvovej spätne propagovanej neurónovej siete.}
+	\source{Kennedy, J.; Eberhart, R.: Particle swarm optimization. In Neural
+					Networks, 1995. Pro-ceedings., IEEE International Conference on,
+					ročník 4, Nov 1995, s. 1942–1948 vol.4, doi:10.1109/ICNN.1995.488968.}
   \label{fig-neural-network}
 \end{figure}
 
@@ -815,9 +828,13 @@ Nasledujúca tabuľka~\ref{tab-bio} zobrazuje rozdelenie algoritmov
 s potenciálom nájdenia globálneho minima. Algoritmy sú prírodne inšpirované
 a ich ďalšie delenie vyplýva zo spoločných znakov, na ktorých sú založené.
 
-\begin{table}
+\begin{table}[ht]
   \centering
-  \caption{Tabuľka rozdelenia vybraných prírodne inšpirovaných algoritmov~\cite{Goel2012}.}
+  \caption{Rozdelenie rozdelenie vybraných prírodne inšpirovaných algoritmov.}
+	\source{Goel, L.; Gupta, D.; Panchal, V. K.; aj.: Taxonomy of nature inspired
+					computational intelligence: A remote sensing perspective. In 2012
+					Fourth World Congress on Nature and Biologically Inspired Computing
+					(NaBIC), Nov 2012, s. 200–206, doi:10.1109/NaBIC.2012.6402262.}
   \label{tab-bio}
   % \begin{tabular}{|p{34mm}|p{34mm}|p{34mm}|p{34mm}|}
   \begin{tabular}{|l|l|l|l|}
@@ -960,7 +977,11 @@ skupín~\cite{Seeley1991}.
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.5\textwidth]{wolf_hierarchy.png}
-  \caption{Hierarchia vlkov vo svorke~\cite{Seeley1991}.}
+  \caption{Hierarchia vlkov vo svorke.}
+	\source{Seeley, T. D.; Camazine, S.; Sneyd, J.: Collective decision-making in
+					honey bees: how colonies choose among nectar sources. Behavioral
+					Ecology and Sociobiology, ročník 28, č. 4, 1991: s. 277–290, ISSN
+					1432-0762, doi:10.1007/BF00175101. URL http://dx.doi.org/10.1007/BF00175101}
   \label{fig-wolf-hierarchy}
 \end{figure}
 
@@ -1050,7 +1071,11 @@ vzorcov~\ref{eq-prey-alpha}~až~\ref{eq-prey-x3}~\cite{Seeley1991}.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{wolf_vector_positions.png}
-  \caption{Príklad možného umiestnenia vlka v dvojrozmernom priestore na základe polohy koristi~\cite{Seeley1991}.}
+  \caption{Príklad možného umiestnenia vlka v dvojrozmernom priestore na základe polohy koristi.}
+	\source{Seeley, T. D.; Camazine, S.; Sneyd, J.: Collective decision-making in
+					honey bees: how colonies choose among nectar sources. Behavioral
+					Ecology and Sociobiology, ročník 28, č. 4, 1991: s. 277–290, ISSN
+					1432-0762, doi:10.1007/BF00175101. URL http://dx.doi.org/10.1007/BF00175101}
   \label{fig-wolf-pos}
 \end{figure}
 

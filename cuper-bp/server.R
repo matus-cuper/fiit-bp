@@ -20,7 +20,7 @@ source(paste(path.src, "04-psoptim-optimize.R", sep = ""))
 source(paste(path.src, "04-pso-optimize.R", sep = ""))
 source(paste(path.src, "04-abc-optimize.R", sep = ""))
 
-source(paste(path.web, "bound-dates.R", sep = ""))
+source(paste(path.shiny, "bound-dates.R", sep = ""))
 ui.properties <- config::get(file = path.ui.conf)
 server.properties <- config::get(file = path.server.conf)
 

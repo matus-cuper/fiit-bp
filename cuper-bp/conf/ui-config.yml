@@ -40,6 +40,9 @@
     submitButtonLabel: "Vypočítaj"
 
     results:
+      tableColumns:
+        - "Názov parametru"
+        - "Optimálna hodnota"
       label: "Vypočítané hodnoty"
       xlabel: "Poradové číslo merania"
       ylabel: "Namerané a predikované dáta"

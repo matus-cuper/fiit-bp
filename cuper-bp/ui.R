@@ -19,7 +19,7 @@ fluidPage(
 
   # application settings, user can select prediction and optimization algoritmhs
   fluidRow(
-    column(4,
+    column(3,
       selectInput(
         "predictionAlgorithms",
         label = ui.properties$predictionAlgorithmsLabel,
@@ -69,7 +69,7 @@ fluidPage(
   # optimization algorithm settings
   h2(ui.properties$optimizationParametersLabel),
 
-  column(3,
+  column(2,
          selectInput(
            "fitnessFunction",
            label = ui.properties$fitnessFunctionsLabel,
@@ -95,7 +95,7 @@ fluidPage(
   uiOutput("resultValues"),
 
   htmlOutput("solutionLabel"),
-  dataTableOutput("resultSolutions"),
+  tableOutput("resultSolutions"),
 
   plotOutput("resultPlot")
 )

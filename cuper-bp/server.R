@@ -224,7 +224,7 @@ function(input, output) {
       result$minError
     })
 
-    output$resultSolutions <- renderDataTable({
+    output$resultSolutions <- renderTable({
       dataTable <- result$bestSolution
       if (server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[1]]$step %% 1 == 0)
         dataTable <- round(result$bestSolution)
@@ -233,7 +233,7 @@ function(input, output) {
         colnames(dataTable) <- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels
         dataTable 
       }
-    })
+    }, width = "auto", striped = TRUE, hover = TRUE)
 
     output$resultPlot <- renderPlot({
       matplot(data.frame(params.prediction$data$testingData$value, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),

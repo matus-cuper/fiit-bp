@@ -28,13 +28,16 @@ arima.predictDataFn <- function(params) {
 
 # Used by optimization function
 arima.predictFn <- function(params) {
-  arimaModel <- arima(x = params.prediction$trainingTimeSeries,
-                      order = c(p = round(params[1]),
-                                d = round(params[2]),
-                                q = round(params[3])),
-                      xreg = fourier(params.prediction$trainingTimeSeries, K = arima.properties$maximumOrder))
-  arimaForecast <- forecast(object = arimaModel,
-                            h = nrow(params.prediction$testingTimeSeries),
-                            xreg = fourier(params.prediction$testingTimeSeries, K = arima.properties$maximumOrder))
-  return(do.call(params.prediction$errorFn, list(arimaForecast$mean, params.prediction$data$testingData$value)))
+  try({
+    arimaModel <- arima(x = params.prediction$trainingTimeSeries,
+                        order = c(p = round(params[1]),
+                                  d = round(params[2]),
+                                  q = round(params[3])),
+                        xreg = fourier(params.prediction$trainingTimeSeries, K = arima.properties$maximumOrder))
+    arimaForecast <- forecast(object = arimaModel,
+                              h = nrow(params.prediction$testingTimeSeries),
+                              xreg = fourier(params.prediction$testingTimeSeries, K = arima.properties$maximumOrder))
+    return(do.call(params.prediction$errorFn, list(arimaForecast$mean, params.prediction$data$testingData$value)))
+  }, silent = TRUE)
+  return(do.call(params.prediction$errorFn, list(rep(0, length(params.prediction$data$testingData$value)), params.prediction$data$testingData$value)))
 }

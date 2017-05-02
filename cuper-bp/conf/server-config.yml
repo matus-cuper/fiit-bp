@@ -48,37 +48,37 @@
             label: "Minimum p"
             value: 0
             min: 0
-            max: 5
+            max: 9
             step: 1
           - id: "maxP"
             label: "Maximum p"
             value: 2
             min: 0
-            max: 5
+            max: 9
             step: 1
           - id: "minD"
             label: "Minimum d"
             value: 0
             min: 0
-            max: 4
+            max: 9
             step: 1
           - id: "maxD"
             label: "Maximum d"
             value: 2
             min: 0
-            max: 4
+            max: 9
             step: 1
           - id: "minQ"
             label: "Minimum q"
             value: 0
             min: 0
-            max: 5
+            max: 9
             step: 1
           - id: "maxQ"
             label: "Maximum q"
             value: 2
             min: 0
-            max: 5
+            max: 9
             step: 1
 
       - label: "Náhodné lesy"

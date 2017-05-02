@@ -230,8 +230,10 @@ function(input, output) {
         dataTable <- round(result$bestSolution)
 
       if (length(dataTable) == length(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels)) {
-        colnames(dataTable) <- server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels
-        dataTable 
+        dataTable <- rbind(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels, dataTable)
+        dataTable <- t(dataTable)
+        colnames(dataTable) <- ui.properties$results$tableColumns
+        dataTable
       }
     }, width = "auto", striped = TRUE, hover = TRUE)
 

@@ -220,8 +220,17 @@ function(input, output) {
       result <<- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
     })
 
-    output$resultValues <- renderText({
-      result$minError
+    output$resultValues <- renderTable({
+      dataTable <- data.frame()
+      columnNames <- c()
+      for(i in 1:length(server.properties$fitnessFunctions)) {
+        params.prediction$errorFn <<- server.properties$fitnessFunctions[[i]]$errorFn
+        dataTable <- rbind(dataTable, do.call(eval(parse(text = params.prediction$predictFn)), list(result$bestSolution)))
+        columnNames <- c(columnNames, server.properties$fitnessFunctions[[i]]$label)
+      }
+      dataTable <- t(dataTable)
+      colnames(dataTable) <- columnNames
+      dataTable
     })
 
     output$resultSolutions <- renderTable({

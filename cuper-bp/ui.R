@@ -92,7 +92,7 @@ fluidPage(
 
   # application output
   htmlOutput("resultLabel"),
-  uiOutput("resultValues"),
+  tableOutput("resultValues"),
 
   htmlOutput("solutionLabel"),
   tableOutput("resultSolutions"),

@@ -6,7 +6,7 @@
       Aplikácia umožňuje používateľovi vybrať si predikčný a optimalizačný
       algoritmus, pomocou ktorých bude nájdená optimálna hodnota vybranej
       fitness funkcie. Používateľ má možnosť konfigurovať parametre
-      optimalizačnej a interval jednotlivých paramtrov predikčnej metódy.
+      optimalizačnej a interval jednotlivých parametrov predikčnej metódy.
       Nad dátami, ktoré vloží bude vypočítaná najmenšia odchýlka a parametre,
       ktoré k tomuto výsledku viedli. Dáta musia byť vo formáte CSV, kde
       prvý stĺpec timestamp označuje čas merania, a stĺpec value hodnotu tohto
@@ -51,3 +51,18 @@
       ylabel: "Namerané a predikované dáta"
       valueLabel: "Najnižšia dosiahnutá chyba"
       solutionLabel: "Optimálna konfigurácia parametrov"
+
+    validation:
+      file: "Súbor nie je vo formáte CSV"
+      csv: "Súbor CSV nemá požadované stĺpce"
+      period: "Zvolený počet meraní za deň nezodpovedá vloženému súboru"
+      dates: "Trénovacia množina sa nesmie prekrývať s testovacou, počiatočný dátum nesmie byť neskôr posledný dátum"
+
+    tooltips:
+      predictionAlgorithms: "Kliknutím vyberte predičkný algoritmus, ktorého parametre budú optimalizované"
+      optimizationAlgorithms: "Kliknutím vyberte optimalizačný algoritmus, ktorý bude optimalizovať parametre"
+      inputFile: "Vyberte CSV súbor so stĺpcami timestamp a value"
+      measurementsPerDay: "Vyberte frekvenciu meraní za deň"
+      trainingSetRange: "Kliknutím zmeňte rozmedzie dát určených na trénovanie"
+      testingSetRange: "Kliknutím zmeňte rozmedzie dát určených na testovanie"
+      fitnessFunction: "Kliknutím vyberte funkciu na meranie chyby predpovede"

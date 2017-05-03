@@ -21,6 +21,8 @@ source(paste(path.src, "04-pso-optimize.R", sep = ""))
 source(paste(path.src, "04-abc-optimize.R", sep = ""))
 
 source(paste(path.shiny, "bound-dates.R", sep = ""))
+source(paste(path.shiny, "validate-input.R", sep = ""))
+
 ui.properties <- config::get(file = path.ui.conf)
 server.properties <- config::get(file = path.server.conf)
 
@@ -90,42 +92,44 @@ function(input, output) {
   }
 
   shinyjs::disable("submitComputation")
+  shinyjs::hideElement("validationMessage")
   shinyjs::hideElement("loading-spinner")
 
 
   # on measurementsPerDay change, disable button if period length consistency is broken
   observeEvent(input$measurementsPerDay, {
     shinyjs::disable("submitComputation")
-    validate(
-      need({
-        try({
-          dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
-          dataTable <- table(as.Date(dataRaw$timestamp))
-          length(dataTable[dataTable != as.numeric(input$measurementsPerDay)]) == 0
-        }, silent = TRUE)
-      }, "Value of measurementsPerDay differs from computed period size or timestamp is not parseable")
-    )
-
-    shinyjs::enable("submitComputation")
+    output$validationMessage <- renderText({
+      validate(
+        need(validate.period(input$inputFile$datapath, input$measurementsPerDay), ui.properties$validation$period)
+      )
+      shinyjs::enable("submitComputation")
+    })
   })
 
   # on file select, disable button if data are not valid, otherwise render date ranges
-  observeEvent(input$inputFile, {
-    shinyjs::disable("submitComputation")
-    validate(
-      need({
-        dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",", nrows = 1)
-        "timestamp" %in% colnames(dataRaw) & "value" %in% colnames(dataRaw)
-      }, "Missing column timestamp or value"),
-      need({
-        dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
-        try({
-          dataTable <- table(as.Date(dataRaw$timestamp))
-          length(dataTable[dataTable != as.numeric(input$measurementsPerDay)]) == 0
-        }, silent = TRUE)
-      }, "Value of measurementsPerDay differs from computed period size or timestamp is not parseable")
-    )
+  observeEvent({
+    input$inputFile
+    input$measurementsPerDay
+  }, {
 
+    shinyjs::disable("submitComputation")
+    if (!is.null(input$inputFile))
+      shinyjs::showElement("validationMessage")
+    output$validationMessage <- renderText({
+      validate(
+        need(validate.period(input$inputFile$datapath, input$measurementsPerDay), ui.properties$validation$period),
+        need(validate.csv(input$inputFile$datapath), ui.properties$validation$csv),
+        need(validate.file(input$inputFile$datapath), ui.properties$validation$file)
+      )
+      shinyjs::enable("submitComputation")
+    })
+
+    validate(
+      need(validate.period(input$inputFile$datapath, input$measurementsPerDay), ui.properties$validation$period),
+      need(validate.csv(input$inputFile$datapath), ui.properties$validation$csv),
+      need(validate.file(input$inputFile$datapath), ui.properties$validation$file)
+    )
     shinyjs::enable("submitComputation")
 
     dataRaw <- read.csv(file = input$inputFile$datapath, header = TRUE, sep = ",")
@@ -167,12 +171,12 @@ function(input, output) {
     input$trainingSetRange
     input$testingSetRange}, {
       shinyjs::disable("submitComputation")
-      validate(
-        need({input$trainingSetRange[1] <= input$trainingSetRange[2]}, "Date from must be earlier than date to"),
-        need({input$testingSetRange[1] <= input$testingSetRange[2]}, "Date from must be earlier than date to"),
-        need({input$trainingSetRange[2] < input$testingSetRange[1]}, "Date from must be earlier than date to")
-      )
-      shinyjs::enable("submitComputation")
+      output$validationMessage <- renderText({
+        validate(
+          validate.dates(input$trainingSetRange, input$testingSetRange)
+        )
+        shinyjs::enable("submitComputation")
+      })
     })
 
   # on optimization algoritm change render specific components
@@ -284,4 +288,9 @@ function(input, output) {
 
     showElements()
   })
+
+
+  output$descriptionFitness <- renderUI(HTML(server.properties$fitnessFunctions[[as.numeric(input$fitnessFunction)]]$description))
+  output$descriptionOptimization <- renderUI(HTML(server.properties$optimizationAlgorithms[[as.numeric(input$optimizationAlgorithms)]]$description))
+  output$descriptionPrediction <- renderUI(HTML(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$description))
 }

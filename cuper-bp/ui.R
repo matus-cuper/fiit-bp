@@ -3,6 +3,7 @@
 library(shiny)
 library(shinyBS)
 library(config)
+library(dygraphs)
 
 source(paste(path.shiny, "set-labels.R", sep = ""))
 ui.properties <- config::get(file = path.ui.conf)
@@ -129,7 +130,7 @@ fluidPage(
   ),
 
   htmlOutput("plotLabel"),
-  plotOutput("resultPlot"),
+  dygraphOutput("resultDygraph"),
 
   bsTooltip(id = "predictionAlgorithms", title = ui.properties$tooltips$predictionAlgorithms, trigger = "hover", placement = "top"),
   bsTooltip(id = "optimizationAlgorithms", title = ui.properties$tooltips$optimizationAlgorithms, trigger = "hover", placement = "top"),

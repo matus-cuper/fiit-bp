@@ -3,6 +3,7 @@
 library(shiny)
 library(shinyjs)
 library(config)
+library(dygraphs)
 
 source(paste(path.src, "00-read-data.R", sep = ""))
 
@@ -75,7 +76,7 @@ function(input, output) {
     shinyjs::hideElement("solutionLabel")
     shinyjs::hideElement("resultValues")
     shinyjs::hideElement("solutionValues")
-    shinyjs::hideElement("resultPlot")
+    shinyjs::hideElement("resultDygraph")
     shinyjs::hideElement("plotLabel")
     shinyjs::showElement("loading-spinner")
   }
@@ -86,7 +87,7 @@ function(input, output) {
     shinyjs::showElement("solutionLabel")
     shinyjs::showElement("resultValues")
     shinyjs::showElement("solutionValues")
-    shinyjs::showElement("resultPlot")
+    shinyjs::showElement("resultDygraph")
     shinyjs::showElement("plotLabel")
     shinyjs::hideElement("loading-spinner")
   }
@@ -278,12 +279,22 @@ function(input, output) {
       }
     }, width = "auto", striped = TRUE, hover = TRUE)
 
-    output$resultPlot <- renderPlot({
-      matplot(data.frame(params.prediction$data$testingData$value, do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution))),
-              type = c("l"),
-              col = 1:length(params.prediction$data$testingData$value),
-              xlab = ui.properties$results$xlabel,
-              ylab = ui.properties$results$ylabel)
+    output$resultDygraph <- renderDygraph({
+      realValues <- xts(x = params.prediction$data$testingData$value,
+                        order.by = as.POSIXct(params.prediction$data$testingData$timestamp),
+                        frequency = params.prediction$data$measurementsPerDay)
+
+      predictedValues <- xts(x = unlist(do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution)), use.names = FALSE),
+                             order.by = as.POSIXct(params.prediction$data$testingData$timestamp),
+                             frequency = params.prediction$data$measurementsPerDay)
+
+      dataToGraph <- cbind(realValues = realValues, predictedValues = predictedValues)
+      dateForAnnotation <- params.prediction$data$testingData$timestamp
+
+      dygraph(dataToGraph, main = "") %>%
+        dySeries("realValues", label = ui.properties$results$dygraph$realValuesLabel, color = "black") %>%
+        dySeries("predictedValues", label = ui.properties$results$dygraph$predictedValuesLabel, color = "red") %>%
+        dyAnnotation(params.prediction$data$testingData$timestamp, text = ui.properties$results$dygraph$annotationLabel)
     })
 
     showElements()

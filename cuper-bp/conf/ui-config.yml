@@ -40,6 +40,10 @@
     submitButtonLabel: "Vypočítaj"
 
     results:
+      dygraph:
+        realValuesLabel: "Reálne dáta"
+        predictedValuesLabel: "Predpovedané hodnoty"
+        annotationLabel: "Testovacia množina"
       solutionColumns:
         - "Názov parametru"
         - "Optimálna hodnota"

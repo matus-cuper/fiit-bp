@@ -40,10 +40,13 @@
     submitButtonLabel: "Vypočítaj"
 
     results:
-      tableColumns:
+      solutionColumns:
         - "Názov parametru"
         - "Optimálna hodnota"
-      label: "Vypočítané hodnoty"
+      fitnessColumns:
+        - "Názov chyby"
+        - "Veľkosť chyby"
+      label: "Reálne a predikované hodnoty"
       xlabel: "Poradové číslo merania"
       ylabel: "Namerané a predikované dáta"
       valueLabel: "Najnižšia dosiahnutá chyba"

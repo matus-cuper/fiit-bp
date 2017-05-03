@@ -8,6 +8,8 @@ ui.properties <- config::get(file = path.ui.conf)
 
 fluidPage(
 
+  tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "plot.css")),
+
   titlePanel(ui.properties$titlePanelLabel),
 
   # application description
@@ -90,12 +92,31 @@ fluidPage(
                ui.properties$submitButtonLabel,
                style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 
+  # spinner
+  div(id = "plot-container",
+      tags$img(src = "spinner.gif",
+               id = "loading-spinner")
+      ),
+
   # application output
-  htmlOutput("resultLabel"),
-  tableOutput("resultValues"),
+  fluidRow(
+    column(5,
+      htmlOutput("solutionLabel")
+    ),
+    column(5,
+      htmlOutput("resultLabel")
+    )
+  ),
 
-  htmlOutput("solutionLabel"),
-  tableOutput("resultSolutions"),
+  fluidRow(
+    column(5,
+      tableOutput("solutionValues")
+    ),
+    column(5,
+      tableOutput("resultValues")
+    )
+  ),
 
+  htmlOutput("plotLabel"),
   plotOutput("resultPlot")
 )

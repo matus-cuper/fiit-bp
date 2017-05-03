@@ -67,7 +67,30 @@ function(input, output) {
     return(optimParams)
   }
 
+  hideElements <- function() {
+    shinyjs::disable("submitComputation")
+    shinyjs::hideElement("resultLabel")
+    shinyjs::hideElement("solutionLabel")
+    shinyjs::hideElement("resultValues")
+    shinyjs::hideElement("solutionValues")
+    shinyjs::hideElement("resultPlot")
+    shinyjs::hideElement("plotLabel")
+    shinyjs::showElement("loading-spinner")
+  }
+
+  showElements <- function() {
+    shinyjs::enable("submitComputation")
+    shinyjs::showElement("resultLabel")
+    shinyjs::showElement("solutionLabel")
+    shinyjs::showElement("resultValues")
+    shinyjs::showElement("solutionValues")
+    shinyjs::showElement("resultPlot")
+    shinyjs::showElement("plotLabel")
+    shinyjs::hideElement("loading-spinner")
+  }
+
   shinyjs::disable("submitComputation")
+  shinyjs::hideElement("loading-spinner")
 
 
   # on measurementsPerDay change, disable button if period length consistency is broken
@@ -192,13 +215,16 @@ function(input, output) {
     if (is.null(input$inputFile) || input$submitComputation <= 0)
       return(NULL)
 
-    shinyjs::disable("submitComputation")
+    hideElements()
 
     output$resultLabel <- renderUI({
-        HTML(paste("<h2>", ui.properties$results$label, "</h2>", "<h3>", ui.properties$results$valueLabel, "</h3>"))
+      HTML(paste("<h3>", ui.properties$results$valueLabel, "</h3>"))
     })
     output$solutionLabel <- renderUI({
-        HTML(paste("<h3>", ui.properties$results$solutionLabel, "<h/3>"))
+      HTML(paste("<h3>", ui.properties$results$solutionLabel, "<h/3>"))
+    })
+    output$plotLabel <- renderUI({
+      HTML(paste("<h2>", ui.properties$results$label, "</h2>"))
     })
 
     isolate({
@@ -229,11 +255,13 @@ function(input, output) {
         columnNames <- c(columnNames, server.properties$fitnessFunctions[[i]]$label)
       }
       dataTable <- t(dataTable)
-      colnames(dataTable) <- columnNames
+      dataTable <- rbind(columnNames, dataTable)
+      dataTable <- t(dataTable)
+      colnames(dataTable) <- ui.properties$results$fitnessColumns
       dataTable
-    })
+    }, width = "auto", striped = TRUE, hover = TRUE)
 
-    output$resultSolutions <- renderTable({
+    output$solutionValues <- renderTable({
       dataTable <- result$bestSolution
       if (server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[1]]$step %% 1 == 0)
         dataTable <- round(result$bestSolution)
@@ -241,7 +269,7 @@ function(input, output) {
       if (length(dataTable) == length(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels)) {
         dataTable <- rbind(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels, dataTable)
         dataTable <- t(dataTable)
-        colnames(dataTable) <- ui.properties$results$tableColumns
+        colnames(dataTable) <- ui.properties$results$solutionColumns
         dataTable
       }
     }, width = "auto", striped = TRUE, hover = TRUE)
@@ -254,6 +282,6 @@ function(input, output) {
               ylab = ui.properties$results$ylabel)
     })
 
-    shinyjs::enable("submitComputation")
+    showElements()
   })
 }

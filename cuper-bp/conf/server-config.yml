@@ -3,6 +3,11 @@
 
     predictionAlgorithms:
       - label: "SVR"
+        description: >
+          Regresia založená na podporných vektoroch, <br/>
+          optimalizovanými parametrami sú C a epsilon: <br/>
+          C - cena za prekročenie hranice <br/>
+          epsilon - hranica <br/>
         parameterLabels:
           - "C"
           - "epsilon"
@@ -36,6 +41,12 @@
             step: 0.001
 
       - label: "ARIMA"
+        description: >
+          Autoregresívny integrovaný model kĺzavého priemeru, <br/>
+          optimalizovanými parametrami sú p, d, q: <br/>
+          p - rad autoregresívneho modelu <br/>
+          d - stupeň derivovania <br/>
+          q - rad modelu kĺzavého primeru <br/>
         parameterLabels:
           - "p"
           - "d"
@@ -82,6 +93,11 @@
             step: 1
 
       - label: "Náhodné lesy"
+        description: >
+          Náhodné lesy, <br/>
+          optimalizovanými parametrami sú počet stromov a veľkosť uzla: <br/>
+          počet stromov - počet by nemal byť veľmi malé číslo <br/>
+          veľkosť uzla - väčšie hodnoty spôsobujú rast nízkych stromov <br/>
         parameterLabels:
           - "Počet stromov"
           - "Veľkosť uzla"
@@ -117,6 +133,11 @@
 
     optimizationAlgorithms:
       - label: "PSO z knižnice pso"
+        description: >
+          Optimalizácia rojom častíc, <br/>
+          nastaviteľnými parametrami sú počet častíc a maximálny počet iterácií <br/>
+          počet častíc - priamo úmerný počtu preskúmaných riešení <br/>
+          maximálny počet iterácií - ukončovacia podmienka v prípade, že sa skôr nenájde optimálne riešenie <br/>
         optimizeFn: "pso.optimizeFn"
         optimizationParameters:
           - id: "numberOfParticles"
@@ -131,6 +152,11 @@
             max: 1000
 
       - label: "PSO z knižnice psoptim"
+        description: >
+          Optimalizácia rojom častíc, <br/>
+          nastaviteľnými parametrami sú počet častíc a maximálny počet iterácií <br/>
+          počet častíc - priamo úmerný počtu preskúmaných riešení <br/>
+          maximálny počet iterácií - ukončovacia podmienka v prípade, že sa skôr nenájde optimálne riešenie <br/>
         optimizeFn: "psoptim.optimizeFn"
         optimizationParameters:
           - id: "numberOfParticles"
@@ -145,6 +171,12 @@
             max: 1000
 
       - label: "ABC"
+        description: >
+          Umelá kolónia včiel, <br/>
+          nastaviteľnými parametrami sú počet zdrojov jedla, maximálny počet iterácií a maximálny počet iterácií zabudnutie zdroja potravy <br/>
+          počet zdrojov jedla - zodpovedá počtu robotníc a prehľadávačok <br/>
+          maximálny počet iterácií - ukončovacia podmienka v prípade, že sa skôr nenájde optimálne riešenie <br/>
+          maximálny počet iterácií na zabudnutie zdroja - zdroj je zabudnutý v prípade, že sa nezvýšilo množstvo nektáru za daný počet cyklov <br/>
         optimizeFn: "abc.optimizeFn"
         optimizationParameters:
           - id: "maxIterations"
@@ -153,7 +185,7 @@
             min: 1
             max: 1000
           - id: "foodNumber"
-            label: "Maximum zdrojov jedla"
+            label: "Počet zdrojov jedla"
             value: 20
             min: 1
             max: 500
@@ -166,12 +198,20 @@
 
     fitnessFunctions:
       # - label: "MFE"
+      #   description: ""
       #   errorFn: "mfe"
       - label: "MAE"
+        description: >
+          <br/> Stredná absolútna chyba <br/>
         errorFn: "mae"
       # - label: "MPE"
+      #   description: ""
       #   errorFn: "mpe"
       - label: "MAPE"
+        description: >
+          <br/> Stredná aboslútna percentuálna chyba <br/>
         errorFn: "mape"
       - label: "MSE"
+        description: >
+          <br/> Stredná štvorcová chyba <br/>
         errorFn: "mse"

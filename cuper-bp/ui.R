@@ -1,6 +1,7 @@
 ## shiny web app ui
 
 library(shiny)
+library(shinyBS)
 library(config)
 
 source(paste(path.shiny, "set-labels.R", sep = ""))
@@ -70,6 +71,8 @@ fluidPage(
 
   # optimization algorithm settings
   h2(ui.properties$optimizationParametersLabel),
+  htmlOutput("descriptionOptimization"),
+  htmlOutput("descriptionFitness"),
 
   column(2,
          selectInput(
@@ -83,14 +86,22 @@ fluidPage(
 
   # prediction algorithm settings
   h2(ui.properties$predictionParametersLabel),
+  htmlOutput("descriptionPrediction"),
 
   uiOutput("predictionParameters"),
 
   # submit button setup
   shinyjs::useShinyjs(),
-  actionButton("submitComputation",
-               ui.properties$submitButtonLabel,
-               style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+  fluidRow(
+    column(1,
+      actionButton("submitComputation",
+                   ui.properties$submitButtonLabel,
+                   style = "color: #fff; background-color: #337ab7; border-color: #2e6da4;")
+    ),
+    column(3,
+      textOutput("validationMessage")
+    )
+  ),
 
   # spinner
   div(id = "plot-container",
@@ -118,5 +129,13 @@ fluidPage(
   ),
 
   htmlOutput("plotLabel"),
-  plotOutput("resultPlot")
+  plotOutput("resultPlot"),
+
+  bsTooltip(id = "predictionAlgorithms", title = ui.properties$tooltips$predictionAlgorithms, trigger = "hover", placement = "top"),
+  bsTooltip(id = "optimizationAlgorithms", title = ui.properties$tooltips$optimizationAlgorithms, trigger = "hover", placement = "top"),
+  bsTooltip(id = "inputFile", title = ui.properties$tooltips$inputFile, trigger = "hover", placement = "top"),
+  bsTooltip(id = "measurementsPerDay", title = ui.properties$tooltips$measurementsPerDay, trigger = "hover", placement = "top"),
+  bsTooltip(id = "trainingSetRange", title = ui.properties$tooltips$trainingSetRange, trigger = "hover", placement = "top"),
+  bsTooltip(id = "testingSetRange", title = ui.properties$tooltips$testingSetRange, trigger = "hover", placement = "top"),
+  bsTooltip(id = "fitnessFunction", title = ui.properties$tooltips$fitnessFunction, trigger = "hover", placement = "top")
 )

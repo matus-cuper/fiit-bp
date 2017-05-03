@@ -12,3 +12,6 @@
 #plot.recalculating {
   z-index: -2;
 }
+#validationMessage {
+  color: #f00
+}

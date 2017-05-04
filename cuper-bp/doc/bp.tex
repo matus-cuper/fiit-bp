@@ -2121,7 +2121,125 @@ bude mať nasledovný formát:
 \newpage
 \section{Zhodnotenie}
 \label{evaluation}
+Dáta, na ktorých bolo uskutočnené testovanie webovej aplikácie pochádzajú
+z inteligentných elektromeračov, vďaka ktorým máme dáta k dispozícií každu
+štvrťhodinu. Merania sú združené podľa PSČ do súborov, kde každý z nich obsahuje
+96 meraní za deň po dobu približne 1 roka a 11 mesiacov. Počty odberov v rámci
+jednej agregácie sa líšia, čo spôsobuje, že aj vzory v časových radoch sú rôzne.
+Preto je potrebné najskôr vybrať reprezentatívne dáta s dĺžkou periódy, ktorá
+bude zabezpečovať dostatočne rýchly výpočet s uspokojujúcov veľkosťou chyby.
+Následne môžeme nad nimi vykonať porovnania optimalizačných algoritmov
+a primitívnych metód ako je napr. prehľadávanie celého priestoru.
 
+%-------------------------------------------------------------------------------
+%   Selecting suitable dataset
+%-------------------------------------------------------------------------------
+
+\subsection{Výber vhodného datasetu}
+Predpokladáme, že používateľ má k dispozícií dáta, ktoré sú v požadovanom
+formáte. V našom prípade sme museli prekonvertovať do požadované formátu pomocou
+skriptu \texttt{\textit{util/convert.R}}. Vyberali sme na základe počtu odberov
+tak, aby bola zastúpená približne každá skupina. Pripravené dáta sa nachádzajú
+v adresári \texttt{\textit{data}}. Jednotlivé modely sú trénované na množine
+1 týždňa a predpovedajú nasledujúci deň. Výsledky porovnania môžeme vidieť v
+tabuľkách~\ref{tab-test-dataset-arima}~a~\ref{tab-test-dataset-svr}. Vyberáme
+datesety s najmenšími nameranými chybami pričom nezáleží na použitej predikčnej
+metóde. Môžeme predpokladať, že tieto datasety sú najvhodnejšími kandidátmi
+na testovanie, keďže obsiahnuté dáta presnejšie spĺňajú definíciu časového radu.
+Vybrali sme datasety \texttt{\textit{91\_NDATA.csv}},
+\texttt{\textit{99\_UDATA.csv}} a \texttt{\textit{98\_NDATA.csv}}.
+
+\begin{table}[ht]
+  \centering
+  \caption{Porovnanie datasetou pomocou modelu ARIMA}
+  \label{tab-test-dataset-arima}
+  \begin{tabular}{|l|r|}
+    \hline
+    \textbf{Názov súboru }  &   \textbf{Veľkosť chyby MAPE}  \\ \hline
+		01\_UDATA.csv         &   11.52  \\ \hline
+		91\_NDATA.csv         &    7.18  \\ \hline
+		94\_UDATA.csv         &    7.95  \\ \hline
+		98\_NDATA.csv         &    9.51  \\ \hline
+		99\_UDATA.csv				 &    7.15  \\ \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+  \centering
+  \caption{Porovnanie datasetou pomocou SVR}
+  \label{tab-test-dataset-svr}
+  \begin{tabular}{|l|r|}
+    \hline
+    \textbf{Názov súboru }  &   \textbf{Veľkosť chyby MAPE}  \\ \hline
+		01\_UDATA.csv         &   17.46  \\ \hline
+		91\_NDATA.csv         &   10.47  \\ \hline
+		94\_UDATA.csv         &   14.96  \\ \hline
+		98\_NDATA.csv         &   13.89  \\ \hline
+		99\_UDATA.csv			   &   14.14  \\ \hline
+  \end{tabular}
+\end{table}
+
+%-------------------------------------------------------------------------------
+%   Selecting suitable size of dataset
+%-------------------------------------------------------------------------------
+
+\subsection{Výber vhodnej veľkosti datasetu}
+Našou snahou je vybrať na testovanie trénovaciu množinu, ktorej veľkosť nebude
+priveľká a výpočet nebude zbytočne časovo náročný a zároveň ani príliš malá,
+aby predikčné algoritmy dokázali indentifikovať opakujúce sa vzory v dátach.
+Použité dáta sú z datasetov vybraných v predchádzajúcom testovaní. Stĺpce v
+tabuľke~\ref{tab-test-size-rf} označujú veľkosť trénovacích dát v týždňov.
+Predpovedáme nasledujúci deň pomocou náhodných lesov a chyby MAPE, ktorá sa
+nachádza v jednotlivých bunkách tabuľky. Môžeme si všimnúť, že zatiaľčo pri
+niektorých datasetoch začne veľkosť chyby pri zvyšovaní veľkosti trénovacej
+množiny v istom bode rásť, pri iných sa môže veľkosť chyby udržiavať na
+približne rovnakej úrovni. Pre ďalšie testovanie budeme používať dataset
+\texttt{\textit{91\_NDATA.csv}} s veľkosťou trénovacej množiny dva týždne
+a \texttt{\textit{98\_NDATA.csv}} s veľkosťou trénovacej množiny 1 týždeň.
+
+\begin{table}[ht]
+  \centering
+  \caption{Porovnanie predikcii náhodných lesoch pre rôzne veľké trénovacie množiny}
+  \label{tab-test-size-rf}
+  \begin{tabular}{|l|c|c|c|c|}
+    \hline
+    \textbf{Názov súboru }  &   \textbf{1} 	  &   \textbf{2} 	  &   \textbf{3} 	  &   \textbf{4}  \\ \hline
+		91\_NDATA.csv		        &    4.58					&		 3.78					&    4.8					&  		6.14			\\ \hline
+		98\_NDATA.csv	          &    6.5					&   10.32					&   17.06					&		 20.03			\\ \hline
+		99\_UDATA.csv		        &		25.08					&   12.46					&  	17.48					&			6.43			\\ \hline
+  \end{tabular}
+\end{table}
+
+%-------------------------------------------------------------------------------
+%   Selecting fitness function
+%-------------------------------------------------------------------------------
+
+\subsection{Voľba fitness funkcie}
+Vyskúšam či výsledné nájdené parametre ovplyvním zmenou fitness funkcie
+
+%-------------------------------------------------------------------------------
+%   Selecting suitable size of dataset
+%-------------------------------------------------------------------------------
+
+\subsection{Optimalizácia parametrov SVR}
+Hľadanie cez aplikáciu rôznymi metódami
+porovnanie s hľadaním v cykle prípadne svr tune
+
+%-------------------------------------------------------------------------------
+%   Selecting suitable size of dataset
+%-------------------------------------------------------------------------------
+
+\subsection{Optimalizácia parametrov modelu ARIMA}
+Hľadanie cez aplikáciu rôznymi metódami
+porovnanie s hľadaním v cykle a autoarimou
+
+%-------------------------------------------------------------------------------
+%   Selecting suitable size of dataset
+%-------------------------------------------------------------------------------
+
+\subsection{Optimalizácia parametrov náhodných lesov}
+Hľadanie cez aplikáciu rôznymi metódami
+porovnanie s hľadaním v cykle
 
 %-------------------------------------------------------------------------------
 %   Chapter 7 - Conclusion

@@ -7,28 +7,24 @@
 
 \documentclass[a4paper,slovak,12pt,appendix]{article}
 
-% \usepackage{float}
 \usepackage[slovak]{babel}                                                      % title in Slovak
-\usepackage[utf8]{inputenc}                                                     % supported special Slovak characters
-\usepackage[T1]{fontenc}                                                        % supported word wrapping on the end of line on speciacl Slovak characters
-% \usepackage{url}
+\usepackage[utf8]{inputenc}                                                     % support for special Slovak characters
+\usepackage[T1]{fontenc}                                                        % support for word wrapping of special Slovak characters at the end of line on the end
 \usepackage{times}																															% Times New Roman
-\usepackage[unicode]{hyperref}																									% enable hyper references in table of content
-%\usepackage{indentfirst}                                                        % indent first line after section, but carefully, indent everything and everywhere
-\usepackage{amsmath}                                                            % for fractions
-\usepackage{amssymb}                                                            % for real numbers sign
-\usepackage{algorithm, algpseudocode}                                           % for pseudocode writting
-\usepackage{graphicx}                                                           % enable figures
-\usepackage{threeparttable}                                                     % enable table with footnotes
-\usepackage{url}                                                                % enable url in references chapter
-\usepackage{listings}                                                           % enable source code syntax highlighting
-\usepackage{courier}																														% enable monospace in listings
-\usepackage{dirtree}                                                            % enable directory tree
-\usepackage{caption}																														% enable caption for source under caption
+\usepackage[unicode]{hyperref}																									% hyperreferences in table of content
+\usepackage{amsmath}                                                            % math fractions
+\usepackage{amssymb}                                                            % real numbers sign
+\usepackage{algorithm, algpseudocode}                                           % pseudocode writting
+\usepackage{graphicx}                                                           % figures
+\usepackage{threeparttable}                                                     % table with footnotes
+\usepackage{url}                                                                % url in references
+\usepackage{listings}                                                           % source code syntax highlighting
+\usepackage{courier}																														% monospace in listings
+\usepackage{dirtree}                                                            % directory tree in appendix
+\usepackage{caption}																														% enable caption centering
+\usepackage[titletoc]{appendix}																									% appendix in toc with word appendix
 \usepackage[a4paper, centering,
 											left=35mm, top=25mm, right=20mm, bottom=25mm]{geometry}		% set page margins
-
-\newcommand{\source}[1]{\caption*{\footnotesize Zdroj: {#1}} }
 
 \lstset{
     basicstyle=\ttfamily,
@@ -239,8 +235,8 @@ V práci sme sa zamerali na predpovedanie veličín na základe ich historickýc
 meraní. Ostatné faktory pri tom neboli brané do úvahy. Tým sa stáva
 predpovedanie jednoduchšie a menej presné, čím vzniká priestor pre hlavný zámer
 práce, optimalizovanie predikčných metód na základe ich vstupných parametrov.
-Získame tým presnejšiu predpoveď ako keby sme nastavenie predikčných algoritmov
-nechali na náhode, alebo vlastnom úsudku.
+Získame tým presnejšiu predpoveď ako pri ručnom nastavení a zároveň aj v kratšom
+čase ako by sme skúšali všetky riešenia.
 
 Optimalizačné algoritmy, tak ako ich názov napovedá, slúžia na nájdenie
 optimálneho riešenia. Nájdenie najlepšieho riešenia požaduje preskúmanie
@@ -421,10 +417,10 @@ zložiek~\cite{Agrawal2013}.
 
 \begin{figure}[!ht]
   \centering
+	\captionsetup{justification=centering}
   \includegraphics[width=\textwidth]{multi_model.jpg}
-  \caption{Príklad multiplikatívneho modelu}
+  \caption[Príklad multiplikatívneho modelu]{Príklad multiplikatívneho modelu, index stavebnej produkcie Slovenska, Eurostat}
   \label{fig-multi-model}
-	\source{Eurostat - Index stavebnej produkcie Slovenska}
 \end{figure}
 
 \begin{figure}[!ht]
@@ -746,13 +742,9 @@ môžeme vidieť príklad takéhoto neurónu~\cite{Tso2007}.
 
 \begin{figure}[!ht]
   \centering
+	\captionsetup{justification=centering}
   \includegraphics[width=0.6\textwidth]{neuron.png}
-  \caption{Príklad neurónu v neurónovej sieti.}
-	\source{Tso, G. K.; Yau, K. K.: Predicting electricity energy consumption:
-					A comparison of regression analysis, decision tree and neural
-					networks. Energy, ročník 32, č. 9, 2007: s. 1761 – 1768, ISSN 0360-5442,
-					doi:http://dx.doi.org/10.1016/j.energy.2006.11.010.
-					URL http://www.sciencedirect.com/science/article/pii/S0360544206003288}
+  \caption[Príklad neurónu v neurónovej sieti.]{Príklad neurónu v neurónovej sieti~\cite{Tso2007}.}
   \label{fig-neuron}
 \end{figure}
 
@@ -776,11 +768,9 @@ lineárna rovnica váh prepojených so vstupom~\cite{KumarSingh2013}.
 
 \begin{figure}[!ht]
   \centering
+	\captionsetup{justification=centering}
   \includegraphics[width=\textwidth]{neural_network.png}
-  \caption{Príklad viacvrstvovej spätne propagovanej neurónovej siete.}
-	\source{Kennedy, J.; Eberhart, R.: Particle swarm optimization. In Neural
-					Networks, 1995. Pro-ceedings., IEEE International Conference on,
-					ročník 4, Nov 1995, s. 1942–1948 vol.4, doi:10.1109/ICNN.1995.488968.}
+  \caption[Príklad viacvrstvovej spätne propagovanej neurónovej siete.]{Príklad viacvrstvovej spätne propagovanej neurónovej siete~\cite{Kennedy2002}.}
   \label{fig-neural-network}
 \end{figure}
 
@@ -845,13 +835,9 @@ genetickým algoritmom, optimalizáciou svorkou divých vlkov a umelou kolóniou
 
 \begin{table}[ht]
   \centering
-  \caption{Rozdelenie rozdelenie vybraných prírodne inšpirovaných algoritmov.}
-	\source{Goel, L.; Gupta, D.; Panchal, V. K.; aj.: Taxonomy of nature inspired
-					computational intelligence: A remote sensing perspective. In 2012
-					Fourth World Congress on Nature and Biologically Inspired Computing
-					(NaBIC), Nov 2012, s. 200–206, doi:10.1109/NaBIC.2012.6402262.}
+	\captionsetup{justification=centering}
+  \caption[Rozdelenie prírodne inšpirovaných algoritmov.]{Rozdelenie vybraných prírodne inšpirovaných algoritmov~\cite{Goel2012}.}
   \label{tab-bio}
-  % \begin{tabular}{|p{34mm}|p{34mm}|p{34mm}|p{34mm}|}
   \begin{tabular}{|l|l|l|l|}
     \hline
     \multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Model ľudskej \\ mysle\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Umelé imunitné \\ systémy\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Rojová \\ inteligencia\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Ostatné napr. \\ prírodné úkazy\end{tabular}}} \\ \hline
@@ -917,7 +903,7 @@ graficky~\cite{Chavan2015}.
 
 \begin{table}[H]
   \centering
-  \caption{Proces vytvorenia novej generácie z rodičovských chromozómov.}
+  \caption[Proces vytvorenia novej generácie.]{Proces vytvorenia novej generácie z rodičovských chromozómov.}
   \label{tab-crossing}
   \begin{tabular}{p{4cm}l|l|l}
     rodič č. 1      &  0110 & 0101  0010 & 0011  \\
@@ -979,11 +965,7 @@ skupín~\cite{Seeley1991}.
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.5\textwidth]{wolf_hierarchy.png}
-  \caption{Hierarchia vlkov vo svorke.}
-	\source{Seeley, T. D.; Camazine, S.; Sneyd, J.: Collective decision-making in
-					honey bees: how colonies choose among nectar sources. Behavioral
-					Ecology and Sociobiology, ročník 28, č. 4, 1991: s. 277–290, ISSN
-					1432-0762, doi:10.1007/BF00175101. URL http://dx.doi.org/10.1007/BF00175101}
+  \caption[Hierarchia vlkov vo svorke.]{Hierarchia vlkov vo svorke~\cite{Seeley1991}.}
   \label{fig-wolf-hierarchy}
 \end{figure}
 
@@ -1072,12 +1054,9 @@ vzorcov~\ref{eq-prey-alpha}~až~\ref{eq-prey-x3}~\cite{Seeley1991}.
 
 \begin{figure}[ht]
   \centering
+	\captionsetup{justification=centering}
   \includegraphics[width=\textwidth]{wolf_vector_positions.png}
-  \caption{Príklad možného umiestnenia vlka v dvojrozmernom priestore na základe polohy koristi.}
-	\source{Seeley, T. D.; Camazine, S.; Sneyd, J.: Collective decision-making in
-					honey bees: how colonies choose among nectar sources. Behavioral
-					Ecology and Sociobiology, ročník 28, č. 4, 1991: s. 277–290, ISSN
-					1432-0762, doi:10.1007/BF00175101. URL http://dx.doi.org/10.1007/BF00175101}
+  \caption[Príklad možného umiestnenia vlka na základe polohy koristi.]{Príklad možného umiestnenia vlka v dvojrozmernom priestore na základe polohy koristi~\cite{Seeley1991}.}
   \label{fig-wolf-pos}
 \end{figure}
 
@@ -2061,8 +2040,8 @@ fungovanie aplikácie je dôležité, aby element obsahoval nasledujúce premenn
 \end{description}
 
 Ani teraz by som sa po spustení nevykoná výpočet. Aj keď máme k dispozícií voľbu
-nového algoritmu, po spustení výpočtu aplikácia zlyhá, lebo server nemá žiadnu
-k dispozícií implementáciu metód, ktoré pozná z konfiguračného súboru. Preto je
+nového algoritmu, po spustení výpočtu aplikácia zlyhá, lebo server sa pokúša
+použiť metódu, ktorá zatiaľ nebola importovaná. Preto je
 poslednou úpravou pridanie príkazu na importovanie vytvorených súborov do
 zdrojového súboru \texttt{\textit{server.R}}.
 
@@ -2199,7 +2178,8 @@ a \texttt{\textit{98\_NDATA.csv}} s veľkosťou trénovacej množiny 1 týždeň
 
 \begin{table}[ht]
   \centering
-  \caption{Porovnanie predikcii náhodných lesoch pre rôzne veľké trénovacie množiny}
+	\captionsetup{justification=centering}
+  \caption[Porovnanie predikcii pre rôzne veľké trénovacie množiny.]{Porovnanie predikcii náhodných lesoch pre rôzne veľké trénovacie množiny.}
   \label{tab-test-size-rf}
   \begin{tabular}{|l|c|c|c|c|}
     \hline
@@ -2215,7 +2195,34 @@ a \texttt{\textit{98\_NDATA.csv}} s veľkosťou trénovacej množiny 1 týždeň
 %-------------------------------------------------------------------------------
 
 \subsection{Voľba fitness funkcie}
-Vyskúšam či výsledné nájdené parametre ovplyvním zmenou fitness funkcie
+Nasledujúcim pokusom sme sa snažili overiť nezávislosť nájdeného riešenia od
+zvolenej fitness funkcie. Výsledky môžeme vidieť v tabuľke~\ref{tab-test-fit-rf}.
+Názov testu je zložený z názvu fitness funkcie a veľkosti trénovacích dát
+uvedenej v týždňoch. Na testovanie bola použitá optimalizácia umelou kolóniou
+včiel. Rozsah hodnôt bol pre všetky merania rovnaký, pre počet stromov
+(Parameter 1) od 40 do 80 a pre veľkosť uzlov (Parameter 2) od 5 do 20. Môžeme
+si všimnúť, že zatiaľ čo priemery optimálne nájdených hodnôt sú približne
+rovnaké, veľkosť štandardnej odchýlky sa líši. Rovnako sa líšia odchýlky aj
+medzi jednotlivými parametrami. Merania potvrdili závilosť nájdeného riešenia od
+zvolenej fitness funkcie aj keď iba v malom rozsahu. V nasledujúcich kapitolách
+budú preto porovnávania uskutočňované iba v rámci rovnakej fitness funkcie.
+
+\begin{table}[ht]
+  \centering
+  \caption{Porovnanie fitness funkcií na predikcii náhodných lesoch}
+  \label{tab-test-fit-rf}
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{Názov testu}    &   \multicolumn{2}{|c|}{\textbf{Chyba}}	   &   \multicolumn{2}{|c|}{\textbf{Parameter 1}}	&   \multicolumn{2}{|c|}{\textbf{Parameter 2}} \\
+														&   \textbf{priemer}  &   \textbf{odchýlka}  &   \textbf{priemer}  &   \textbf{odchýlka}  	&   \textbf{priemer}  &   \textbf{odchýlka}  \\ \hline
+		MAE 1T						      &    9443.63					&		 466.81		         &   51.48						 &   12.14								&		7.78							& 	2.1								 \\ \hline
+		MAE 2T						      &    2707.9 					&		 73.36		         &   52.1							 &   13.11								&		14.16							& 	4.3								 \\ \hline
+		MAPE 1T						      &    7.7						 	&    0.43			         &   45.21						 &   5.67									&		7.88							& 	4.6								 \\ \hline
+		MAPE 2T						      &    21.21						&		 1.17			         &   47.58						 &   6.83									&		14.73							& 	4.5								 \\ \hline
+		MSE 1T						      &		 105589322				& 	 9045238	         &   49.63						 &   7.47									&		6.9								& 	1.56							 \\ \hline
+		MSE 2T						      &    8869152					&		 525878		         &   54.13						 &   7.91									&		16.2							& 	2.86							 \\ \hline
+  \end{tabular}
+\end{table}
 
 %-------------------------------------------------------------------------------
 %   Selecting suitable size of dataset
@@ -2270,19 +2277,15 @@ na fitness funkciu.
 %-------------------------------------------------------------------------------
 
 \newpage
-\section{Zoznam použitej literatúry}
-\begingroup
-\renewcommand{\section}[2]{}
 \bibliographystyle{iso-690/slovakiso}
 \bibliography{bibliography}
-\endgroup
 
 %-------------------------------------------------------------------------------
 %   Appendix A - Technical documentation
 %-------------------------------------------------------------------------------
 
+\begin{appendices}
 \newpage
-\appendix
 % \addcontentsline{toc}{section}{Prílohy}
 % \section*{Prílohy}
 \section{Technická dokumentácia}
@@ -2440,7 +2443,7 @@ vidieť na obrázku~\ref{fig-app-result}.
     \hline
   \end{tabular}
 \end{table}
-
+\end{appendices}
 \end{document}
 
 % Aplikácia je kvôli prehľadnosti organizovaná do viacerých adresárov. Pri

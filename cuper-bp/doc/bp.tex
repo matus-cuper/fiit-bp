@@ -419,7 +419,7 @@ zložiek~\cite{Agrawal2013}.
   \centering
 	\captionsetup{justification=centering}
   \includegraphics[width=\textwidth]{multi_model.jpg}
-  \caption[Príklad multiplikatívneho modelu]{Príklad multiplikatívneho modelu, index stavebnej produkcie Slovenska, Eurostat}
+  \caption[Príklad multiplikatívneho modelu.]{Príklad multiplikatívneho modelu, index stavebnej produkcie Slovenska, Eurostat.}
   \label{fig-multi-model}
 \end{figure}
 
@@ -485,7 +485,7 @@ Vo vzorci~\ref{eq-odber} funkcia $Ln(t)$ predstavuje odber elektrickej energie
 v čase $t$. Hodnota $a_i$ je odhadovaný pomaly meniaci sa koeficient. Faktory
 $x_i(t)$ nezávisle vplývajú na spotrebu elektrickej energie. Môže sa jednať
 napr. o počasie alebo zvyky ľudí. Komponent $e(t)$ je biely šum, ktorý má nulovú
-strednú hodnotu a pevnú varianciu. Číslo $n$ je počet meraní, obvykle 24
+strednú hodnotu a pevnú variáciu. Číslo $n$ je počet meraní, obvykle 24
 alebo 168, v našom prípade 96 meraní počas jedného dňa~\cite{KumarSingh2013}.
 
 \paragraph{Viacnásobná lineárna regresia} sa snaží modelovať vzťah medzi dvoma
@@ -512,13 +512,13 @@ zapíšeme ako $e_t$~\cite{KumarSingh2013, Mahalakshmi2016}.
 \subsubsection{Stochastické modely}
 \label{stochastic}
 Tieto metódy časových radov sú založené na predpoklade, že dáta majú vnútornú
-štruktúru, ako napr. autokoreláciu, trend či sezónnu varianciu. Najprv sa
+štruktúru, ako napr. autokoreláciu, trend či sezónnu variáciu. Najprv sa
 precízne zostaví vzor zodpovedajúci dostupným dátam a potom sa na jeho základe
 predpovie budúca hodnota veličiny~\cite{KumarSingh2013}.
 
 \paragraph{Autoregresný model} predpovedá budúcu hodnotu premennej ako súčet
 lineárnej kombinácie $p$ predchádzajúcich meraní, náhodnej chyby a konštanty.
-V literatúre sa označuje ako AR (autoregressive model). Matematicky môžeme
+V literatúre sa označuje ako AR (angl. autoregressive model). Matematicky môžeme
 autoregresný model zapísať ako
 \begin{equation}
   y_t = c + \sum_{i=1}^{p} \varphi_i y_{t-i} + \varepsilon_t
@@ -531,7 +531,7 @@ rad modelu~\cite{Agrawal2013}.
 
 \paragraph{Model kĺzavého priemeru} na rozdiel od autoregresného modelu používa
 ako vysvetľujúce premenné chyby predchádzajúcich meraní a nie priamo hodnoty.
-V literatúre sa označuje ako MA (moving average). Matematicky môžeme tento
+V literatúre sa označuje ako MA (angl. moving average). Matematicky môžeme tento
 vzťah zapísať ako
 \begin{equation}
   y_t = \mu + \sum_{j=1}^{q} \Theta_j \varepsilon_{t-j} + \varepsilon_t
@@ -541,12 +541,12 @@ Vo vzorci~\ref{eq-ma} hodnota $y_t$ predstavuje strednú hodnotu
 postupnosti meraní v čase $t$. Hodnoty $\Theta_j$ sú parametre modelu
 a konštantou $q$ označujeme rad modelu. Vychádzame z predpokladu, že náhodná
 zložka $\varepsilon_t$ je biely šum, čo je rovnomerne distribuovaná náhodná
-premenná, ktorá má nulovú strednú hodnotu a konštantnú varianciu
+premenná, ktorá má nulovú strednú hodnotu a konštantnú variáciu
 $\sigma^2$~\cite{Agrawal2013}.
 
-\paragraph{Autoregresívny model kĺzavého priemeru} reprezentuje súčasnú hodnotu
+\paragraph{Autoregresný model kĺzavého priemeru} reprezentuje súčasnú hodnotu
 časového rádu lineárne na základe jeho hodnôt a hodnôt bieleho šumu
-v predchádzajúcich periódach. V literatúre sa označuje ako ARMA (autoregressive
+v predchádzajúcich periódach. V literatúre sa označuje ako ARMA (angl. autoregressive
 moving average)~\cite{KumarSingh2013}.
 
 Ide o kombináciu autoregresie (AR) a kĺzavého priemeru (MA), vhodnú pre
@@ -558,8 +558,8 @@ tento model ako súčet predchádzajúcich modelov
 \end{equation}
 Rad modelu určuje $p$ a $q$~\cite{Agrawal2013}.
 
-\paragraph{Autoregresívny integrovaný model kĺzavého priemeru} je
-generalizáciou modelu ARMA. V literatúre sa označuje ako ARIMA (autoregressive
+\paragraph{Autoregresný integrovaný model kĺzavého priemeru} je
+generalizáciou modelu ARMA. V literatúre sa označuje ako ARIMA (angl. autoregressive
 integrated moving average). Modely typu ARMA môžu byť použité iba na statické
 časové rady. Mnoho časových radov v praxi vykazuje nestatické správanie a napr.
 tie, ktoré obsahujú komponenty trendu a sezónnosti. Kvôli tomu bol navrhnutý
@@ -615,7 +615,7 @@ Matematicky môžeme túto lineárnu zapísať ako
 \end{equation}
 Vo vzorci~\ref{eq-svr} platí $w \in \chi$ a $b \in \mathbb{R}$. Výsledok
 skalárneho súčinu $\langle w, x \rangle$ sa nachádza v množine $\chi$. Našou
-snahou je dosiahnuť čo najmenšiu hodnotu $w$. Zabezpčiť to môžeme
+snahou je dosiahnuť čo najmenšiu hodnotu $w$. Zabezpečiť to môžeme
 minimalizovaním hodnoty $|| w ||^2 = \langle w, w \rangle$. Pri cieli
 minimalizovať hodnotu $\frac{1}{2} || w ||^2$, môžeme opisovaný problém zapísať
 ako
@@ -672,12 +672,12 @@ trend~\cite{Tso2007}.
 \paragraph{Regresný rozhodovací strom} obsahuje odozvový vektor $Y$
 reprezentujúci odozvu hodnôt ku každému meraniu v matici $X$. Vetvy sú
 rozdeľované na základe štvorcového zostatkového minimalizačného algoritmu.
-Ten zabezpečuje, že očakávaný súčet variancií dvoch uzlov bude minimalizovaný.
+Ten zabezpečuje, že očakávaný súčet variácií dvoch uzlov bude minimalizovaný.
 Algoritmus tak nájde optimálnu podmienku rozdelenia uzlu na jeho
 potomkov~\cite{Bel2009}.
 
 Priradením hodnoty 1 pre triedu $k$ a hodnoty 0 pre ostatné triedy, získame
-varianciu rovnú $p(k|t)[1 - p(k|t)]$. Sčítaním $K$ tried získame funkciu
+variáciu rovnú $p(k|t)[1 - p(k|t)]$. Sčítaním $K$ tried získame funkciu
 \begin{equation}
   i(t) = 1 - \sum_{k = 1}^K p^2 (k|t)
   \label{eq-tree-impurity}
@@ -756,7 +756,7 @@ aplikačná funkcia na vážený na vážený súčet vstupov~\cite{Gruau1994}.
 
 Trénovanie siete je proces nastavovania, čo najlepších váh na vstupy
 jednotlivých neurónov. Chyba neurónovej siete sa najčastejšie počíta pomocou
-spätnej propagácie (backpropagation), čím dostaneme rast chyby pre danú
+spätnej propagácie (angl. backpropagation), čím dostaneme rast chyby pre danú
 neurónovú sieť~\cite{Tso2007}.
 
 Je veľa typov neurónových sietí napríklad viacvrstvové perceptónové siete,
@@ -817,7 +817,7 @@ týchto algoritmov je deterministická. Pri hľadaní minima používajú
 vyhodnocovaciu funkciu, na základe ktorej aktualizujú doterajšie riešene.
 Z nových možných riešení je najlepšie to s najnižšou hodnotou, čiže to, ktoré
 je najlacnejšie. Kvôli tejto vlastnosti sa zvyknú tieto algoritmy označovať aj
-ako nenásytné algoritmy (greedy algorithms). Spravidla tieto algoritmy nenájdu
+ako nenásytné algoritmy (angl. greedy algorithms). Spravidla tieto algoritmy nenájdu
 globálne minimum v prípade, že sa nachádza ďalej od štartovacieho riešenia ako
 nejaké lokálne minimum~\cite{Sen1995}.
 
@@ -843,7 +843,7 @@ genetickým algoritmom, optimalizáciou svorkou divých vlkov a umelou kolóniou
     \multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Model ľudskej \\ mysle\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Umelé imunitné \\ systémy\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Rojová \\ inteligencia\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Ostatné napr. \\ prírodné úkazy\end{tabular}}} \\ \hline
     Teória fuzzy množín                                                                           & Genetický algoritmus                                                                            & \begin{tabular}[c]{@{}l@{}}Optimalizácia \\ kolóniu mravcov\end{tabular}                     & Tektonické dosky                                                                                      \\
     Teória približných množín                                                                     & Umelé neurónové siete                                                                           & \begin{tabular}[c]{@{}l@{}}Optimalizácia \\ rojom častíc\end{tabular}                        & Veľký kolaps                                                                                          \\
-    Granulárne výpočty                                                                            & Celulárný automat                                                                               & \begin{tabular}[c]{@{}l@{}}Inteligentná \\ kvapka vody\end{tabular}                          & Oceánske prúdy                                                                                        \\
+    Granulárne výpočty                                                                            & Celulárny automat                                                                               & \begin{tabular}[c]{@{}l@{}}Inteligentná \\ kvapka vody\end{tabular}                          & Oceánske prúdy                                                                                        \\
     Predbežné výpočty                                                                             & Membránové výpočty                                                                              & \begin{tabular}[c]{@{}l@{}}Včelí zhlukovací \\ algoritmus\end{tabular}                       & Prílivové vlny                                                                                        \\
                                                                                                   &                                                                                                 & \begin{tabular}[c]{@{}l@{}}Vyhľadávanie \\ kukučkou\end{tabular}                             & Sopečné erupcie                                                                                       \\
                                                                                                   &                                                                                                 &                                                                                              & Zemetrasenie                                                                                          \\
@@ -926,7 +926,7 @@ pravdepodobnosťou invertuje jednu hodnotu v chromozóme~\cite{Chavan2015}.
 \paragraph{Princíp genetického algoritmu} môžeme znázorniť v nasledujúcom
 pseudokóde~\cite{Chavan2015}
 \begin{algorithm}
-  \caption{Pseudokód genetického algoritmu}
+  \caption{Pseudokód genetického algoritmu.}
   \begin{algorithmic}[1]
     \State Náhodne inicializovanie jedincov
     \State Vyhodnotenie fitness funkcie pre každého jedinca \label{ga-fitness}
@@ -1091,14 +1091,14 @@ Tým je zabezpečené prehľadávanie priestoru agentami~\cite{Seeley1991}.
 \paragraph{Princíp optimalizácie svorkou divých vlkov} môžeme znázorniť
 v nasledujúcom pseudokóde~\cite{Seeley1991}
 \begin{algorithm}[H]
-  \caption{Pseudokód optimalizácie svorkou divých vlkov}
+  \caption{Pseudokód optimalizácie svorkou divých vlkov.}
   \begin{algorithmic}[1]
     \State Náhodná inicializácia vlkov
     \State Inicializácia $a$, $A$ a $C$
     \State Vyhodnotenie fitness funkcie pre každého jedinca
     \State Priradenie do 3 najlepších riešení do $X_\alpha$, $X_\beta$ resp. $D_\delta$
     \State Opakuj kroky \ref{gwo-while} až \ref{gwo-iter} pokiaľ nebude prekročený maximálny počet iterácií \label{gwo-while}
-    \State Aktualizovanie polohy na základe rovníc rovníc~\ref{eq-prey-x1},~\ref{eq-prey-x2}~a~\ref{eq-prey-x3}
+    \State Aktualizovanie polohy na základe rovníc~\ref{eq-prey-x1},~\ref{eq-prey-x2}~a~\ref{eq-prey-x3}
     \State Aktualizovanie $a$, $A$ a $C$
     \State Vyhodnotenie fitness funkcie pre každého jedinca
     \State Aktualizovanie $X_\alpha$, $X_\beta$ a $D_\delta$
@@ -1112,7 +1112,7 @@ v nasledujúcom pseudokóde~\cite{Seeley1991}
 %-------------------------------------------------------------------------------
 
 \subsubsection{Umelá kolónia včiel}
-V literatúre označovaný ako ABC algoritmus (Artifical bee colony) je pomerne
+V literatúre označovaný ako ABC algoritmus (angl. Artifical bee colony) je pomerne
 nový medzi rojovými algoritmami. Princíp je založený na biologickom procese
 správaní medonosných včiel pri hľadaní potravy. Každá včela pracujúca
 v roji sa spolupodieľa na tvorbe celého systému na globálnej úrovni. Správanie
@@ -1120,11 +1120,11 @@ systému je určené lokálnym správaním, kde spolupráca a zladenie jedincov 
 k štruktúrovanému kolaboračnému systému~\cite{Chavan2015}.
 
 V algoritme, kolónia umelých včiel pozostáva z 3 typov. Sú to včely
-robotnice (employed bees), prehľadávačky (onlookers) a prieskúmníčky (scouts).
-Informácie o zdrojoch potravy si vymieňajú
-tancovaním (waggle dance) na tzv. tanečnej ploche. Prehľadávačky čakajúce na tanečnej
+robotnice (angl. employed bees), prehľadávačky (angl. onlookers)
+a prieskúmníčky (angl. scouts). Informácie o zdrojoch potravy si vymieňajú
+tancovaním (angl. waggle dance) na tzv. tanečnej ploche. Prehľadávačky čakajúce na tanečnej
 ploche sa rozhodujú, ktorý zdroj potravy si vyberú. Robotnice navštevujú zdroje
-potravy, ktoré v minulosti už navštívili. Úlohou včiel priskumníčok je
+potravy, ktoré v minulosti už navštívili. Úlohou včiel prieskumníčok je
 vykonávať náhodné prehľadávanie priestoru. Pri aplikovaní ABC algoritmu, polovica včiel
 predstavuje robotnice, druhá polovica prehľadávačky. Počet robotníc zodpovedá počtu
 zdrojov potravy v okolí úľu. Robotnica, ktorej zdroj je vyčerpaný inými
@@ -1181,7 +1181,7 @@ sa vykoná ak sa skôr nenájde optimálne riešenie~\cite{Karaboga2007}.
 \paragraph{Princíp umelej kolónii včiel} znázorňuje nasledujúci
 pseudokód~\cite{Karaboga2007}
 \begin{algorithm}[H]
-  \caption{Pseudokód umelej kolónie včiel}
+  \caption{Pseudokód umelej kolónie včiel.}
   \begin{algorithmic}[1]
     \State Inicializácia včiel na náhodné zdroje potravy
     \State Opakuj kroky \ref{abc-while} až \ref{abc-end} pokiaľ nebude dosiahnutý cieľ \label{abc-while}
@@ -1206,7 +1206,7 @@ hodnota $f_t$ alebo chyba predpovede $e_t$ definovaná ako $e_t = y_t - f_t$.
 Veľkosť testovacej množiny budeme označovať ako $n$~\cite{Agrawal2013}.
 
 \subsubsection{Stredná chyba predpovede}
-V literatúre označovaná ako MFE (mean forecast error). Matematickú funkciu
+V literatúre označovaná ako MFE (angl. mean forecast error). Matematickú funkciu
 môžeme zapísať ako
 \begin{equation}
   MFE = \frac{1}{n} \sum_{t=1}^{n} e_t
@@ -1220,7 +1220,7 @@ meraní a môže byť ovplyvnená aj transformáciami dát. Dobré predpovede ma
 hodnotu blízku 0~\cite{Agrawal2013}.
 
 \subsubsection{Stredná absolútna chyba}
-V literatúre označovaná ako MAE (mean absolute error). Patrí k jedným
+V literatúre označovaná ako MAE (angl. mean absolute error). Patrí k jedným
 z najpoužívanejších. Funkciu môžeme zapísať ako
 \begin{equation}
   MAE = \frac{1}{n} \sum_{t=1}^{n} |e_t|
@@ -1235,7 +1235,7 @@ Hodnota chyby závisí od škály meraní a transformácií dát. Dobré predpov
 hodnotu čo najbližšiu 0~\cite{Agrawal2013, Gutierrez2015}.
 
 \subsubsection{Stredná percentuálna chyba}
-V literatúre označovaná ako MPE (mean percentage error). Matematicky môžeme
+V literatúre označovaná ako MPE (angl. mean percentage error). Matematicky môžeme
 túto funkciu zapísať ako
 \begin{equation}
   MPE = \frac{1}{n} \sum_{t=1}^{n} \frac{e_t}{y_t} \times 100
@@ -1249,7 +1249,7 @@ nemôžeme s určitosťou tvrdiť, že funguje správne~\cite{Agrawal2013}.
 
 \subsubsection{Stredná absolútna percentuálna chyba}
 \label{mape}
-V literatúre označovaná ako MAPE (mean absolute percentage error). Vzorec,
+V literatúre označovaná ako MAPE (angl. mean absolute percentage error). Vzorec,
 ktorým ju zapíšeme bude veľmi podobný vzorcu \ref{eq-mpe}
 \begin{equation}
   MAPE = \frac{1}{n} \sum_{t=1}^{n} \Big|\frac{e_t}{y_t}\Big| \times 100
@@ -1262,7 +1262,7 @@ smer chyby a ani nenastáva žiadna penalizácia pri extrémnych
 chybách~\cite{Agrawal2013}.
 
 \subsubsection{Stredná štvorcová chyba}
-V literatúre označovaná ako MSE (mean squarred error). Vzorcom ju zapíšeme ako
+V literatúre označovaná ako MSE (angl. mean squarred error). Vzorcom ju zapíšeme ako
 \begin{equation}
   MSE = \frac{1}{n} \sum_{t=1}^{n} e_t^2
   \label{eq-mse}
@@ -1331,9 +1331,9 @@ Cieľom práce je navrhnúť systém, ktorý umožní používateľovi nájsť o
 nastavenie vstupných parametrov predikčných metód. Používateľ bude mať
 k dispozícií niekoľko predikčných a optimalizačných algoritmov, bude môcť
 meniť ich konfiguračné parametre a vykonávať výpočty, vďaka ktorým zistí okrem
-veľkosti predikčnej chyby aj optimálne nastavenie paramterov. Tieto výsledky
+veľkosti predikčnej chyby aj optimálne nastavenie parametrov. Tieto výsledky
 môže použiť vo vlastnej aplikácií alebo výskume. Predmetom optimalizácie budú
-parametre predičkných metód, konfigurácia optimalizačných algoritmov je
+parametre predikčných metód, konfigurácia optimalizačných algoritmov je
 ponechaná na používateľovi. Množinu dát si sám zvolí, aplikácia
 je nezávislá na doméne, v ktorej boli dáta namerané. Ku každému z uvedených
 parametrov bude poskytnuté vysvetlenie a opis zmeny správania na základe
@@ -1348,12 +1348,12 @@ nameraných hodnôt a preto aplikácia nepracuje so žiadnymi vysvetľujúcimi
 premennými. Jej fungovanie je nezávislé na doméne, z ktorej dáta pochádzajú.
 Používateľ tak môže optimalizovať predikčné parametre aj na základe iných dát
 ako z elektromeračov. Stačí, ak každé meranie je jednoznačne identifikovateľné
-dátumom a časom zhotovania.
+dátumom a časom zhotovenia.
 
 Používateľ si bude môcť vyberať z ponúknutých predikčných a optimalizačných
 algoritmov. K dispozícii bude mať stochastické modely,
 regresiu založenú na podporných vektoroch, rozhodovacie stromy a prírodne
-inšpirované optimalizačné algoritmy ako umelú kolóniu včiel alebo optimaliziu
+inšpirované optimalizačné algoritmy ako umelú kolóniu včiel alebo optimalizáciu
 založenú na správaní roja častíc. Systém bude navrhnutý tak, aby pridanie
 ďalších algoritmov nespôsobovalo zmeny v pôvodnej aplikácii a pozostávalo tak
 iba z pridania implementácie algoritmov a prípadne zmeny konfigurácie.
@@ -1379,7 +1379,7 @@ ani tí menej skúsení. Zároveň bude skúsenému používateľovi poskytovať
 modulárnosť, konfigurovateľnosť, ale hlavne rozhranie pre jednoduché pridávanie
 ďalších algoritmov, ktoré si môže sám implementovať.
 
-Spomenúté vlastnosti môžeme rozdeliť na funkcionálne a nefunkcionálne
+Spomenuté vlastnosti môžeme rozdeliť na funkcionálne a nefunkcionálne
 nasledujúcimi odrážkami.
 
 \noindent
@@ -1388,17 +1388,17 @@ nasledujúcimi odrážkami.
   \item[$\bullet$ webová aplikácia] implementovaná pomocou jazyka R a knižnice Shiny
   \item[$\bullet$ vkladanie dát] používateľom v predefinovanom formáte
   \item[$\bullet$ výber predikčnej metódy] z implementovaných metód závisí od používateľovej voľby
-  \item[$\bullet$ výber optimalizačnej metódy] ovyplvňuje rýchlosť a optimálnosť vypočítaného výsledku
-  \item[$\bullet$ chyba predpovedi] je použítá pri optimaiizácií ako fitness funkcia
+  \item[$\bullet$ výber optimalizačnej metódy] ovplyvňuje rýchlosť a optimálnosť vypočítaného výsledku
+  \item[$\bullet$ chyba predpovedi] je použitá pri optimalizácii ako fitness funkcia
   \item[$\bullet$ vyhodnotenie výpočtu] zobrazením veľkosti chyby, nájdených optimálnych parametrov a vykreslením grafu
 \end{description}
 
 \noindent
 \paragraph{Nefunkcionálne požiadavky:}
 \begin{description}
-  \item[$\bullet$ efektívnosť] implementácie je kľúčová pre zazpečenie rýchleho výpočtu výsledku
+  \item[$\bullet$ efektívnosť] implementácie je kľúčová pre zabezpečenie rýchleho výpočtu výsledku
   \item[$\bullet$ jednoduchosť] použitia webovej aplikácie aj napriek množstvu parametrov, ktoré môže používateľ meniť
-  \item[$\bullet$ modulárnosť] dovoľuje skúsenému používateľovi pridávať vlastné predikčné a optimalizačné algoritmy
+  \item[$\bullet$ modulárnosť] dovoľuje používateľovi pridávať vlastné predikčné a optimalizačné algoritmy
   \item[$\bullet$ konfigurovateľnosť] aplikácie bude zabezpečená viacerými konfiguračnými súbormi
 \end{description}
 
@@ -1411,14 +1411,14 @@ nasledujúcimi odrážkami.
 \label{solution-design}
 Výsledná webová aplikácia bude používateľovi poskytovať možnosť zvoliť si
 optimalizačný algoritmus, ktorým bude optimalizovať nastavenie predikčného
-algortimu. Keďže každý predikčný algoritmus potrebuje pre správnu funkcionalitu
+algoritmu. Keďže každý predikčný algoritmus potrebuje pre správnu funkcionalitu
 iné parametre s rôznymi hodnotami, je najskôr potrebné implementovať rozhranie,
 ktoré zabezpečí správnu interakciu s optimalizačným algoritmom. Používateľ
 preto bude vyberať iba z algoritmov, ktoré budú predom implementované alebo tak
 sám urobí.
 
 V práci sme sa rozhodli zvoliť ako predikčné algoritmy metódu podporných
-vektorov, autoregresívny integrovaný model kĺzavého priemeru a náhodné lesy.
+vektorov, autoregresný integrovaný model kĺzavého priemeru a náhodné lesy.
 Aplikácia je však navrhnutá genericky a pridanie ďalšieho algoritmu vyžaduje
 minimálne úsilie. Medzi zvolené optimalizačné algoritmy patrí optimalizácia
 rojom častíc a ABC optimalizácia. Používateľ bude môcť pomocou rozhrania určiť
@@ -1434,18 +1434,18 @@ Pri vytváraní webovej aplikácie pomocou knižnice Shiny, sa program rozdeľuj
 môžu nachádzať v jednom súbore, ja som ich podľa odporúčaní dokumentácie
 rozdelil do súborov \texttt{\textit{ui.R}} a \texttt{\textit{server.R}} pre webové rozhranie serverovú
 logiku. Konfiguračné súbory pomocou, ktorých sa do aplikácie jednoducho
-pridávajú ďalšie algortimy sa nachádzajú v adresári \texttt{\textit{conf}}. Zdrojové kódy,
+pridávajú ďalšie algoritmy sa nachádzajú v adresári \texttt{\textit{conf}}. Zdrojové kódy,
 ktoré zabezpečujú úpravu dát a výpočet sa nachádzajú v adresári \texttt{\textit{src}}.
 Keď sa podrobnejšie pozrieme na obsah tohto adresára zistíme, súbory sú
 očíslované prefixom, ktorý zodpovedá logickému poradiu ich používania, ale
 zároveň sú v tomto poradí aj importované pri spustení Shiny servera.
 
 Predikčné algoritmy sú implementované v súboroch s prefixami \texttt{\textit{01}} a \texttt{\textit{03}},
-za čím nasleduje skátený názov implementované algoritmu. Rozdeleným
+za čím nasleduje skrátený názov implementované algoritmu. Rozdeleným
 implementácie do dvoch súborov sa oddelí príprava dát na výpočet od samotného
 výpočtu. Názvy funkcií sú potom pomocou konfiguračného súboru namapované na
 jednotlivé grafické komponenty vo webovom rozhraní. Názov funkcie má vždy ako
-prefix skrátený názov algortimu, ktorý ho používa. Podobná konvencia je
+prefix skrátený názov algoritmu, ktorý ho používa. Podobná konvencia je
 dodržaná aj pri optimalizačných algoritmoch, s tým že prefix súborov je \texttt{\textit{04}}.
 Volanie optimalizačných algoritmov zväčša pozostáva z jedného volania funkcie,
 a preto nevzniká potreba delenia na viacero súborov. Načítanie dát zo súboru
@@ -1546,7 +1546,7 @@ predpovedanie hodnôt. Jednotlivé záznamy o meraniach by mali za sebou
 chronologicky nasledovať. V rámci jedného vstupného súboru musia mať dáta
 všetky záznamy rovnakú periódu časového radu. Ak používateľ vo webovom rozhraní
 zvolí, že vložené dáta majú periódu napr. 96 meraní za deň, potom aj aplikácia
-bude očakávať zvolenú veľkosť periódy. Ak pri overovaní dojde k zlyhanie
+bude očakávať zvolenú veľkosť periódy. Ak pri overovaní dôjde k zlyhanie
 aplikácie ohlási chybu.
 
 %-------------------------------------------------------------------------------
@@ -1558,7 +1558,7 @@ Z pohľadu návrhu aplikácie nás budú pre každú predikčnú metódu zaujím
 vstupné parametre, ktoré budeme optimalizovať a transformácie, ktoré je
 potrebné nad vstupnými dátami vykonať. Takéto delenie je dôležité aj kvôli
 organizácií programu pri implementácií, keďže úprava dát sa vykoná iba raz,
-zatiaľ čo vstupné paramete sa budú meniť neustále. Výstupom výpočtu predpovede
+zatiaľ čo vstupné parametre sa budú meniť neustále. Výstupom výpočtu predpovede
 bude samotná predpoveď alebo veľkosť chyby dosiahnutá pri nej dosiahnutá.
 
 \subsubsection{Regresia založená na podporných vektoroch}
@@ -1572,25 +1572,25 @@ $\varepsilon$ je hodnota použitá v nesenzitívnej stratovej funkcii, ktorá sa
 používa pre regresiu. Zvyšovaním tejto hodnoty sa funkcia reprezentujúca
 predpoveď postupne vyhladzuje, až sa bude podobať na konštantú funkciu.
 
-Vstupné dáta je potrebné tranformovať na 2 matice, jednu trénovaciu maticu
+Vstupné dáta je potrebné transformovať na 2 matice, jednu trénovaciu maticu
 a jednu testovaciu maticu. Trénovacia matica obsahuje stĺpec s hodnotami,
 ktoré boli v daných časoch namerané, testovacia má tento stĺpec prázdny,
 predpovedané hodnoty doplní algoritmus. Počet ďalších stĺpcov sa môže líšiť
 v závislosti od veľkosti zvolenej periódy. Ak si označíme počet meraní za deň
-ako $n$, potom stĺpce $C_1$ až $C_n$ budú obsahovať hodnotu 1 práva vtedy,
+ako $n$, potom stĺpce $M_1$ až $M_n$ budú obsahovať hodnotu 1 práva vtedy,
 keď poradie merania v dni bude totožné s poradím stĺpca. Rovnakým postupom
 pridáme ešte ďalších 7 stĺpcov, ktoré budú predstavovať poradie dňa v týždni.
-Pre iné stĺpce $C_1$ až $C_7$ bude potom platiť, že napr. v prvom stĺpci bude
+Pre iné stĺpce $D_1$ až $D_7$ bude potom platiť, že napr. v prvom stĺpci bude
 priradená hodnota 1 tým záznamom, ktoré boli namerané v pondelok. Zvyšok matice
 bude doplnení nulami.
 
-\subsubsection{Autoregresívny integrovaný model kĺzavého priemeru}
+\subsubsection{Autoregresný integrovaný model kĺzavého priemeru}
 Parametre stochastického modelu ARIMA sú v literatúre označované ako $p$, $d$
 a $q$. Z kapitoly~\ref{stochastic} vieme, že model ARIMA je generalizáciou
-modelu ARMA, ktorý vznikol kombináciou autoregresívneho modelu a modelu
+modelu ARMA, ktorý vznikol kombináciou autoregresného modelu a modelu
 kĺzavých priemerov. Vstupné parametre sú nezáporné celé čísle, kde $p$ a $q$
 predstavuje rad modelu a $d$ zodpovedá stupňu derivovania. Pri veľkom počte
-derivovaní sa funkcia predpovednej hodnoty podobá linárnej funkcii.
+derivovaní sa funkcia predpovednej hodnoty podobá lineárnej funkcii.
 
 Príprava vstupných dát je veľmi jednoduchá. Keďže model pracuje priamo
 s časovými radmi a vstupné dáta sú časový rad, jedinou úpravou je rozdelenie dát
@@ -1629,12 +1629,13 @@ Grafy vychádzajú zo vzorky dát o veľkosti 3 dni a znázorňujú rovnaké dni
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{random_forest_raw.pdf}
-  \caption{Dátum a čas pred potrebnou transformáciou.}
+  \caption{Dátum a čas pred transformáciou.}
   \label{fig-rf-raw}
 \end{figure}
 
 \begin{figure}[ht]
   \centering
+	% \vspace{-20pt}
   \includegraphics[width=\textwidth]{random_forest_preparation.pdf}
   \caption{Ukážka transformácií dátumu a času pri predikcii náhodnými lesmi.}
   \label{fig-rf-prepare}
@@ -1652,19 +1653,19 @@ reálnych a predpovedaných dát v podobe grafu a veľkosti výslednej chyby.
 Taktiež budú používateľovi zobrazené optimálne parametre pre zvolenú predikčnú
 metódu. Každá kombinácia parametrov vystupuje v optimalizačnom algoritme ako
 agent, ktorého úlohou je dosiahnuť, čo najnižšiu hodnotu fitness funkcie.
-V závisloti od použitého algoritmu a získaných vedomostí sa v nasledujúcich
+V závislosti od použitého algoritmu a získaných vedomostí sa v nasledujúcich
 cykloch menia hodnoty reprezentujúce agenta. Hodnoty parametrov môžu byť
 ovplyvňované aj voľbou funkcie na meranie chyby, ktorá plní úlohu fitness
-funkcie pre optimalizačné algortimy.
+funkcie pre optimalizačné algoritmy.
 
 Pri návrhu aplikácie je dôležité najmä správne definovať rozhranie medzi
 predikčnými a optimalizačné metódami. Je nežiadúce, aby pri pridávaní
-množstvu kombinácií, ktoré môže vzniknúť. Našťastie každého agenta definujeme
 ďalších algoritmov bolo potrebné upravovať už používané algoritmy, najmä kvôli
+množstvu kombinácií, ktoré môže vzniknúť. Našťastie každého agenta definujeme
 práve hodnotami, ktoré vstupujú do predikčného algoritmu. Na výstupe očakáva
 optimalizačná metóda hodnotu fitness funkcie, ktorá určuje ďalšie smerovanie
 agentov. Tento proces sa opakuje až pokiaľ nebude dosiahnutá ukončovacia
-podmienka. V použitých algoritmoch to je maximálny počet iterácií algortimu.
+podmienka. V použitých algoritmoch to je maximálny počet iterácií algoritmu.
 Túto hodnotu môže používateľ nastaviť v aplikácií v definovanom rozsahu.
 
 \subsubsection{Optimalizácia rojom častíc}
@@ -1687,7 +1688,7 @@ implementácie.
 \subsubsection{Umelá kolónia včiel}
 Rovnako ako pri optimalizácii rojom častíc tak aj pri tomto algoritme bude mať
 používateľ možnosť zvoliť rozsah hodnôt, ktoré budú použité na optimalizovanie.
-Opäť bude dôležité vysporiadať sa s desatinými číslami. Používateľ bude môcť
+Opäť bude dôležité vysporiadať sa s desatinnými číslami. Používateľ bude môcť
 navyše nastavovať parametre ABC algoritmu ako je počet zdrojov potravy alebo
 limit pre daný zdroj. Pod limitom môžeme rozumieť počet iterácií cyklu, počas
 ktorého sa daný zdroj potravy nezlepšil. Týmto parametrom môžeme výrazne
@@ -1704,13 +1705,13 @@ nájdené optimálnejšie riešenie.
 \section{Implementácia}
 \label{implementation}
 Webová aplikácia je implementovaná v jazyku R verzie 3.4.0. Pri implementácií
-som používal developerské prostredie RStudio verzia 1.0.143. Webové rozhranie je
+som používal vývojové prostredie RStudio verzia 1.0.143. Webové rozhranie je
 vytvorené pomocou knižnice \texttt{\textit{shiny}}. Konfigurácia aplikácie je zabezpečená
 knižnicou \texttt{\textit{config}}, informácie o ďalších použitých knižniciach a ich verziách
 sa nachádzajú v tabuľke~\ref{tab-libraries}. Nasledujúce podkapitoly obsahujú
 popis použitých transformáciami nad dátami, popis organizácie zdrojového kódu
 do funkcií a súborov, úpravu konfigurácie, ale aj postupy na pridanie ďalších
-predikčných a optimailzačných algoritmov.
+predikčných a optimalizačných algoritmov.
 
 \begin{table}[ht]
   \centering
@@ -1721,13 +1722,16 @@ predikčných a optimailzačných algoritmov.
     \textbf{Názov}  &   \textbf{Použitá verzia}  \\ \hline
     ABCoptim        &   0.14.0  \\ \hline
     config          &   0.2     \\ \hline
+		dygraphs        &   1.1.1.4 \\ \hline
     forecast        &   8.0     \\ \hline
     kernlab         &   0.9-25  \\ \hline
     pso             &   1.0.3   \\ \hline
     psoptim         &   1.0     \\ \hline
     randomForest    &   4.6-12  \\ \hline
     shiny           &   1.0.2   \\ \hline
+		shinyBS         &   0.61    \\ \hline
     shinyjs         &   0.9     \\ \hline
+		xts         		&   0.9-7   \\ \hline
   \end{tabular}
 \end{table}
 
@@ -1739,7 +1743,7 @@ predikčných a optimailzačných algoritmov.
 Počas návrhu aplikácie bolo k dispozícií viacero datasetov, ktoré sme mohli
 použiť. Keďže je fungovanie aplikácie nezávislé na zvolenej doméne a nevzniká
 potreba trénovať model na veľkom množstve dát, jediným kritériom na vstupné
-dáta je, aby mali vlasnosti časových radov. Použité dáta pochádzajú
+dáta je, aby mali vlastnosti časových radov. Použité dáta pochádzajú
 z inteligentných elektromeračov nachádzajúcich sa na Slovensku. Veličina, ktorú
 sme predpovedali je odber elektrickej energie. Dáta sú k dispozícií každých
 15 minút a celý dataset obsahuje merania z obdobia takmer 2 rokov. Formát
@@ -1807,7 +1811,7 @@ použiť predikčnými algoritmami. Každý z nich očakáva, že pracuje s dát
 v rôznych dátových štruktúrach s rôznymi vysvetľujúcimi premennými. Aj keď bolo
 spomenuté, že aplikácia ich nebude používať v prípade, že vstupné dáta obsahujú
 viacero stĺpcov, v tomto prípade sa jedná o dekomponovanie zložiek časového radu
-a transformovanie datúmu a času tak, ako to požaduje konkrétny algortimus.
+a transformovanie dátumu a času tak, ako to požaduje konkrétny algoritmus.
 
 Ako už bolo spomenuté SVR požaduje trénovacie aj testovacie dáta v štruktúre
 matici, ktorá bude až na stĺpec s nameranou alebo predpovedanou hodnotou
@@ -1836,7 +1840,7 @@ spomínaných funkcií je:
   }
 \end{lstlisting}
 
-Pri opužití modelu ARIMA je transformácia vstupných dát jednoduchá. Model
+Pri použití modelu ARIMA je transformácia vstupných dát jednoduchá. Model
 dáta v štruktúre časového radu, v ktorej už samotné dáta sú. Príprava dát potom
 spočíva iba v rozdelení množiny na časti požadované používateľom. Implementácia
 je nasledovná:
@@ -1884,7 +1888,7 @@ nasledujúcimi funkciami:
 Webová aplikácia, s ktorou prichádza používateľ do styku je vytvorená pomocou
 knižnice Shiny v jazyku R. Zdrojový kód býva obvykle organizovaný do súborov
 \texttt{\textit{ui.R}} pre grafické komponenty a \texttt{\textit{server.R}} pre logiku skrytú za nimi.
-Zároveň je možné vykreslovať jednotlivé komponenty aj zo serverovej časti
+Zároveň je možné vykresľovať jednotlivé komponenty aj zo serverovej časti
 aplikácie na predefinované miesto v \texttt{\textit{ui.R}}. Takéto použite má zmysel
 v prípade, že zobrazované komponenty sa budú dynamicky pridávať a odoberať
 v závislosti od zvolených možností. Tento príklad presne zodpovedá problému,
@@ -1928,9 +1932,9 @@ Po vykreslení komponentov vzniká nový problém, ktorým je získanie hodnôt,
 nastavil používateľ. Keďže nikdy nie sú vykreslené všetky komponenty a každý
 z nich má iný identifikátor, museli by sme sa pri dotazovaní sa najprv uistiť,
 či daný komponent existuje. To vy nebolo najvhodnejšie riešenie, keďže zároveň
-by sme dosiahli aj množstvo duplicitných častí kódu a znížila by sa udržatelnosť
-a čitetaľnosť. Ak by sme problém riešili rovnakými identifikátormi stále by to
-neriešlo rôzne počty parametrov. Jediným rozumným riešením je opäť použiť
+by sme dosiahli aj množstvo duplicitných častí kódu a znížila by sa udržateľnosť
+a čitateľnosť. Ak by sme problém riešili rovnakými identifikátormi stále by to
+neriešilo rôzne počty parametrov. Jediným rozumným riešením je opäť použiť
 odkazovanie na hodnoty v konfiguračnom súbore, čo je zabezpečené funkciou
 \texttt{\textit{setOptimizationParameters}}. Kľúčovými časťami kódu je cyklus:
 
@@ -1969,7 +1973,7 @@ cesty.
 
 Spomínaný konfiguračný adresár obsahuje ďalšie 3 súbory. Najdôležitejším je
 \texttt{\textit{server-config.yml}} a možno ho logicky rozdeliť na 3 časti a to predikčné
-algortimy, optimalizačné algoritmy a fitness funkcie. Každý z predikčných
+algoritmy, optimalizačné algoritmy a fitness funkcie. Každý z predikčných
 algoritmov obsahuje názvy parametrov, ktoré budú optimalizované, názvy funkcií,
 ktoré na to budú použité a názvy, ktoré budú zobrazované používateľovi pri
 používaní aplikácie. Parametre v sebe zahŕňajú aj informáciu o minimálnych,
@@ -2001,7 +2005,7 @@ funkcie je opäť zoznam, obsahujúci pripravené dátové štruktúry pre trén
 a testovanie množiny. Ten je uložený do globálnej premennej
 \texttt{\textit{params.prediction}} zjednocujúcej parametre predikčnej metódy, ktoré nebudú
 optimalizované. Ďalšou funkciou je \texttt{\textit{predictFn}}, ktorá je jadrom celého procesu
-optimalzácie. Bude používaná v každom cykle každým agentom, a preto je dôležité
+optimalizácie. Bude používaná v každom cykle každým agentom, a preto je dôležité
 dbať na efektivitu funkcie. Na vstupe očakáva pole číselných parametrov, ktoré
 budú optimalizované. Telo funkcie sa vo väčšine prípadov skladá z vytvorenia
 modelu, vypočítania predpovedi a vypočítania chyby, ktorú predpoveď dosiahla.
@@ -2011,7 +2015,7 @@ dodefinovať aj parametre, ktoré sa nebudú optimalizovať a vložiť ich do
 ktorý je uložený v \texttt{\textit{params.prediction\$errorFn}}. Parametrami sú skutočná
 hodnota z testovacích dát a predpovedaná hodnota. Pri pridávaní ďalších fitness
 funkcií je dôležité nezabudnúť, aby výsledkom bolo vždy nezáporné číslo, inak by
-mohla nastať situácia, kedy by optimalizačné algortimy nachádzali nevhodné
+mohla nastať situácia, kedy by optimalizačné algoritmy nachádzali nevhodné
 riešenia. Posledná funkcia \texttt{\textit{predictDataFn}} je implementáciou rovnaká, líši sa
 iba v tom, že namiesto veľkosti chyby vracia predpovedané hodnoty. Tie sú potom
 použité vo webovom rozhraní na vykreslenie grafu s reálnymi hodnotami a
@@ -2030,7 +2034,7 @@ fungovanie aplikácie je dôležité, aby element obsahoval nasledujúce premenn
   \item[$\bullet$ predictionParameters] pole predikčných parametrov, pre každý parameter sa
   tu nachádza minimum a maximum, obsahuje nasledujúce hodnoty:
   \begin{description}
-    \item[$-$ id] identifikátor komponentu používaný na referencovanie na serveri
+    \item[$-$ id] identifikátor komponentu používaný na odkazovanie sa na serveri
     \item[$-$ label] názov parametru používaný v UI
     \item[$-$ value] prednastavená hodnota
     \item[$-$ min] dolná hranica parametru
@@ -2045,16 +2049,16 @@ použiť metódu, ktorá zatiaľ nebola importovaná. Preto je
 poslednou úpravou pridanie príkazu na importovanie vytvorených súborov do
 zdrojového súboru \texttt{\textit{server.R}}.
 
-Pri implmentácií funkcií \texttt{\textit{predictFn}} a \texttt{\textit{predictDataFn}} je dôležité myslieť
+Pri implementácii funkcií \texttt{\textit{predictFn}} a \texttt{\textit{predictDataFn}} je dôležité myslieť
 na to, pre aké vstupné hodnoty je predikčný algoritmus definovaný. Definičný
 obor určujeme rozsahom v konfiguračnom súbore, ale problém nastáva v prípade
-ak je definovaný iba na množine celých čísel. Optimalizačné algortimy budú
+ak je definovaný iba na množine celých čísel. Optimalizačné algoritmy budú
 volať funkciu aj s desatinnými číslami v rámci určeného rozsahu. Niektoré
-implmentácie predikčných algoritmov sa s týmto problémom vedia vysporiadať
+implementácie predikčných algoritmov sa s týmto problémom vedia vysporiadať
 a zaokrúhľujú desatinné čísla na celé podľa potreby. Niektoré nemajú ošetrené
 vstupy a tak sa môže program začať správať nepredvídateľné alebo prestane
 reagovať úplne. Z toho dôvodu som hodnoty, ktoré majú byť celočíselne vnútri
-týchto metód zaokrúhľoval. Najlepším riešením by bolo postihovať tie riešania,
+týchto metód zaokrúhľoval. Najlepším riešením by bolo postihovať tie riešenia,
 ktoré nie sú celočíselné, ale to by mohlo spôsobiť rozsiahle zmeny v
 implementovaných funkciách.
 
@@ -2075,7 +2079,7 @@ pre použitý algoritmus. Výstupom tejto metódy je zoznam obsahujúci najniž�
 nájdenú chybu a pole parametrov, ktorými bola hodnota získaná.
 
 Pred spustením aplikácie je potrebné vykonať kroky, ktoré boli opísané
-v predchádzajúcej kapitole. Konkrétne pridať implementovaný algortimus do
+v predchádzajúcej kapitole. Konkrétne pridať implementovaný algoritmus do
 konfiguračného súboru, zvýšiť počet dostupných algoritmov a pridanie
 importovania do súboru \texttt{\textit{server.R}}. Pridaný záznam v konfiguračnom súbore
 bude mať nasledovný formát:
@@ -2085,7 +2089,7 @@ bude mať nasledovný formát:
   \item[$\bullet$ optimizationParameters] pole optimalizačných parametrov, pre každý parameter sa
   tu nachádza minimum a maximum, obsahuje nasledujúce hodnoty:
   \begin{description}
-    \item[$-$ id] identifikátor komponentu používaný na referencovanie na serveri
+    \item[$-$ id] identifikátor komponentu používaný na odkazovanie sa na serveri
     \item[$-$ label] názov parametru používaný v UI
     \item[$-$ value] prednastavená hodnota
     \item[$-$ min] dolná hranica parametru
@@ -2094,19 +2098,19 @@ bude mať nasledovný formát:
 \end{description}
 
 %-------------------------------------------------------------------------------
-%   Chapter 6 - Evaluation
+%   Chapter 6 - Experimental verification
 %-------------------------------------------------------------------------------
 
 \newpage
-\section{Zhodnotenie}
+\section{Experimentálne overenie}
 \label{evaluation}
 Dáta, na ktorých bolo uskutočnené testovanie webovej aplikácie pochádzajú
-z inteligentných elektromeračov, vďaka ktorým máme dáta k dispozícií každu
+z inteligentných elektromeračov, vďaka ktorým máme merania k dispozícií každú
 štvrťhodinu. Merania sú združené podľa PSČ do súborov, kde každý z nich obsahuje
 96 meraní za deň po dobu približne 1 roka a 11 mesiacov. Počty odberov v rámci
 jednej agregácie sa líšia, čo spôsobuje, že aj vzory v časových radoch sú rôzne.
 Preto je potrebné najskôr vybrať reprezentatívne dáta s dĺžkou periódy, ktorá
-bude zabezpečovať dostatočne rýchly výpočet s uspokojujúcov veľkosťou chyby.
+bude zabezpečovať dostatočne rýchly výpočet s uspokojujúcou veľkosťou chyby.
 Následne môžeme nad nimi vykonať porovnania optimalizačných algoritmov
 a primitívnych metód ako je napr. prehľadávanie celého priestoru.
 
@@ -2130,7 +2134,7 @@ Vybrali sme datasety \texttt{\textit{91\_NDATA.csv}},
 
 \begin{table}[ht]
   \centering
-  \caption{Porovnanie datasetou pomocou modelu ARIMA}
+  \caption{Porovnanie datasetou pomocou modelu ARIMA.}
   \label{tab-test-dataset-arima}
   \begin{tabular}{|l|r|}
     \hline
@@ -2145,7 +2149,7 @@ Vybrali sme datasety \texttt{\textit{91\_NDATA.csv}},
 
 \begin{table}[ht]
   \centering
-  \caption{Porovnanie datasetou pomocou SVR}
+  \caption{Porovnanie datasetou pomocou SVR.}
   \label{tab-test-dataset-svr}
   \begin{tabular}{|l|r|}
     \hline
@@ -2203,13 +2207,13 @@ včiel. Rozsah hodnôt bol pre všetky merania rovnaký, pre počet stromov
 (Parameter 1) od 40 do 80 a pre veľkosť uzlov (Parameter 2) od 5 do 20. Môžeme
 si všimnúť, že zatiaľ čo priemery optimálne nájdených hodnôt sú približne
 rovnaké, veľkosť štandardnej odchýlky sa líši. Rovnako sa líšia odchýlky aj
-medzi jednotlivými parametrami. Merania potvrdili závilosť nájdeného riešenia od
+medzi jednotlivými parametrami. Merania potvrdili závislosť nájdeného riešenia od
 zvolenej fitness funkcie aj keď iba v malom rozsahu. V nasledujúcich kapitolách
 budú preto porovnávania uskutočňované iba v rámci rovnakej fitness funkcie.
 
 \begin{table}[ht]
   \centering
-  \caption{Porovnanie fitness funkcií na predikcii náhodných lesoch}
+  \caption{Porovnanie fitness funkcií na predikcii náhodných lesoch.}
   \label{tab-test-fit-rf}
   \begin{tabular}{|l|c|c|c|c|c|c|}
     \hline
@@ -2295,7 +2299,7 @@ na fitness funkciu.
 Jediným potrebným krokom na spustenie aplikácie je otvorenie obsahu
 elektronického média v RStudio a pri zvolení súbora \texttt{\textit{server.R}} kliknúť na
 \texttt{\textit{Run App}}, čím sa nám otvorí nové okno v prehliadači s aplikáciou. Odporúčaná
-verzia developerského prostredia RStudio je 1.0.143.
+verzia vývojového prostredia RStudio je 1.0.143.
 
 \subsection{Používateľská príručka}
 Obrazovku webovej aplikácie možno rozdeliť na časti:
@@ -2353,12 +2357,12 @@ obrázkoch~\ref{fig-app-optimization} a~\ref{fig-app-prediction}.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{app_prediction.png}
-  \caption{Výber paramterov predikčnej metódy.}
+  \caption{Výber parametrov predikčnej metódy.}
   \label{fig-app-prediction}
 \end{figure}
 
 Po kliknutí na tlačidlo \texttt{\textit{Vypočítaj}} sa spustí výpočet a tlačidlo sa zakáže.
-Povolené je v momente ukončenia výpočtu, kedy sa používateľovi zobraznia
+Povolené je v momente ukončenia výpočtu, kedy sa používateľovi zobrazia
 výsledky. Výsledky pozostávajú z najmenšej chyby, ktorú zvolený algoritmus našiel,
 tabuľku obsahujúcu parametre predikčnej metódy, ktoré viedli k tomuto výsledku
 a graf zobrazujúci reálne a predpovedané hodnoty. Výstup aplikácie môžeme
@@ -2412,7 +2416,7 @@ vidieť na obrázku~\ref{fig-app-result}.
   \item[$\bullet$ conf] adresár obsahujúci konfiguračné súbory aplikácie
   \item[$\bullet$ data] vzorové vstupné dáta použité pri návrhu webovej aplikácie
   \item[$\bullet$ src] zdrojové súbory, v ktorých je implementovaná celá funkcionalita
-  \item[$\bullet$ test] zdrojové súbry použité pri validácií riešenia
+  \item[$\bullet$ test] zdrojové súbory použité pri validácií riešenia
   \item[$\bullet$ web] zdrojové súbory pre Shiny
 \end{description}
 
@@ -2443,6 +2447,22 @@ vidieť na obrázku~\ref{fig-app-result}.
     \hline
   \end{tabular}
 \end{table}
+
+\noindent
+Iteratívnym vývojom sme sa snažili plniť určený plán do letného semstra. V prvej
+polovici semestra bola väčšina úsila venovaná návrhu a implmentácií aplikácie tak,
+aby poskytovala používateľovi vysokú mieru konfigurovateľnosti a modulárnosti.
+Aj napriek slabej podpore v implementačnom prostredí sa nám to do značnej miery
+podarilo splniť. Vďaka tomu bolo nasledovné implementovanie nových algoritmov
+jednoduchým a rýchlym procesom. Zvyšok činnosti počas semestra bol venovaný
+najmä tvorbe grafického rozhrania, dokumentácií a v neposlednom rade testovaniu.
+Funkcionalita grafického rozhrania bola v niekoľkých iteráciách zväčšená.
+Zároveň s používaním aplikácie vznikala potreba ošetrovania nevalidných vstupov
+a akcií, čo bolo predmetom činností najmä v závere semestra. Proces
+dokumentácie a testovania prebiehal nezávisle od vývoja grafického rozhrania,
+vzhľadom na to, že jadro aplikácie implementované v prvej polovici semestra už
+nebolo menené.
+
 \end{appendices}
 \end{document}
 
@@ -2493,7 +2513,7 @@ vidieť na obrázku~\ref{fig-app-result}.
 % váhy ostatných vektorov a rozhodovací prah musia byť aktualizované kvôli získaniu optimálneho riešenia nad novou množinou support vektorov
 %
 % \paragraph{Linear SVM}
-% linárna kombinácia elementov (features, črty) značí, že sa jedná aj o lineárny klasifikátor  % http://stackoverflow.com/questions/6160495/support-vector-machines-a-simple-explanation
+% lineárna kombinácia elementov (features, črty) značí, že sa jedná aj o lineárny klasifikátor  % http://stackoverflow.com/questions/6160495/support-vector-machines-a-simple-explanation
 % napr ak (w1 * x1 + w2 * x2) > C potom element patrí do skupiny A, hodnotami x1 a x2 je element definovaný, tak ako je bod definovaný x a y súradnicou
 % w je váha a C rozhodovacií prah, čiže ak nejaký ohodnotený element neprekročí hranicu spadá do jednej skupiny, ak prekročí spadá do druhej
 %
@@ -2668,7 +2688,7 @@ vidieť na obrázku~\ref{fig-app-result}.
 % a predpoveď priamym aplikovaním Wintersovej metódy môže byť náročné, keďže
 % dátové množiny väčšinou obsahujú \textbf{riedke pozorovania (sparse values)}.
 % Tento problém môžeme vyriešiť kombináciou ostatných metód, ako je napr.
-% autoregresívny model či spektrálna analýza, s exponencionálnym
+% autoregresný model či spektrálna analýza, s exponencionálnym
 % vyrovnávaním~\cite{Mahalakshmi2016}.
 
 % %-------------------------------------------------------------------------------

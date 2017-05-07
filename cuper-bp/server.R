@@ -4,6 +4,7 @@ library(shiny)
 library(shinyjs)
 library(config)
 library(dygraphs)
+library(xts)
 
 source(paste(path.src, "00-read-data.R", sep = ""))
 
@@ -256,7 +257,7 @@ function(input, output) {
       columnNames <- c()
       for(i in 1:length(server.properties$fitnessFunctions)) {
         params.prediction$errorFn <<- server.properties$fitnessFunctions[[i]]$errorFn
-        dataTable <- rbind(dataTable, do.call(eval(parse(text = params.prediction$predictFn)), list(result$bestSolution)))
+        dataTable <- rbind(dataTable, round(do.call(eval(parse(text = params.prediction$predictFn)), list(result$bestSolution)), 2))
         columnNames <- c(columnNames, server.properties$fitnessFunctions[[i]]$label)
       }
       dataTable <- t(dataTable)
@@ -267,7 +268,7 @@ function(input, output) {
     }, width = "auto", striped = TRUE, hover = TRUE)
 
     output$solutionValues <- renderTable({
-      dataTable <- result$bestSolution
+      dataTable <- round(result$bestSolution, 2)
       if (server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[1]]$step %% 1 == 0)
         dataTable <- round(result$bestSolution)
 

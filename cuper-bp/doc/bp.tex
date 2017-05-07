@@ -2379,14 +2379,20 @@ vidieť na obrázku~\ref{fig-app-result}.
 \subsection{Obsah elektronického média}
 \dirtree{%
   .1 CD nosič.
-  .2 \textbf{doc}.
   .2 \textbf{conf}.
   .3 app-config.yml.
   .3 server-config.yml.
   .3 ui-config.yml.
   .2 \textbf{data}.
-  .3 90\_UPLNE\_CONVERTED\_1W.csv.
-  .3 90\_UPLNE\_CONVERTED.csv.
+	.3 94\_nitra\_sum.csv.
+	.3 95\_partizanske\_sum.csv.
+	.3 96\_zvolen\_sum.csv.
+  .2 \textbf{doc}.
+	.3 BP\_MATUS\_CUPER.pdf.
+	.2 \textbf{shiny}.
+  .3 bound-dates.R.
+  .3 set-labels.R.
+	.3 validate-input.R.
   .2 \textbf{src}.
   .3 00-read-data.R.
   .3 01-arima-prepare.R.
@@ -2401,23 +2407,28 @@ vidieť na obrázku~\ref{fig-app-result}.
   .3 04-psoptim-optimize.R.
   .2 \textbf{test}.
   .3 arima.R.
-  .3 bf.R.
+	.3 fitness.R.
+  .3 rf.R.
   .3 svr.R.
-  .2 \textbf{web}.
-  .3 bound-dates.R.
-  .3 set-labels.R.
+	.2 \textbf{util}.
+	.3 convert.R.
+	.2 \textbf{web}.
+	.3 plot.css.
+	.3 spinner.gif.
   .2 global.R.
   .2 server.R.
   .2 ui.R.
 }
 
 \begin{description}
+	\item[$\bullet$ conf] adresár obsahujúci konfiguračné súbory aplikácie
+	\item[$\bullet$ data] vzorové vstupné dáta použité pri návrhu a testovaní webovej aplikácie
   \item[$\bullet$ doc] dokumentácia, obrázky použité v nej a zdrojové súbory pre LaTeX
-  \item[$\bullet$ conf] adresár obsahujúci konfiguračné súbory aplikácie
-  \item[$\bullet$ data] vzorové vstupné dáta použité pri návrhu webovej aplikácie
-  \item[$\bullet$ src] zdrojové súbory, v ktorých je implementovaná celá funkcionalita
+	\item[$\bullet$ shiny] zdrojové súbory, ktoré používa Shiny server
+  \item[$\bullet$ src] implementácia rozhrania predikčných a optimalizačných algoritmov, implementovaná celá funkcionalita aplikácie
   \item[$\bullet$ test] zdrojové súbory použité pri validácií riešenia
-  \item[$\bullet$ web] zdrojové súbory pre Shiny
+	\item[$\bullet$ util] skripty použité pri návrhu
+  \item[$\bullet$ web] súbory pre štylizáciu webového rozhrania
 \end{description}
 
 %-------------------------------------------------------------------------------

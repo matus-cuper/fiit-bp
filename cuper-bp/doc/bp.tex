@@ -8,7 +8,7 @@
 \documentclass[a4paper,slovak,12pt,appendix]{article}
 
 \usepackage[slovak]{babel}                                                      % title in Slovak
-\usepackage[T1]{fontenc}                                                        % support for word wrapping of special Slovak characters at the end of line on the end
+\usepackage[IL2]{fontenc}                                                       % support for word wrapping of special Slovak characters at the end of line on the end
 \usepackage[utf8]{inputenc}                                                     % support for special Slovak characters
 \usepackage{times}																															% Times New Roman
 \usepackage[unicode]{hyperref}																									% hyperreferences in table of content
@@ -85,7 +85,7 @@
   \flushleft
   {\normalsize Študijný program: Informatika \par}
 	{\normalsize Študijný odbor: 9.2.1 Informatika \par}
-	{\normalsize Miesto vypracovania: Ústav informatiky a softvérového inžinierstva, FIIT STU Bratislave \par}
+	{\normalsize Miesto vypracovania: Ústav informatiky a softvérového inžinierstva, FIIT STU v Bratislave \par}
 	{\normalsize Vedúci práce: Ing. Marek Lóderer \par}
   \vspace{0.5cm}
   {\normalsize máj 2017 \par}
@@ -1130,7 +1130,7 @@ zdrojov potravy v okolí úľu. Robotnica, ktorej zdroj je vyčerpaný inými
 včelami sa stáva prieskumníčkou~\cite{Karaboga2007}.
 
 Zväčšovaním množstva nektáru jednotlivých zdrojov potravy sa zvyšuje aj pravdepodobnosť
-výberu prehľadávačkou. Vďaka tomu je zabezpečené, že tanec robotníc, ktoré navštívili
+výberu prehľadávačkou. Tým je zabezpečené, že tanec robotníc, ktoré navštívili
 zdroje s najväčším množstvom nektáru, presvedčí najviac prehľadávačok. Tie
 na základe informácie o polohe zdroja nájdu v jeho okolí nový zdroj, z ktorého
 budú zberať nektár. Po vyčerpaní nektáru je tento zdroj opustený a včela sa
@@ -1311,7 +1311,7 @@ a nie optimalizačné algoritmy a poskytnúť tak používateľovi univerzálne
 a jednoduché riešenie predikčných problémov.
 
 Dôležitou súčasťou predpovedí je vyhodnotenie ich úspešnosti porovnávaním
-predpovedanej hodnoty s ich skutočnými nameranými hodnotami. Existuje množstvo
+predpovedanej hodnoty so skutočnými. Existuje množstvo
 metód, ktorými vieme zmerať chybu predpovede. Niektoré nám poskytujú informáciu
 o smere chyby, iné zohľadňujú extrémne chyby. Výsledky niektorých sa viažu na
 škálu, v ktorej sa nachádzajú naše merania, iné sú nezávislé, merané v
@@ -1628,6 +1628,7 @@ Grafy vychádzajú zo vzorky dát o veľkosti 3 dni a znázorňujú rovnaké dni
 
 \begin{figure}[ht]
   \centering
+	\vspace{-20pt}
   \includegraphics[width=\textwidth]{random_forest_raw.pdf}
   \caption{Ukážka dátumu a času pred transformáciou.}
   \label{fig-rf-raw}
@@ -1635,7 +1636,7 @@ Grafy vychádzajú zo vzorky dát o veľkosti 3 dni a znázorňujú rovnaké dni
 
 \begin{figure}[ht]
   \centering
-	% \vspace{-20pt}
+	\vspace{-20pt}
   \includegraphics[width=\textwidth]{random_forest_preparation.pdf}
   \caption{Ukážka transformácií dátumu a času pri predikcii náhodnými lesmi.}
   \label{fig-rf-prepare}

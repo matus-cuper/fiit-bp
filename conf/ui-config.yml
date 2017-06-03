@@ -61,6 +61,7 @@
       csv: "Súbor CSV nemá požadované stĺpce"
       period: "Zvolený počet meraní za deň nezodpovedá vloženému súboru"
       dates: "Trénovacia množina sa nesmie prekrývať s testovacou, počiatočný dátum nesmie byť neskôr posledný dátum"
+      params: "Minimálna hodnota parametrov predikčnej metódy musí byť menšia alebo rovná maximálnej hodnote"
 
     tooltips:
       predictionAlgorithms: "Kliknutím vyberte predičkný algoritmus, ktorého parametre budú optimalizované"

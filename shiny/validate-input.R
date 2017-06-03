@@ -41,3 +41,11 @@ validate.dates <- function(trainingRange, testingRange) {
   }, silent = TRUE)
   return(ui.properties$validation$dates)
 }
+
+validate.params <- function(lows, highs) {
+  for (i in 1:length(lows)) {
+    if (lows[i] > highs[i])
+      return(FALSE)
+  }
+  return(TRUE)
+}

@@ -233,72 +233,87 @@ function(input, output) {
       HTML(paste("<h2>", ui.properties$results$label, "</h2>"))
     })
 
-    isolate({
-      selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
-      selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
-      selectedFitnessFn <- as.numeric(input$fitnessFunction)
+    selectedPredictionFn <- as.numeric(input$predictionAlgorithms)
+    selectedOptimizationFn <- as.numeric(input$optimizationAlgorithms)
+    selectedFitnessFn <- as.numeric(input$fitnessFunction)
+    params.optimization <<- setOptimizationParameters()
 
-      preparedData <- data.prepare(pathToFile = input$inputFile$datapath,
-                                   measurementsPerDay = input$measurementsPerDay,
-                                   trainingSetRange = input$trainingSetRange,
-                                   testingSetRange = input$testingSetRange)
+    if (!validate.params(params.optimization$lows, params.optimization$highs)) {
+      shinyjs::enable("submitComputation")
+      shinyjs::showElement("validationMessage")
+      shinyjs::hideElement("loading-spinner")
+    }
 
-      params.optimization <<- setOptimizationParameters()
-      params.prediction <<- list(data = preparedData,
-                                 prepareFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$prepareFn,
-                                 predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
-                                 predictDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictDataFn,
-                                 errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
-      result <<- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
+    output$validationMessage <- renderText({
+      validate(
+        need(validate.params(params.optimization$lows, params.optimization$highs), ui.properties$validation$params)
+      )
     })
 
-    output$resultValues <- renderTable({
-      dataTable <- data.frame()
-      columnNames <- c()
-      for(i in 1:length(server.properties$fitnessFunctions)) {
-        params.prediction$errorFn <<- server.properties$fitnessFunctions[[i]]$errorFn
-        dataTable <- rbind(dataTable, round(do.call(eval(parse(text = params.prediction$predictFn)), list(result$bestSolution)), 2))
-        columnNames <- c(columnNames, server.properties$fitnessFunctions[[i]]$label)
-      }
-      dataTable <- t(dataTable)
-      dataTable <- rbind(columnNames, dataTable)
-      dataTable <- t(dataTable)
-      colnames(dataTable) <- ui.properties$results$fitnessColumns
-      dataTable
-    }, width = "auto", striped = TRUE, hover = TRUE)
+    if (validate.params(params.optimization$lows, params.optimization$highs)) {
+      shinyjs::hideElement("validationMessage")
+      isolate({
+        preparedData <- data.prepare(pathToFile = input$inputFile$datapath,
+                                     measurementsPerDay = input$measurementsPerDay,
+                                     trainingSetRange = input$trainingSetRange,
+                                     testingSetRange = input$testingSetRange)
 
-    output$solutionValues <- renderTable({
-      dataTable <- round(result$bestSolution, 2)
-      if (server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[1]]$step %% 1 == 0)
-        dataTable <- round(result$bestSolution)
+        params.prediction <<- list(data = preparedData,
+                                   prepareFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$prepareFn,
+                                   predictFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictFn,
+                                   predictDataFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$predictDataFn,
+                                   errorFn = server.properties$fitnessFunctions[[selectedFitnessFn]]$errorFn)
+        result <<- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
+      })
 
-      if (length(dataTable) == length(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels)) {
-        dataTable <- rbind(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels, dataTable)
+      output$resultValues <- renderTable({
+        dataTable <- data.frame()
+        columnNames <- c()
+        for(i in 1:length(server.properties$fitnessFunctions)) {
+          params.prediction$errorFn <<- server.properties$fitnessFunctions[[i]]$errorFn
+          dataTable <- rbind(dataTable, round(do.call(eval(parse(text = params.prediction$predictFn)), list(result$bestSolution)), 2))
+          columnNames <- c(columnNames, server.properties$fitnessFunctions[[i]]$label)
+        }
         dataTable <- t(dataTable)
-        colnames(dataTable) <- ui.properties$results$solutionColumns
+        dataTable <- rbind(columnNames, dataTable)
+        dataTable <- t(dataTable)
+        colnames(dataTable) <- ui.properties$results$fitnessColumns
         dataTable
-      }
-    }, width = "auto", striped = TRUE, hover = TRUE)
+      }, width = "auto", striped = TRUE, hover = TRUE)
 
-    output$resultDygraph <- renderDygraph({
-      realValues <- xts(x = params.prediction$data$testingData$value,
-                        order.by = as.POSIXct(params.prediction$data$testingData$timestamp),
-                        frequency = params.prediction$data$measurementsPerDay)
+      output$solutionValues <- renderTable({
+        dataTable <- round(result$bestSolution, 2)
+        if (server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$predictionParameters[[1]]$step %% 1 == 0)
+          dataTable <- round(result$bestSolution)
 
-      predictedValues <- xts(x = unlist(do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution)), use.names = FALSE),
-                             order.by = as.POSIXct(params.prediction$data$testingData$timestamp),
-                             frequency = params.prediction$data$measurementsPerDay)
+        if (length(dataTable) == length(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels)) {
+          dataTable <- rbind(server.properties$predictionAlgorithms[[as.numeric(input$predictionAlgorithms)]]$parameterLabels, dataTable)
+          dataTable <- t(dataTable)
+          colnames(dataTable) <- ui.properties$results$solutionColumns
+          dataTable
+        }
+      }, width = "auto", striped = TRUE, hover = TRUE)
 
-      dataToGraph <- cbind(realValues = realValues, predictedValues = predictedValues)
-      dateForAnnotation <- params.prediction$data$testingData$timestamp
+      output$resultDygraph <- renderDygraph({
+        realValues <- xts(x = params.prediction$data$testingData$value,
+                          order.by = as.POSIXct(params.prediction$data$testingData$timestamp),
+                          frequency = params.prediction$data$measurementsPerDay)
 
-      dygraph(dataToGraph, main = "") %>%
-        dySeries("realValues", label = ui.properties$results$dygraph$realValuesLabel, color = "black") %>%
-        dySeries("predictedValues", label = ui.properties$results$dygraph$predictedValuesLabel, color = "red") %>%
-        dyAnnotation(params.prediction$data$testingData$timestamp, text = ui.properties$results$dygraph$annotationLabel)
-    })
+        predictedValues <- xts(x = unlist(do.call(eval(parse(text = params.prediction$predictDataFn)), list(result$bestSolution)), use.names = FALSE),
+                               order.by = as.POSIXct(params.prediction$data$testingData$timestamp),
+                               frequency = params.prediction$data$measurementsPerDay)
 
-    showElements()
+        dataToGraph <- cbind(realValues = realValues, predictedValues = predictedValues)
+        dateForAnnotation <- params.prediction$data$testingData$timestamp
+
+        dygraph(dataToGraph, main = "") %>%
+          dySeries("realValues", label = ui.properties$results$dygraph$realValuesLabel, color = "black") %>%
+          dySeries("predictedValues", label = ui.properties$results$dygraph$predictedValuesLabel, color = "red") %>%
+          dyAnnotation(params.prediction$data$testingData$timestamp, text = ui.properties$results$dygraph$annotationLabel)
+      })
+
+      showElements()
+    }
   })
 
 

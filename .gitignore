@@ -9,6 +9,8 @@ bp.lot
 
 notes
 
+iso-690/.git
+iso-690/.gitignore
 iso-690/czechiso.log
 
 .RData

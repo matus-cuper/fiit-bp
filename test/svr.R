@@ -32,7 +32,7 @@ computeTune <- function() {
     err <- do.call(params.prediction$errorFn, list(svrPrediction, params.prediction$data$testingData$value))
     end.time <- Sys.time()
     print(Sys.time())
-    results <- rbind(results, list(err = err, sol1 = svrModel$best.parameters$cost, sol2 = svrModel$best.parameters$cost, stime = start.time, etime = end.time))
+    results <- rbind(results, list(err = err, sol1 = svrModel$best.parameters$cost, sol2 = svrModel$best.parameters$epsilon, stime = start.time, etime = end.time))
   }
 }
 

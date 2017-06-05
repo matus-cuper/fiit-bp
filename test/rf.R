@@ -37,6 +37,21 @@ computeCycle <- function() {
   }
 }
 
+computeTune <- function() {
+  for (i in 1:count) {
+    start.time <- Sys.time()
+    rfModel <- tune.randomForest(value ~ .,
+                                 data = as.data.frame(params.prediction$trainingDataFrame),
+                                 ntree = c(params.optimization$lows[1]:params.optimization$highs[1]),
+                                 nodesize = c(params.optimization$lows[2]:params.optimization$highs[2]))
+    rfPrediction <- predict(rfModel$best.model, params.prediction$testingDataFrame)
+    err <- do.call(params.prediction$errorFn, list(rfPrediction, params.prediction$data$testingData$value))
+    end.time <- Sys.time()
+    print(Sys.time())
+    results <- rbind(results, list(err = err, sol1 = rfModel$best.parameters$ntree, sol2 = rfModel$best.parameters$nodesize, stime = start.time, etime = end.time))
+  }
+}
+
 
 params.optimization$maxIterations <- 100
 params.optimization$numberOfParticles <- 20
@@ -173,4 +188,41 @@ params.optimization$highs <- c(15, 400)
 count <- 10
 results <- data.frame()
 computeCycle()
+statistics()
+
+
+
+params.optimization$lows <- c(5, 40)
+params.optimization$highs <- c(20, 80)
+
+count <- 10
+results <- data.frame()
+computeTune()
+statistics()
+
+
+params.optimization$lows <- c(5, 80)
+params.optimization$highs <- c(20, 200)
+
+count <- 10
+results <- data.frame()
+computeTune()
+statistics()
+
+
+params.optimization$lows <- c(1, 1)
+params.optimization$highs <- c(40, 250)
+
+count <- 10
+results <- data.frame()
+computeTune()
+statistics()
+
+
+params.optimization$lows <- c(7, 1)
+params.optimization$highs <- c(15, 400)
+
+count <- 10
+results <- data.frame()
+computeTune()
 statistics()

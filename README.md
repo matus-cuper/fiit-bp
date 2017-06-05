@@ -18,5 +18,5 @@ a prezentujte výsledky vybraných optimalizačných algoritmov.
 
 # Dostupnosť webovej aplikácie
 
-Aplikáciu môžete používať na adrese http://80.241.209.214/thesis/cuper
+Aplikáciu môžete používať na adrese http://80.241.209.214/thesis/cuper/
 

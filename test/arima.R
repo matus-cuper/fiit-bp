@@ -56,6 +56,22 @@ computeAuto <- function() {
   }
 }
 
+computeAutoMy <- function() {
+  for (i in 1:count) {
+    start.time <- Sys.time()
+    result <- auto.arima(params.prediction$trainingTimeSeries,
+                         max.p = params.optimization$highs[1],
+                         max.d = params.optimization$highs[2],
+                         max.q = params.optimization$highs[3],
+                         max.P = 0, max.D = 0, max.Q = 0,
+                         xreg = fourier(params.prediction$trainingTimeSeries, K = arima.properties$maximumOrder))
+    err <- do.call(params.prediction$errorFn, list(result$fitted, params.prediction$data$testingData$value))
+    end.time <- Sys.time()
+    print(Sys.time())
+    results <- rbind(results, list(err = err, sol1 = result$arma[1], sol2 = result$arma[6], sol3 = result$arma[2], stime = start.time, etime = end.time))
+  }
+}
+
 
 params.optimization$maxIterations <- 20
 params.optimization$numberOfParticles <- 10
@@ -155,4 +171,23 @@ params.optimization$highs <- c(3, 3, 3)
 count <- 10
 results <- data.frame()
 computeAuto()
+statistics()
+
+
+
+params.optimization$lows <- c(1, 1, 1)
+params.optimization$highs <- c(4, 4, 4)
+
+count <- 10
+results <- data.frame()
+computeAutoMy()
+statistics()
+
+
+params.optimization$lows <- c(0, 0, 0)
+params.optimization$highs <- c(3, 3, 3)
+
+count <- 10
+results <- data.frame()
+computeAutoMy()
 statistics()

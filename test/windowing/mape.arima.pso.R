@@ -1,16 +1,16 @@
-selectedPredictionFn <- 3
-selectedOptimizationFn <- 3
+selectedPredictionFn <- 2
+selectedOptimizationFn <- 1
 selectedErrorFn <- "mape"
-count <- 20
+count <- 5
 
-params.optimization$foodNumber <- 20
-params.optimization$limit <- 10
 params.optimization$maxIterations <- 20
-params.optimization$lows <- c(5, 40)
-params.optimization$highs <- c(20, 150)
+params.optimization$numberOfParticles <- 20
+params.optimization$limit <- 10
+params.optimization$lows <- c(0, 0, 0)
+params.optimization$highs <- c(4, 4, 4)
 
 results <- data.frame()
-
+Sys.time()
 for (j in 1:count) {
   for (i in 0:30) {
     start.time <- Sys.time()
@@ -27,24 +27,15 @@ for (j in 1:count) {
     preparedData <- do.call(params.prediction$prepareFn, list(params.prediction$data))
     params.prediction <<- c(params.prediction, preparedData)
 
-    actualTest <- data.frame()
-    for (a in params.optimization$lows[1]:params.optimization$highs[1]) {
-      for (b in params.optimization$lows[2]:params.optimization$highs[2]) {
-        result <- do.call(params.prediction$predictFn, list(c(a, b)))
-        actualTest <- rbind(actualTest, list(err = result, sol1 = a, sol2 = b))
-      }
-    }
-
-    tmp <- actualTest[which(actualTest$err == min(actualTest$err)), ]
+    result <- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
     end.time <- Sys.time()
-    results <- rbind(results, list(day = as.Date(as.Date("2013-07-01") + i + 31), err = tmp$err, sol1 = tmp$sol1, sol2 = tmp$sol2, stime = start.time, etime = end.time))
+    print(Sys.time())
+    results <- rbind(results, list(day = as.Date(as.Date("2013-07-01") + i + 31), err = result$minError, sol1 = result$bestSolution[1], sol2 = result$bestSolution[2], sol3 = result$bestSolution[3], stime = start.time, etime = end.time))
   }
   print(j)
   print(Sys.time())
 }
 
-
-count <- 20
 results1 <- data.frame()
 
 
@@ -52,8 +43,8 @@ for (j in 1:count) {
   start.time <- Sys.time()
   preparedData <- data.prepare(pathToFile = "~/94_nitra_sum.csv",
                                measurementsPerDay = 96,
-                               trainingSetRange = c(as.Date("2013-07-01") + i, as.Date("2013-07-01") + i + 30),
-                               testingSetRange = c(as.Date("2013-07-01") + i + 31, as.Date("2013-07-01") + i + 31))
+                               trainingSetRange = c(as.Date("2013-07-01"), as.Date("2013-07-01") + 30),
+                               testingSetRange = c(as.Date("2013-07-01") + 31, as.Date("2013-07-01") + 31))
 
   params.prediction <<- list(data = preparedData,
                              prepareFn = server.properties$predictionAlgorithms[[selectedPredictionFn]]$prepareFn,
@@ -63,17 +54,10 @@ for (j in 1:count) {
   preparedData <- do.call(params.prediction$prepareFn, list(params.prediction$data))
   params.prediction <<- c(params.prediction, preparedData)
 
-  actualTest <- data.frame()
-  for (a in params.optimization$lows[1]:params.optimization$highs[1]) {
-    for (b in params.optimization$lows[2]:params.optimization$highs[2]) {
-      result <- do.call(params.prediction$predictFn, list(c(a, b)))
-      actualTest <- rbind(actualTest, list(err = result, sol1 = a, sol2 = b))
-    }
-  }
-
-  tmp <- actualTest[which(actualTest$err == min(actualTest$err)), ]
+  result <- do.call(server.properties$optimizationAlgorithms[[selectedOptimizationFn]]$optimizeFn, list())
   end.time <- Sys.time()
-  results1 <- rbind(results1, list(day = as.Date(as.Date("2013-07-01") + i + 31), err = tmp$err, sol1 = tmp$sol1, sol2 = tmp$sol2, stime = start.time, etime = end.time))
+  print(Sys.time())
+  results1 <- rbind(results1, list(day = -1, err = result$minError, sol1 = result$bestSolution[1], sol2 = result$bestSolution[2], sol3 = result$bestSolution[3], stime = start.time, etime = end.time))
 
   for (i in 0:30) {
     start.time <- Sys.time()
@@ -89,9 +73,9 @@ for (j in 1:count) {
     preparedData <- do.call(params.prediction$prepareFn, list(params.prediction$data))
     params.prediction <<- c(params.prediction, preparedData)
 
-    res <- rf.predictFn(c(tmp$sol1, tmp$sol2))
+    res <- arima.predictFn(c(result$bestSolution[1], result$bestSolution[2], result$bestSolution[3]))
     end.time <- Sys.time()
-    results1 <- rbind(results1, list(day = i, err = res, sol1 = tmp$sol1, sol2 = tmp$sol2, stime = start.time, etime = end.time))
+    results1 <- rbind(results1, list(day = i, err = res, sol1 = result$bestSolution[1], sol2 = result$bestSolution[2], sol3 = result$bestSolution[3], stime = start.time, etime = end.time))
   }
   print(j)
   print(Sys.time())

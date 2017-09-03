@@ -1,0 +1,3 @@
+[submodule "doc/iso-690"]
+	path = doc/iso-690
+	url = git@github.com-study:matus-cuper/iso-690.git

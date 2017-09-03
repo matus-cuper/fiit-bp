@@ -11,16 +11,16 @@ ui.properties <- config::get(file = path.ui.conf)
 fluidPage(
 
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "plot.css")),
-
+  
   titlePanel(ui.properties$titlePanelLabel),
-
+  
   # application description
   fluidRow(
     column(12,
       p(ui.properties$descriptionPanelLabel)
     )
   ),
-
+  
   # application settings, user can select prediction and optimization algoritmhs
   fluidRow(
     column(3,
@@ -30,7 +30,7 @@ fluidPage(
         choices = labels.prediction
       )
     ),
-
+    
     column(4,
       selectInput(
         "optimizationAlgorithms",
@@ -39,8 +39,8 @@ fluidPage(
       )
     )
   ),
-
-  # input data settings
+  
+  # input data settings, date ranges will be shown only if selected file is validate
   fluidRow(
     column(3,
       fileInput(
@@ -54,7 +54,7 @@ fluidPage(
           ".csv")
       )
     ),
-
+    
     column(3,
       numericInput(
         "measurementsPerDay",
@@ -64,17 +64,17 @@ fluidPage(
         value = ui.properties$measurementsPerDay$default
       )
     ),
-
+    
     uiOutput("trainingSetRange"),
-
+    
     uiOutput("testingSetRange")
   ),
-
+  
   # optimization algorithm settings
   h2(ui.properties$optimizationParametersLabel),
   htmlOutput("descriptionOptimization"),
   htmlOutput("descriptionFitness"),
-
+  
   column(2,
          selectInput(
            "fitnessFunction",
@@ -82,15 +82,15 @@ fluidPage(
            choices = labels.fitness
          )
   ),
-
+  
   uiOutput("optimizationParameters"),
-
+  
   # prediction algorithm settings
   h2(ui.properties$predictionParametersLabel),
   htmlOutput("descriptionPrediction"),
-
+  
   uiOutput("predictionParameters"),
-
+  
   # submit button setup
   shinyjs::useShinyjs(),
   fluidRow(
@@ -103,13 +103,13 @@ fluidPage(
       textOutput("validationMessage")
     )
   ),
-
+  
   # spinner
   div(id = "plot-container",
       tags$img(src = "spinner.gif",
                id = "loading-spinner")
       ),
-
+  
   # application output
   fluidRow(
     column(5,
@@ -119,7 +119,7 @@ fluidPage(
       htmlOutput("resultLabel")
     )
   ),
-
+  
   fluidRow(
     column(5,
       tableOutput("solutionValues")
@@ -128,10 +128,11 @@ fluidPage(
       tableOutput("resultValues")
     )
   ),
-
+  
   htmlOutput("plotLabel"),
   dygraphOutput("resultDygraph"),
-
+  
+  # tooltips for most of components
   bsTooltip(id = "predictionAlgorithms", title = ui.properties$tooltips$predictionAlgorithms, trigger = "hover", placement = "top"),
   bsTooltip(id = "optimizationAlgorithms", title = ui.properties$tooltips$optimizationAlgorithms, trigger = "hover", placement = "top"),
   bsTooltip(id = "inputFile", title = ui.properties$tooltips$inputFile, trigger = "hover", placement = "top"),

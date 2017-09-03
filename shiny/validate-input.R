@@ -3,6 +3,7 @@
 library(config)
 ui.properties <- config::get(file = path.ui.conf)
 
+# try to read file, if it possible return TRUE
 validate.file <- function(fileName) {
   try({
     read.csv(file = fileName, header = TRUE, sep = ",", nrows = 1)
@@ -11,6 +12,7 @@ validate.file <- function(fileName) {
   return(FALSE)
 }
 
+# try to find column names timestamp and value, if it is found return TRUE
 validate.csv <- function(fileName) {
   try({
     dataRaw <- read.csv(file = fileName, header = TRUE, sep = ",", nrows = 1)
@@ -20,6 +22,7 @@ validate.csv <- function(fileName) {
   return(FALSE)
 }
 
+# if measurementsPerDay selected by user coresponds to dataset, return TRUE 
 validate.period <- function(fileName, measurementsPerDay) {
   try({
     dataRaw <- read.csv(file = fileName, header = TRUE, sep = ",")
@@ -30,6 +33,7 @@ validate.period <- function(fileName, measurementsPerDay) {
   return(FALSE)
 }
 
+# if training set is before testing set, return TRUE
 validate.dates <- function(trainingRange, testingRange) {
   try({
     if (trainingRange[1] <= trainingRange[2]) {
@@ -42,6 +46,7 @@ validate.dates <- function(trainingRange, testingRange) {
   return(ui.properties$validation$dates)
 }
 
+# if min values are smaller than max values, return TRUE
 validate.params <- function(lows, highs) {
   for (i in 1:length(lows)) {
     if (lows[i] > highs[i])

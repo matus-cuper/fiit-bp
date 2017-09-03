@@ -9,7 +9,7 @@ if (length(args)!=2) {
 
 if("--help" %in% args) {
   cat("Usage: convert.R SOURCE DEST
- 
+
       Arguments:
       SOURCE    - source file to convert
       DEST      - output file 

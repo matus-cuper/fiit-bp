@@ -24,13 +24,13 @@ zabezpečuje logiku aplikácie a všetky volania funkcií a druhý vykresľovani
 a zobrazovanie komponentov. V `global.R` sa nachádza globálna konfigurácia,
 ktorej aktuálnosť treba overiť pri nasadzovaní aplikácie.
 
-## conf
+## conf
 
 Obsahuje konfiguračné súbory vo formáte YAML. Pomocou nich vie skúsení používateľ
 pridávať nové algoritmy.
 
 
-## doc
+## doc
 
 Dokumentácia k celej záverečnej práci.
 
@@ -41,7 +41,7 @@ Pomocné funkcie, ktoré sa volajú z viacerých miest alebo nie sú špecifick�
 žiadnu časť aplikácie.
 
 
-## src
+## src
 
 Očíslované skripty, ktoré sú volané zo `server.R`. Zabezpečujú, aby dáta boli
 najskôr načítané, potom spracované pre konkrétnú predikčnú metódu a nakoniec
@@ -62,3 +62,4 @@ Pomocné skripty použité pri návrhu, implementácií a testovaní aplikácie.
 ## www
 
 Súbory potrebné najmä pre vhodné vykreslenie aplikácie vo webovom prehliadači.
+
